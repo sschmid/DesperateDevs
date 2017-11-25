@@ -4,13 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2A9ADA4A-A0C1-4A2D-973F-38E1EE864830}</ProjectGuid>
+    <ProjectGuid>{6956F131-5EB4-48B4-8E65-F9CDB88BB0C2}</ProjectGuid>
     <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tests</RootNamespace>
-    <AssemblyName>Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <RootNamespace>DesperateDevs.Logging.Appenders</RootNamespace>
+    <AssemblyName>DesperateDevs.Logging.Appenders</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -34,41 +34,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NSpec, Version=1.0.7.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\Libraries\NSpec.dll</HintPath>
-    </Reference>
-    <Reference Include="NSpecRunner, Version=1.0.7.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\Libraries\NSpecRunner.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">
-      <HintPath>..\Libraries\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TestRunner.cs" />
-    <Compile Include="Tests\chech_namespaces.cs" />
-    <Compile Include="Tests\DesperateDevs.Logging\Appenders\describe_TcpClientSocket.cs" />
-    <Compile Include="Tests\DesperateDevs.Logging\Appenders\describe_TcpServerSocket.cs" />
-    <Compile Include="Tests\DesperateDevs.Logging\describe_fabl.cs" />
-    <Compile Include="Tests\DesperateDevs.Logging\describe_Logger.cs" />
-    <Compile Include="Tests\DesperateDevs.Logging\Formatters\describe_DefaultLogMessageFormatter.cs" />
-    <Compile Include="Tests\TestExtensions.cs" />
+    <Compile Include="DesperateDevs.Logging.Appenders\ConsoleAppender.cs" />
+    <Compile Include="DesperateDevs.Logging.Appenders\FileWriterAppender.cs" />
+    <Compile Include="DesperateDevs.Logging.Appenders\SocketAppender\AbstractSocketAppender.cs" />
+    <Compile Include="DesperateDevs.Logging.Appenders\SocketAppender\Networking\AbstractTcpSocket.cs" />
+    <Compile Include="DesperateDevs.Logging.Appenders\SocketAppender\Networking\TcpClientSocket.cs" />
+    <Compile Include="DesperateDevs.Logging.Appenders\SocketAppender\Networking\TcpServerSocket.cs" />
+    <Compile Include="DesperateDevs.Logging.Appenders\SocketAppender\SocketAppender.cs" />
+    <Compile Include="DesperateDevs.Logging.Appenders\SocketAppender\SOSMaxAppender.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DesperateDevs.Logging.Appenders\DesperateDevs.Logging.Appenders.csproj">
-      <Project>{6956f131-5eb4-48b4-8e65-f9cdb88bb0c2}</Project>
-      <Name>DesperateDevs.Logging.Appenders</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DesperateDevs.Logging.Formatters\DesperateDevs.Logging.Formatters.csproj">
-      <Project>{2135cbae-a0e3-4715-8969-246dce3e7538}</Project>
-      <Name>DesperateDevs.Logging.Formatters</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DesperateDevs.Logging\DesperateDevs.Logging.csproj">
       <Project>{219375e3-8aa6-4a75-8f9a-297d23e34d8c}</Project>
       <Name>DesperateDevs.Logging</Name>
