@@ -1,0 +1,22 @@
+#!/bin/bash -e
+SCRIPTS="$(cd $(dirname ${BASH_SOURCE[0]}) && pwd)"
+ROOT="${SCRIPTS}/.."
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+UNITY="/Applications/Unity/Unity.app/Contents/MacOS/Unity"
+PROJECT_NAME="DesperateDevs"
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+SOLUTION="${ROOT}/${PROJECT_NAME}.sln"
+
+TEST_PROJECT="${ROOT}/Tests/Tests.csproj"
+TEST_RUNNER="${ROOT}/Tests/bin/Release/Tests.exe"
+
+# build
+BUILD="${ROOT}/Build"
+BUILD_SRC="${BUILD}/src"
+BUILD_DEPLOY="${BUILD}/deploy"
+
+cpe() {
+  rsync -ar --include-from "${SCRIPTS}/rsync_include.txt" --exclude-from "${SCRIPTS}/rsync_exclude.txt" $1 $2
+}

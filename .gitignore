@@ -1,0 +1,23 @@
+# OS
+Thumbs.db
+.DS_Store
+
+# Solution
+obj
+bin
+*.userprefs
+*.user
+test-results
+
+# IDEs
+.vs
+.vscode
+.idea
+
+# Unity
+Library
+Temp
+*.unitypackage
+Assembly-CSharp.csproj
+Assembly-CSharp-Editor.csproj
+Assembly-CSharp-Editor-firstpass.csproj
