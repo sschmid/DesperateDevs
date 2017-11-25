@@ -9,11 +9,8 @@ namespace Tests {
     class TestRunner {
 
         public static void Main(string[] args) {
-            //var tagOrClassName = "focus";
-            var tagOrClassName = string.Empty;
-
+            var tagOrClassName = string.Join(",", args);
             var types = typeof(TestRunner).Assembly.GetTypes();
-
             var finder = new SpecFinder(types, "");
             var tagsFilter = new Tags().Parse(tagOrClassName);
             var builder = new ContextBuilder(finder, tagsFilter, new DefaultConventions());
