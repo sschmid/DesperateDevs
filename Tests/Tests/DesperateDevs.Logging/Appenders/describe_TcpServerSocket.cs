@@ -8,7 +8,7 @@ using NSpec;
 
 class describe_TcpServerSocket : nspec {
 
-    const int Port = 1234;
+    const int port = 1234;
 
     void when_created() {
 
@@ -28,36 +28,33 @@ class describe_TcpServerSocket : nspec {
         };
 
         it["can listen"] = () => {
-            server.Listen(Port);
+            server.Listen(port);
             server.isConnected.should_be_true();
             // Cleanup
             server.Disconnect();
         };
 
-        it["can not listen when address is used"] = () => {
+        it["cannot listen when address is used"] = () => {
             var blockingServer = new TcpServerSocket();
-            blockingServer.Listen(Port);
+            blockingServer.Listen(port);
 
-            server.Listen(Port);
+            server.Listen(port);
             server.isConnected.should_be_false();
 
             // Cleanup
             blockingServer.Disconnect();
         };
 
-        it["can not send"] = () => server.Send(new byte[] { 1, 2 });
+        it["cannot send"] = () => server.Send(new byte[] { 1, 2 });
 
         context["when listening"] = () => {
 
             before = () => {
-                server.Listen(Port);
+                server.Listen(port);
             };
 
             after = () => {
-                try {
-                    server.Disconnect();
-                } catch (Exception) {
-                }
+                server.Disconnect();
             };
 
             it["can disconnect"] = () => {
@@ -71,24 +68,26 @@ class describe_TcpServerSocket : nspec {
             it["accepts connections"] = () => {
                 var clientConnected = false;
                 server.OnClientConnect += (sender, e) => clientConnected = true;
-                createAndConnectClient(Port);
+                createAndConnectClient(port);
                 server.connectedClients.should_be(1);
                 clientConnected.should_be_true();
             };
 
             it["accepts multiple connections"] = () => {
-                createAndConnectClient(Port);
-                createAndConnectClient(Port);
-                createAndConnectClient(Port);
+                createAndConnectClient(port);
+                createAndConnectClient(port);
+                createAndConnectClient(port);
                 server.connectedClients.should_be(3);
             };
 
             context["when connection accepted"] = () => {
+
                 Socket client1 = null;
                 Socket client2 = null;
+
                 before = () => {
-                    client1 = createAndConnectClient(Port);
-                    client2 = createAndConnectClient(Port);
+                    client1 = createAndConnectClient(port);
+                    client2 = createAndConnectClient(port);
                 };
 
                 it["can disconnect"] = () => {
@@ -169,7 +168,7 @@ class describe_TcpServerSocket : nspec {
     }
 
     void wait() {
-        Thread.Sleep(20);
+        Thread.Sleep(50);
     }
 
     Socket createAndConnectClient(int port) {

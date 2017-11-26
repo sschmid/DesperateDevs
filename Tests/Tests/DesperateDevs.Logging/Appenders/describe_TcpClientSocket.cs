@@ -8,12 +8,11 @@ using NSpec;
 
 class describe_TcpClientSocket : nspec {
 
-    const int Port = 2345;
+    const int port = 2345;
     Socket _acceptServer;
     Socket _clientServer;
 
     void when_created() {
-
         TcpClientSocket client = null;
 
         before = () => {
@@ -27,36 +26,32 @@ class describe_TcpClientSocket : nspec {
             client.Disconnect();
         };
 
-        it["can not connect when host is not available"] = () => {
+        it["cannot connect when host is not available"] = () => {
             client.OnConnect += delegate { this.Fail(); };
-            client.Connect(IPAddress.Loopback, Port);
+            client.Connect(IPAddress.Loopback, port);
             wait();
             client.isConnected.should_be_false();
         };
 
         it["can connect when host is available"] = () => {
             var didConnect = false;
-            createServer(Port);
+            createServer(port);
             client.OnConnect += delegate { didConnect = true; };
-            client.Connect(IPAddress.Loopback, Port);
+            client.Connect(IPAddress.Loopback, port);
             wait();
             client.isConnected.should_be_true();
             didConnect.should_be_true();
             closeServer();
         };
 
-        it["can not send"] = () => client.Send(new byte[] { 1, 2 });
+        it["cannot send"] = () => client.Send(new byte[] { 1, 2 });
 
         context["when connected"] = () => {
 
             before = () => {
-                createServer(Port);
-                client.Connect(IPAddress.Loopback, Port);
+                createServer(port);
+                client.Connect(IPAddress.Loopback, port);
                 wait();
-            };
-
-            after = () => {
-                closeServer();
             };
 
             it["can disconnect"] = () => {
@@ -66,6 +61,9 @@ class describe_TcpClientSocket : nspec {
                 wait();
                 client.isConnected.should_be_false();
                 didDisconnect.should_be_true();
+
+                // Cleanup
+                closeServer();
             };
 
             it["receives disconnect"] = () => {
@@ -84,6 +82,9 @@ class describe_TcpClientSocket : nspec {
                 _clientServer.Send(Encoding.UTF8.GetBytes(message));
                 wait();
                 message.should_be(receivedMessage);
+
+                // Cleanup
+                closeServer();
             };
 
             it["receives multiple messages"] = () => {
@@ -100,6 +101,9 @@ class describe_TcpClientSocket : nspec {
                 _clientServer.Send(Encoding.UTF8.GetBytes(message2));
                 wait();
                 message2.should_be(Encoding.UTF8.GetString(bytes));
+
+                // Cleanup
+                closeServer();
             };
 
             it["can send"] = () => {
@@ -118,12 +122,15 @@ class describe_TcpClientSocket : nspec {
                 client.Send(Encoding.UTF8.GetBytes(message));
                 wait();
                 message.should_be(receivedMessage);
+
+                // Cleanup
+                closeServer();
             };
         };
     }
 
     void wait() {
-        Thread.Sleep(20);
+        Thread.Sleep(50);
     }
 
     void createServer(int port) {
@@ -137,12 +144,9 @@ class describe_TcpClientSocket : nspec {
     }
 
     void closeServer() {
-        try {
-            _clientServer.Disconnect(false);
-            _clientServer.Close();
-            _acceptServer.Disconnect(false);
-            _acceptServer.Close();
-        } catch (Exception) {
-        }
+        _clientServer.Disconnect(false);
+        _clientServer.Close();
+        _acceptServer.Disconnect(false);
+        _acceptServer.Close();
     }
 }
