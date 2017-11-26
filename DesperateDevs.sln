@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Logging.Appen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Logging.Formatters", "DesperateDevs.Logging.Formatters\DesperateDevs.Logging.Formatters.csproj", "{2135CBAE-A0E3-4715-8969-246DCE3E7538}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Logging.CLI", "DesperateDevs.Logging.CLI\DesperateDevs.Logging.CLI.csproj", "{DCC7DA7C-A7D9-4852-85B2-216CE9900289}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CLI", "DesperateDevs.CLI\DesperateDevs.CLI.csproj", "{C62F56CD-83AA-428B-B75B-6EE5654CF56D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +39,14 @@ Global
 		{2135CBAE-A0E3-4715-8969-246DCE3E7538}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2135CBAE-A0E3-4715-8969-246DCE3E7538}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2135CBAE-A0E3-4715-8969-246DCE3E7538}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCC7DA7C-A7D9-4852-85B2-216CE9900289}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCC7DA7C-A7D9-4852-85B2-216CE9900289}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCC7DA7C-A7D9-4852-85B2-216CE9900289}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCC7DA7C-A7D9-4852-85B2-216CE9900289}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C62F56CD-83AA-428B-B75B-6EE5654CF56D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C62F56CD-83AA-428B-B75B-6EE5654CF56D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C62F56CD-83AA-428B-B75B-6EE5654CF56D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C62F56CD-83AA-428B-B75B-6EE5654CF56D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,5 +55,6 @@ Global
 		{219375E3-8AA6-4A75-8F9A-297D23E34D8C} = {FDB870DB-D160-40A5-86F2-D825A032ED3B}
 		{6956F131-5EB4-48B4-8E65-F9CDB88BB0C2} = {FDB870DB-D160-40A5-86F2-D825A032ED3B}
 		{2135CBAE-A0E3-4715-8969-246DCE3E7538} = {FDB870DB-D160-40A5-86F2-D825A032ED3B}
+		{DCC7DA7C-A7D9-4852-85B2-216CE9900289} = {FDB870DB-D160-40A5-86F2-D825A032ED3B}
 	EndGlobalSection
 EndGlobal
