@@ -4,11 +4,11 @@ using DesperateDevs.Networking;
 
 namespace DesperateDevs.Logging.Appenders {
 
-    public abstract class AbstractSocketAppender {
+    public abstract class AbstractTcpSocketAppender {
 
         public AbstractTcpSocket socket { get; private set; }
 
-        static readonly Logger _logger = fabl.GetLogger(typeof(AbstractSocketAppender).Name);
+        static readonly Logger _logger = fabl.GetLogger(typeof(AbstractTcpSocketAppender).Name);
 
         readonly List<HistoryItem> _history = new List<HistoryItem>();
 

@@ -42,9 +42,9 @@
   <ItemGroup>
     <Compile Include="DesperateDevs.Logging.Appenders\ConsoleAppender.cs" />
     <Compile Include="DesperateDevs.Logging.Appenders\FileWriterAppender.cs" />
-    <Compile Include="DesperateDevs.Logging.Appenders\SocketAppender\AbstractSocketAppender.cs" />
-    <Compile Include="DesperateDevs.Logging.Appenders\SocketAppender\SocketAppender.cs" />
-    <Compile Include="DesperateDevs.Logging.Appenders\SocketAppender\SOSMaxAppender.cs" />
+    <Compile Include="DesperateDevs.Logging.Appenders\SocketAppender\AbstractTcpSocketAppender.cs" />
+    <Compile Include="DesperateDevs.Logging.Appenders\SocketAppender\TcpSocketAppender.cs" />
+    <Compile Include="DesperateDevs.Logging.Appenders\SocketAppender\SosMaxAppender.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DesperateDevs.Logging\DesperateDevs.Logging.csproj">

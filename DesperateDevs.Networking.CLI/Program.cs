@@ -16,8 +16,8 @@ namespace DesperateDevs.Networking.CLI {
             commandList.Add("[-v]".PadRight(pad) + " - verbose output");
 
 
-            const string header =
-@"████████╗ ██████╗██████╗ ███████╗███████╗██╗   ██╗
+            const string header = @"
+████████╗ ██████╗██████╗ ███████╗███████╗██╗   ██╗
 ╚══██╔══╝██╔════╝██╔══██╗██╔════╝╚══███╔╝╚██╗ ██╔╝
    ██║   ██║     ██████╔╝█████╗    ███╔╝  ╚████╔╝
    ██║   ██║     ██╔═══╝ ██╔══╝   ███╔╝    ╚██╔╝
