@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Net;
+using DesperateDevs.Networking;
 
 namespace DesperateDevs.Logging.Appenders {
 
@@ -14,14 +15,14 @@ namespace DesperateDevs.Logging.Appenders {
         public void Connect(IPAddress ip, int port) {
             var client = new TcpClientSocket();
             socket = client;
-            client.OnConnect += sender => onConnected();
+            client.OnConnected += sender => onConnected();
             client.Connect(ip, port);
         }
 
         public void Listen(int port) {
             var server = new TcpServerSocket();
             socket = server;
-            server.OnClientConnect += (sender, client) => onConnected();
+            server.OnClientConnected += (sender, client) => onConnected();
             server.Listen(port);
         }
 
@@ -38,15 +39,25 @@ namespace DesperateDevs.Logging.Appenders {
         }
 
         bool isSocketReady() {
-            return socket != null &&
-                   (socket is TcpClientSocket && socket.isConnected) ||
-                   (socket is TcpServerSocket && ((TcpServerSocket)socket).connectedClients > 0);
+            if (socket != null) {
+                var server = socket as TcpServerSocket;
+                if (server != null) {
+                    return server.count > 0;
+                }
+
+                var client = socket as TcpClientSocket;
+                if (client != null) {
+                    return client.isConnected;
+                }
+            }
+
+            return false;
         }
 
         void onConnected() {
             if (_history.Count > 0) {
                 Send(_logger, LogLevel.Debug, "Flush history - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
-                foreach (HistoryItem item in _history) {
+                foreach (var item in _history) {
                     Send(item.logger, item.logLevel, item.message);
                 }
                 Send(_logger, LogLevel.Debug, "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");

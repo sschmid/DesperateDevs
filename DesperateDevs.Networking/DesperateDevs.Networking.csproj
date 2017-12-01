@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6956F131-5EB4-48B4-8E65-F9CDB88BB0C2}</ProjectGuid>
+    <ProjectGuid>{925D6640-CB5A-4833-85FE-63332651880A}</ProjectGuid>
     <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DesperateDevs.Logging.Appenders</RootNamespace>
-    <AssemblyName>DesperateDevs.Logging.Appenders</AssemblyName>
+    <RootNamespace>DesperateDevs.Networking</RootNamespace>
+    <AssemblyName>DesperateDevs.Networking</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,20 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DesperateDevs.Logging.Appenders\ConsoleAppender.cs" />
-    <Compile Include="DesperateDevs.Logging.Appenders\FileWriterAppender.cs" />
-    <Compile Include="DesperateDevs.Logging.Appenders\SocketAppender\AbstractSocketAppender.cs" />
-    <Compile Include="DesperateDevs.Logging.Appenders\SocketAppender\SocketAppender.cs" />
-    <Compile Include="DesperateDevs.Logging.Appenders\SocketAppender\SOSMaxAppender.cs" />
+    <Compile Include="DesperateDevs.Networking\AbstractTcpSocket.cs" />
+    <Compile Include="DesperateDevs.Networking\TcpClientSocket.cs" />
+    <Compile Include="DesperateDevs.Networking\TcpServerSocket.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DesperateDevs.Logging\DesperateDevs.Logging.csproj">
       <Project>{219375e3-8aa6-4a75-8f9a-297d23e34d8c}</Project>
       <Name>DesperateDevs.Logging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DesperateDevs.Networking\DesperateDevs.Networking.csproj">
-      <Project>{925D6640-CB5A-4833-85FE-63332651880A}</Project>
-      <Name>DesperateDevs.Networking</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

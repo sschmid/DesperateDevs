@@ -54,11 +54,11 @@
     <Compile Include="TestRunner.cs" />
     <Compile Include="Tests\chech_namespaces.cs" />
     <Compile Include="Tests\DesperateDevs.CLI\describe_ArgsExtension.cs" />
-    <Compile Include="Tests\DesperateDevs.Logging\Appenders\describe_TcpClientSocket.cs" />
-    <Compile Include="Tests\DesperateDevs.Logging\Appenders\describe_TcpServerSocket.cs" />
     <Compile Include="Tests\DesperateDevs.Logging\describe_fabl.cs" />
     <Compile Include="Tests\DesperateDevs.Logging\describe_Logger.cs" />
     <Compile Include="Tests\DesperateDevs.Logging\Formatters\describe_DefaultLogMessageFormatter.cs" />
+    <Compile Include="Tests\DesperateDevs.Networking\describe_TcpClientSocket.cs" />
+    <Compile Include="Tests\DesperateDevs.Networking\describe_TcpServerSocket.cs" />
     <Compile Include="Tests\TestExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -77,6 +77,10 @@
     <ProjectReference Include="..\DesperateDevs.Logging\DesperateDevs.Logging.csproj">
       <Project>{219375e3-8aa6-4a75-8f9a-297d23e34d8c}</Project>
       <Name>DesperateDevs.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DesperateDevs.Networking\DesperateDevs.Networking.csproj">
+      <Project>{925d6640-cb5a-4833-85fe-63332651880a}</Project>
+      <Name>DesperateDevs.Networking</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
