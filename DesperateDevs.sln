@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CLI", "Desper
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Networking", "DesperateDevs.Networking\DesperateDevs.Networking.csproj", "{925D6640-CB5A-4833-85FE-63332651880A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Networking", "Networking", "{24A9D56B-1A59-4480-8DF2-8294F6BDE996}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Networking.CLI", "DesperateDevs.Networking.CLI\DesperateDevs.Networking.CLI.csproj", "{64AE0FE5-CD14-4797-9566-93065CDB1A98}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +57,10 @@ Global
 		{925D6640-CB5A-4833-85FE-63332651880A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{925D6640-CB5A-4833-85FE-63332651880A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{925D6640-CB5A-4833-85FE-63332651880A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64AE0FE5-CD14-4797-9566-93065CDB1A98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64AE0FE5-CD14-4797-9566-93065CDB1A98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64AE0FE5-CD14-4797-9566-93065CDB1A98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64AE0FE5-CD14-4797-9566-93065CDB1A98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,5 +70,7 @@ Global
 		{6956F131-5EB4-48B4-8E65-F9CDB88BB0C2} = {FDB870DB-D160-40A5-86F2-D825A032ED3B}
 		{2135CBAE-A0E3-4715-8969-246DCE3E7538} = {FDB870DB-D160-40A5-86F2-D825A032ED3B}
 		{DCC7DA7C-A7D9-4852-85B2-216CE9900289} = {FDB870DB-D160-40A5-86F2-D825A032ED3B}
+		{925D6640-CB5A-4833-85FE-63332651880A} = {24A9D56B-1A59-4480-8DF2-8294F6BDE996}
+		{64AE0FE5-CD14-4797-9566-93065CDB1A98} = {24A9D56B-1A59-4480-8DF2-8294F6BDE996}
 	EndGlobalSection
 EndGlobal
