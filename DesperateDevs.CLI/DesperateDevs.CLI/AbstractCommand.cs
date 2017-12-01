@@ -11,7 +11,9 @@ namespace DesperateDevs.CLI {
 
         public void Run(string[] args) {
             _rawArgs = args;
-            _args = args.WithoutParameter();
+            _args = args
+                .WithoutTrigger()
+                .WithoutParameter();
             run();
         }
 

@@ -18,6 +18,15 @@ class describe_ArgsExtension : nspec {
             filtered.should_contain("value1");
             filtered.should_contain("value2");
         };
+
+        it["filters trigger"] = () => {
+            var args = new[] { "value1", "-p", "value2" };
+            var filtered = args.WithoutTrigger();
+
+            filtered.Length.should_be(2);
+            filtered.should_contain("-p");
+            filtered.should_contain("value2");
+        };
     }
 
     void detectsParameter(string name, string parameter, Func<string[], bool> method) {
