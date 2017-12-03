@@ -17,6 +17,12 @@ namespace DesperateDevs.CLI {
                 { LogLevel.Fatal, ConsoleColor.DarkRed }
             };
 
+        readonly Logger _logger;
+
+        public CLIProgram(string loggerName) {
+            _logger = fabl.GetLogger(loggerName);
+        }
+
         public static int GetCommandListPad(ICommand[] commands) {
             return commands.Max(c => c.example.Length);
         }
@@ -40,6 +46,14 @@ namespace DesperateDevs.CLI {
             runCommand(commands, args);
         }
 
+        void runCommand(ICommand[] commands, string[] args) {
+            try {
+                getCommand(commands, args[0]).Run(args);
+            } catch (Exception ex) {
+                _logger.Error(args.isVerbose() ? ex.ToString() : ex.Message);
+            }
+        }
+
         static ICommand[] getOrderedCommands(Assembly assembly) {
             return assembly
                 .GetTypes()
@@ -49,7 +63,7 @@ namespace DesperateDevs.CLI {
         }
 
         static void initializeLogging(string[] args, Dictionary<LogLevel, ConsoleColor> consoleColors) {
-            fabl.globalLogLevel = (args.isVerbose() || args.isDebug())
+            fabl.globalLogLevel = (args.isVerbose())
                 ? LogLevel.On
                 : LogLevel.Info;
 
@@ -70,14 +84,6 @@ namespace DesperateDevs.CLI {
                     Console.WriteLine(message);
                 }
             });
-        }
-
-        static void runCommand(ICommand[] commands, string[] args) {
-            try {
-                getCommand(commands, args[0]).Run(args);
-            } catch (Exception ex) {
-                fabl.Error(args.isVerbose() ? ex.ToString() : ex.Message);
-            }
         }
 
         static ICommand getCommand(ICommand[] commands, string trigger) {

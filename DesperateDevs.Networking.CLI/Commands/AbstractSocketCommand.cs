@@ -12,7 +12,12 @@ namespace DesperateDevs.Networking.CLI {
         public abstract override string description { get; }
         public abstract override string example { get; }
 
+        protected Logger _logger;
         protected AbstractTcpSocket _socket;
+
+        protected AbstractSocketCommand(string loggerName) {
+            _logger = fabl.GetLogger(loggerName);
+        }
 
         protected void start() {
             _socket.OnReceived += onReceive;
@@ -23,7 +28,7 @@ namespace DesperateDevs.Networking.CLI {
         }
 
         protected void onReceive(AbstractTcpSocket socket, Socket client, byte[] bytes) {
-            fabl.Info(Encoding.Unicode.GetString(bytes));
+            _logger.Info(Encoding.Unicode.GetString(bytes));
         }
 
         protected void onCancel(object sender, ConsoleCancelEventArgs e) {

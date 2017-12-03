@@ -9,7 +9,7 @@ namespace DesperateDevs.CLI {
         }
 
         public static bool isVerbose(this string[] args) {
-            return args.Any(arg => arg == "-v");
+            return args.Any(arg => arg == "-v") || isDebug(args);
         }
 
         public static bool isSilent(this string[] args) {

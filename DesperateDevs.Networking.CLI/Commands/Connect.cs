@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net;
-using DesperateDevs.Logging;
 
 namespace DesperateDevs.Networking.CLI {
 
@@ -10,6 +9,9 @@ namespace DesperateDevs.Networking.CLI {
         public override string description { get { return "Connect to ip on port"; } }
         public override string example { get { return "pezy connect [ip port]"; } }
 
+        public Connect() : base(typeof(Connect).Name) {
+        }
+
         protected override void run() {
             IPAddress ip = null;
             int port;
@@ -18,7 +20,7 @@ namespace DesperateDevs.Networking.CLI {
                 ip = IPAddress.Parse(_args[0]);
                 port = int.Parse(_args[1]);
             } catch (Exception) {
-                fabl.Warn("Please specify a valid ip and port");
+                _logger.Warn("Please specify a valid ip and port");
                 return;
             }
 

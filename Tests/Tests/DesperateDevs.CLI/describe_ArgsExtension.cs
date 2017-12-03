@@ -10,6 +10,7 @@ class describe_ArgsExtension : nspec {
         detectsParameter("verbose", "-v", ArgsExtension.isVerbose);
         detectsParameter("silent", "-s", ArgsExtension.isSilent);
         detectsParameter("debug", "-d", ArgsExtension.isDebug);
+        detectsParameter("verbose because of debug", "-d", ArgsExtension.isVerbose);
 
         it["filters parameter starting with -"] = () => {
             var args = new[] { "value1", "-p", "value2" };

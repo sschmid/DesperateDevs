@@ -1,5 +1,4 @@
 ﻿using System;
-using DesperateDevs.Logging;
 
 namespace DesperateDevs.Networking.CLI {
 
@@ -9,13 +8,16 @@ namespace DesperateDevs.Networking.CLI {
         public override string description { get { return "Listen on port"; } }
         public override string example { get { return "pezy listen [port]"; } }
 
+        public Listen() : base(typeof(Listen).Name) {
+        }
+
         protected override void run() {
             int port;
 
             try {
                 port = int.Parse(_args[0]);
             } catch (Exception) {
-                fabl.Warn("Invalid port");
+                _logger.Warn("Invalid port");
                 return;
             }
 
