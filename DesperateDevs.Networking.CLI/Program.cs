@@ -26,7 +26,11 @@ namespace DesperateDevs.Networking.CLI {
 ";
 
             Console.WriteLine(header);
-            Console.WriteLine("usage:\n{0}", string.Join("\n", commandList));
+            const string footer = "EXAMPLE\n" +
+                                  "  pezy listen 1234\n" +
+                                  "  pezy connect 127.0.0.1 1234";
+
+            Console.WriteLine("usage:\n{0}", string.Join("\n", commandList) + "\n\n" + footer);
         }
     }
 }

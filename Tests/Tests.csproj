@@ -54,17 +54,34 @@
     <Compile Include="TestRunner.cs" />
     <Compile Include="Tests\chech_namespaces.cs" />
     <Compile Include="Tests\DesperateDevs.CLI\describe_ArgsExtension.cs" />
+    <Compile Include="Tests\DesperateDevs.CodeGeneration.CodeGenerator\describe_AssemblyResolver.cs" />
+    <Compile Include="Tests\DesperateDevs.CodeGeneration.CodeGenerator\describe_CodeGenerator.cs" />
+    <Compile Include="Tests\DesperateDevs.CodeGeneration\describe_CodeGenFile.cs" />
+    <Compile Include="Tests\DesperateDevs.Logging.Formatters\describe_DefaultLogMessageFormatter.cs" />
     <Compile Include="Tests\DesperateDevs.Logging\describe_fabl.cs" />
     <Compile Include="Tests\DesperateDevs.Logging\describe_Logger.cs" />
-    <Compile Include="Tests\DesperateDevs.Logging\Formatters\describe_DefaultLogMessageFormatter.cs" />
     <Compile Include="Tests\DesperateDevs.Networking\describe_TcpClientSocket.cs" />
     <Compile Include="Tests\DesperateDevs.Networking\describe_TcpServerSocket.cs" />
+    <Compile Include="Tests\DesperateDevs.Serialization\describe_Preferences.cs" />
+    <Compile Include="Tests\DesperateDevs.Serialization\describe_Properties.cs" />
+    <Compile Include="Tests\DesperateDevs.Utils\describe_DictionaryExtension.cs" />
+    <Compile Include="Tests\DesperateDevs.Utils\describe_InterfaceTypeExtension.cs" />
+    <Compile Include="Tests\DesperateDevs.Utils\describe_StringExtension.cs" />
+    <Compile Include="Tests\DesperateDevs.Utils\describe_SerializationTypeExtension.cs" />
     <Compile Include="Tests\TestExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DesperateDevs.CLI\DesperateDevs.CLI.csproj">
       <Project>{c62f56cd-83aa-428b-b75b-6ee5654cf56d}</Project>
       <Name>DesperateDevs.CLI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DesperateDevs.CodeGeneration.CodeGenerator\DesperateDevs.CodeGeneration.CodeGenerator.csproj">
+      <Project>{7AFE3A5A-6CB5-4738-972A-458A16BC19AC}</Project>
+      <Name>DesperateDevs.CodeGeneration.CodeGenerator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DesperateDevs.CodeGeneration\DesperateDevs.CodeGeneration.csproj">
+      <Project>{43857640-7F48-49C7-89C9-B06305B82076}</Project>
+      <Name>DesperateDevs.CodeGeneration</Name>
     </ProjectReference>
     <ProjectReference Include="..\DesperateDevs.Logging.Appenders\DesperateDevs.Logging.Appenders.csproj">
       <Project>{6956f131-5eb4-48b4-8e65-f9cdb88bb0c2}</Project>
@@ -81,6 +98,18 @@
     <ProjectReference Include="..\DesperateDevs.Networking\DesperateDevs.Networking.csproj">
       <Project>{925d6640-cb5a-4833-85fe-63332651880a}</Project>
       <Name>DesperateDevs.Networking</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DesperateDevs.Serialization\DesperateDevs.Serialization.csproj">
+      <Project>{3F7A0EC0-ECFE-4DA5-A02F-C716AD8F0817}</Project>
+      <Name>DesperateDevs.Serialization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DesperateDevs.Utils\DesperateDevs.Utils.csproj">
+      <Project>{f81e2e63-8f15-43d9-85c0-57237ed42250}</Project>
+      <Name>DesperateDevs.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="TestFixtures\TestFixtures.csproj">
+      <Project>{101f0979-50f9-41ea-8d22-87ae185b8489}</Project>
+      <Name>TestFixtures</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

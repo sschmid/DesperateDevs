@@ -46,9 +46,17 @@
     <Compile Include="DesperateDevs.CLI\ICommand.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DesperateDevs.Logging.Formatters\DesperateDevs.Logging.Formatters.csproj">
+      <Project>{2135cbae-a0e3-4715-8969-246dce3e7538}</Project>
+      <Name>DesperateDevs.Logging.Formatters</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DesperateDevs.Logging\DesperateDevs.Logging.csproj">
       <Project>{219375E3-8AA6-4A75-8F9A-297D23E34D8C}</Project>
       <Name>DesperateDevs.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DesperateDevs.Utils\DesperateDevs.Utils.csproj">
+      <Project>{F81E2E63-8F15-43D9-85C0-57237ED42250}</Project>
+      <Name>DesperateDevs.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2135CBAE-A0E3-4715-8969-246DCE3E7538}</ProjectGuid>
+    <ProjectGuid>{101F0979-50F9-41EA-8D22-87AE185B8489}</ProjectGuid>
     <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DesperateDevs.Logging.Formatters</RootNamespace>
-    <AssemblyName>DesperateDevs.Logging.Formatters</AssemblyName>
+    <RootNamespace>TestFixtures</RootNamespace>
+    <AssemblyName>TestFixtures</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,16 +40,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DesperateDevs.Logging.Formatters\ColorCodeFormatter.cs" />
-    <Compile Include="DesperateDevs.Logging.Formatters\DefaultLogMessageFormatter.cs" />
-    <Compile Include="DesperateDevs.Logging.Formatters\LogFormatter.cs" />
-    <Compile Include="DesperateDevs.Logging.Formatters\TimestampFormatter.cs" />
+    <Compile Include="TestFixtures\ITestInterface.cs" />
+    <Compile Include="TestFixtures\ITestSubInterface.cs" />
+    <Compile Include="TestFixtures\TestClass.cs" />
+    <Compile Include="TestFixtures\TestEnum.cs" />
+    <Compile Include="TestFixtures\TestInterfaceClass.cs" />
+    <Compile Include="TestFixtures\TestNamespaceClass.cs" />
+    <Compile Include="TestFixtures\TestNestedClass.cs" />
+    <Compile Include="TestFixtures\TestNestedEnumClass.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DesperateDevs.Logging\DesperateDevs.Logging.csproj">
-      <Project>{219375e3-8aa6-4a75-8f9a-297d23e34d8c}</Project>
-      <Name>DesperateDevs.Logging</Name>
-    </ProjectReference>
+    <Content Include="DesperateDevs.Serialization\EmptyUser.properties" />
+    <Content Include="DesperateDevs.Serialization\Preferences.properties" />
+    <Content Include="DesperateDevs.Serialization\PreferencesWithUser.properties" />
+    <Content Include="DesperateDevs.Serialization\UserOverwrite.properties" />
+    <Content Include="DesperateDevs.Serialization\UserWithKey.properties" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

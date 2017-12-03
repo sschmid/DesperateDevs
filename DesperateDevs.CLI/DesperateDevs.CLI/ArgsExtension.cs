@@ -16,6 +16,10 @@ namespace DesperateDevs.CLI {
             return args.Any(arg => arg == "-s");
         }
 
+        public static bool isDebug(this string[] args) {
+            return args.Any(arg => arg == "-d");
+        }
+
         public static string[] WithoutTrigger(this string[] args) {
             var argsList = args.ToList();
             argsList.RemoveAt(0);

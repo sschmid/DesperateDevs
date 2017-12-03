@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using DesperateDevs.Logging;
+using DesperateDevs.Logging.Formatters;
+using DesperateDevs.Utils;
 
 namespace DesperateDevs.CLI {
 
@@ -41,20 +43,25 @@ namespace DesperateDevs.CLI {
         static ICommand[] getOrderedCommands(Assembly assembly) {
             return assembly
                 .GetTypes()
-                .Where(type => !type.IsAbstract)
-                .Where(type => !type.IsInterface)
-                .Where(type => type.GetInterfaces().Contains(typeof(ICommand)))
-                .Select(type => (ICommand)Activator.CreateInstance(type))
+                .GetInstancesOf<ICommand>()
                 .OrderBy(c => c.trigger)
                 .ToArray();
         }
 
         static void initializeLogging(string[] args, Dictionary<LogLevel, ConsoleColor> consoleColors) {
-            fabl.globalLogLevel = args.isVerbose()
+            fabl.globalLogLevel = (args.isVerbose() || args.isDebug())
                 ? LogLevel.On
                 : LogLevel.Info;
 
+            LogFormatter formatter;
+            if (args.isDebug()) {
+                formatter = new DefaultLogMessageFormatter().FormatMessage;
+            } else {
+                formatter = (logger, level, message) => message;
+            }
+
             fabl.AddAppender((logger, logLevel, message) => {
+                message = formatter(logger, logLevel, message);
                 if (consoleColors.ContainsKey(logLevel)) {
                     Console.ForegroundColor = consoleColors[logLevel];
                     Console.WriteLine(message);

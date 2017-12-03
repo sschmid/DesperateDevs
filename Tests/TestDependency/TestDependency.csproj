@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2135CBAE-A0E3-4715-8969-246DCE3E7538}</ProjectGuid>
+    <ProjectGuid>{808F26D9-78F6-45EE-9849-646419B796F0}</ProjectGuid>
     <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DesperateDevs.Logging.Formatters</RootNamespace>
-    <AssemblyName>DesperateDevs.Logging.Formatters</AssemblyName>
+    <RootNamespace>TestDependency</RootNamespace>
+    <AssemblyName>TestDependency</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,15 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DesperateDevs.Logging.Formatters\ColorCodeFormatter.cs" />
-    <Compile Include="DesperateDevs.Logging.Formatters\DefaultLogMessageFormatter.cs" />
-    <Compile Include="DesperateDevs.Logging.Formatters\LogFormatter.cs" />
-    <Compile Include="DesperateDevs.Logging.Formatters\TimestampFormatter.cs" />
+    <Compile Include="TestDependencyClass.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DesperateDevs.Logging\DesperateDevs.Logging.csproj">
-      <Project>{219375e3-8aa6-4a75-8f9a-297d23e34d8c}</Project>
-      <Name>DesperateDevs.Logging</Name>
+    <ProjectReference Include="..\TestDependencyBase\TestDependencyBase.csproj">
+      <Project>{28BC9316-3F92-4582-B406-AA0A59F21B78}</Project>
+      <Name>TestDependencyBase</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
