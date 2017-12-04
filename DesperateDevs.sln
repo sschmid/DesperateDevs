@@ -45,6 +45,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneratio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUpdateCSProjPostProcessor", "Tests\TestUpdateCSProjPostProcessor\TestUpdateCSProjPostProcessor.csproj", "{DF2FD08A-2E44-40BE-8A30-CD9D4F6DB65C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unity", "Unity", "{45E87FEC-14D7-45B3-ADC6-BB0A1DDC1E29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Unity.Editor", "DesperateDevs.Unity.Editor\DesperateDevs.Unity.Editor.csproj", "{03F02F3C-FA1E-4749-A1F3-EC700CB60A00}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -119,6 +123,10 @@ Global
 		{DF2FD08A-2E44-40BE-8A30-CD9D4F6DB65C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF2FD08A-2E44-40BE-8A30-CD9D4F6DB65C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF2FD08A-2E44-40BE-8A30-CD9D4F6DB65C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03F02F3C-FA1E-4749-A1F3-EC700CB60A00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03F02F3C-FA1E-4749-A1F3-EC700CB60A00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03F02F3C-FA1E-4749-A1F3-EC700CB60A00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03F02F3C-FA1E-4749-A1F3-EC700CB60A00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -137,5 +145,6 @@ Global
 		{1756FF43-3283-47DB-B8DA-B59C8B1BD323} = {6CB85EC2-C312-4303-B2E9-E6A9F8D151CE}
 		{A2006188-6384-4439-9AA4-9E007CBF83D7} = {6CB85EC2-C312-4303-B2E9-E6A9F8D151CE}
 		{DF2FD08A-2E44-40BE-8A30-CD9D4F6DB65C} = {FF9FB1B0-6DD7-4081-9641-190F96CFC67C}
+		{03F02F3C-FA1E-4749-A1F3-EC700CB60A00} = {45E87FEC-14D7-45B3-ADC6-BB0A1DDC1E29}
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{03F02F3C-FA1E-4749-A1F3-EC700CB60A00}</ProjectGuid>
+    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DesperateDevs.Unity.Editor</RootNamespace>
+    <AssemblyName>DesperateDevs.Unity.Editor</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\Libraries\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\Libraries\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DesperateDevs.Unity.Editor\GUI\AbstractPreferencesDrawer.cs" />
+    <Compile Include="DesperateDevs.Unity.Editor\GUI\EntitasStyles.cs" />
+    <Compile Include="DesperateDevs.Unity.Editor\GUI\IPreferencesDrawer.cs" />
+    <Compile Include="DesperateDevs.Unity.Editor\GUI\Layout\EditorWindow.cs" />
+    <Compile Include="DesperateDevs.Unity.Editor\GUI\Layout\GUI.cs" />
+    <Compile Include="DesperateDevs.Unity.Editor\GUI\Layout\Layout.cs" />
+    <Compile Include="DesperateDevs.Unity.Editor\GUI\PreferencesWindow.cs" />
+    <Compile Include="DesperateDevs.Unity.Editor\ScriptingDefineSymbols.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DesperateDevs.Serialization\DesperateDevs.Serialization.csproj">
+      <Project>{3F7A0EC0-ECFE-4DA5-A02F-C716AD8F0817}</Project>
+      <Name>DesperateDevs.Serialization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DesperateDevs.Utils\DesperateDevs.Utils.csproj">
+      <Project>{F81E2E63-8F15-43D9-85C0-57237ED42250}</Project>
+      <Name>DesperateDevs.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
