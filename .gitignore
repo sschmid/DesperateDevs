@@ -21,3 +21,6 @@ Temp
 Assembly-CSharp.csproj
 Assembly-CSharp-Editor.csproj
 Assembly-CSharp-Editor-firstpass.csproj
+
+# Custom
+Build
