@@ -35,12 +35,12 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             server.Listen(port);
             Console.CancelKeyPress += onCancel;
             while (true) {
-                server.Send(Encoding.Unicode.GetBytes(Console.ReadLine()));
+                server.Send(Encoding.UTF8.GetBytes(Console.ReadLine()));
             }
         }
 
         void onReceived(AbstractTcpSocket socket, Socket client, byte[] bytes) {
-            var message = Encoding.Unicode.GetString(bytes);
+            var message = Encoding.UTF8.GetString(bytes);
             _logger.Info(message);
 
             var args = getArgsFromMessage(message);
@@ -56,14 +56,14 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
                 var logBufferString = getLogBufferString();
                 var sendBytes = logBufferString.Length == 0
                     ? new byte[] { 0 }
-                    : Encoding.Unicode.GetBytes(logBufferString);
+                    : Encoding.UTF8.GetBytes(logBufferString);
                 socket.Send(sendBytes);
             } catch (Exception ex) {
                 _logger.Error(args.isVerbose()
                     ? ex.ToString()
                     : ex.Message);
 
-                socket.Send(Encoding.Unicode.GetBytes(getLogBufferString() + ex.Message));
+                socket.Send(Encoding.UTF8.GetBytes(getLogBufferString() + ex.Message));
             }
 
             _logBuffer.Clear();

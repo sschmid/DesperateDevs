@@ -5,7 +5,7 @@ namespace DesperateDevs.Logging.Appenders {
     public class SosMaxAppender : AbstractTcpSocketAppender {
 
         protected override byte[] serializeMessage(Logger logger, LogLevel logLevel, string message) {
-            return Encoding.Unicode.GetBytes(formatLogMessage(logLevel.ToString(), message));
+            return Encoding.UTF8.GetBytes(formatLogMessage(logLevel.ToString(), message));
         }
 
         string formatLogMessage(string logLevel, string message) {

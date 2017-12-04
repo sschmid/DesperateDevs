@@ -110,7 +110,7 @@ class describe_TcpClientSocket : nspec {
                         };
 
                         const string message = "Hi";
-                        var buffer = Encoding.Unicode.GetBytes(message);
+                        var buffer = Encoding.UTF8.GetBytes(message);
                         server.Send(buffer);
 
                         this.Wait();
@@ -126,7 +126,7 @@ class describe_TcpClientSocket : nspec {
                         };
 
                         const string message = "Hi";
-                        var buffer = Encoding.Unicode.GetBytes(message);
+                        var buffer = Encoding.UTF8.GetBytes(message);
                         client.Send(buffer);
                         this.Wait();
 

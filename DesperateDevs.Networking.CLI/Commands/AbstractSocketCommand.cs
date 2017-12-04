@@ -19,12 +19,12 @@ namespace DesperateDevs.Networking.CLI {
             _socket.OnReceived += onReceive;
             Console.CancelKeyPress += onCancel;
             while (true) {
-                _socket.Send(Encoding.Unicode.GetBytes(Console.ReadLine()));
+                _socket.Send(Encoding.UTF8.GetBytes(Console.ReadLine()));
             }
         }
 
         protected void onReceive(AbstractTcpSocket socket, Socket client, byte[] bytes) {
-            _logger.Info(Encoding.Unicode.GetString(bytes));
+            _logger.Info(Encoding.UTF8.GetString(bytes));
         }
 
         protected void onCancel(object sender, ConsoleCancelEventArgs e) {

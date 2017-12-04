@@ -39,7 +39,7 @@ class describe_TcpServerSocket : nspec {
 
             it["can send without having connected clients"] = () => {
                 const string message = "Hi";
-                var buffer = Encoding.Unicode.GetBytes(message);
+                var buffer = Encoding.UTF8.GetBytes(message);
                 server.Listen(port);
                 this.Wait();
                 server.Send(buffer);
@@ -174,7 +174,7 @@ class describe_TcpServerSocket : nspec {
                             };
 
                             const string message = "Hi";
-                            var buffer = Encoding.Unicode.GetBytes(message);
+                            var buffer = Encoding.UTF8.GetBytes(message);
                             client1.Send(buffer, 0, buffer.Length, SocketFlags.None);
                             this.Wait();
 
@@ -187,7 +187,7 @@ class describe_TcpServerSocket : nspec {
                             prepareForReceive(client1, s => eventMsg = s);
 
                             const string message = "Hi";
-                            var buffer = Encoding.Unicode.GetBytes(message);
+                            var buffer = Encoding.UTF8.GetBytes(message);
                             server.Send(buffer);
                             this.Wait();
 
@@ -202,8 +202,8 @@ class describe_TcpServerSocket : nspec {
 
                             const string message1 = "Hi";
                             const string message2 = "Bye";
-                            var buffer1 = Encoding.Unicode.GetBytes(message1);
-                            var buffer2 = Encoding.Unicode.GetBytes(message2);
+                            var buffer1 = Encoding.UTF8.GetBytes(message1);
+                            var buffer2 = Encoding.UTF8.GetBytes(message2);
                             client1.Send(buffer1, 0, buffer1.Length, SocketFlags.None);
                             this.Wait();
                             client1.Send(buffer2, 0, buffer2.Length, SocketFlags.None);
@@ -244,7 +244,7 @@ class describe_TcpServerSocket : nspec {
                                 prepareForReceive(client2, s => eventMsg2 = s);
 
                                 const string message = "Hi";
-                                var buffer = Encoding.Unicode.GetBytes(message);
+                                var buffer = Encoding.UTF8.GetBytes(message);
                                 server.Send(buffer);
                                 this.Wait();
 
@@ -259,7 +259,7 @@ class describe_TcpServerSocket : nspec {
                                 prepareForReceive(client2, s => eventMsg2 = s);
 
                                 const string message = "Hi";
-                                var buffer = Encoding.Unicode.GetBytes(message);
+                                var buffer = Encoding.UTF8.GetBytes(message);
                                 server.SendTo(buffer, rep2);
                                 this.Wait();
 
@@ -301,7 +301,7 @@ class describe_TcpServerSocket : nspec {
                         var bytesReceived = client.EndReceive(ar);
                         var trimmedBuffer = new byte[bytesReceived];
                         Array.Copy(buffer, trimmedBuffer, bytesReceived);
-                        onReceive(Encoding.Unicode.GetString(trimmedBuffer));
+                        onReceive(Encoding.UTF8.GetString(trimmedBuffer));
                     } catch (Exception) {
                         if (failAction != null) {
                             failAction();
@@ -311,7 +311,7 @@ class describe_TcpServerSocket : nspec {
                     var bytesReceived = client.EndReceive(ar);
                     var trimmedBuffer = new byte[bytesReceived];
                     Array.Copy(buffer, trimmedBuffer, bytesReceived);
-                    onReceive(Encoding.Unicode.GetString(trimmedBuffer));
+                    onReceive(Encoding.UTF8.GetString(trimmedBuffer));
                 }
             }, socket);
     }

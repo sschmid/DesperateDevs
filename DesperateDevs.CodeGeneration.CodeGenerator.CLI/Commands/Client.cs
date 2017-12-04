@@ -38,11 +38,11 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         }
 
         void onConnected(TcpClientSocket client) {
-            client.Send(Encoding.Unicode.GetBytes(_command));
+            client.Send(Encoding.UTF8.GetBytes(_command));
         }
 
         void onReceived(AbstractTcpSocket socket, Socket client, byte[] bytes) {
-            _logger.Info(Encoding.Unicode.GetString(bytes));
+            _logger.Info(Encoding.UTF8.GetString(bytes));
             socket.Disconnect();
         }
 
