@@ -1,4 +1,5 @@
 using System.Linq;
+using DesperateDevs.Utils;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
@@ -14,6 +15,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         protected override void run() {
             var types = CodeGeneratorUtil.LoadTypesFromPlugins(_preferences);
             var orderedTypes = types
+                .Where(type => type.ImplementsInterface<ICodeGeneratorBase>())
                 .OrderBy(type => type.Assembly.GetName().Name)
                 .ThenBy(type => type.FullName);
 
