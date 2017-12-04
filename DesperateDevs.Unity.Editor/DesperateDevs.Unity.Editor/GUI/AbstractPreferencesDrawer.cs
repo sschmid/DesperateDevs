@@ -12,13 +12,13 @@ namespace DesperateDevs.Unity.Editor {
         public abstract void Initialize(Preferences preferences);
 
         public void Draw(Preferences preferences) {
-            _drawContent = EntitasEditorLayout.DrawSectionHeaderToggle(title, _drawContent);
+            _drawContent = EditorLayout.DrawSectionHeaderToggle(title, _drawContent);
             if (_drawContent) {
-                EntitasEditorLayout.BeginSectionContent();
+                EditorLayout.BeginSectionContent();
                 {
                     drawContent(preferences);
                 }
-                EntitasEditorLayout.EndSectionContent();
+                EditorLayout.EndSectionContent();
             }
         }
 

@@ -9,7 +9,6 @@ namespace DesperateDevs.Unity.Editor {
 
     public class PreferencesWindow : EditorWindow {
 
-        Texture2D _headerTexture;
         Preferences _preferences;
         IPreferencesDrawer[] _preferencesDrawers;
         Vector2 _scrollViewPosition;
@@ -17,7 +16,6 @@ namespace DesperateDevs.Unity.Editor {
         Exception _configException;
 
         void OnEnable() {
-            _headerTexture = EntitasEditorLayout.LoadTexture("l:EntitasHeader");
             _preferencesDrawers = AppDomain.CurrentDomain
                 .GetInstancesOf<IPreferencesDrawer>()
                 .OrderBy(drawer => drawer.priority)
@@ -75,7 +73,7 @@ namespace DesperateDevs.Unity.Editor {
             EditorGUILayout.LabelField(exception.Message, style);
 
             EditorGUILayout.Space();
-            EditorGUILayout.LabelField("Please make sure Entitas.properties is set up correctly.");
+            EditorGUILayout.LabelField("Please make sure the properties files are set up correctly.");
         }
     }
 }

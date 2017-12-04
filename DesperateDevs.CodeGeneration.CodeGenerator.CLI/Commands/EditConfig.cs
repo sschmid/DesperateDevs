@@ -11,8 +11,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         protected override void run() {
             _logger.Debug("Opening " + _preferences.userPropertiesPath);
-            _logger.Debug("Opening " + _preferences.propertiesPath);
             System.Diagnostics.Process.Start(_preferences.userPropertiesPath);
+            _logger.Debug("Opening " + _preferences.propertiesPath);
             System.Diagnostics.Process.Start(_preferences.propertiesPath);
         }
     }

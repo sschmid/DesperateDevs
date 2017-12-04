@@ -6,7 +6,7 @@ using DesperateDevs.Utils;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
-    public class FixConfig : AbstractPreferencesCommand{
+    public class FixConfig : AbstractPreferencesCommand {
 
         public override string trigger { get { return "fix"; } }
         public override string description { get { return "Add missing or remove unused keys interactively"; } }
@@ -16,27 +16,24 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         }
 
         protected override void run() {
-            var config = _preferences.CreateCodeGeneratorConfig();
-            var cliConfig = _preferences.CreateCLIConfig();
+            var config = _preferences.CreateConfig<CodeGeneratorConfig>();
+            var cliConfig = _preferences.CreateConfig<CLIConfig>();
 
             forceAddMissingKeys(config.defaultProperties, _preferences);
             forceAddMissingKeys(cliConfig.defaultProperties, _preferences);
 
             Type[] types = null;
 
-            try {
-                types = CodeGeneratorUtil.LoadTypesFromPlugins(_preferences);
-                // A test to check if all types can be resolved and instantiated.
-                CodeGeneratorUtil.GetEnabledInstancesOf<IDataProvider>(types, config.dataProviders);
-                CodeGeneratorUtil.GetEnabledInstancesOf<ICodeGenerator>(types, config.codeGenerators);
-                CodeGeneratorUtil.GetEnabledInstancesOf<IPostProcessor>(types, config.postProcessors);
-            } catch (Exception ex) {
-                throw ex;
-            }
+            types = CodeGeneratorUtil.LoadTypesFromPlugins(_preferences);
+            // A test to check if all types can be resolved and instantiated.
+            CodeGeneratorUtil.GetEnabledInstancesOf<IDataProvider>(types, config.dataProviders);
+            CodeGeneratorUtil.GetEnabledInstancesOf<ICodeGenerator>(types, config.codeGenerators);
+            CodeGeneratorUtil.GetEnabledInstancesOf<IPostProcessor>(types, config.postProcessors);
 
             var askedRemoveKeys = new HashSet<string>();
             var askedAddKeys = new HashSet<string>();
-            while (fix(askedRemoveKeys, askedAddKeys, types, config, cliConfig, _preferences)) { }
+            while (fix(askedRemoveKeys, askedAddKeys, types, config, cliConfig, _preferences)) {
+            }
         }
 
         static void forceAddMissingKeys(Dictionary<string, string> requiredProperties, Preferences preferences) {
@@ -79,7 +76,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             foreach (var key in unavailableDataProviders) {
                 if (!askedRemoveKeys.Contains(key)) {
                     Helper.AskRemoveValue("Remove unavailable data provider", key, config.dataProviders,
-                                       values => config.dataProviders = values, preferences);
+                        values => config.dataProviders = values, preferences);
                     askedRemoveKeys.Add(key);
                     changed = true;
                 }
@@ -88,7 +85,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             foreach (var key in unavailableCodeGenerators) {
                 if (!askedRemoveKeys.Contains(key)) {
                     Helper.AskRemoveValue("Remove unavailable code generator", key, config.codeGenerators,
-                                       values => config.codeGenerators = values, preferences);
+                        values => config.codeGenerators = values, preferences);
                     askedRemoveKeys.Add(key);
                     changed = true;
                 }
@@ -97,7 +94,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             foreach (var key in unavailablePostProcessors) {
                 if (!askedRemoveKeys.Contains(key)) {
                     Helper.AskRemoveValue("Remove unavailable post processor", key, config.postProcessors,
-                                       values => config.postProcessors = values, preferences);
+                        values => config.postProcessors = values, preferences);
                     askedRemoveKeys.Add(key);
                     changed = true;
                 }
@@ -106,7 +103,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             foreach (var key in availableDataProviders) {
                 if (!askedAddKeys.Contains(key)) {
                     Helper.AskAddValue("Add available data provider", key, config.dataProviders,
-                                    values => config.dataProviders = values, preferences);
+                        values => config.dataProviders = values, preferences);
                     askedAddKeys.Add(key);
                     changed = true;
                 }
@@ -115,7 +112,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             foreach (var key in availableCodeGenerators) {
                 if (!askedAddKeys.Contains(key)) {
                     Helper.AskAddValue("Add available code generator", key, config.codeGenerators,
-                                    values => config.codeGenerators = values, preferences);
+                        values => config.codeGenerators = values, preferences);
                     askedAddKeys.Add(key);
                     changed = true;
                 }
@@ -124,7 +121,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             foreach (var key in availablePostProcessors) {
                 if (!askedAddKeys.Contains(key)) {
                     Helper.AskAddValue("Add available post processor", key, config.postProcessors,
-                                    values => config.postProcessors = values, preferences);
+                        values => config.postProcessors = values, preferences);
                     askedAddKeys.Add(key);
                     changed = true;
                 }

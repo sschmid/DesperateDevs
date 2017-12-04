@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using DesperateDevs.CLI;
 using DesperateDevs.Logging;
@@ -19,19 +18,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             var properties = currentDir + _args.GetPropertiesPath();
             var userProperties = currentDir + _args.GetUserPropertiesPath();
 
-            if (!_args.isForce() && File.Exists(properties)) {
-                _logger.Warn(properties + " already exists!");
-                _logger.Info("Use jenny new -f to overwrite the exiting file.");
-                _logger.Info("Use jenny edit to open the exiting file.");
-
-                return;
-            }
-
-            if (!_args.isForce() && File.Exists(userProperties)) {
-                _logger.Warn(userProperties + " already exists!");
-                _logger.Info("Use jenny new -f to overwrite the exiting file.");
-                _logger.Info("Use jenny edit to open the exiting file.");
-
+            if (!_args.isForce() && (doesAlreadyExist(properties) || doesAlreadyExist(userProperties))) {
                 return;
             }
 
@@ -47,6 +34,18 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             _logger.Debug(preferences.ToString());
 
             new EditConfig().Run(_args);
+        }
+
+        bool doesAlreadyExist(string path) {
+            if (File.Exists(path)) {
+                _logger.Warn(path + " already exists!");
+                _logger.Info("Use jenny new -f to overwrite the exiting file.");
+                _logger.Info("Use jenny edit to open the exiting file.");
+
+                return true;
+            }
+
+            return false;
         }
     }
 }

@@ -27,9 +27,7 @@ namespace DesperateDevs.Serialization {
                             : "${" + matchValue + "}";
                     });
             }
-            set {
-                _dict[key.Trim()] = unescapedSpecialCharacters(value.Trim());
-            }
+            set { _dict[key.Trim()] = unescapedSpecialCharacters(value.Trim()); }
         }
 
         readonly Dictionary<string, string> _dict;
@@ -69,7 +67,7 @@ namespace DesperateDevs.Serialization {
         }
 
         void addProperties(string[] lines) {
-            var keyValueDelimiter = new [] { '=' };
+            var keyValueDelimiter = new[] { '=' };
             var properties = lines.Select(
                 line => line.Split(keyValueDelimiter, 2)
             );
@@ -83,7 +81,7 @@ namespace DesperateDevs.Serialization {
         }
 
         static string[] getLinesWithProperties(string properties) {
-            var delimiter = new [] { '\n' };
+            var delimiter = new[] { '\n' };
             return properties
                 .Split(delimiter, StringSplitOptions.RemoveEmptyEntries)
                 .Select(line => line.TrimStart(' '))

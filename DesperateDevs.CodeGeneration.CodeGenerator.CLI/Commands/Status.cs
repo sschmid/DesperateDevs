@@ -16,8 +16,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         }
 
         protected override void run() {
-            var config = _preferences.CreateCodeGeneratorConfig();
-            var cliConfig = _preferences.CreateCLIConfig();
+            var config = _preferences.CreateConfig<CodeGeneratorConfig>();
+            var cliConfig = _preferences.CreateConfig<CLIConfig>();
 
             _logger.Debug(_preferences.ToString());
 
@@ -27,12 +27,12 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             try {
                 types = CodeGeneratorUtil.LoadTypesFromPlugins(_preferences);
                 defaultProperties = CodeGeneratorUtil.GetDefaultProperties(types, config);
-            } catch(Exception ex) {
+            } catch (Exception) {
                 printKeyStatus(
                     config.defaultProperties.Merge(cliConfig.defaultProperties).Keys.ToArray(),
                     cliConfig,
                     _preferences);
-                throw ex;
+                throw;
             }
 
             var requiredKeys = config.defaultProperties

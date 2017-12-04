@@ -5,6 +5,7 @@ namespace DesperateDevs.Unity.Editor {
     public static class EntitasStyles {
 
         static GUIStyle _sectionHeader;
+
         public static GUIStyle sectionHeader {
             get {
                 if (_sectionHeader == null) {
@@ -16,6 +17,7 @@ namespace DesperateDevs.Unity.Editor {
         }
 
         static GUIStyle _sectionContent;
+
         public static GUIStyle sectionContent {
             get {
                 if (_sectionContent == null) {

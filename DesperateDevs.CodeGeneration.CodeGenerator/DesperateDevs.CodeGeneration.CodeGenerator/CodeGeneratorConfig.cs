@@ -1,17 +1,7 @@
 ﻿using System.Collections.Generic;
-using DesperateDevs.Serialization;
 using DesperateDevs.Utils;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator {
-
-    public static class CodeGeneratorConfigExtension {
-
-        public static CodeGeneratorConfig CreateCodeGeneratorConfig(this Preferences preferences) {
-            var config = new CodeGeneratorConfig();
-            config.Configure(preferences);
-            return config;
-        }
-    }
 
     public class CodeGeneratorConfig : AbstractConfigurableConfig {
 

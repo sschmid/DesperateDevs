@@ -15,8 +15,6 @@ namespace DesperateDevs.CodeGeneration.Plugins {
             }
         }
 
-        public string projectPath {
-            get { return _preferences[PROJECT_PATH_KEY]; }
-        }
+        public string projectPath { get { return _preferences[PROJECT_PATH_KEY]; } }
     }
 }

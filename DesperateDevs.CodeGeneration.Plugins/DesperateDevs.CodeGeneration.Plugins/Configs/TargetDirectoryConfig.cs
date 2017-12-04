@@ -15,8 +15,6 @@ namespace DesperateDevs.CodeGeneration.Plugins {
             }
         }
 
-        public string targetDirectory {
-            get { return _preferences[TARGET_DIRECTORY_KEY].ToSafeDirectory(); }
-        }
+        public string targetDirectory { get { return _preferences[TARGET_DIRECTORY_KEY].ToSafeDirectory(); } }
     }
 }

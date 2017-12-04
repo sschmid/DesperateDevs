@@ -71,7 +71,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         string[] getArgsFromMessage(string command) {
             return command
-                .Split(new [] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(value => value.Trim())
                 .ToArray();
         }

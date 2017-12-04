@@ -1,9 +1,10 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
-    public class AutoImport : AbstractPreferencesCommand{
+    public class AutoImport : AbstractPreferencesCommand {
 
         public override string trigger { get { return "auto-import"; } }
         public override string description { get { return "Find and import all plugins"; } }
@@ -19,11 +20,12 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         }
 
         void autoImport() {
-            var config = _preferences.CreateCodeGeneratorConfig();
+            var config = _preferences.CreateConfig<CodeGeneratorConfig>();
 
             var plugins = config.searchPaths
                 .SelectMany(path => Directory.GetFiles(path, "*.dll", SearchOption.AllDirectories))
-                .Where(path => path.ToLower().EndsWith(".plugins.dll"));
+                .Where(path => path.EndsWith(".plugins.dll", StringComparison.OrdinalIgnoreCase))
+                .ToArray();
 
             config.searchPaths = config.searchPaths
                 .Concat(plugins.Select(Path.GetDirectoryName))

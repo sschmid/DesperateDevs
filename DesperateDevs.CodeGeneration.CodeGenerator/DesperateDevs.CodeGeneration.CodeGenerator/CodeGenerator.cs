@@ -65,7 +65,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
             var data = new List<CodeGeneratorData>();
 
             var total = dataProviders.Length + codeGenerators.Length + postProcessors.Length;
-            int progress = 0;
+            var progress = 0;
 
             foreach (var dataProvider in dataProviders) {
                 if (_cancel) {

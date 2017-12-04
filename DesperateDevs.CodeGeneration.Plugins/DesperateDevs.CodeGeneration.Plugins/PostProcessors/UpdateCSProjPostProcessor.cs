@@ -18,7 +18,7 @@ namespace DesperateDevs.CodeGeneration.Plugins {
         public Dictionary<string, string> defaultProperties {
             get {
                 return _projectPathConfig.defaultProperties
-                       .Merge(_targetDirectoryConfig.defaultProperties);
+                    .Merge(_targetDirectoryConfig.defaultProperties);
             }
         }
 
@@ -40,8 +40,8 @@ namespace DesperateDevs.CodeGeneration.Plugins {
 
         string removeExistingGeneratedEntries(string project) {
             var escapedTargetDirectory = _targetDirectoryConfig.targetDirectory
-                                                               .Replace("/", "\\")
-                                                               .Replace("\\", "\\\\");
+                .Replace("/", "\\")
+                .Replace("\\", "\\\\");
 
             var entryPattern = @"\s*<Compile Include=""" + escapedTargetDirectory + @".* \/>";
             project = Regex.Replace(project, entryPattern, string.Empty);
@@ -56,7 +56,7 @@ namespace DesperateDevs.CodeGeneration.Plugins {
             const string endOfItemGroupPattern = @"<\/ItemGroup>";
 
             const string generatedEntriesTemplate =
-@"</ItemGroup>
+                @"</ItemGroup>
   <ItemGroup>
 {0}
   </ItemGroup>";

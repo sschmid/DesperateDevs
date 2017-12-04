@@ -5,7 +5,7 @@ namespace DesperateDevs.CLI {
 
     public static class ArgsExtension {
 
-        static readonly HashSet<string> defaultParameter = new HashSet<string> {
+        static readonly HashSet<string> _defaultParameter = new HashSet<string> {
             "-v",
             "-s",
             "-d"
@@ -33,7 +33,7 @@ namespace DesperateDevs.CLI {
             var argsList = args.ToList();
 
             foreach (var arg in args) {
-                if (defaultParameter.Contains(arg)) {
+                if (_defaultParameter.Contains(arg)) {
                     argsList.Remove(arg);
                 }
             }

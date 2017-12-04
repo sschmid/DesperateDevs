@@ -17,9 +17,9 @@ namespace DesperateDevs.Unity.Editor {
                 .Where(buildTargetGroup => buildTargetGroup != BuildTargetGroup.Unknown)
                 .Where(buildTargetGroup => !isBuildTargetObsolete(buildTargetGroup))
                 .Distinct()
-                    .ToDictionary(
+                .ToDictionary(
                     buildTargetGroup => buildTargetGroup,
-                    buildTargetGroup => PlayerSettings.GetScriptingDefineSymbolsForGroup(buildTargetGroup)
+                    PlayerSettings.GetScriptingDefineSymbolsForGroup
                 );
         }
 

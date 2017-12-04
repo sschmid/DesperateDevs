@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DesperateDevs.Unity.Editor {
 
-    public static partial class EntitasEditorLayout {
+    public static partial class EditorLayout {
 
         public static bool DrawSectionHeaderToggle(string header, bool value) {
             return GUILayout.Toggle(value, header, EntitasStyles.sectionHeader);

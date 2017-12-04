@@ -21,18 +21,18 @@ namespace DesperateDevs.Logging.Appenders {
 
         string multilineMessage(string title, string message) {
             return "<title>"
-                + replaceXmlSymbols(title)
-                + "</title><message>"
-                + replaceXmlSymbols(message.Substring(message.IndexOf('\n') + 1))
-                + "</message>";
+                   + replaceXmlSymbols(title)
+                   + "</title><message>"
+                   + replaceXmlSymbols(message.Substring(message.IndexOf('\n') + 1))
+                   + "</message>";
         }
 
         string replaceXmlSymbols(string str) {
             return str.Replace("<", "&lt;")
-                      .Replace(">", "&gt;")
-                      .Replace("&lt;", "<![CDATA[<]]>")
-                      .Replace("&gt;", "<![CDATA[>]]>")
-                      .Replace("&", "<![CDATA[&]]>");
+                .Replace(">", "&gt;")
+                .Replace("&lt;", "<![CDATA[<]]>")
+                .Replace("&gt;", "<![CDATA[>]]>")
+                .Replace("&", "<![CDATA[&]]>");
         }
     }
 }

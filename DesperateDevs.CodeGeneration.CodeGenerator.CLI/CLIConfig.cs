@@ -1,17 +1,7 @@
 ﻿using System.Collections.Generic;
-using DesperateDevs.Serialization;
 using DesperateDevs.Utils;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
-
-    public static class CLIConfigExtension {
-
-        public static CLIConfig CreateCLIConfig(this Preferences preferences) {
-            var config = new CLIConfig();
-            config.Configure(preferences);
-            return config;
-        }
-    }
 
     public class CLIConfig : AbstractConfigurableConfig {
 

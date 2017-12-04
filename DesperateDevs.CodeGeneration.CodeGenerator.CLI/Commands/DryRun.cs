@@ -6,7 +6,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         public override string description { get { return "Run the code generator in dry mode"; } }
         public override string example { get { return "jenny dry"; } }
 
-        public DryRun() :base(typeof(DryRun).Name) {
+        public DryRun() : base(typeof(DryRun).Name) {
         }
 
         protected override void run() {

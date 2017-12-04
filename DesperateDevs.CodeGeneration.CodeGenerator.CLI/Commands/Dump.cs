@@ -21,4 +21,3 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         }
     }
 }
-

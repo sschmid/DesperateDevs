@@ -11,7 +11,9 @@ namespace DesperateDevs.Logging.Appenders {
             { LogLevel.Trace, ConsoleColor.Cyan },
             { LogLevel.Warn, ConsoleColor.DarkYellow },
             { LogLevel.Error, ConsoleColor.Red },
-            { LogLevel.Fatal, ConsoleColor.DarkRed } }) { }
+            { LogLevel.Fatal, ConsoleColor.DarkRed }
+        }) {
+        }
 
         public ConsoleAppender(Dictionary<LogLevel, ConsoleColor> consoleColors) {
             _consoleColors = consoleColors;

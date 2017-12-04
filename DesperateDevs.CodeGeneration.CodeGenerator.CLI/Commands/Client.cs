@@ -34,7 +34,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             client.OnDisconnected += onDisconnected;
             client.Connect(IPAddress.Parse("127.0.0.1"), port);
 
-            while (true) { }
+            while (true) {
+            }
         }
 
         void onConnected(TcpClientSocket client) {

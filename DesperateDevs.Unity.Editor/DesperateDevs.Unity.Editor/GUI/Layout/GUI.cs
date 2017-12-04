@@ -1,11 +1,12 @@
 using System;
 using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
 namespace DesperateDevs.Unity.Editor {
 
-    public static partial class EntitasEditorLayout {
+    public static partial class EditorLayout {
 
         public static bool ObjectFieldButton(string label, string buttonText) {
             var clicked = false;
@@ -102,18 +103,8 @@ namespace DesperateDevs.Unity.Editor {
         }
 
         public static bool MatchesSearchString(string str, string search) {
-            var searches = search.Split(new [] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            if (searches.Length == 0) {
-                return true;
-            }
-
-            for (int i = 0; i < searches.Length; i++) {
-                if (str.Contains(searches[i])) {
-                    return true;
-                }
-            }
-
-            return false;
+            var searches = search.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            return searches.Length == 0 || searches.Any(str.Contains);
         }
     }
 }

@@ -5,10 +5,7 @@ namespace DesperateDevs.Serialization {
 
     public class Preferences {
 
-        public static Preferences sharedInstance {
-            get { return _sharedInstance; }
-            set { _sharedInstance = value; }
-        }
+        public static Preferences sharedInstance { get { return _sharedInstance; } set { _sharedInstance = value; } }
 
         static Preferences _sharedInstance;
 

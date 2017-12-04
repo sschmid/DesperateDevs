@@ -12,6 +12,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         protected override void run() {
             new Status().Run(_rawArgs);
             _logger.Debug("Dry Run");
+
             CodeGeneratorUtil
                 .CodeGeneratorFromPreferences(_preferences)
                 .DryRun();

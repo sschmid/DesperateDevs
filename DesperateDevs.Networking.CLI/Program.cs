@@ -13,8 +13,8 @@ namespace DesperateDevs.Networking.CLI {
         }
 
         static void printUsage(ICommand[] commands) {
-            var pad = _program .GetCommandListPad();
-            var commandList = _program .GetFormattedCommandList();
+            var pad = _program.GetCommandListPad();
+            var commandList = _program.GetFormattedCommandList();
 
             commandList.Add("[-v]".PadRight(pad) + " - verbose output");
 
@@ -25,6 +25,8 @@ namespace DesperateDevs.Networking.CLI {
    ██║   ██║     ██╔═══╝ ██╔══╝   ███╔╝    ╚██╔╝
    ██║   ╚██████╗██║     ███████╗███████╗   ██║
    ╚═╝    ╚═════╝╚═╝     ╚══════╝╚══════╝   ╚═╝
+
+   Connecting sockets since 2013
 ";
 
             Console.WriteLine(header);

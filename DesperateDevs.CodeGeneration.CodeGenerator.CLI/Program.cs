@@ -36,7 +36,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
   ,dP''   Yb                                           ,d8I'
  ,8'      I8                                         ,dP'8I
 ,8'       I8                                        ,8'  8I
-I8,      ,8'      .NET Code Generator               I8   8I
+I8,      ,8'    A lovely .NET Code Generator        I8   8I
 `Y8,___,d8'                                         `8, ,8I
   'Y888P'                                            `Y8P'
 ";
@@ -49,8 +49,8 @@ I8,      ,8'      .NET Code Generator               I8   8I
                                   "  jenny edit\n" +
                                   "  jenny edit My.properties\n" +
                                   "  jenny doctor\n" +
-                                  "  jenny fix \n" +
-                                  "  jenny new My.properties" +
+                                  "  jenny fix\n" +
+                                  "  jenny new My.properties\n" +
                                   "  jenny new My.properties username.userproperties";
 
             Console.WriteLine(header);

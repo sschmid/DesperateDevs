@@ -13,9 +13,7 @@ namespace DesperateDevs.CodeGeneration.Plugins {
         public bool isEnabledByDefault { get { return true; } }
         public bool runInDryMode { get { return false; } }
 
-        public Dictionary<string, string> defaultProperties {
-            get { return _targetDirectoryConfig.defaultProperties; }
-        }
+        public Dictionary<string, string> defaultProperties { get { return _targetDirectoryConfig.defaultProperties; } }
 
         readonly TargetDirectoryConfig _targetDirectoryConfig = new TargetDirectoryConfig();
 

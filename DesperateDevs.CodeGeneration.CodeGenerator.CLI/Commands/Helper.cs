@@ -17,8 +17,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         public static string[] GetUnusedKeys(string[] requiredKeys, Preferences preferences) {
             return preferences.keys
-                              .Where(key => !requiredKeys.Contains(key))
-                              .ToArray();
+                .Where(key => !requiredKeys.Contains(key))
+                .ToArray();
         }
 
         public static string[] GetMissingKeys(string[] requiredKeys, Preferences preferences) {
@@ -31,7 +31,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             char keyChar;
             do {
                 keyChar = Console.ReadKey(true).KeyChar;
-            } while(keyChar != accept && keyChar != cancel);
+            } while (keyChar != accept && keyChar != cancel);
 
             return keyChar == accept;
         }
@@ -40,7 +40,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             char keyChar;
             do {
                 keyChar = Console.ReadKey(true).KeyChar;
-            } while(keyChar != accept && keyChar != cancel && keyChar != ignore);
+            } while (keyChar != accept && keyChar != cancel && keyChar != ignore);
 
             if (keyChar == ignore) {
                 return UserDecision.Ignore;
@@ -55,7 +55,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             char keyChar;
             do {
                 keyChar = Console.ReadKey(true).KeyChar;
-            } while(!chars.Contains(keyChar));
+            } while (!chars.Contains(keyChar));
 
             return keyChar;
         }
