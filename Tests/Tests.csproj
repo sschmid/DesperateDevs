@@ -57,7 +57,9 @@
     <Compile Include="Tests\DesperateDevs.CodeGeneration.CodeGenerator\describe_AssemblyResolver.cs" />
     <Compile Include="Tests\DesperateDevs.CodeGeneration.CodeGenerator\describe_CodeGenerator.cs" />
     <Compile Include="Tests\DesperateDevs.CodeGeneration.Plugins\describe_MergeFilesPostProcessor.cs" />
+    <Compile Include="Tests\DesperateDevs.CodeGeneration.Plugins\describe_TargetDirectoryExtension.cs" />
     <Compile Include="Tests\DesperateDevs.CodeGeneration.Plugins\describe_UpdateCSProjPostProcessor.cs" />
+    <Compile Include="Tests\DesperateDevs.CodeGeneration\describe_CodeGeneratorData.cs" />
     <Compile Include="Tests\DesperateDevs.CodeGeneration\describe_CodeGenFile.cs" />
     <Compile Include="Tests\DesperateDevs.Logging.Formatters\describe_DefaultLogMessageFormatter.cs" />
     <Compile Include="Tests\DesperateDevs.Logging\describe_fabl.cs" />
@@ -66,10 +68,13 @@
     <Compile Include="Tests\DesperateDevs.Networking\describe_TcpServerSocket.cs" />
     <Compile Include="Tests\DesperateDevs.Serialization\describe_Preferences.cs" />
     <Compile Include="Tests\DesperateDevs.Serialization\describe_Properties.cs" />
-    <Compile Include="Tests\DesperateDevs.Utils\describe_DictionaryExtension.cs" />
-    <Compile Include="Tests\DesperateDevs.Utils\describe_InterfaceTypeExtension.cs" />
-    <Compile Include="Tests\DesperateDevs.Utils\describe_StringExtension.cs" />
-    <Compile Include="Tests\DesperateDevs.Utils\describe_SerializationTypeExtension.cs" />
+    <Compile Include="Tests\DesperateDevs.Utils\Caching\describe_ObjectCache.cs" />
+    <Compile Include="Tests\DesperateDevs.Utils\Caching\describe_ObjectPool.cs" />
+    <Compile Include="Tests\DesperateDevs.Utils\Extensions\describe_DictionaryExtension.cs" />
+    <Compile Include="Tests\DesperateDevs.Utils\Extensions\describe_InterfaceTypeExtension.cs" />
+    <Compile Include="Tests\DesperateDevs.Utils\Extensions\describe_SerializationTypeExtension.cs" />
+    <Compile Include="Tests\DesperateDevs.Utils\Extensions\describe_StringExtension.cs" />
+    <Compile Include="Tests\DesperateDevs.Utils\Reflection\describe_PublicMemberInfo.cs" />
     <Compile Include="Tests\TestExtensions.cs" />
   </ItemGroup>
   <ItemGroup>

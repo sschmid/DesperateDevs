@@ -23,11 +23,11 @@ namespace DesperateDevs.Utils {
                     argType => argType.ToCompilableString()
                 ).ToArray();
                 return genericMainType +
-                    "<" + string.Join(", ", genericArguments) + ">";
+                       "<" + string.Join(", ", genericArguments) + ">";
             }
             if (type.IsArray) {
                 return type.GetElementType().ToCompilableString() +
-                    "[" + new string(',', type.GetArrayRank() - 1) + "]";
+                       "[" + new string(',', type.GetArrayRank() - 1) + "]";
             }
             if (type.IsNested) {
                 return type.FullName.Replace('+', '.');
@@ -76,7 +76,7 @@ namespace DesperateDevs.Utils {
 
         static string generateGenericArguments(string typeString) {
             const string genericArgsPattern = @"<(?<arg>.*)>";
-            var separator = new [] { ", " };
+            var separator = new[] { ", " };
             typeString = Regex.Replace(typeString, genericArgsPattern,
                 m => {
                     var ts = generateTypeString(m.Groups["arg"].Value);

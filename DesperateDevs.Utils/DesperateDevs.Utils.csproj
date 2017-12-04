@@ -40,11 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DesperateDevs.Utils\AppDomainExtension.cs" />
-    <Compile Include="DesperateDevs.Utils\DictionaryExtension.cs" />
-    <Compile Include="DesperateDevs.Utils\InterfaceTypeExtension.cs" />
-    <Compile Include="DesperateDevs.Utils\StringExtension.cs" />
-    <Compile Include="DesperateDevs.Utils\SerializationTypeExtension.cs" />
+    <Compile Include="DesperateDevs.Utils\Caching\ObjectCache.cs" />
+    <Compile Include="DesperateDevs.Utils\Caching\ObjectPool.cs" />
+    <Compile Include="DesperateDevs.Utils\Extensions\AppDomainExtension.cs" />
+    <Compile Include="DesperateDevs.Utils\Extensions\DictionaryExtension.cs" />
+    <Compile Include="DesperateDevs.Utils\Extensions\InterfaceTypeExtension.cs" />
+    <Compile Include="DesperateDevs.Utils\Extensions\SerializationTypeExtension.cs" />
+    <Compile Include="DesperateDevs.Utils\Extensions\StringExtension.cs" />
+    <Compile Include="DesperateDevs.Utils\Reflection\AttributeInfo.cs" />
+    <Compile Include="DesperateDevs.Utils\Reflection\PublicMemberInfo.cs" />
+    <Compile Include="DesperateDevs.Utils\Reflection\PublicMemberInfoExtension.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

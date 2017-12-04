@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using DesperateDevs.CodeGeneration.CodeGenerator;
 using DesperateDevs.Serialization;
 
 namespace DesperateDevs.CodeGeneration.Plugins {

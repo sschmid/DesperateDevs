@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Linq;
+using DesperateDevs.CodeGeneration.CodeGenerator;
 using DesperateDevs.Serialization;
 using DesperateDevs.Utils;
 

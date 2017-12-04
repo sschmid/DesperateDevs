@@ -42,9 +42,14 @@
   <ItemGroup>
     <Compile Include="TestFixtures\ITestInterface.cs" />
     <Compile Include="TestFixtures\ITestSubInterface.cs" />
+    <Compile Include="TestFixtures\PublicMemberInfoTestClassWithFields.cs" />
+    <Compile Include="TestFixtures\PublicMemberInfoTestClassWithFieldsAndProperties.cs" />
+    <Compile Include="TestFixtures\PublicMemberInfoTestClassWithProperties.cs" />
     <Compile Include="TestFixtures\TestClass.cs" />
+    <Compile Include="TestFixtures\TestClassWithField.cs" />
     <Compile Include="TestFixtures\TestEnum.cs" />
     <Compile Include="TestFixtures\TestInterfaceClass.cs" />
+    <Compile Include="TestFixtures\TestMemberAttribute.cs" />
     <Compile Include="TestFixtures\TestNamespaceClass.cs" />
     <Compile Include="TestFixtures\TestNestedClass.cs" />
     <Compile Include="TestFixtures\TestNestedEnumClass.cs" />
