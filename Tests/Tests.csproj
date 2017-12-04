@@ -56,6 +56,8 @@
     <Compile Include="Tests\DesperateDevs.CLI\describe_ArgsExtension.cs" />
     <Compile Include="Tests\DesperateDevs.CodeGeneration.CodeGenerator\describe_AssemblyResolver.cs" />
     <Compile Include="Tests\DesperateDevs.CodeGeneration.CodeGenerator\describe_CodeGenerator.cs" />
+    <Compile Include="Tests\DesperateDevs.CodeGeneration.Plugins\describe_MergeFilesPostProcessor.cs" />
+    <Compile Include="Tests\DesperateDevs.CodeGeneration.Plugins\describe_UpdateCSProjPostProcessor.cs" />
     <Compile Include="Tests\DesperateDevs.CodeGeneration\describe_CodeGenFile.cs" />
     <Compile Include="Tests\DesperateDevs.Logging.Formatters\describe_DefaultLogMessageFormatter.cs" />
     <Compile Include="Tests\DesperateDevs.Logging\describe_fabl.cs" />
@@ -78,6 +80,10 @@
     <ProjectReference Include="..\DesperateDevs.CodeGeneration.CodeGenerator\DesperateDevs.CodeGeneration.CodeGenerator.csproj">
       <Project>{7AFE3A5A-6CB5-4738-972A-458A16BC19AC}</Project>
       <Name>DesperateDevs.CodeGeneration.CodeGenerator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DesperateDevs.CodeGeneration.Plugins\DesperateDevs.CodeGeneration.Plugins.csproj">
+      <Project>{A2006188-6384-4439-9AA4-9E007CBF83D7}</Project>
+      <Name>DesperateDevs.CodeGeneration.Plugins</Name>
     </ProjectReference>
     <ProjectReference Include="..\DesperateDevs.CodeGeneration\DesperateDevs.CodeGeneration.csproj">
       <Project>{43857640-7F48-49C7-89C9-B06305B82076}</Project>

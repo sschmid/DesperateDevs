@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{101F0979-50F9-41EA-8D22-87AE185B8489}</ProjectGuid>
+    <ProjectGuid>{A2006188-6384-4439-9AA4-9E007CBF83D7}</ProjectGuid>
     <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestFixtures</RootNamespace>
-    <AssemblyName>TestFixtures</AssemblyName>
+    <RootNamespace>DesperateDevs.CodeGeneration.Plugins</RootNamespace>
+    <AssemblyName>DesperateDevs.CodeGeneration.Plugins</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,23 +40,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TestFixtures\ITestInterface.cs" />
-    <Compile Include="TestFixtures\ITestSubInterface.cs" />
-    <Compile Include="TestFixtures\TestClass.cs" />
-    <Compile Include="TestFixtures\TestEnum.cs" />
-    <Compile Include="TestFixtures\TestInterfaceClass.cs" />
-    <Compile Include="TestFixtures\TestNamespaceClass.cs" />
-    <Compile Include="TestFixtures\TestNestedClass.cs" />
-    <Compile Include="TestFixtures\TestNestedEnumClass.cs" />
+    <Compile Include="DesperateDevs.CodeGeneration.Plugins\Configs\ProjectPathConfig.cs" />
+    <Compile Include="DesperateDevs.CodeGeneration.Plugins\Configs\TargetDirectoryConfig.cs" />
+    <Compile Include="DesperateDevs.CodeGeneration.Plugins\PostProcessors\AddFileHeaderPostProcessor.cs" />
+    <Compile Include="DesperateDevs.CodeGeneration.Plugins\PostProcessors\CleanTargetDirectoryPostProcessor.cs" />
+    <Compile Include="DesperateDevs.CodeGeneration.Plugins\PostProcessors\ConsoleWriteLinePostProcessor.cs" />
+    <Compile Include="DesperateDevs.CodeGeneration.Plugins\PostProcessors\MergeFilesPostProcessor.cs" />
+    <Compile Include="DesperateDevs.CodeGeneration.Plugins\PostProcessors\NewLinePostProcessor.cs" />
+    <Compile Include="DesperateDevs.CodeGeneration.Plugins\PostProcessors\TargetDirectoryStringExtension.cs" />
+    <Compile Include="DesperateDevs.CodeGeneration.Plugins\PostProcessors\UpdateCSProjPostProcessor.cs" />
+    <Compile Include="DesperateDevs.CodeGeneration.Plugins\PostProcessors\WriteToDiskPostProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DesperateDevs.CodeGeneration.Plugins\EmptyUser.properties" />
-    <Content Include="DesperateDevs.CodeGeneration.Plugins\Test.properties" />
-    <Content Include="DesperateDevs.Serialization\EmptyUser.properties" />
-    <Content Include="DesperateDevs.Serialization\Preferences.properties" />
-    <Content Include="DesperateDevs.Serialization\PreferencesWithUser.properties" />
-    <Content Include="DesperateDevs.Serialization\UserOverwrite.properties" />
-    <Content Include="DesperateDevs.Serialization\UserWithKey.properties" />
+    <ProjectReference Include="..\DesperateDevs.CodeGeneration\DesperateDevs.CodeGeneration.csproj">
+      <Project>{43857640-7F48-49C7-89C9-B06305B82076}</Project>
+      <Name>DesperateDevs.CodeGeneration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DesperateDevs.Serialization\DesperateDevs.Serialization.csproj">
+      <Project>{3F7A0EC0-ECFE-4DA5-A02F-C716AD8F0817}</Project>
+      <Name>DesperateDevs.Serialization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DesperateDevs.Utils\DesperateDevs.Utils.csproj">
+      <Project>{F81E2E63-8F15-43D9-85C0-57237ED42250}</Project>
+      <Name>DesperateDevs.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

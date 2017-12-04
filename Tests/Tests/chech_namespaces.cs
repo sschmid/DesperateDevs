@@ -16,7 +16,7 @@ class check_namespaces : nspec {
         System.Console.WriteLine("sourceFiles: " + sourceFiles.Count);
 
         it["processes roughly the correct number of files"] = () => {
-            sourceFiles.Count.should_be_greater_than(10);
+            sourceFiles.Count.should_be_greater_than(50);
             sourceFiles.Count.should_be_less_than(100);
         };
 

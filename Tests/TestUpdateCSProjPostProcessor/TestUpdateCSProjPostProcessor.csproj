@@ -1,15 +1,15 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{101F0979-50F9-41EA-8D22-87AE185B8489}</ProjectGuid>
+    <ProjectGuid>{DF2FD08A-2E44-40BE-8A30-CD9D4F6DB65C}</ProjectGuid>
     <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestFixtures</RootNamespace>
-    <AssemblyName>TestFixtures</AssemblyName>
+    <RootNamespace>TestUpdateCSProjPostProcessor</RootNamespace>
+    <AssemblyName>TestUpdateCSProjPostProcessor</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,23 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TestFixtures\ITestInterface.cs" />
-    <Compile Include="TestFixtures\ITestSubInterface.cs" />
-    <Compile Include="TestFixtures\TestClass.cs" />
-    <Compile Include="TestFixtures\TestEnum.cs" />
-    <Compile Include="TestFixtures\TestInterfaceClass.cs" />
-    <Compile Include="TestFixtures\TestNamespaceClass.cs" />
-    <Compile Include="TestFixtures\TestNestedClass.cs" />
-    <Compile Include="TestFixtures\TestNestedEnumClass.cs" />
+    <Compile Include="Assets\Sources\Generated\My\Generated\Folder\File1.cs" />
+    <Compile Include="Assets\Sources\Generated\My\Generated\Folder\File2.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DesperateDevs.CodeGeneration.Plugins\EmptyUser.properties" />
-    <Content Include="DesperateDevs.CodeGeneration.Plugins\Test.properties" />
-    <Content Include="DesperateDevs.Serialization\EmptyUser.properties" />
-    <Content Include="DesperateDevs.Serialization\Preferences.properties" />
-    <Content Include="DesperateDevs.Serialization\PreferencesWithUser.properties" />
-    <Content Include="DesperateDevs.Serialization\UserOverwrite.properties" />
-    <Content Include="DesperateDevs.Serialization\UserWithKey.properties" />
+    <Compile Include="TestClass.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
