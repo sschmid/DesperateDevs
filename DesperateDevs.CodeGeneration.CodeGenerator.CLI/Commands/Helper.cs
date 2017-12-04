@@ -61,13 +61,13 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         }
 
         public static void ForceAddKey(string message, string key, string value, Preferences preferences) {
-            _logger.Info(message + ": '" + key + "' (press any key)");
+            _logger.Info("ℹ️  " + message + ": '" + key + "' (press any key)");
             Console.ReadKey(true);
             AddKey(key, value, preferences);
         }
 
         public static void AskAddKey(string question, string key, string value, Preferences preferences) {
-            _logger.Info(question + ": '" + key + "' ? (y / n)");
+            _logger.Info("✅  " + question + ": '" + key + "' ? (y / n)");
             if (GetUserDecision()) {
                 AddKey(key, value, preferences);
             }
@@ -80,7 +80,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         }
 
         public static void AskAddValue(string question, string value, string[] values, Action<string[]> updateAction, Preferences preferences) {
-            _logger.Info(question + ": '" + value + "' ? (y / n)");
+            _logger.Info("✅  " + question + ": '" + value + "' ? (y / n)");
             if (GetUserDecision()) {
                 AddValue(value, values, updateAction, preferences);
             }
@@ -95,14 +95,14 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         }
 
         public static void AskRemoveKey(string question, string key, Preferences preferences) {
-            _logger.Warn(question + ": '" + key + "' ? (y / n)");
+            _logger.Warn("❌  " + question + ": '" + key + "' ? (y / n)");
             if (GetUserDecision()) {
                 RemoveKey(key, preferences);
             }
         }
 
         public static void AskRemoveOrIgnoreKey(string question, string key, CLIConfig cliConfig, Preferences preferences) {
-            _logger.Warn(question + ": '" + key + "' ? (y / n / (i)gnore)");
+            _logger.Warn("❌  " + question + ": '" + key + "' ? (y / n / (i)gnore)");
             var userDecision = GetUserDecisionOrIgnore();
             if (userDecision == UserDecision.Accept) {
                 RemoveKey(key, preferences);
@@ -122,7 +122,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         }
 
         public static void AskRemoveValue(string question, string value, string[] values, Action<string[]> updateAction, Preferences preferences) {
-            _logger.Warn(question + ": '" + value + "' ? (y / n)");
+            _logger.Warn("❌  " + question + ": '" + value + "' ? (y / n)");
             if (GetUserDecision()) {
                 RemoveValue(value, values, updateAction, preferences);
             }

@@ -57,7 +57,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
                 var sendBytes = logBufferString.Length == 0
                     ? new byte[] { 0 }
                     : Encoding.Unicode.GetBytes(logBufferString);
-                socket.Send(sendBytes );
+                socket.Send(sendBytes);
             } catch (Exception ex) {
                 _logger.Error(args.isVerbose()
                     ? ex.ToString()

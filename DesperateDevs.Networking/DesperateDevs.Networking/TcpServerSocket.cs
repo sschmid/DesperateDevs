@@ -40,7 +40,7 @@ namespace DesperateDevs.Networking {
                     send(client, buffer);
                 }
             } else {
-                _logger.Info("Server doesn't have any connected clients. Won't send.");
+                _logger.Debug("Server doesn't have any connected clients. Won't send.");
             }
         }
 
@@ -95,7 +95,7 @@ namespace DesperateDevs.Networking {
             var key = keyForEndPoint((IPEndPoint)client.RemoteEndPoint);
             _clients.Add(key, client);
 
-            _logger.Info("Server accepted new client connection from " + key);
+            _logger.Debug("Server accepted new client connection from " + key);
 
             receive(new ReceiveVO(client, new byte[client.ReceiveBufferSize]));
 
@@ -139,7 +139,7 @@ namespace DesperateDevs.Networking {
             var key = _clients.Single(kv => kv.Value == socket).Key;
             _clients.Remove(key);
             socket.Close();
-            _logger.Info("Client " + key + " disconnected from server");
+            _logger.Debug("Client " + key + " disconnected from server");
 
             if (OnClientDisconnected != null) {
                 OnClientDisconnected(this, socket);
@@ -152,7 +152,7 @@ namespace DesperateDevs.Networking {
             _clients.Remove(key);
             client.EndDisconnect(ar);
             client.Close();
-            _logger.Info("Server disconnected client " + key);
+            _logger.Debug("Server disconnected client " + key);
         }
     }
 }

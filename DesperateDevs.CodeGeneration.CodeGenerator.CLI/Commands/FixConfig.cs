@@ -155,7 +155,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             var duplicates = getDuplicates(values);
 
             foreach (var duplicate in duplicates) {
-                _logger.Info("Potential plugin collision: " + duplicate);
+                _logger.Info("⚠️  Potential plugin collision: " + duplicate);
                 _logger.Info("0: Keep all (no changes)");
 
                 var collisions = values

@@ -50,7 +50,7 @@ namespace DesperateDevs.Networking {
 
             if (didConnect) {
                 var rep = (IPEndPoint)client.RemoteEndPoint;
-                _logger.Info("Client connected to " + keyForEndPoint(rep));
+                _logger.Debug("Client connected to " + keyForEndPoint(rep));
 
                 receive(new ReceiveVO(client, new byte[client.ReceiveBufferSize]));
 
@@ -103,7 +103,7 @@ namespace DesperateDevs.Networking {
             var client = (Socket)ar.AsyncState;
             client.EndDisconnect(ar);
             client.Close();
-            _logger.Info("Client disconnected");
+            _logger.Debug("Client disconnected");
 
             if (OnDisconnected != null) {
                 OnDisconnected(this);

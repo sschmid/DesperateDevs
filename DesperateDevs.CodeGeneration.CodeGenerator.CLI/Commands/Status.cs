@@ -50,11 +50,11 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
                 .Where(key => !cliConfig.ignoreUnusedKeys.Contains(key));
 
             foreach (var key in unusedKeys) {
-                _logger.Info("Unused key: " + key);
+                _logger.Info("⚠️  Unused key: " + key);
             }
 
             foreach (var key in Helper.GetMissingKeys(requiredKeys, preferences)) {
-                _logger.Warn("Missing key: " + key);
+                _logger.Warn("⚠️  Missing key: " + key);
             }
         }
 
@@ -70,13 +70,13 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         void printUnavailable(string[] names) {
             foreach (var name in names) {
-                _logger.Warn("Unavailable: " + name);
+                _logger.Warn("⚠️ Unavailable: " + name);
             }
         }
 
         void printAvailable(string[] names) {
             foreach (var name in names) {
-                _logger.Info("Available: " + name);
+                _logger.Info("ℹ️  Available: " + name);
             }
         }
 
@@ -96,7 +96,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
                 .OrderBy(name => name.ShortTypeName());
 
             foreach (var duplicate in duplicates) {
-                _logger.Warn("Potential collision detected: " + duplicate.ShortTypeName() + " -> " + duplicate);
+                _logger.Warn("⚠️  Potential collision detected: " + duplicate.ShortTypeName() + " -> " + duplicate);
             }
         }
     }
