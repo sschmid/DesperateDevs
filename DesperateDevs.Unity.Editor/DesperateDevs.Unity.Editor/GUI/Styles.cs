@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace DesperateDevs.Unity.Editor {
 
-    public static class EntitasStyles {
+    public static class Styles {
 
         static GUIStyle _sectionHeader;
 
