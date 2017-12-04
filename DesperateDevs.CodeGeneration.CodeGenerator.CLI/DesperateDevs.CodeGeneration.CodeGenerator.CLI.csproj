@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1756FF43-3283-47DB-B8DA-B59C8B1BD323}</ProjectGuid>
+    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DesperateDevs.CodeGeneration.CodeGenerator.CLI</RootNamespace>
+    <AssemblyName>DesperateDevs.CodeGeneration.CodeGenerator.CLI</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ArgsExtension.cs" />
+    <Compile Include="CLIConfig.cs" />
+    <Compile Include="Commands\AbstractPreferencesCommand.cs" />
+    <Compile Include="Commands\AddKeyValue.cs" />
+    <Compile Include="Commands\AutoImport.cs" />
+    <Compile Include="Commands\Client.cs" />
+    <Compile Include="Commands\Doctor.cs" />
+    <Compile Include="Commands\Donate.cs" />
+    <Compile Include="Commands\DryRun.cs" />
+    <Compile Include="Commands\Dump.cs" />
+    <Compile Include="Commands\EditConfig.cs" />
+    <Compile Include="Commands\FixConfig.cs" />
+    <Compile Include="Commands\Format.cs" />
+    <Compile Include="Commands\Generate.cs" />
+    <Compile Include="Commands\Helper.cs" />
+    <Compile Include="Commands\NewConfig.cs" />
+    <Compile Include="Commands\RemoveKeyValue.cs" />
+    <Compile Include="Commands\ScanAssemblies.cs" />
+    <Compile Include="Commands\Server.cs" />
+    <Compile Include="Commands\SetKeyValue.cs" />
+    <Compile Include="Commands\Status.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DesperateDevs.CLI\DesperateDevs.CLI.csproj">
+      <Project>{C62F56CD-83AA-428B-B75B-6EE5654CF56D}</Project>
+      <Name>DesperateDevs.CLI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DesperateDevs.CodeGeneration.CodeGenerator\DesperateDevs.CodeGeneration.CodeGenerator.csproj">
+      <Project>{7AFE3A5A-6CB5-4738-972A-458A16BC19AC}</Project>
+      <Name>DesperateDevs.CodeGeneration.CodeGenerator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DesperateDevs.CodeGeneration\DesperateDevs.CodeGeneration.csproj">
+      <Project>{43857640-7F48-49C7-89C9-B06305B82076}</Project>
+      <Name>DesperateDevs.CodeGeneration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DesperateDevs.Logging\DesperateDevs.Logging.csproj">
+      <Project>{219375E3-8AA6-4A75-8F9A-297D23E34D8C}</Project>
+      <Name>DesperateDevs.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DesperateDevs.Networking\DesperateDevs.Networking.csproj">
+      <Project>{925D6640-CB5A-4833-85FE-63332651880A}</Project>
+      <Name>DesperateDevs.Networking</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DesperateDevs.Serialization\DesperateDevs.Serialization.csproj">
+      <Project>{3F7A0EC0-ECFE-4DA5-A02F-C716AD8F0817}</Project>
+      <Name>DesperateDevs.Serialization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DesperateDevs.Utils\DesperateDevs.Utils.csproj">
+      <Project>{F81E2E63-8F15-43D9-85C0-57237ED42250}</Project>
+      <Name>DesperateDevs.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

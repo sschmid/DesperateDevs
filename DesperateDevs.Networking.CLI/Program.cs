@@ -5,16 +5,18 @@ namespace DesperateDevs.Networking.CLI {
 
     class Program {
 
+        static CLIProgram _program;
+
         public static void Main(string[] args) {
-            new CLIProgram("TCPezy").Run(args, typeof(Program).Assembly, printUsage);
+            _program = new CLIProgram("TCPezy", typeof(Program).Assembly);
+            _program.Run(args, printUsage);
         }
 
         static void printUsage(ICommand[] commands) {
-            var pad = CLIProgram.GetCommandListPad(commands);
-            var commandList = CLIProgram.GetFormattedCommandList(commands);
+            var pad = _program .GetCommandListPad();
+            var commandList = _program .GetFormattedCommandList();
 
             commandList.Add("[-v]".PadRight(pad) + " - verbose output");
-
 
             const string header = @"
 ████████╗ ██████╗██████╗ ███████╗███████╗██╗   ██╗

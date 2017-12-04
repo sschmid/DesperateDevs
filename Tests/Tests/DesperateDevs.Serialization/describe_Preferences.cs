@@ -48,12 +48,6 @@ class describe_Preferences : nspec {
             it["can ToString"] = () => {
                 preferences.ToString().should_be("key = value\n");
             };
-
-            it["resets preferences"] = () => {
-                preferences["newKey"] = "newValue";
-                preferences.Reset();
-                preferences.HasKey("newKey").should_be_false();
-            };
         };
 
         context["when user properties"] = () => {
@@ -83,6 +77,20 @@ class describe_Preferences : nspec {
             it["user properties overwrite default properties"] = () => {
                 preferences = new Preferences(pathPrefix + "PreferencesWithUser.properties", pathPrefix + "UserOverwrite.properties");
                 preferences["key"].should_be("Overwrite");
+            };
+
+            it["resets only properties"] = () => {
+                preferences["newKey"] = "newValue";
+                preferences.Reset();
+                preferences.HasKey("newKey").should_be_false();
+                preferences.HasKey("userName").should_be_true();
+            };
+
+            it["resets properties and user"] = () => {
+                preferences["newKey"] = "newValue";
+                preferences.Reset(true);
+                preferences.HasKey("newKey").should_be_false();
+                preferences.HasKey("userName").should_be_false();
             };
 
             it["can ToString"] = () => {

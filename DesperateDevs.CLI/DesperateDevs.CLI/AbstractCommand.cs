@@ -9,7 +9,7 @@ namespace DesperateDevs.CLI {
         protected string[] _rawArgs;
         protected string[] _args;
 
-        public void Run(string[] args) {
+        public virtual void Run(string[] args) {
             _rawArgs = args;
             _args = args
                 .WithoutTrigger()

@@ -1,0 +1,230 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using DesperateDevs.Serialization;
+using DesperateDevs.Utils;
+
+namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
+
+    public class FixConfig : AbstractPreferencesCommand{
+
+        public override string trigger { get { return "fix"; } }
+        public override string description { get { return "Add missing or remove unused keys interactively"; } }
+        public override string example { get { return "jenny fix"; } }
+
+        public FixConfig() : base(typeof(FixConfig).Name) {
+        }
+
+        protected override void run() {
+            var config = _preferences.CreateCodeGeneratorConfig();
+            var cliConfig = _preferences.CreateCLIConfig();
+
+            forceAddMissingKeys(config.defaultProperties, _preferences);
+            forceAddMissingKeys(cliConfig.defaultProperties, _preferences);
+
+            Type[] types = null;
+
+            try {
+                types = CodeGeneratorUtil.LoadTypesFromPlugins(_preferences);
+                // A test to check if all types can be resolved and instantiated.
+                CodeGeneratorUtil.GetEnabledInstancesOf<IDataProvider>(types, config.dataProviders);
+                CodeGeneratorUtil.GetEnabledInstancesOf<ICodeGenerator>(types, config.codeGenerators);
+                CodeGeneratorUtil.GetEnabledInstancesOf<IPostProcessor>(types, config.postProcessors);
+            } catch (Exception ex) {
+                throw ex;
+            }
+
+            var askedRemoveKeys = new HashSet<string>();
+            var askedAddKeys = new HashSet<string>();
+            while (fix(askedRemoveKeys, askedAddKeys, types, config, cliConfig, _preferences)) { }
+        }
+
+        static void forceAddMissingKeys(Dictionary<string, string> requiredProperties, Preferences preferences) {
+            var requiredKeys = requiredProperties.Keys.ToArray();
+            var missingKeys = Helper.GetMissingKeys(requiredKeys, preferences);
+
+            foreach (var key in missingKeys) {
+                Helper.ForceAddKey("Will add missing key", key, requiredProperties[key], preferences);
+            }
+        }
+
+        bool fix(HashSet<string> askedRemoveKeys, HashSet<string> askedAddKeys, Type[] types, CodeGeneratorConfig config, CLIConfig cliConfig, Preferences preferences) {
+            var changed = fixPlugins(askedRemoveKeys, askedAddKeys, types, config, preferences);
+            changed |= fixCollisions(askedAddKeys, config, preferences);
+
+            forceAddMissingKeys(CodeGeneratorUtil.GetDefaultProperties(types, config), preferences);
+
+            var requiredKeys = config.defaultProperties
+                .Merge(cliConfig.defaultProperties)
+                .Merge(CodeGeneratorUtil.GetDefaultProperties(types, config))
+                .Keys
+                .ToArray();
+
+            removeUnusedKeys(askedRemoveKeys, requiredKeys, cliConfig, preferences);
+
+            return changed;
+        }
+
+        static bool fixPlugins(HashSet<string> askedRemoveKeys, HashSet<string> askedAddKeys, Type[] types, CodeGeneratorConfig config, Preferences preferences) {
+            var changed = false;
+
+            var unavailableDataProviders = CodeGeneratorUtil.GetUnavailableNamesOf<IDataProvider>(types, config.dataProviders);
+            var unavailableCodeGenerators = CodeGeneratorUtil.GetUnavailableNamesOf<ICodeGenerator>(types, config.codeGenerators);
+            var unavailablePostProcessors = CodeGeneratorUtil.GetUnavailableNamesOf<IPostProcessor>(types, config.postProcessors);
+
+            var availableDataProviders = CodeGeneratorUtil.GetAvailableNamesOf<IDataProvider>(types, config.dataProviders);
+            var availableCodeGenerators = CodeGeneratorUtil.GetAvailableNamesOf<ICodeGenerator>(types, config.codeGenerators);
+            var availablePostProcessors = CodeGeneratorUtil.GetAvailableNamesOf<IPostProcessor>(types, config.postProcessors);
+
+            foreach (var key in unavailableDataProviders) {
+                if (!askedRemoveKeys.Contains(key)) {
+                    Helper.AskRemoveValue("Remove unavailable data provider", key, config.dataProviders,
+                                       values => config.dataProviders = values, preferences);
+                    askedRemoveKeys.Add(key);
+                    changed = true;
+                }
+            }
+
+            foreach (var key in unavailableCodeGenerators) {
+                if (!askedRemoveKeys.Contains(key)) {
+                    Helper.AskRemoveValue("Remove unavailable code generator", key, config.codeGenerators,
+                                       values => config.codeGenerators = values, preferences);
+                    askedRemoveKeys.Add(key);
+                    changed = true;
+                }
+            }
+
+            foreach (var key in unavailablePostProcessors) {
+                if (!askedRemoveKeys.Contains(key)) {
+                    Helper.AskRemoveValue("Remove unavailable post processor", key, config.postProcessors,
+                                       values => config.postProcessors = values, preferences);
+                    askedRemoveKeys.Add(key);
+                    changed = true;
+                }
+            }
+
+            foreach (var key in availableDataProviders) {
+                if (!askedAddKeys.Contains(key)) {
+                    Helper.AskAddValue("Add available data provider", key, config.dataProviders,
+                                    values => config.dataProviders = values, preferences);
+                    askedAddKeys.Add(key);
+                    changed = true;
+                }
+            }
+
+            foreach (var key in availableCodeGenerators) {
+                if (!askedAddKeys.Contains(key)) {
+                    Helper.AskAddValue("Add available code generator", key, config.codeGenerators,
+                                    values => config.codeGenerators = values, preferences);
+                    askedAddKeys.Add(key);
+                    changed = true;
+                }
+            }
+
+            foreach (var key in availablePostProcessors) {
+                if (!askedAddKeys.Contains(key)) {
+                    Helper.AskAddValue("Add available post processor", key, config.postProcessors,
+                                    values => config.postProcessors = values, preferences);
+                    askedAddKeys.Add(key);
+                    changed = true;
+                }
+            }
+
+            return changed;
+        }
+
+        bool fixCollisions(HashSet<string> askedAddKeys, CodeGeneratorConfig config, Preferences preferences) {
+            var changed = fixDuplicates(askedAddKeys, config.dataProviders, values => {
+                config.dataProviders = values;
+                return config.dataProviders;
+            }, preferences);
+
+            changed = fixDuplicates(askedAddKeys, config.codeGenerators, values => {
+                config.codeGenerators = values;
+                return config.codeGenerators;
+            }, preferences) | changed;
+
+            return fixDuplicates(askedAddKeys, config.postProcessors, values => {
+                config.postProcessors = values;
+                return config.postProcessors;
+            }, preferences) | changed;
+        }
+
+        bool fixDuplicates(HashSet<string> askedAddKeys, string[] values, Func<string[], string[]> updateAction, Preferences preferences) {
+            var changed = false;
+            var duplicates = getDuplicates(values);
+
+            foreach (var duplicate in duplicates) {
+                _logger.Info("Potential plugin collision: " + duplicate);
+                _logger.Info("0: Keep all (no changes)");
+
+                var collisions = values
+                    .Where(name => name.EndsWith(duplicate))
+                    .ToArray();
+
+                printCollisions(collisions);
+                var inputChars = getInputChars(collisions);
+                var keyChar = Helper.GetGenericUserDecision(inputChars);
+                if (keyChar != '0') {
+                    var index = int.Parse(keyChar.ToString()) - 1;
+                    var keep = collisions[index];
+
+                    foreach (var collision in collisions) {
+                        if (collision != keep) {
+                            Helper.RemoveValue(
+                                collision,
+                                values,
+                                result => values = updateAction(result),
+                                preferences);
+                            askedAddKeys.Add(collision);
+                            changed = true;
+                        }
+                    }
+                }
+            }
+
+            return changed;
+        }
+
+        static string[] getDuplicates(string[] values) {
+            var shortNames = values
+                .Select(name => name.ShortTypeName())
+                .ToArray();
+
+            return values
+                .Where(name => shortNames.Count(n => n == name.ShortTypeName()) > 1)
+                .Select(name => name.ShortTypeName())
+                .Distinct()
+                .OrderBy(name => name.ShortTypeName())
+                .ToArray();
+        }
+
+        void printCollisions(string[] collisions) {
+            for (int i = 0; i < collisions.Length; i++) {
+                _logger.Info((i + 1) + ": Keep " + collisions[i]);
+            }
+        }
+
+        static char[] getInputChars(string[] collisions) {
+            var chars = new char[collisions.Length + 1];
+            for (int i = 0; i < collisions.Length; i++) {
+                chars[i] = (i + 1).ToString()[0];
+            }
+            chars[chars.Length - 1] = '0';
+            return chars;
+        }
+
+        static void removeUnusedKeys(HashSet<string> askedRemoveKeys, string[] requiredKeys, CLIConfig cliConfig, Preferences preferences) {
+            var unusedKeys = Helper
+                .GetUnusedKeys(requiredKeys, preferences)
+                .Where(key => !cliConfig.ignoreUnusedKeys.Contains(key));
+
+            foreach (var key in unusedKeys) {
+                if (!askedRemoveKeys.Contains(key)) {
+                    Helper.AskRemoveOrIgnoreKey("Remove unused key", key, cliConfig, preferences);
+                    askedRemoveKeys.Add(key);
+                }
+            }
+        }
+    }
+}

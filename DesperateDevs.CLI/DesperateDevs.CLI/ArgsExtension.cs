@@ -1,12 +1,15 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace DesperateDevs.CLI {
 
     public static class ArgsExtension {
 
-        public static bool isForce(this string[] args) {
-            return args.Any(arg => arg == "-f");
-        }
+        static readonly HashSet<string> defaultParameter = new HashSet<string> {
+            "-v",
+            "-s",
+            "-d"
+        };
 
         public static bool isVerbose(this string[] args) {
             return args.Any(arg => arg == "-v") || isDebug(args);
@@ -30,7 +33,7 @@ namespace DesperateDevs.CLI {
             var argsList = args.ToList();
 
             foreach (var arg in args) {
-                if (arg.StartsWith("-")) {
+                if (defaultParameter.Contains(arg)) {
                     argsList.Remove(arg);
                 }
             }

@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 
 namespace DesperateDevs.Serialization {
 
@@ -29,8 +30,8 @@ namespace DesperateDevs.Serialization {
         Properties _userProperties;
 
         public Preferences(string propertiesPath, string userPropertiesPath) {
-            _propertiesPath = propertiesPath;
-            _userPropertiesPath = userPropertiesPath;
+            _propertiesPath = propertiesPath ?? findFilePath("*.properties");
+            _userPropertiesPath = userPropertiesPath ?? findFilePath("*.userproperties");
             Refresh();
         }
 
@@ -57,12 +58,21 @@ namespace DesperateDevs.Serialization {
             return _properties.HasKey(key) || _userProperties.HasKey(key);
         }
 
-        public void Reset() {
+        public void Reset(bool resetUser = false) {
             _properties = new Properties();
+            if (resetUser) {
+                _userProperties = new Properties();
+            }
         }
 
         public override string ToString() {
             return getMergedProperties().ToString();
+        }
+
+        static string findFilePath(string searchPattern) {
+            return Directory
+                .GetFiles(Directory.GetCurrentDirectory(), searchPattern, SearchOption.TopDirectoryOnly)
+                .FirstOrDefault();
         }
 
         static Properties loadProperties(string path) {

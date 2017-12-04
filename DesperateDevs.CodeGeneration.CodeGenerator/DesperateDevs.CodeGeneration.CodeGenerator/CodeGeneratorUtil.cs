@@ -76,7 +76,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
             return new Dictionary<string, string>().Merge(
                 GetEnabledInstancesOf<IDataProvider>(types, config.dataProviders).OfType<IConfigurable>()
                     .Concat(GetEnabledInstancesOf<ICodeGenerator>(types, config.codeGenerators).OfType<IConfigurable>())
-                    .Concat(GetEnabledInstancesOf<ICodeGenerator>(types, config.postProcessors).OfType<IConfigurable>())
+                    .Concat(GetEnabledInstancesOf<IPostProcessor>(types, config.postProcessors).OfType<IConfigurable>())
                     .Select(instance => instance.defaultProperties)
                     .ToArray());
         }

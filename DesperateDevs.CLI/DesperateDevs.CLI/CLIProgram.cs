@@ -18,37 +18,49 @@ namespace DesperateDevs.CLI {
             };
 
         readonly Logger _logger;
+        readonly ICommand[] _commands;
 
-        public CLIProgram(string loggerName) {
-            _logger = fabl.GetLogger(loggerName);
+        public CLIProgram(string applicationName, Assembly assembly) {
+            _logger = fabl.GetLogger(applicationName);
+            _commands = getOrderedCommands(assembly);
         }
 
-        public static int GetCommandListPad(ICommand[] commands) {
-            return commands.Max(c => c.example.Length);
-        }
-
-        public static List<string> GetFormattedCommandList(ICommand[] commands) {
-            var pad = GetCommandListPad(commands);
-            return commands
-                .Select(c => c.example.PadRight(pad) + " - " + c.description)
-                .ToList();
-        }
-
-        public void Run(string[] args, Assembly assembly, Action<ICommand[]> printUsage) {
-            var commands = getOrderedCommands(assembly);
-
+        public void Run(string[] args, Action<ICommand[]> printUsage) {
             if (args == null || args.Length == 0) {
-                printUsage(commands);
+                printUsage(_commands);
                 return;
             }
 
             initializeLogging(args, consoleColors);
-            runCommand(commands, args);
+            runCommand(args);
         }
 
-        void runCommand(ICommand[] commands, string[] args) {
+        public ICommand GetCommand(string trigger) {
+            var command = _commands.SingleOrDefault(c => c.trigger == trigger);
+            if (command == null) {
+                throw new Exception("command not found: " + trigger);
+            }
+
+            return command;
+        }
+
+        public int GetCommandListPad() {
+            return _commands.Length == 0
+                ? 0
+                : _commands.Max(c => c.example != null ? c.example.Length : 0);
+        }
+
+        public List<string> GetFormattedCommandList() {
+            var pad = GetCommandListPad();
+            return _commands
+                .Where(c => c.example != null)
+                .Select(c => c.example.PadRight(pad) + " - " + c.description)
+                .ToList();
+        }
+
+        void runCommand(string[] args) {
             try {
-                getCommand(commands, args[0]).Run(args);
+                GetCommand(args.WithoutParameter()[0]).Run(args);
             } catch (Exception ex) {
                 _logger.Error(args.isVerbose() ? ex.ToString() : ex.Message);
             }
@@ -62,8 +74,8 @@ namespace DesperateDevs.CLI {
                 .ToArray();
         }
 
-        static void initializeLogging(string[] args, Dictionary<LogLevel, ConsoleColor> consoleColors) {
-            fabl.globalLogLevel = (args.isVerbose())
+        void initializeLogging(string[] args, Dictionary<LogLevel, ConsoleColor> consoleColors) {
+            fabl.globalLogLevel = args.isVerbose()
                 ? LogLevel.On
                 : LogLevel.Info;
 
@@ -74,6 +86,7 @@ namespace DesperateDevs.CLI {
                 formatter = (logger, level, message) => message;
             }
 
+            fabl.ResetAppenders();
             fabl.AddAppender((logger, logLevel, message) => {
                 message = formatter(logger, logLevel, message);
                 if (consoleColors.ContainsKey(logLevel)) {
@@ -84,15 +97,6 @@ namespace DesperateDevs.CLI {
                     Console.WriteLine(message);
                 }
             });
-        }
-
-        static ICommand getCommand(ICommand[] commands, string trigger) {
-            var command = commands.SingleOrDefault(c => c.trigger == trigger);
-            if (command == null) {
-                throw new Exception("command not found: " + trigger);
-            }
-
-            return command;
         }
     }
 }

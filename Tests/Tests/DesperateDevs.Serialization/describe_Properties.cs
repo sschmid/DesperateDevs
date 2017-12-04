@@ -397,19 +397,19 @@ class describe_Properties : nspec {
 
             it["replaces placeholder within ${...}"] = () => {
                 var input =
-                    "project.name = Entitas" + "\n" +
+                    "project.name = Project" + "\n" +
                     "project.domain = com.sschmid" + "\n" +
                     "project.bundleId = ${project.domain}.${project.name}" + "\n";
 
                 const string expectedOutput =
-                    "project.name = Entitas\n" +
+                    "project.name = Project\n" +
                     "project.domain = com.sschmid\n" +
                     "project.bundleId = ${project.domain}.${project.name}\n";
 
                 var expectedProperties = new Dictionary<string, string> {
-                    { "project.name", "Entitas" },
+                    { "project.name", "Project" },
                     { "project.domain", "com.sschmid" },
-                    { "project.bundleId", "com.sschmid.Entitas" }
+                    { "project.bundleId", "com.sschmid.Project" }
                 };
 
                 assertProperties(input, expectedOutput, expectedProperties);
@@ -417,18 +417,18 @@ class describe_Properties : nspec {
 
             it["replaces placeholder when adding new property"] = () => {
                 var input =
-                    "project.name = Entitas" + "\n" +
+                    "project.name = Project" + "\n" +
                     "project.domain = com.sschmid" + "\n";
 
                 const string expectedOutput =
-                    "project.name = Entitas\n" +
+                    "project.name = Project\n" +
                     "project.domain = com.sschmid\n" +
                     "project.bundleId = ${project.domain}.${project.name}\n";
 
                 var expectedProperties = new Dictionary<string, string> {
-                    { "project.name", "Entitas" },
+                    { "project.name", "Project" },
                     { "project.domain", "com.sschmid" },
-                    { "project.bundleId", "com.sschmid.Entitas" }
+                    { "project.bundleId", "com.sschmid.Project" }
                 };
 
                 var p = new Properties(input);
@@ -439,17 +439,17 @@ class describe_Properties : nspec {
 
             it["doesn't replace placeholder when not resolvable"] = () => {
                 var input =
-                    "project.name = Entitas" + "\n" +
+                    "project.name = Project" + "\n" +
                     "project.domain = com.sschmid" + "\n" +
                     "project.bundleId = ${Xproject.domain}.${Xproject.name}" + "\n";
 
                 const string expectedOutput =
-                    "project.name = Entitas\n" +
+                    "project.name = Project\n" +
                     "project.domain = com.sschmid\n" +
                     "project.bundleId = ${Xproject.domain}.${Xproject.name}\n";
 
                 var expectedProperties = new Dictionary<string, string> {
-                    { "project.name", "Entitas" },
+                    { "project.name", "Project" },
                     { "project.domain", "com.sschmid" },
                     { "project.bundleId", "${Xproject.domain}.${Xproject.name}" }
                 };
@@ -462,19 +462,19 @@ class describe_Properties : nspec {
 
             it["converts and normalizes line endings"] = () => {
                 var input =
-                    "project.name = Entitas" + "\n" +
+                    "project.name = Project" + "\n" +
                     "project.domain = com.sschmid" + "\r" +
                     "project.bundleId = ${project.domain}.${project.name}" + "\r\n";
 
                 const string expectedOutput =
-                    "project.name = Entitas\n" +
+                    "project.name = Project\n" +
                     "project.domain = com.sschmid\n" +
                     "project.bundleId = ${project.domain}.${project.name}\n";
 
                 var expectedProperties = new Dictionary<string, string> {
-                    { "project.name", "Entitas" },
+                    { "project.name", "Project" },
                     { "project.domain", "com.sschmid" },
-                    { "project.bundleId", "com.sschmid.Entitas" }
+                    { "project.bundleId", "com.sschmid.Project" }
                 };
 
                 assertProperties(input, expectedOutput, expectedProperties);
@@ -529,20 +529,20 @@ key2 = value4
 
             it["replaces placeholder within ${...}"] = () => {
                 var input = new Dictionary<string, string> {
-                    { "project.name", "Entitas"},
+                    { "project.name", "Project"},
                     { "project.domain", "com.sschmid"},
                     { "project.bundleId", "${project.domain}.${project.name}"}
                 };
 
                 const string expectedOutput =
-                    "project.name = Entitas\n" +
+                    "project.name = Project\n" +
                     "project.domain = com.sschmid\n" +
                     "project.bundleId = ${project.domain}.${project.name}\n";
 
                 var expectedProperties = new Dictionary<string, string> {
-                    { "project.name", "Entitas" },
+                    { "project.name", "Project" },
                     { "project.domain", "com.sschmid" },
-                    { "project.bundleId", "com.sschmid.Entitas" }
+                    { "project.bundleId", "com.sschmid.Project" }
                 };
 
                 assertProperties(input, expectedOutput, expectedProperties);

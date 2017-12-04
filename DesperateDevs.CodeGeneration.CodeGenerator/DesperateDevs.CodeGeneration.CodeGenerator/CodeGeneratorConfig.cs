@@ -25,7 +25,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
         public override Dictionary<string, string> defaultProperties {
             get {
                 return new Dictionary<string, string> {
-                    { SEARCH_PATHS_KEY, "CodeGenerator/Plugins" },
+                    { SEARCH_PATHS_KEY, "Plugins" },
                     { PLUGINS_PATHS_KEY, string.Empty },
                     { DATA_PROVIDERS_KEY, string.Empty },
                     { CODE_GENERATORS_KEY, string.Empty },

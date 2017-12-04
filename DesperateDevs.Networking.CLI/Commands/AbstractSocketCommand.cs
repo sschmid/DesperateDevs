@@ -8,11 +8,7 @@ namespace DesperateDevs.Networking.CLI {
 
     public abstract class AbstractSocketCommand : AbstractCommand {
 
-        public abstract override string trigger { get; }
-        public abstract override string description { get; }
-        public abstract override string example { get; }
-
-        protected Logger _logger;
+        protected readonly Logger _logger;
         protected AbstractTcpSocket _socket;
 
         protected AbstractSocketCommand(string loggerName) {
