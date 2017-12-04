@@ -53,15 +53,13 @@
     <Compile Include="TestFixtures\TestNamespaceClass.cs" />
     <Compile Include="TestFixtures\TestNestedClass.cs" />
     <Compile Include="TestFixtures\TestNestedEnumClass.cs" />
+    <Compile Include="TestFixtures\TestPreferences.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DesperateDevs.CodeGeneration.Plugins\EmptyUser.properties" />
-    <Content Include="DesperateDevs.CodeGeneration.Plugins\Test.properties" />
-    <Content Include="DesperateDevs.Serialization\EmptyUser.properties" />
-    <Content Include="DesperateDevs.Serialization\Preferences.properties" />
-    <Content Include="DesperateDevs.Serialization\PreferencesWithUser.properties" />
-    <Content Include="DesperateDevs.Serialization\UserOverwrite.properties" />
-    <Content Include="DesperateDevs.Serialization\UserWithKey.properties" />
+    <ProjectReference Include="..\..\DesperateDevs.Serialization\DesperateDevs.Serialization.csproj">
+      <Project>{3F7A0EC0-ECFE-4DA5-A02F-C716AD8F0817}</Project>
+      <Name>DesperateDevs.Serialization</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

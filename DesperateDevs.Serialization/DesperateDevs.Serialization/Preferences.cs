@@ -35,6 +35,11 @@ namespace DesperateDevs.Serialization {
             Refresh();
         }
 
+        protected Preferences(Properties properties, Properties userProperties) {
+            _properties = properties;
+            _userProperties = userProperties;
+        }
+
         public void Refresh() {
             _properties = loadProperties(_propertiesPath);
             _userProperties = loadProperties(_userPropertiesPath);

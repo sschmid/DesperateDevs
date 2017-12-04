@@ -1,6 +1,5 @@
 using DesperateDevs.CodeGeneration;
 using DesperateDevs.CodeGeneration.Plugins;
-using DesperateDevs.Serialization;
 using NSpec;
 
 class describe_UpdateCSProjPostProcessor : nspec {
@@ -11,7 +10,9 @@ class describe_UpdateCSProjPostProcessor : nspec {
 
         xit["manual test"] = () => {
             var postProcessor = new UpdateCSProjPostProcessor();
-            var preferences = new Preferences(pathPrefix + "Test.properties", pathPrefix + "EmptyUser.properties");
+            var preferences = new TestPreferences(
+@"DesperateDevs.CodeGeneration.Plugins.ProjectPath = Tests/TestUpdateCSProjPostProcessor/TestUpdateCSProjPostProcessor.csproj
+DesperateDevs.CodeGeneration.Plugins.TargetDirectory = Assets/Sources");
             postProcessor.Configure(preferences);
 
             var files = new [] {

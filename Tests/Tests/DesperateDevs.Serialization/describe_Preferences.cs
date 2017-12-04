@@ -4,8 +4,6 @@ using NSpec;
 
 class describe_Preferences : nspec {
 
-    readonly string pathPrefix = TestExtensions.GetProjectRoot() + "/Tests/TestFixtures/DesperateDevs.Serialization/";
-
     void when_creating_preferences() {
 
         Preferences preferences = null;
@@ -13,12 +11,7 @@ class describe_Preferences : nspec {
         context["when properties"] = () => {
 
             before = () => {
-                preferences = new Preferences(pathPrefix + "Preferences.properties", pathPrefix + "EmptyUser.properties");
-            };
-
-            it["properties exist"] = () => {
-                preferences.propertiesExist.should_be_true();
-                preferences.userPropertiesExist.should_be_true();
+                preferences = new TestPreferences("key = value");
             };
 
             it["sets properties"] = () => {
@@ -53,7 +46,9 @@ class describe_Preferences : nspec {
         context["when user properties"] = () => {
 
             before = () => {
-                preferences = new Preferences(pathPrefix + "PreferencesWithUser.properties", pathPrefix + "UserWithKey.properties");
+                preferences = new TestPreferences(
+                    "key = ${userName}",
+                    "userName = Max");
             };
 
             it["has key"] = () => {
@@ -75,7 +70,9 @@ class describe_Preferences : nspec {
             };
 
             it["user properties overwrite default properties"] = () => {
-                preferences = new Preferences(pathPrefix + "PreferencesWithUser.properties", pathPrefix + "UserOverwrite.properties");
+                preferences = new TestPreferences(
+                    "key = ${userName}",
+                    "key = Overwrite");
                 preferences["key"].should_be("Overwrite");
             };
 
