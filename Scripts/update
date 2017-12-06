@@ -13,12 +13,12 @@ editorLibDir="$libDir/Editor"
 rm -rf $libDir
 mkdir $libDir $editorLibDir
 cp_dll "$DNS.CodeGeneration.CodeGenerator.Unity.Editor" $editorLibDir
-cp_dll "$DNS.CodeGeneration" $libDir
+cp_dll "$DNS.CodeGeneration" $editorLibDir
 cp_dll "$DNS.CodeGeneration.CodeGenerator" $editorLibDir
 cp_dll "$DNS.Networking" $libDir
 cp_dll "$DNS.Serialization" $libDir
 cp_dll "$DNS.Unity.Editor" $editorLibDir
 cp_dll "$DNS.Utils" $libDir
 cp_dll "$DNS.Logging" $libDir
-cp_dll "$DNS.CodeGeneration.Plugins" $libDir
-cp_dll "$DNS.CodeGeneration.Unity.Plugins" $libDir
+cp_dll "$DNS.CodeGeneration.Plugins" $editorLibDir
+cp_dll "$DNS.CodeGeneration.Unity.Plugins" $editorLibDir

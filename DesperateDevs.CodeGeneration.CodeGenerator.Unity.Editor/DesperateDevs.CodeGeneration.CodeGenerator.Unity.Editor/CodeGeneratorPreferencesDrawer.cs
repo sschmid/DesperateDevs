@@ -38,7 +38,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
 
             setTypesAndNames<IDataProvider>(_types, out _availableDataProviderTypes, out _availableDataProviderNames);
             setTypesAndNames<ICodeGenerator>(_types, out _availableGeneratorTypes, out _availableGeneratorNames);
-            setTypesAndNames<ICodeGenerator>(_types, out _availablePostProcessorTypes, out _availablePostProcessorNames);
+            setTypesAndNames<IPostProcessor>(_types, out _availablePostProcessorTypes, out _availablePostProcessorNames);
 
             _preferences.properties.AddProperties(CodeGeneratorUtil.GetDefaultProperties(_types, _codeGeneratorConfig), false);
         }
