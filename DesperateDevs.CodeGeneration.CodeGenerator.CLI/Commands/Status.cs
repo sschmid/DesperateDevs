@@ -45,7 +45,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         }
 
         void printKeyStatus(string[] requiredKeys, CLIConfig cliConfig, Preferences preferences) {
-            var unusedKeys = Helper
+            var unusedKeys = APIUtil
                 .GetUnusedKeys(requiredKeys, preferences)
                 .Where(key => !cliConfig.ignoreUnusedKeys.Contains(key));
 
@@ -53,7 +53,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
                 _logger.Info("ℹ️️  Unused key: " + key);
             }
 
-            foreach (var key in Helper.GetMissingKeys(requiredKeys, preferences)) {
+            foreach (var key in APIUtil.GetMissingKeys(requiredKeys, preferences)) {
                 _logger.Warn("⚠️  Missing key: " + key);
             }
         }

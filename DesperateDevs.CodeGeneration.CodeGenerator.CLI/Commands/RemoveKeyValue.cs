@@ -24,7 +24,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         void removeValue(string key, string value) {
             if (_preferences.HasKey(key)) {
-                Helper.RemoveValue(
+                APIUtil.RemoveValue(
                     value,
                     _preferences[key].ArrayFromCSV(),
                     values => _preferences[key] = values.ToCSV(),
@@ -36,7 +36,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         void removeKey(string key) {
             if (_preferences.HasKey(key)) {
-                Helper.AskRemoveKey(
+                APIUtil.AskRemoveKey(
                     "Do you want to remove",
                     key,
                     _preferences);

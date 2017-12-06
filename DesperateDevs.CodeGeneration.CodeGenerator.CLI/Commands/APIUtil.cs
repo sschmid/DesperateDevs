@@ -11,7 +11,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         Ignore
     }
 
-    public static class Helper {
+    public static class APIUtil {
 
         static readonly Logger _logger = fabl.GetLogger("Jenny");
 

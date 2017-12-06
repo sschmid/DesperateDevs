@@ -47,6 +47,7 @@
     <Compile Include="CLIConfig.cs" />
     <Compile Include="Commands\AbstractPreferencesCommand.cs" />
     <Compile Include="Commands\AddKeyValue.cs" />
+    <Compile Include="Commands\APIUtil.cs" />
     <Compile Include="Commands\AutoImport.cs" />
     <Compile Include="Commands\Client.cs" />
     <Compile Include="Commands\Doctor.cs" />
@@ -57,7 +58,6 @@
     <Compile Include="Commands\FixConfig.cs" />
     <Compile Include="Commands\Format.cs" />
     <Compile Include="Commands\Generate.cs" />
-    <Compile Include="Commands\Helper.cs" />
     <Compile Include="Commands\NewConfig.cs" />
     <Compile Include="Commands\RemoveKeyValue.cs" />
     <Compile Include="Commands\ScanAssemblies.cs" />

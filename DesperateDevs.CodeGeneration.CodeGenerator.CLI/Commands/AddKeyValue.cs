@@ -22,13 +22,13 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         void addKeyValue(string key, string value) {
             if (_preferences.HasKey(key)) {
-                Helper.AddValue(
+                APIUtil.AddValue(
                     value,
                     _preferences[key].ArrayFromCSV(),
                     values => _preferences[key] = values.ToCSV(),
                     _preferences);
             } else {
-                Helper.AskAddKey("Key doesn't exist. Do you want to add", key, value, _preferences);
+                APIUtil.AskAddKey("Key doesn't exist. Do you want to add", key, value, _preferences);
             }
         }
     }
