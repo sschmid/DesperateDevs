@@ -4,7 +4,7 @@ namespace DesperateDevs.Serialization {
 
     public static class ConfigurableConfigExtension {
 
-        public static T CreateConfig<T>(this Preferences preferences) where T : IConfigurable, new() {
+        public static T CreateAndConfigure<T>(this Preferences preferences) where T : IConfigurable, new() {
             var config = new T();
             config.Configure(preferences);
             return config;

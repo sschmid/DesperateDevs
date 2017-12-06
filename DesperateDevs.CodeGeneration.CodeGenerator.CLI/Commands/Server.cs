@@ -23,7 +23,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         }
 
         protected override void run() {
-            var config = _preferences.CreateConfig<CodeGeneratorConfig>();
+            var config = _preferences.CreateAndConfigure<CodeGeneratorConfig>();
             var server = new TcpServerSocket();
             _socket = server;
             server.OnReceived += onReceived;

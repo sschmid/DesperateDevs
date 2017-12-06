@@ -21,7 +21,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         protected override void run() {
             _command = string.Join(" ", _rawArgs.Skip(1).ToArray());
 
-            var config = _preferences.CreateConfig<CodeGeneratorConfig>();
+            var config = _preferences.CreateAndConfigure<CodeGeneratorConfig>();
             var client = new TcpClientSocket();
             client.OnConnected += onConnected;
             client.OnReceived += onReceived;

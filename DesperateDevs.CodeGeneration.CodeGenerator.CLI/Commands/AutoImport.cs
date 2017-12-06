@@ -21,7 +21,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         }
 
         void autoImport() {
-            var config = _preferences.CreateConfig<CodeGeneratorConfig>();
+            var config = _preferences.CreateAndConfigure<CodeGeneratorConfig>();
 
             var plugins = config.searchPaths
                 .SelectMany(path => Directory.GetFiles(path, "*.dll", SearchOption.AllDirectories))

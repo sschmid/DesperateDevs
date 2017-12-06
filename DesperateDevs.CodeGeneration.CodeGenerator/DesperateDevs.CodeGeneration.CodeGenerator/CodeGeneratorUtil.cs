@@ -10,7 +10,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
 
         public static CodeGenerator CodeGeneratorFromPreferences(Preferences preferences) {
             var types = LoadTypesFromPlugins(preferences);
-            var config = preferences.CreateConfig<CodeGeneratorConfig>();
+            var config = preferences.CreateAndConfigure<CodeGeneratorConfig>();
 
             var dataProviders = GetEnabledInstancesOf<IDataProvider>(types, config.dataProviders);
             var codeGenerators = GetEnabledInstancesOf<ICodeGenerator>(types, config.codeGenerators);
@@ -30,7 +30,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
         }
 
         public static Type[] LoadTypesFromPlugins(Preferences preferences) {
-            var config = preferences.CreateConfig<CodeGeneratorConfig>();
+            var config = preferences.CreateAndConfigure<CodeGeneratorConfig>();
             var resolver = new AssemblyResolver(AppDomain.CurrentDomain, config.searchPaths);
             foreach (var path in config.plugins) {
                 resolver.Load(path);

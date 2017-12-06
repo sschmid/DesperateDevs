@@ -16,8 +16,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         }
 
         protected override void run() {
-            var config = _preferences.CreateConfig<CodeGeneratorConfig>();
-            var cliConfig = _preferences.CreateConfig<CLIConfig>();
+            var config = _preferences.CreateAndConfigure<CodeGeneratorConfig>();
+            var cliConfig = _preferences.CreateAndConfigure<CLIConfig>();
 
             forceAddMissingKeys(config.defaultProperties, _preferences);
             forceAddMissingKeys(cliConfig.defaultProperties, _preferences);

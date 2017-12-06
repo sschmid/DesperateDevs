@@ -30,9 +30,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
 
         public override void Initialize(Preferences preferences) {
             _preferences = preferences;
-            _codeGeneratorConfig = new CodeGeneratorConfig();
+            _codeGeneratorConfig = preferences.CreateAndConfigure<CodeGeneratorConfig>();
             preferences.properties.AddProperties(_codeGeneratorConfig.defaultProperties, false);
-            _codeGeneratorConfig.Configure(preferences);
 
             _types = CodeGeneratorUtil.LoadTypesFromPlugins(preferences);
 

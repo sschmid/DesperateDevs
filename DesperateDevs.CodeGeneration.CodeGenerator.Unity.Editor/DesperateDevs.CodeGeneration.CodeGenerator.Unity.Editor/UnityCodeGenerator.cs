@@ -86,7 +86,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
         public static void GenerateExternal() {
             Debug.Log("Connecting...");
 
-            var config = Preferences.sharedInstance.CreateConfig<CodeGeneratorConfig>();
+            var config = Preferences.sharedInstance.CreateAndConfigure<CodeGeneratorConfig>();
             var client = new TcpClientSocket();
             client.OnConnected += onConnected;
             client.OnReceived += onReceive;
