@@ -41,12 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DesperateDevs.CodeGeneration.CodeGenerator\AbstractConfigurableConfig.cs" />
-    <Compile Include="DesperateDevs.CodeGeneration.CodeGenerator\AssemblyResolver.cs" />
     <Compile Include="DesperateDevs.CodeGeneration.CodeGenerator\CodeGenerator.cs" />
     <Compile Include="DesperateDevs.CodeGeneration.CodeGenerator\CodeGeneratorConfig.cs" />
     <Compile Include="DesperateDevs.CodeGeneration.CodeGenerator\CodeGeneratorUtil.cs" />
-    <Compile Include="DesperateDevs.CodeGeneration.CodeGenerator\IConfigurable.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DesperateDevs.CodeGeneration\DesperateDevs.CodeGeneration.csproj">

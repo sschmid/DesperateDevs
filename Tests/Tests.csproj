@@ -55,7 +55,6 @@
     <Compile Include="TestRunner.cs" />
     <Compile Include="Tests\chech_namespaces.cs" />
     <Compile Include="Tests\DesperateDevs.CLI\describe_ArgsExtension.cs" />
-    <Compile Include="Tests\DesperateDevs.CodeGeneration.CodeGenerator\describe_AssemblyResolver.cs" />
     <Compile Include="Tests\DesperateDevs.CodeGeneration.CodeGenerator\describe_CodeGenerator.cs" />
     <Compile Include="Tests\DesperateDevs.CodeGeneration.Plugins\describe_MergeFilesPostProcessor.cs" />
     <Compile Include="Tests\DesperateDevs.CodeGeneration.Plugins\describe_TargetDirectoryExtension.cs" />
@@ -75,6 +74,7 @@
     <Compile Include="Tests\DesperateDevs.Utils\Extensions\describe_InterfaceTypeExtension.cs" />
     <Compile Include="Tests\DesperateDevs.Utils\Extensions\describe_SerializationTypeExtension.cs" />
     <Compile Include="Tests\DesperateDevs.Utils\Extensions\describe_StringExtension.cs" />
+    <Compile Include="Tests\DesperateDevs.Utils\Reflection\describe_AssemblyResolver.cs" />
     <Compile Include="Tests\DesperateDevs.Utils\Reflection\describe_PublicMemberInfo.cs" />
     <Compile Include="Tests\TestExtensions.cs" />
   </ItemGroup>

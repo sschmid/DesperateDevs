@@ -1,7 +1,5 @@
 using System;
-using System.Linq;
 using DesperateDevs.Serialization;
-using DesperateDevs.Utils;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,21 +7,22 @@ namespace DesperateDevs.Unity.Editor {
 
     public class PreferencesWindow : EditorWindow {
 
+        public IPreferencesDrawer[] preferencesDrawers {
+            get { return _preferencesDrawers; }
+            set {
+                _preferencesDrawers = value;
+                initialize();
+            } }
+
         Preferences _preferences;
-        IPreferencesDrawer[] _preferencesDrawers;
+        IPreferencesDrawer[] _preferencesDrawers = new IPreferencesDrawer[0];
         Vector2 _scrollViewPosition;
 
         Exception _configException;
 
-        void OnEnable() {
-            _preferencesDrawers = AppDomain.CurrentDomain
-                .GetInstancesOf<IPreferencesDrawer>()
-                .OrderBy(drawer => drawer.priority)
-                .ToArray();
-
+        void initialize() {
             try {
                 _preferences = Preferences.sharedInstance;
-                _preferences.Refresh();
 
                 foreach (var drawer in _preferencesDrawers) {
                     drawer.Initialize(_preferences);
@@ -36,9 +35,10 @@ namespace DesperateDevs.Unity.Editor {
         }
 
         void OnGUI() {
+            drawHeader();
             _scrollViewPosition = EditorGUILayout.BeginScrollView(_scrollViewPosition);
             {
-                drawPreferencesDrawers();
+                drawContent();
             }
             EditorGUILayout.EndScrollView();
 
@@ -47,11 +47,21 @@ namespace DesperateDevs.Unity.Editor {
             }
         }
 
-        void drawPreferencesDrawers() {
+        void drawHeader() {
+            for (int i = 0; i < _preferencesDrawers.Length; i++) {
+                try {
+                    _preferencesDrawers[i].DrawHeader(_preferences);
+                } catch (Exception ex) {
+                    drawException(ex);
+                }
+            }
+        }
+
+        void drawContent() {
             if (_configException == null) {
                 for (int i = 0; i < _preferencesDrawers.Length; i++) {
                     try {
-                        _preferencesDrawers[i].Draw(_preferences);
+                        _preferencesDrawers[i].DrawContent(_preferences);
                     } catch (Exception ex) {
                         drawException(ex);
                     }
@@ -70,7 +80,11 @@ namespace DesperateDevs.Unity.Editor {
             style.wordWrap = true;
             style.normal.textColor = Color.red;
 
-            EditorGUILayout.LabelField(exception.Message, style);
+            if (Event.current.alt) {
+                EditorGUILayout.LabelField(exception.ToString(), style);
+            } else {
+                EditorGUILayout.LabelField(exception.Message, style);
+            }
 
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Please make sure the properties files are set up correctly.");

@@ -6,14 +6,15 @@ using System.Text;
 using DesperateDevs.CLI;
 using DesperateDevs.Logging;
 using DesperateDevs.Networking;
+using DesperateDevs.Serialization;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
     public class Server : AbstractPreferencesCommand {
 
         public override string trigger { get { return "server"; } }
-        public override string description { get { return "Start server mode (default port is 3333)"; } }
-        public override string example { get { return "jenny server port"; } }
+        public override string description { get { return "Start server mode"; } }
+        public override string example { get { return "jenny server"; } }
 
         AbstractTcpSocket _socket;
         readonly List<string> _logBuffer = new List<string>();
@@ -22,17 +23,11 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         }
 
         protected override void run() {
-            var port = 0;
-            try {
-                port = int.Parse(_args[0]);
-            } catch (Exception) {
-                port = 3333;
-            }
-
+            var config = _preferences.CreateConfig<CodeGeneratorConfig>();
             var server = new TcpServerSocket();
             _socket = server;
             server.OnReceived += onReceived;
-            server.Listen(port);
+            server.Listen(config.port);
             Console.CancelKeyPress += onCancel;
             while (true) {
                 server.Send(Encoding.UTF8.GetBytes(Console.ReadLine()));

@@ -6,7 +6,7 @@ using NSpec;
 class describe_TcpClientSocket : nspec {
 
     const int port = 4321;
-    IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
+    IPAddress ipAddress = IPAddress.Loopback;
 
     void when_socket() {
 

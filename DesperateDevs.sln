@@ -49,6 +49,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unity", "Unity", "{45E87FEC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Unity.Editor", "DesperateDevs.Unity.Editor\DesperateDevs.Unity.Editor.csproj", "{03F02F3C-FA1E-4749-A1F3-EC700CB60A00}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor", "DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor\DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor.csproj", "{0FD3DB90-FEF4-47B8-B570-4FC4C19CCE38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneration.Unity.Plugins", "DesperateDevs.CodeGeneration.Unity.Plugins\DesperateDevs.CodeGeneration.Unity.Plugins.csproj", "{81F4D3DE-825A-419A-97DC-F8E6BDBC8E12}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -127,6 +131,14 @@ Global
 		{03F02F3C-FA1E-4749-A1F3-EC700CB60A00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03F02F3C-FA1E-4749-A1F3-EC700CB60A00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03F02F3C-FA1E-4749-A1F3-EC700CB60A00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FD3DB90-FEF4-47B8-B570-4FC4C19CCE38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FD3DB90-FEF4-47B8-B570-4FC4C19CCE38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FD3DB90-FEF4-47B8-B570-4FC4C19CCE38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FD3DB90-FEF4-47B8-B570-4FC4C19CCE38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81F4D3DE-825A-419A-97DC-F8E6BDBC8E12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81F4D3DE-825A-419A-97DC-F8E6BDBC8E12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81F4D3DE-825A-419A-97DC-F8E6BDBC8E12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81F4D3DE-825A-419A-97DC-F8E6BDBC8E12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -146,5 +158,7 @@ Global
 		{A2006188-6384-4439-9AA4-9E007CBF83D7} = {6CB85EC2-C312-4303-B2E9-E6A9F8D151CE}
 		{DF2FD08A-2E44-40BE-8A30-CD9D4F6DB65C} = {FF9FB1B0-6DD7-4081-9641-190F96CFC67C}
 		{03F02F3C-FA1E-4749-A1F3-EC700CB60A00} = {45E87FEC-14D7-45B3-ADC6-BB0A1DDC1E29}
+		{0FD3DB90-FEF4-47B8-B570-4FC4C19CCE38} = {6CB85EC2-C312-4303-B2E9-E6A9F8D151CE}
+		{81F4D3DE-825A-419A-97DC-F8E6BDBC8E12} = {6CB85EC2-C312-4303-B2E9-E6A9F8D151CE}
 	EndGlobalSection
 EndGlobal

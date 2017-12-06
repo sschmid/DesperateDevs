@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Linq;
-using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using DesperateDevs.Networking;
+using DesperateDevs.Serialization;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
     public class Client : AbstractPreferencesCommand {
 
         public override string trigger { get { return "client"; } }
-        public override string description { get { return "Start client mode (default port is 3333)"; } }
-        public override string example { get { return "jenny client port command"; } }
+        public override string description { get { return "Start client mode"; } }
+        public override string example { get { return "jenny client command"; } }
 
         string _command;
 
@@ -19,20 +19,14 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         }
 
         protected override void run() {
-            var port = 0;
-            try {
-                port = int.Parse(_rawArgs[1]);
-                _command = string.Join(" ", _rawArgs.Skip(2).ToArray());
-            } catch (Exception) {
-                port = 3333;
-                _command = string.Join(" ", _rawArgs.Skip(1).ToArray());
-            }
+            _command = string.Join(" ", _rawArgs.Skip(1).ToArray());
 
+            var config = _preferences.CreateConfig<CodeGeneratorConfig>();
             var client = new TcpClientSocket();
             client.OnConnected += onConnected;
             client.OnReceived += onReceived;
             client.OnDisconnected += onDisconnected;
-            client.Connect(IPAddress.Parse("127.0.0.1"), port);
+            client.Connect(config.host.ResolveHost(), config.port);
 
             while (true) {
             }

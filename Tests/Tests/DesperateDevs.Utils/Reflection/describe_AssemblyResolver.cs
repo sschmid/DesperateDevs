@@ -1,5 +1,5 @@
 ﻿using System;
-using DesperateDevs.CodeGeneration.CodeGenerator;
+using DesperateDevs.Utils;
 using NSpec;
 
 class describe_AssemblyResolver : nspec {

@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using DesperateDevs.Logging;
-using DesperateDevs.Utils;
 
-namespace DesperateDevs.CodeGeneration.CodeGenerator {
+namespace DesperateDevs.Utils {
 
     public class AssemblyResolver {
 

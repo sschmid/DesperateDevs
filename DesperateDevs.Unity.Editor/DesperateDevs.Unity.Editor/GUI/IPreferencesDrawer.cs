@@ -8,7 +8,7 @@ namespace DesperateDevs.Unity.Editor {
         string title { get; }
 
         void Initialize(Preferences preferences);
-
-        void Draw(Preferences preferences);
+        void DrawHeader(Preferences preferences);
+        void DrawContent(Preferences preferences);
     }
 }

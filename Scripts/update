@@ -1,0 +1,22 @@
+#!/bin/bash -e
+echo $0
+source "$(cd $(dirname ${BASH_SOURCE[0]}) && pwd)/consts"
+
+$SCRIPTS/test
+$SCRIPTS/build
+
+# update unity project
+
+# CodeGenerator
+libDir="Tests/Unity/CodeGenerator/Assets/Libraries"
+editorLibDir="$libDir/Editor"
+rm -rf $libDir
+mkdir $libDir $editorLibDir
+cp_dll "$DNS.CodeGeneration.CodeGenerator.Unity.Editor" $editorLibDir
+cp_dll "$DNS.CodeGeneration" $libDir
+cp_dll "$DNS.CodeGeneration.CodeGenerator" $editorLibDir
+cp_dll "$DNS.Networking" $libDir
+cp_dll "$DNS.Serialization" $libDir
+cp_dll "$DNS.Unity.Editor" $editorLibDir
+cp_dll "$DNS.Utils" $libDir
+cp_dll "$DNS.Logging" $libDir

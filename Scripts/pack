@@ -2,47 +2,40 @@
 echo $0
 source "$(cd $(dirname ${BASH_SOURCE[0]}) && pwd)/consts"
 
-${SCRIPTS}/test
-${SCRIPTS}/build
+$SCRIPTS/test
+$SCRIPTS/build
 
 # clean
 rm -rf $BUILD
 
 # create folder structure
-mkdir $BUILD $BUILD_SRC $COLLECTED_DIR
-
-BIN="bin/Release"
-
-# CLI
-PRE="DesperateDevs.CLI"
-cp "${ROOT}/$PRE/$BIN/$PRE.dll" ${BUILD_SRC}
+mkdir $BUILD $BUILD_SRC
 
 # CodeGeneration
-PRE="DesperateDevs.CodeGeneration"
-cp "${ROOT}/$PRE/$BIN/$PRE.dll" ${BUILD_SRC}
-cp "${ROOT}/$PRE.CodeGenerator/$BIN/$PRE.CodeGenerator.dll" ${BUILD_SRC}
-cp "${ROOT}/$PRE.CodeGenerator.CLI/$BIN/$PRE.CodeGenerator.CLI.exe" ${BUILD_SRC}
-cp "${ROOT}/$PRE.Plugins/$BIN/$PRE.Plugins.dll" ${BUILD_SRC}
+cp_dll "$DNS.CodeGeneration" $BUILD_SRC
+cp_dll "$DNS.CodeGeneration.CodeGenerator" $BUILD_SRC
+cp_exe "$DNS.CodeGeneration.CodeGenerator.CLI" $BUILD_SRC
+cp_dll "$DNS.CodeGeneration.CodeGenerator.Unity.Editor" $BUILD_SRC
+cp_dll "$DNS.CodeGeneration.Plugins" $BUILD_SRC
+cp_dll "$DNS.CodeGeneration.Unity.Plugins" $BUILD_SRC
 
 # Logging
-PRE="DesperateDevs.Logging"
-cp "${ROOT}/$PRE/$BIN/$PRE.dll" ${BUILD_SRC}
-cp "${ROOT}/$PRE.Appenders/$BIN/$PRE.Appenders.dll" ${BUILD_SRC}
-cp "${ROOT}/$PRE.Formatters/$BIN/$PRE.Formatters.dll" ${BUILD_SRC}
+cp_dll "$DNS.Logging" $BUILD_SRC
+cp_dll "$DNS.Logging.Appenders" $BUILD_SRC
+cp_dll "$DNS.Logging.Formatters" $BUILD_SRC
 
 # Networking
-PRE="DesperateDevs.Networking"
-cp "${ROOT}/$PRE/$BIN/$PRE.dll" ${BUILD_SRC}
-cp "${ROOT}/$PRE.CLI/$BIN/$PRE.CLI.exe" ${BUILD_SRC}
+cp_dll "$DNS.Networking" $BUILD_SRC
+cp_exe "$DNS.Networking.CLI" $BUILD_SRC
 
-# Serialization
-PRE="DesperateDevs.Serialization"
-cp "${ROOT}/$PRE/$BIN/$PRE.dll" ${BUILD_SRC}
+# Unity
+cp_dll "$DNS.Unity.Editor" $BUILD_SRC
 
-# Unity.Editor
-PRE="DesperateDevs.Unity.Editor"
-cp "${ROOT}/$PRE/$BIN/$PRE.dll" ${BUILD_SRC}
+# CLI
+cp_dll "$DNS.CLI" $BUILD_SRC
+
+## Serialization
+cp_dll "$DNS.Serialization" $BUILD_SRC
 
 # Utils
-PRE="DesperateDevs.Utils"
-cp "${ROOT}/$PRE/$BIN/$PRE.dll" ${BUILD_SRC}
+cp_dll "$DNS.Utils" $BUILD_SRC

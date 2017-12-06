@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using DesperateDevs.Serialization;
 
-namespace DesperateDevs.CodeGeneration.CodeGenerator {
+namespace DesperateDevs.Serialization {
 
     public interface IConfigurable {
 

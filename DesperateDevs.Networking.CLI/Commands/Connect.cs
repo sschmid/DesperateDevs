@@ -17,7 +17,7 @@ namespace DesperateDevs.Networking.CLI {
             int port;
 
             try {
-                ip = IPAddress.Parse(_args[0]);
+                ip = Dns.GetHostEntry(_args[0]).AddressList[0];
                 port = int.Parse(_args[1]);
             } catch (Exception) {
                 _logger.Warn("Please specify a valid ip and port");

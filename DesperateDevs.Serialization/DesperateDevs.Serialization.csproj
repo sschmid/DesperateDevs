@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DesperateDevs.Serialization\AbstractConfigurableConfig.cs" />
+    <Compile Include="DesperateDevs.Serialization\IConfigurable.cs" />
     <Compile Include="DesperateDevs.Serialization\Preferences.cs" />
     <Compile Include="DesperateDevs.Serialization\Properties.cs" />
   </ItemGroup>

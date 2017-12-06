@@ -9,7 +9,7 @@ using NSpec;
 class describe_TcpServerSocket : nspec {
 
     const int port = 1234;
-    readonly IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
+    readonly IPAddress ipAddress = IPAddress.Loopback;
 
     void when_socket() {
 

@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DesperateDevs.Networking\AbstractTcpSocket.cs" />
+    <Compile Include="DesperateDevs.Networking\IPAddressStringExtension.cs" />
     <Compile Include="DesperateDevs.Networking\TcpClientSocket.cs" />
     <Compile Include="DesperateDevs.Networking\TcpServerSocket.cs" />
   </ItemGroup>

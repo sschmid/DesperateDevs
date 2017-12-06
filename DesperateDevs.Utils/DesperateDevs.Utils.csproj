@@ -48,9 +48,16 @@
     <Compile Include="DesperateDevs.Utils\Extensions\InterfaceTypeExtension.cs" />
     <Compile Include="DesperateDevs.Utils\Extensions\SerializationTypeExtension.cs" />
     <Compile Include="DesperateDevs.Utils\Extensions\StringExtension.cs" />
+    <Compile Include="DesperateDevs.Utils\Reflection\AssemblyResolver.cs" />
     <Compile Include="DesperateDevs.Utils\Reflection\AttributeInfo.cs" />
     <Compile Include="DesperateDevs.Utils\Reflection\PublicMemberInfo.cs" />
     <Compile Include="DesperateDevs.Utils\Reflection\PublicMemberInfoExtension.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DesperateDevs.Logging\DesperateDevs.Logging.csproj">
+      <Project>{219375E3-8AA6-4A75-8F9A-297D23E34D8C}</Project>
+      <Name>DesperateDevs.Logging</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

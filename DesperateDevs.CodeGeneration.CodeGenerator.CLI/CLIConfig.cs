@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DesperateDevs.Serialization;
 using DesperateDevs.Utils;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {

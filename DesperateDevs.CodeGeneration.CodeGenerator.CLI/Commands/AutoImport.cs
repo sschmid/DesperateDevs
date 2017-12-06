@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using DesperateDevs.Serialization;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 

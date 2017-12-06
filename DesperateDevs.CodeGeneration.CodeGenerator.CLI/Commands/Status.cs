@@ -50,7 +50,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
                 .Where(key => !cliConfig.ignoreUnusedKeys.Contains(key));
 
             foreach (var key in unusedKeys) {
-                _logger.Info("⚠️  Unused key: " + key);
+                _logger.Info("ℹ️️  Unused key: " + key);
             }
 
             foreach (var key in Helper.GetMissingKeys(requiredKeys, preferences)) {
@@ -70,7 +70,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         void printUnavailable(string[] names) {
             foreach (var name in names) {
-                _logger.Warn("⚠️ Unavailable: " + name);
+                _logger.Warn("⚠️  Unavailable: " + name);
             }
         }
 

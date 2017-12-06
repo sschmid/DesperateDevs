@@ -10,8 +10,9 @@ namespace DesperateDevs.Unity.Editor {
         protected bool _drawContent = true;
 
         public abstract void Initialize(Preferences preferences);
+        public abstract void DrawHeader(Preferences preferences);
 
-        public void Draw(Preferences preferences) {
+        public virtual void DrawContent(Preferences preferences) {
             _drawContent = EditorLayout.DrawSectionHeaderToggle(title, _drawContent);
             if (_drawContent) {
                 EditorLayout.BeginSectionContent();

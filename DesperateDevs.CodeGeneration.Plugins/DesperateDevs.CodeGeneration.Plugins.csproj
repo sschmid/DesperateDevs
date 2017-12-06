@@ -50,7 +50,6 @@
     <Compile Include="DesperateDevs.CodeGeneration.Plugins\PostProcessors\NewLinePostProcessor.cs" />
     <Compile Include="DesperateDevs.CodeGeneration.Plugins\PostProcessors\UpdateCSProjPostProcessor.cs" />
     <Compile Include="DesperateDevs.CodeGeneration.Plugins\PostProcessors\WriteToDiskPostProcessor.cs" />
-    <Compile Include="DesperateDevs.CodeGeneration.Plugins\TargetDirectoryStringExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DesperateDevs.CodeGeneration.CodeGenerator\DesperateDevs.CodeGeneration.CodeGenerator.csproj">

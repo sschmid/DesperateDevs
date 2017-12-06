@@ -1,11 +1,21 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 
 namespace DesperateDevs.Serialization {
 
     public class Preferences {
 
-        public static Preferences sharedInstance { get { return _sharedInstance; } set { _sharedInstance = value; } }
+        public static Preferences sharedInstance {
+            get {
+                if (_sharedInstance == null) {
+                    _sharedInstance = new Preferences((string)null , null);
+                }
+
+                _sharedInstance.Reload();
+                return _sharedInstance;
+            }
+            set { _sharedInstance = value; } }
 
         static Preferences _sharedInstance;
 
@@ -27,9 +37,15 @@ namespace DesperateDevs.Serialization {
         Properties _userProperties;
 
         public Preferences(string propertiesPath, string userPropertiesPath) {
-            _propertiesPath = propertiesPath ?? findFilePath("*.properties");
-            _userPropertiesPath = userPropertiesPath ?? findFilePath("*.userproperties");
-            Refresh();
+            _propertiesPath = propertiesPath
+                              ?? findFilePath("*.properties")
+                              ?? "Preferences.properties";
+
+            _userPropertiesPath = userPropertiesPath
+                                  ?? findFilePath("*.userproperties")
+                                  ?? Environment.UserName + ".userproperties";
+
+            Reload();
         }
 
         protected Preferences(Properties properties, Properties userProperties) {
@@ -37,7 +53,8 @@ namespace DesperateDevs.Serialization {
             _userProperties = userProperties;
         }
 
-        public void Refresh() {
+        // TODO Make public again
+        void Reload() {
             _properties = loadProperties(_propertiesPath);
             _userProperties = loadProperties(_userPropertiesPath);
         }
