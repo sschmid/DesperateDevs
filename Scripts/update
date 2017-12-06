@@ -20,3 +20,5 @@ cp_dll "$DNS.Serialization" $libDir
 cp_dll "$DNS.Unity.Editor" $editorLibDir
 cp_dll "$DNS.Utils" $libDir
 cp_dll "$DNS.Logging" $libDir
+cp_dll "$DNS.CodeGeneration.Plugins" $libDir
+cp_dll "$DNS.CodeGeneration.Unity.Plugins" $libDir

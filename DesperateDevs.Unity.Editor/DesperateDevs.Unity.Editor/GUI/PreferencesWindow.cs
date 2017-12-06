@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using DesperateDevs.Serialization;
+using DesperateDevs.Utils;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,15 +9,10 @@ namespace DesperateDevs.Unity.Editor {
 
     public class PreferencesWindow : EditorWindow {
 
-        public IPreferencesDrawer[] preferencesDrawers {
-            get { return _preferencesDrawers; }
-            set {
-                _preferencesDrawers = value;
-                initialize();
-            } }
+        public string preferencesName;
 
         Preferences _preferences;
-        IPreferencesDrawer[] _preferencesDrawers = new IPreferencesDrawer[0];
+        IPreferencesDrawer[] _preferencesDrawers;
         Vector2 _scrollViewPosition;
 
         Exception _configException;
@@ -24,17 +21,43 @@ namespace DesperateDevs.Unity.Editor {
             try {
                 _preferences = Preferences.sharedInstance;
 
+                var config = new PreferencesConfig(preferencesName);
+                _preferences.properties.AddProperties(config.defaultProperties, false);
+                config.Configure(_preferences);
+
+                var allPreferencesDrawers = AppDomain.CurrentDomain
+                    .GetInstancesOf<IPreferencesDrawer>()
+                    .OrderBy(drawer => drawer.priority)
+                    .ToArray();
+
+                if (config.preferenceDrawers.Length == 0) {
+                    config.preferenceDrawers = allPreferencesDrawers
+                        .Select(drawer => drawer.GetType().FullName)
+                        .ToArray();
+                }
+
+                var enabledPreferenceDrawers = config.preferenceDrawers;
+
+                _preferencesDrawers = allPreferencesDrawers
+                    .Where(drawer => enabledPreferenceDrawers.Contains(drawer.GetType().FullName))
+                    .ToArray();
+
                 foreach (var drawer in _preferencesDrawers) {
                     drawer.Initialize(_preferences);
                 }
 
                 _preferences.Save();
             } catch (Exception ex) {
+                _preferencesDrawers = new IPreferencesDrawer[0];
                 _configException = ex;
             }
         }
 
         void OnGUI() {
+            if (_preferencesDrawers == null) {
+                initialize();
+            }
+
             drawHeader();
             _scrollViewPosition = EditorGUILayout.BeginScrollView(_scrollViewPosition);
             {

@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DesperateDevs.Unity.Editor\GUI\AbstractPreferencesDrawer.cs" />
+    <Compile Include="DesperateDevs.Unity.Editor\GUI\PreferencesConfig.cs" />
     <Compile Include="DesperateDevs.Unity.Editor\GUI\Styles.cs" />
     <Compile Include="DesperateDevs.Unity.Editor\GUI\IPreferencesDrawer.cs" />
     <Compile Include="DesperateDevs.Unity.Editor\GUI\Layout\EditorWindow.cs" />

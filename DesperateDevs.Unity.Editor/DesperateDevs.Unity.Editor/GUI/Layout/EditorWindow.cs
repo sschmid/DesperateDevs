@@ -5,10 +5,9 @@ namespace DesperateDevs.Unity.Editor {
 
     public static partial class EditorLayout {
 
-        public static T ShowWindow<T>(string title, Vector2 size) where T : EditorWindow {
+        public static T GetWindow<T>(string title, Vector2 size) where T : EditorWindow {
             var window = EditorWindow.GetWindow<T>(true, title);
             window.minSize = window.maxSize = size;
-            window.Show();
             return window;
         }
 
