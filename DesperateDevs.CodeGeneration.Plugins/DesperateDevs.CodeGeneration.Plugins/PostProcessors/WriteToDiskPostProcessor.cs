@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.IO;
-using DesperateDevs.CodeGeneration.CodeGenerator;
 using DesperateDevs.Serialization;
 
 namespace DesperateDevs.CodeGeneration.Plugins {
@@ -9,7 +8,6 @@ namespace DesperateDevs.CodeGeneration.Plugins {
 
         public string name { get { return "Write to disk"; } }
         public int priority { get { return 100; } }
-        public bool isEnabledByDefault { get { return true; } }
         public bool runInDryMode { get { return false; } }
 
         public Dictionary<string, string> defaultProperties { get { return _targetDirectoryConfig.defaultProperties; } }

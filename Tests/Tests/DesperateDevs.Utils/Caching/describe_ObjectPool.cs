@@ -21,23 +21,23 @@ class describe_ObjectPool : nspec {
         };
 
         it["gets pooled instance"] = () => {
-            var component = new TestClassWithField();
-            objectPool.Push(component);
-            objectPool.Get().should_be_same(component);
+            var obj = new TestClassWithField();
+            objectPool.Push(obj);
+            objectPool.Get().should_be_same(obj);
         };
 
         it["resets pushed instance"] = () => {
-            var component = new TestClassWithField{ value= value };
-            objectPool.Push(component);
-            component.value.should_be_null();
+            var obj = new TestClassWithField{ value= value };
+            objectPool.Push(obj);
+            obj.value.should_be_null();
         };
 
         it["doesn't reset when reset method is null"] = () => {
             objectPool = new ObjectPool<TestClassWithField>(() => new TestClassWithField { value = value });
-            var component = new TestClassWithField { value = value };
-            objectPool.Push(component);
-            component.value.should_be(value);
-            objectPool.Get().should_be_same(component);
+            var obj = new TestClassWithField { value = value };
+            objectPool.Push(obj);
+            obj.value.should_be(value);
+            objectPool.Get().should_be_same(obj);
         };
     }
 }

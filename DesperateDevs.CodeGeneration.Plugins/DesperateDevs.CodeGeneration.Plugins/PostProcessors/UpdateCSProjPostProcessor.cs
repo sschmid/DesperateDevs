@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Linq;
-using DesperateDevs.CodeGeneration.CodeGenerator;
 using DesperateDevs.Serialization;
 using DesperateDevs.Utils;
 
@@ -12,7 +11,6 @@ namespace DesperateDevs.CodeGeneration.Plugins {
 
         public string name { get { return "Update .csproj"; } }
         public int priority { get { return 96; } }
-        public bool isEnabledByDefault { get { return false; } }
         public bool runInDryMode { get { return false; } }
 
         public Dictionary<string, string> defaultProperties {

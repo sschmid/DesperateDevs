@@ -7,7 +7,6 @@ namespace DesperateDevs.CodeGeneration.Plugins {
 
         public string name { get { return "Merge files"; } }
         public int priority { get { return 90; } }
-        public bool isEnabledByDefault { get { return true; } }
         public bool runInDryMode { get { return true; } }
 
         public CodeGenFile[] PostProcess(CodeGenFile[] files) {

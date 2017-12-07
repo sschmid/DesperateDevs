@@ -6,7 +6,6 @@ namespace DesperateDevs.CodeGeneration.Unity.Plugins {
     public class DebugLogPostProcessor : IPostProcessor {
 
         public string name { get { return "Debug.Log generated files"; } }
-        public bool isEnabledByDefault { get { return true; } }
         public int priority { get { return 200; } }
         public bool runInDryMode { get { return true; } }
 

@@ -222,7 +222,6 @@ public class Data_1_2_Provider : IDataProvider {
 
     public string name { get { return ""; } }
     public int priority { get { return 0; } }
-    public bool isEnabledByDefault { get { return true; } }
     public bool runInDryMode { get { return true; } }
 
     public CodeGeneratorData[] GetData() {
@@ -243,7 +242,6 @@ public class Data_3_4_Provider : IDataProvider {
 
     public string name { get { return ""; } }
     public int priority { get { return 5; } }
-    public bool isEnabledByDefault { get { return true; } }
     public bool runInDryMode { get { return true; } }
 
     public CodeGeneratorData[] GetData() {
@@ -264,7 +262,6 @@ public class DisabledDataProvider : IDataProvider {
 
     public string name { get { return ""; } }
     public int priority { get { return 5; } }
-    public bool isEnabledByDefault { get { return true; } }
     public bool runInDryMode { get { return false; } }
 
     public CodeGeneratorData[] GetData() {
@@ -285,7 +282,6 @@ public class DataFile1CodeGenerator : ICodeGenerator {
 
     public string name { get { return ""; } }
     public int priority { get { return 0; } }
-    public bool isEnabledByDefault { get { return true; } }
     public bool runInDryMode { get { return true; } }
 
     public CodeGenFile[] Generate(CodeGeneratorData[] data) {
@@ -302,7 +298,6 @@ public class DataFile2CodeGenerator : ICodeGenerator {
 
     public string name { get { return ""; } }
     public int priority { get { return 5; } }
-    public bool isEnabledByDefault { get { return true; } }
     public bool runInDryMode { get { return true; } }
 
     public CodeGenFile[] Generate(CodeGeneratorData[] data) {
@@ -319,7 +314,6 @@ public class DisabledCodeGenerator : ICodeGenerator {
 
     public string name { get { return ""; } }
     public int priority { get { return -5; } }
-    public bool isEnabledByDefault { get { return true; } }
     public bool runInDryMode { get { return false; } }
 
     public CodeGenFile[] Generate(CodeGeneratorData[] data) {
@@ -336,7 +330,6 @@ public class Processed1PostProcessor : IPostProcessor {
 
     public string name { get { return ""; } }
     public int priority { get { return 0; } }
-    public bool isEnabledByDefault { get { return true; } }
     public bool runInDryMode { get { return true; } }
 
     public CodeGenFile[] PostProcess(CodeGenFile[] files) {
@@ -352,7 +345,6 @@ public class Processed2PostProcessor : IPostProcessor {
 
     public string name { get { return ""; } }
     public int priority { get { return 5; } }
-    public bool isEnabledByDefault { get { return true; } }
     public bool runInDryMode { get { return true; } }
 
     public CodeGenFile[] PostProcess(CodeGenFile[] files) {
@@ -368,7 +360,6 @@ public class DisabledPostProcessor : IPostProcessor {
 
     public string name { get { return ""; } }
     public int priority { get { return 5; } }
-    public bool isEnabledByDefault { get { return true; } }
     public bool runInDryMode { get { return false; } }
 
     public CodeGenFile[] PostProcess(CodeGenFile[] files) {
@@ -384,7 +375,6 @@ public class NoFilesPostProcessor : IPostProcessor {
 
     public string name { get { return ""; } }
     public int priority { get { return -5; } }
-    public bool isEnabledByDefault { get { return true; } }
     public bool runInDryMode { get { return true; } }
 
     public CodeGenFile[] PostProcess(CodeGenFile[] files) {
@@ -396,7 +386,6 @@ public class CachableProvider : IDataProvider, ICachable {
 
     public string name { get { return ""; } }
     public int priority { get { return 0; } }
-    public bool isEnabledByDefault { get { return true; } }
     public bool runInDryMode { get { return true; } }
 
     public Dictionary<string, object> objectCache { get; set; }

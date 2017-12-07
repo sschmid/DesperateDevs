@@ -7,7 +7,7 @@ class describe_PublicMemberInfo : nspec {
 
         context["when getting public member infos"] = () => {
 
-            it["creates empty info when component has no fields or properties"] = () => {
+            it["creates empty info when class has no fields or properties"] = () => {
                 var infos = typeof(TestClass).GetPublicMemberInfos();
                 infos.should_be_empty();
             };
@@ -50,58 +50,58 @@ class describe_PublicMemberInfo : nspec {
             };
 
             it["gets values for fields and properties"] = () => {
-                var component = new PublicMemberInfoTestClassWithFieldsAndProperties();
-                component.publicField = "publicFieldValue";
-                component.publicProperty = "publicPropertyValue";
+                var obj = new PublicMemberInfoTestClassWithFieldsAndProperties();
+                obj.publicField = "publicFieldValue";
+                obj.publicProperty = "publicPropertyValue";
 
-                var infos = component.GetType().GetPublicMemberInfos();
+                var infos = obj.GetType().GetPublicMemberInfos();
                 var mi1 = infos[0];
                 var mi2 = infos[1];
 
-                mi1.GetValue(component).should_be("publicFieldValue");
-                mi2.GetValue(component).should_be("publicPropertyValue");
+                mi1.GetValue(obj).should_be("publicFieldValue");
+                mi2.GetValue(obj).should_be("publicPropertyValue");
             };
 
             it["sets values for fields and properties"] = () => {
-                var component = new PublicMemberInfoTestClassWithFieldsAndProperties();
+                var obj = new PublicMemberInfoTestClassWithFieldsAndProperties();
 
-                var infos = component.GetType().GetPublicMemberInfos();
+                var infos = obj.GetType().GetPublicMemberInfos();
                 var mi1 = infos[0];
                 var mi2 = infos[1];
 
-                mi1.SetValue(component, "publicFieldValue");
-                mi2.SetValue(component, "publicPropertyValue");
+                mi1.SetValue(obj, "publicFieldValue");
+                mi2.SetValue(obj, "publicPropertyValue");
 
-                component.publicField.should_be("publicFieldValue");
-                component.publicProperty.should_be("publicPropertyValue");
+                obj.publicField.should_be("publicFieldValue");
+                obj.publicProperty.should_be("publicPropertyValue");
             };
         };
 
         context["when cloning object"] = () => {
 
-            PublicMemberInfoTestClassWithFieldsAndProperties component = null;
+            PublicMemberInfoTestClassWithFieldsAndProperties obj = null;
 
             before = () => {
-                component = new PublicMemberInfoTestClassWithFieldsAndProperties();
-                component.publicField = "field";
-                component.publicProperty = "property";
+                obj = new PublicMemberInfoTestClassWithFieldsAndProperties();
+                obj.publicField = "field";
+                obj.publicProperty = "property";
             };
 
             it["clones object and sets public members"] = () => {
-                var clone = (PublicMemberInfoTestClassWithFieldsAndProperties)component.PublicMemberClone();
+                var clone = (PublicMemberInfoTestClassWithFieldsAndProperties)obj.PublicMemberClone();
 
-                clone.should_not_be_same(component);
-                clone.publicField.should_be(component.publicField);
-                clone.publicProperty.should_be(component.publicProperty);
+                clone.should_not_be_same(obj);
+                clone.publicField.should_be(obj.publicField);
+                clone.publicProperty.should_be(obj.publicProperty);
             };
 
             it["copies public members to other obj"] = () => {
-                var newComponent = new PublicMemberInfoTestClassWithFieldsAndProperties();
+                var newObj = new PublicMemberInfoTestClassWithFieldsAndProperties();
 
-                component.CopyPublicMemberValues(newComponent);
+                obj.CopyPublicMemberValues(newObj);
 
-                newComponent.publicField.should_be(component.publicField);
-                newComponent.publicProperty.should_be(component.publicProperty);
+                newObj.publicField.should_be(obj.publicField);
+                newObj.publicProperty.should_be(obj.publicProperty);
             };
         };
     }

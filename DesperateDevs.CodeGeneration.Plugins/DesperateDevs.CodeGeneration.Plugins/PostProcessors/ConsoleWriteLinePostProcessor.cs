@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace DesperateDevs.CodeGeneration.Plugins {
 
@@ -6,13 +7,13 @@ namespace DesperateDevs.CodeGeneration.Plugins {
 
         public string name { get { return "Console.WriteLine generated files"; } }
         public int priority { get { return 200; } }
-        public bool isEnabledByDefault { get { return false; } }
         public bool runInDryMode { get { return true; } }
 
         public CodeGenFile[] PostProcess(CodeGenFile[] files) {
-            foreach (var file in files) {
-                Console.WriteLine(file.fileName + " - " + file.generatorName);
-            }
+            Console.WriteLine(files.Aggregate(
+                string.Empty,
+                (acc, file) => acc + file.fileName + " - " + file.generatorName + "\n")
+            );
 
             return files;
         }

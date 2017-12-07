@@ -4,7 +4,6 @@
 
         string name { get; }
         int priority { get; }
-        bool isEnabledByDefault { get; }
         bool runInDryMode { get; }
     }
 }

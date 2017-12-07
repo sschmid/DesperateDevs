@@ -20,14 +20,14 @@ class describe_ObjectCache : nspec {
         };
 
         it["returns new instance"] = () => {
-            var component = cache.Get<TestClass>();
-            component.should_not_be_null();
+            var obj = cache.Get<TestClass>();
+            obj.should_not_be_null();
         };
 
         it["returns pooled instance"] = () => {
-            var component = cache.Get<TestClass>();
-            cache.Push(component);
-            cache.Get<TestClass>().should_be_same(component);
+            var obj = cache.Get<TestClass>();
+            cache.Push(obj);
+            cache.Get<TestClass>().should_be_same(obj);
         };
 
         it["returns custom pushed instance"] = () => {
@@ -46,18 +46,18 @@ class describe_ObjectCache : nspec {
 
             cache.GetObjectPool<TestClassWithField>().should_be_same(objectPool);
 
-            var component = cache.Get<TestClassWithField>();
-            component.value.should_be("myValue");
+            var obj = cache.Get<TestClassWithField>();
+            obj.value.should_be("myValue");
 
-            cache.Push(component);
-            component.value.should_be_null();
+            cache.Push(obj);
+            obj.value.should_be_null();
         };
 
         it["resets"] = () => {
-            var component = cache.Get<TestClass>();
-            cache.Push(component);
+            var obj = cache.Get<TestClass>();
+            cache.Push(obj);
             cache.Reset();
-            cache.Get<TestClass>().should_not_be_same(component);
+            cache.Get<TestClass>().should_not_be_same(obj);
         };
     }
 }
