@@ -29,12 +29,14 @@ namespace DesperateDevs.Networking.CLI {
    Connecting sockets since 2013
 ";
 
-            Console.WriteLine(header);
+            _program.logger.Info(header);
             const string footer = "EXAMPLE\n" +
                                   "  pezy listen 1234\n" +
                                   "  pezy connect localhost 1234";
 
-            Console.WriteLine("usage:\n{0}", string.Join("\n", commandList) + "\n\n" + footer);
+            _program.logger.Info(header);
+            _program.logger.Info(string.Format("usage:\n{0}", string.Join("\n", commandList)));
+            _program.logger.Info("\n" + footer);
         }
     }
 }

@@ -17,10 +17,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
 
         bool _cancel;
 
-        public CodeGenerator(IDataProvider[] dataProviders,
-            ICodeGenerator[] codeGenerators,
-            IPostProcessor[] postProcessors) {
-
+        public CodeGenerator(IDataProvider[] dataProviders, ICodeGenerator[] codeGenerators, IPostProcessor[] postProcessors) {
             _dataProviders = dataProviders.OrderBy(i => i.priority).ToArray();
             _codeGenerators = codeGenerators.OrderBy(i => i.priority).ToArray();
             _postProcessors = postProcessors.OrderBy(i => i.priority).ToArray();
