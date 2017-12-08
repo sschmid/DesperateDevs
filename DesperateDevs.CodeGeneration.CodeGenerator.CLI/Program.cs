@@ -1,4 +1,5 @@
-﻿using DesperateDevs.CLI;
+﻿using System;
+using DesperateDevs.CLI;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
@@ -52,9 +53,9 @@ I8,      ,8'    A lovely .NET Code Generator        I8   8I
                                   "  jenny new My.properties\n" +
                                   "  jenny new My.properties username.userproperties";
 
-            _program.logger.Info(header);
-            _program.logger.Info(string.Format("usage:\n{0}", string.Join("\n", commandList)));
-            _program.logger.Info("\n" + footer);
+            Console.WriteLine(header);
+            Console.WriteLine(string.Format("usage:\n{0}", string.Join("\n", commandList)));
+            Console.WriteLine("\n" + footer);
         }
     }
 }

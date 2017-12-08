@@ -17,11 +17,11 @@ namespace DesperateDevs.CLI {
                 { LogLevel.Fatal, ConsoleColor.DarkRed }
             };
 
-        public readonly Logger logger;
+        readonly Logger _logger;
         readonly ICommand[] _commands;
 
         public CLIProgram(string applicationName, Assembly assembly) {
-            logger = fabl.GetLogger(applicationName);
+            _logger = fabl.GetLogger(applicationName);
             _commands = getOrderedCommands(assembly);
         }
 
@@ -62,7 +62,7 @@ namespace DesperateDevs.CLI {
             try {
                 GetCommand(args.WithoutParameter()[0]).Run(args);
             } catch (Exception ex) {
-                logger.Error(args.isVerbose() ? ex.ToString() : ex.Message);
+                _logger.Error(args.isVerbose() ? ex.ToString() : ex.Message);
             }
         }
 
