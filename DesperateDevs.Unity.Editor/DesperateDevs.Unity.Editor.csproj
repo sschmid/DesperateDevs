@@ -47,6 +47,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DesperateDevs.Unity.Editor\Graph.cs" />
     <Compile Include="DesperateDevs.Unity.Editor\GUI\PreferencesDrawer\AbstractPreferencesDrawer.cs" />
     <Compile Include="DesperateDevs.Unity.Editor\GUI\PreferencesDrawer\IPreferencesDrawer.cs" />
     <Compile Include="DesperateDevs.Unity.Editor\GUI\PreferencesConfig.cs" />
