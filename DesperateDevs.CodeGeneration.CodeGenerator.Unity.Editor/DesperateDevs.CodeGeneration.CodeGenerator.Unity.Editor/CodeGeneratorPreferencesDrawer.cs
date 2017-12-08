@@ -66,30 +66,41 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
         }
 
         void autoImport() {
-            var plugins = _codeGeneratorConfig.searchPaths
-                .Concat(new[] { "Assets" })
-                .SelectMany(path => Directory.Exists(path)
-                    ? Directory.GetFiles(path, "*.dll", SearchOption.AllDirectories)
-                    : new string[0])
-                .Where(path => path.EndsWith(".plugins.dll", StringComparison.OrdinalIgnoreCase))
-                .ToArray();
+            var propertiesPath = Path.GetFileName(_preferences.propertiesPath);
+            if (EditorUtility.DisplayDialog("Jenny - Auto Import",
+                "Auto Import will automatically find and set all plugins for you. " +
+                "It will search in folders and sub folders specified in " + propertiesPath +
+                " under the key 'CodeGenerator.SearchPaths'." +
+                "\n\nThis will overwrite your current plugin preferences." +
+                "\n\nDo you want to continue?",
+                "Continue and Overwrite",
+                "Cancel"
+            )) {
+                var plugins = _codeGeneratorConfig.searchPaths
+                    .Concat(new[] { "Assets" })
+                    .SelectMany(path => Directory.Exists(path)
+                        ? Directory.GetFiles(path, "*.dll", SearchOption.AllDirectories)
+                        : new string[0])
+                    .Where(path => path.EndsWith(".plugins.dll", StringComparison.OrdinalIgnoreCase))
+                    .ToArray();
 
-            _codeGeneratorConfig.searchPaths = _codeGeneratorConfig.searchPaths
-                .Concat(plugins.Select(Path.GetDirectoryName))
-                .Distinct()
-                .ToArray();
+                _codeGeneratorConfig.searchPaths = _codeGeneratorConfig.searchPaths
+                    .Concat(plugins.Select(Path.GetDirectoryName))
+                    .Distinct()
+                    .ToArray();
 
-            _codeGeneratorConfig.plugins = plugins
-                .Select(Path.GetFileNameWithoutExtension)
-                .Distinct()
-                .ToArray();
+                _codeGeneratorConfig.plugins = plugins
+                    .Select(Path.GetFileNameWithoutExtension)
+                    .Distinct()
+                    .ToArray();
 
-            _preferences.Save();
+                _preferences.Save();
 
-            Initialize(_preferences);
-            _codeGeneratorConfig.dataProviders = _availableDataProviderTypes;
-            _codeGeneratorConfig.codeGenerators = _availableGeneratorTypes;
-            _codeGeneratorConfig.postProcessors = _availablePostProcessorTypes;
+                Initialize(_preferences);
+                _codeGeneratorConfig.dataProviders = _availableDataProviderTypes;
+                _codeGeneratorConfig.codeGenerators = _availableGeneratorTypes;
+                _codeGeneratorConfig.postProcessors = _availablePostProcessorTypes;
+            }
         }
 
         void drawConfigurables() {

@@ -92,8 +92,6 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
             client.OnReceived += onReceive;
             client.OnDisconnected += onDisconnect;
             client.Connect(config.host.ResolveHost(), config.port);
-
-            AssetDatabase.Refresh();
         }
 
         static void onConnected(TcpClientSocket client) {
