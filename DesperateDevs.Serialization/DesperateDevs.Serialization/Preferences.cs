@@ -53,8 +53,7 @@ namespace DesperateDevs.Serialization {
             _userProperties = userProperties;
         }
 
-        // TODO Make public again
-        void Reload() {
+        public void Reload() {
             _properties = loadProperties(_propertiesPath);
             _userProperties = loadProperties(_userPropertiesPath);
         }

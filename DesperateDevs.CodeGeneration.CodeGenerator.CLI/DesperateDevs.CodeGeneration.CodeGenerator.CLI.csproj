@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DesperateDevs.CodeGeneration.CodeGenerator.CLI</RootNamespace>
     <AssemblyName>DesperateDevs.CodeGeneration.CodeGenerator.CLI</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
