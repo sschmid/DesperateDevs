@@ -132,6 +132,9 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
                 }
             }
 
+            // Re-add unavailable types
+            selected.AddRange(input.Where(type => !types.Contains(type)));
+
             return selected.ToArray();
         }
 
