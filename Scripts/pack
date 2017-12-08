@@ -16,6 +16,7 @@ cp_dll "$DNS.CodeGeneration" $BUILD_SRC
 cp_dll "$DNS.CodeGeneration.CodeGenerator" $BUILD_SRC
 cp_exe "$DNS.CodeGeneration.CodeGenerator.CLI" $BUILD_SRC
 cp_dll "$DNS.CodeGeneration.CodeGenerator.Unity.Editor" $BUILD_SRC
+cp "$DNS.CodeGeneration.CodeGenerator.Unity.Editor/Compile.cs" "$BUILD_SRC/Compile.cs"
 cp_dll "$DNS.CodeGeneration.Plugins" $BUILD_SRC
 cp_dll "$DNS.CodeGeneration.Unity.Plugins" $BUILD_SRC
 
