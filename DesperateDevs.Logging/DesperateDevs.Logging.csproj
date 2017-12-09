@@ -44,6 +44,8 @@
     <Compile Include="DesperateDevs.Logging\fabl.cs" />
     <Compile Include="DesperateDevs.Logging\Logger.cs" />
     <Compile Include="DesperateDevs.Logging\LogLevel.cs" />
+    <Compile Include="DesperateDevs.Logging\Tracker.cs" />
+    <Compile Include="DesperateDevs.Logging\TrackingData.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

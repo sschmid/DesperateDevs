@@ -64,6 +64,8 @@
     <Compile Include="Tests\DesperateDevs.Logging.Formatters\describe_DefaultLogMessageFormatter.cs" />
     <Compile Include="Tests\DesperateDevs.Logging\describe_fabl.cs" />
     <Compile Include="Tests\DesperateDevs.Logging\describe_Logger.cs" />
+    <Compile Include="Tests\DesperateDevs.Logging\describe_Tracker.cs" />
+    <Compile Include="Tests\DesperateDevs.Logging\describe_TrackingData.cs" />
     <Compile Include="Tests\DesperateDevs.Networking\describe_TcpClientSocket.cs" />
     <Compile Include="Tests\DesperateDevs.Networking\describe_TcpServerSocket.cs" />
     <Compile Include="Tests\DesperateDevs.Serialization\describe_Preferences.cs" />
