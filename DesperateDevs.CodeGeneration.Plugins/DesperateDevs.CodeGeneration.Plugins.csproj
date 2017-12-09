@@ -46,6 +46,7 @@
     <Compile Include="DesperateDevs.CodeGeneration.Plugins\PostProcessors\AddFileHeaderPostProcessor.cs" />
     <Compile Include="DesperateDevs.CodeGeneration.Plugins\PostProcessors\CleanTargetDirectoryPostProcessor.cs" />
     <Compile Include="DesperateDevs.CodeGeneration.Plugins\PostProcessors\ConsoleWriteLinePostProcessor.cs" />
+    <Compile Include="DesperateDevs.CodeGeneration.Plugins\PostProcessors\TrackingPostProcessor.cs" />
     <Compile Include="DesperateDevs.CodeGeneration.Plugins\PostProcessors\MergeFilesPostProcessor.cs" />
     <Compile Include="DesperateDevs.CodeGeneration.Plugins\PostProcessors\NewLinePostProcessor.cs" />
     <Compile Include="DesperateDevs.CodeGeneration.Plugins\PostProcessors\UpdateCSProjPostProcessor.cs" />
@@ -59,6 +60,10 @@
     <ProjectReference Include="..\DesperateDevs.CodeGeneration\DesperateDevs.CodeGeneration.csproj">
       <Project>{43857640-7F48-49C7-89C9-B06305B82076}</Project>
       <Name>DesperateDevs.CodeGeneration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DesperateDevs.Logging\DesperateDevs.Logging.csproj">
+      <Project>{219375E3-8AA6-4A75-8F9A-297D23E34D8C}</Project>
+      <Name>DesperateDevs.Logging</Name>
     </ProjectReference>
     <ProjectReference Include="..\DesperateDevs.Serialization\DesperateDevs.Serialization.csproj">
       <Project>{3F7A0EC0-ECFE-4DA5-A02F-C716AD8F0817}</Project>
