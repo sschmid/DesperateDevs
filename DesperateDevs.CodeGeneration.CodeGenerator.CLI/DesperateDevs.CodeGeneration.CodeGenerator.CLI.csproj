@@ -65,7 +65,6 @@
     <Compile Include="Commands\SetKeyValue.cs" />
     <Compile Include="Commands\Status.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DesperateDevs.CLI\DesperateDevs.CLI.csproj">
