@@ -8,7 +8,7 @@ namespace DesperateDevs.Logging.Appenders {
 
         public AbstractTcpSocket socket { get; private set; }
 
-        static readonly Logger _logger = fabl.GetLogger(typeof(AbstractTcpSocketAppender).Name);
+        readonly Logger _logger = fabl.GetLogger(typeof(AbstractTcpSocketAppender).Name);
 
         readonly List<HistoryItem> _history = new List<HistoryItem>();
 

@@ -11,7 +11,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         public override string description { get { return "Create new properties file(s) with default values"; } }
         public override string example { get { return "jenny new file userFile [-f]"; } }
 
-        static readonly Logger _logger = fabl.GetLogger(typeof(NewConfig).Name);
+        readonly Logger _logger = fabl.GetLogger(typeof(NewConfig).Name);
 
         protected override void run() {
             var currentDir = Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar;

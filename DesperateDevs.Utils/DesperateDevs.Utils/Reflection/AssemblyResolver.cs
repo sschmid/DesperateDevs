@@ -8,7 +8,7 @@ namespace DesperateDevs.Utils {
 
     public class AssemblyResolver {
 
-        static readonly Logger _logger = fabl.GetLogger(typeof(AssemblyResolver).Name);
+        readonly Logger _logger = fabl.GetLogger(typeof(AssemblyResolver).Name);
 
         readonly AppDomain _appDomain;
         readonly string[] _basePaths;
