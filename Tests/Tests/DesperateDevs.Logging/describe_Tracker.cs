@@ -25,6 +25,12 @@ class describe_Tracker : nspec {
             tracker.call.should_be("host/endPoint.php?key=value");
         };
 
+        it["escapes args"] = () => {
+            trackingData.Add("key", "value1 value2");
+            tracker.Track(trackingData);
+            tracker.call.should_be("host/endPoint.php?key=value1%20value2");
+        };
+
         it["creates tracking call with multiple args"] = () => {
             trackingData.Add("key", "value");
             trackingData.Add("key2", "value2");

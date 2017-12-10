@@ -1,30 +1,29 @@
-﻿using System.Linq;
-using DesperateDevs.Logging;
+﻿using DesperateDevs.Logging;
 
 namespace DesperateDevs.CodeGeneration.Plugins {
 
     public abstract class TrackingPostProcessor : IPostProcessor {
 
-        public string name { get { return null; } }
-        public int priority { get { return 9999; } }
-        public bool runInDryMode { get { return false; } }
+        public abstract string name { get; }
+        public abstract int priority { get; }
+        public abstract bool runInDryMode { get; }
 
         public CodeGenFile[] PostProcess(CodeGenFile[] files) {
-            var fileCount = files.Length;
-            var componentCount = files.Count(f => f.fileName.Contains("Component.cs"));
-            var contextCount = files.Count(f => f.fileName.Contains("Context.cs"));
+            new Tracker(getHost(), getEndPoint(), false)
+                .Track(GetData(files));
 
-            var data = GetData();
-            data.Add("fs", fileCount.ToString());
-            data.Add("cs", fileCount.ToString());
-            data.Add("cx", fileCount.ToString());
-
-            new Tracker(GetHost(), GetEntPoint(), false).Track(data);
             return files;
         }
 
-        protected abstract string GetHost();
-        protected abstract string GetEntPoint();
-        protected abstract TrackingData GetData();
+        protected virtual string getHost() {
+            return "http://desperatedevs.com";
+        }
+
+        protected virtual string getEndPoint() {
+            return "a/" + GetName() + ".php";
+        }
+
+        protected abstract string GetName();
+        protected abstract TrackingData GetData(CodeGenFile[] files);
     }
 }

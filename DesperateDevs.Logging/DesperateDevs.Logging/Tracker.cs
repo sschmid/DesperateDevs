@@ -8,6 +8,7 @@ namespace DesperateDevs.Logging {
 
         readonly string _url;
         readonly bool _throwExceptions;
+        readonly Logger _logger = fabl.GetLogger(typeof(Tracker).Name);
 
         public Tracker(string host, string endPoint, bool throwExceptions) {
             _url = host + "/" + endPoint;
@@ -16,10 +17,10 @@ namespace DesperateDevs.Logging {
 
         public virtual void Track(TrackingData data) {
             if (_throwExceptions) {
-                WebRequest.Create(buildTrackingCall(data)).GetResponse();
+                getResponse(data);
             } else {
                 try {
-                    WebRequest.Create(buildTrackingCall(data)).GetResponse();
+                    getResponse(data);
                 } catch (Exception) {
                     // ignored
                 }
@@ -28,38 +29,59 @@ namespace DesperateDevs.Logging {
 
         public virtual void TrackAsync(TrackingData data) {
             if (_throwExceptions) {
-                var request = WebRequest.Create(buildTrackingCall(data));
-                request.BeginGetResponse(onResponse, request);
+                getResponseAsync(data);
             } else {
                 try {
-                    var request = WebRequest.Create(buildTrackingCall(data));
-                    request.BeginGetResponse(onResponse, request);
+                    getResponseAsync(data);
                 } catch (Exception) {
                     // ignored
                 }
             }
+        }
+
+        HttpWebRequest createWebRequest(TrackingData data) {
+            var request = (HttpWebRequest)WebRequest.Create(buildTrackingCall(data));
+            request.Timeout = 1000;
+
+            return request;
+        }
+
+        void getResponse(TrackingData data) {
+            createWebRequest(data).GetResponse();
+        }
+
+        void getResponseAsync(TrackingData data) {
+            var request = createWebRequest(data);
+            request.BeginGetResponse(onResponse, request);
         }
 
         void onResponse(IAsyncResult ar) {
             if (_throwExceptions) {
-                var request = (WebRequest)ar.AsyncState;
-                request.EndGetResponse(ar);
+                endResponse(ar);
             } else {
                 try {
-                    var request = (WebRequest)ar.AsyncState;
-                    request.EndGetResponse(ar);
+                    endResponse(ar);
                 } catch (Exception) {
                     // ignored
                 }
             }
         }
 
+        void endResponse(IAsyncResult ar) {
+            var request = (WebRequest)ar.AsyncState;
+            request.EndGetResponse(ar);
+        }
+
         protected string buildTrackingCall(TrackingData data) {
-            return data.data.Count != 0
-                ? _url + "?" + string.Join("&", data.data
+            var call = data.data.Count != 0
+                ? _url + Uri.EscapeUriString("?" + string.Join("&", data.data
                       .Select(kv => kv.Key + "=" + kv.Value)
-                      .ToArray())
+                      .ToArray()))
                 : _url;
+
+            _logger.Debug(call);
+
+            return call;
         }
     }
 }
