@@ -14,8 +14,6 @@ namespace DesperateDevs.Logging {
             }
         }
 
-        public static Tracker tracker { get; set; }
-
         static LogLevel _globalLogLevel;
         static LogDelegate _appenders;
         static readonly Dictionary<string, Logger> _loggers = new Dictionary<string, Logger>();
@@ -27,20 +25,6 @@ namespace DesperateDevs.Logging {
         public static void Warn (string message) { _logger.Warn (message); }
         public static void Error(string message) { _logger.Error(message); }
         public static void Fatal(string message) { _logger.Fatal(message); }
-
-        public static void Track(TrackingData data) {
-            var t = tracker;
-            if (t != null) {
-                t.Track(data);
-            }
-        }
-
-        public static void TrackAsync(TrackingData data) {
-            var t = tracker;
-            if (t != null) {
-                t.TrackAsync(data);
-            }
-        }
 
         public static void Assert(bool condition, string message) { _logger.Assert(condition, message); }
 

@@ -53,6 +53,10 @@
     <Compile Include="DesperateDevs.CodeGeneration.Plugins\PostProcessors\WriteToDiskPostProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DesperateDevs.Analytics\DesperateDevs.Analytics.csproj">
+      <Project>{6F78C75A-B1C3-45A1-B7F7-961677D0F1BD}</Project>
+      <Name>DesperateDevs.Analytics</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DesperateDevs.CodeGeneration.CodeGenerator\DesperateDevs.CodeGeneration.CodeGenerator.csproj">
       <Project>{7AFE3A5A-6CB5-4738-972A-458A16BC19AC}</Project>
       <Name>DesperateDevs.CodeGeneration.CodeGenerator</Name>

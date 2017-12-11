@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{219375E3-8AA6-4A75-8F9A-297D23E34D8C}</ProjectGuid>
+    <ProjectGuid>{6F78C75A-B1C3-45A1-B7F7-961677D0F1BD}</ProjectGuid>
     <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DesperateDevs.Logging</RootNamespace>
-    <AssemblyName>DesperateDevs.Logging</AssemblyName>
+    <RootNamespace>DesperateDevs.Analytics</RootNamespace>
+    <AssemblyName>DesperateDevs.Analytics</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <LangVersion>4</LangVersion>
@@ -41,9 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DesperateDevs.Logging\fabl.cs" />
-    <Compile Include="DesperateDevs.Logging\Logger.cs" />
-    <Compile Include="DesperateDevs.Logging\LogLevel.cs" />
+    <Compile Include="DesperateDevs.Analytics\DesperateDevsTrackingData.cs" />
+    <Compile Include="DesperateDevs.Analytics\Tracker.cs" />
+    <Compile Include="DesperateDevs.Analytics\TrackingData.cs" />
+    <Compile Include="DesperateDevs.Analytics\TrackingDataException.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DesperateDevs.Logging\DesperateDevs.Logging.csproj">
+      <Project>{219375E3-8AA6-4A75-8F9A-297D23E34D8C}</Project>
+      <Name>DesperateDevs.Logging</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

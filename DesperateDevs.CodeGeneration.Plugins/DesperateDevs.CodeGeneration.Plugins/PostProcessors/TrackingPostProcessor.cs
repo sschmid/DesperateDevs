@@ -1,4 +1,4 @@
-﻿using DesperateDevs.Logging;
+﻿using DesperateDevs.Analytics;
 
 namespace DesperateDevs.CodeGeneration.Plugins {
 

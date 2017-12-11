@@ -54,6 +54,8 @@
   <ItemGroup>
     <Compile Include="TestRunner.cs" />
     <Compile Include="Tests\chech_namespaces.cs" />
+    <Compile Include="Tests\DesperateDevs.Analytics\describe_Tracker.cs" />
+    <Compile Include="Tests\DesperateDevs.Analytics\describe_TrackingData.cs" />
     <Compile Include="Tests\DesperateDevs.CLI\describe_ArgsExtension.cs" />
     <Compile Include="Tests\DesperateDevs.CodeGeneration.CodeGenerator\describe_CodeGenerator.cs" />
     <Compile Include="Tests\DesperateDevs.CodeGeneration.Plugins\describe_MergeFilesPostProcessor.cs" />
@@ -64,8 +66,6 @@
     <Compile Include="Tests\DesperateDevs.Logging.Formatters\describe_DefaultLogMessageFormatter.cs" />
     <Compile Include="Tests\DesperateDevs.Logging\describe_fabl.cs" />
     <Compile Include="Tests\DesperateDevs.Logging\describe_Logger.cs" />
-    <Compile Include="Tests\DesperateDevs.Logging\describe_Tracker.cs" />
-    <Compile Include="Tests\DesperateDevs.Logging\describe_TrackingData.cs" />
     <Compile Include="Tests\DesperateDevs.Networking\describe_TcpClientSocket.cs" />
     <Compile Include="Tests\DesperateDevs.Networking\describe_TcpServerSocket.cs" />
     <Compile Include="Tests\DesperateDevs.Serialization\describe_Preferences.cs" />
@@ -81,6 +81,10 @@
     <Compile Include="Tests\TestExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DesperateDevs.Analytics\DesperateDevs.Analytics.csproj">
+      <Project>{6F78C75A-B1C3-45A1-B7F7-961677D0F1BD}</Project>
+      <Name>DesperateDevs.Analytics</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DesperateDevs.CLI\DesperateDevs.CLI.csproj">
       <Project>{c62f56cd-83aa-428b-b75b-6ee5654cf56d}</Project>
       <Name>DesperateDevs.CLI</Name>

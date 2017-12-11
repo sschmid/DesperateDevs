@@ -1,4 +1,5 @@
-﻿using DesperateDevs.Logging;
+﻿using System.Net;
+using DesperateDevs.Analytics;
 using NSpec;
 
 class describe_Tracker : nspec {
@@ -10,8 +11,7 @@ class describe_Tracker : nspec {
 
         before = () => {
             tracker = new TestTracker("host", "endPoint.php");
-            trackingData = new TrackingData(false);
-
+            trackingData = new TrackingData();
         };
 
         it["creates tracking call without args"] = () => {
@@ -47,7 +47,8 @@ class TestTracker : Tracker {
     public TestTracker(string host, string endPoint) : base(host, endPoint, true) {
     }
 
-    public override void Track(TrackingData data) {
+    public override WebResponse Track(TrackingData data) {
         call = buildTrackingCall(data);
+        return null;
     }
 }

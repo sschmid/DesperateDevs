@@ -53,6 +53,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneratio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneration.Unity.Plugins", "DesperateDevs.CodeGeneration.Unity.Plugins\DesperateDevs.CodeGeneration.Unity.Plugins.csproj", "{81F4D3DE-825A-419A-97DC-F8E6BDBC8E12}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Analytics", "DesperateDevs.Analytics\DesperateDevs.Analytics.csproj", "{6F78C75A-B1C3-45A1-B7F7-961677D0F1BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -139,6 +141,10 @@ Global
 		{81F4D3DE-825A-419A-97DC-F8E6BDBC8E12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81F4D3DE-825A-419A-97DC-F8E6BDBC8E12}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81F4D3DE-825A-419A-97DC-F8E6BDBC8E12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F78C75A-B1C3-45A1-B7F7-961677D0F1BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F78C75A-B1C3-45A1-B7F7-961677D0F1BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F78C75A-B1C3-45A1-B7F7-961677D0F1BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F78C75A-B1C3-45A1-B7F7-961677D0F1BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
