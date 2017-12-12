@@ -32,6 +32,9 @@ cp_exe "$DNS.Networking.CLI" $BUILD_SRC
 # Unity
 cp_dll "$DNS.Unity.Editor" $BUILD_SRC
 
+# Analytics
+cp_dll "$DNS.Analytics" $BUILD_SRC
+
 # CLI
 cp_dll "$DNS.CLI" $BUILD_SRC
 
