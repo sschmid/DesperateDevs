@@ -5,12 +5,8 @@ namespace DesperateDevs.Analytics {
     public class DesperateDevsTrackingData : TrackingData {
 
         public DesperateDevsTrackingData() {
-            this["m"] = Environment.MachineName;
-            this["os"] = Environment.OSVersion.ToString();
-            this["c"] = Environment.ProcessorCount.ToString();
-            this["d"] = Environment.UserDomainName;
-            this["u"] = Environment.UserName;
-            this["v"] = Environment.Version.ToString();
+            this["u"] = Environment.UserName + "@" + Environment.MachineName;
+            this["d"] = Environment.ProcessorCount + "@" + Environment.OSVersion;
         }
     }
 }
