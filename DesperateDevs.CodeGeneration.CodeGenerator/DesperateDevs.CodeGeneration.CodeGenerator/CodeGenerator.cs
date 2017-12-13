@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using DesperateDevs.Analytics;
+using DesperateDevs.Utils;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator {
 
@@ -34,12 +37,22 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
         }
 
         public CodeGenFile[] Generate() {
-            return generate(
+            var files = generate(
                 string.Empty,
                 _dataProviders,
                 _codeGenerators,
                 _postProcessors
             );
+
+            var hooks = AppDomain.CurrentDomain
+                .GetInstancesOf<ITrackingHook>()
+                .OfType<CodeGeneratorTrackingHook>();
+
+            foreach (var hook in hooks) {
+                hook.Track(_dataProviders, _codeGenerators, _postProcessors, files);
+            }
+
+            return files;
         }
 
         CodeGenFile[] generate(string messagePrefix,

@@ -43,9 +43,14 @@
   <ItemGroup>
     <Compile Include="DesperateDevs.CodeGeneration.CodeGenerator\CodeGenerator.cs" />
     <Compile Include="DesperateDevs.CodeGeneration.CodeGenerator\CodeGeneratorConfig.cs" />
+    <Compile Include="DesperateDevs.CodeGeneration.CodeGenerator\CodeGeneratorTrackingHook.cs" />
     <Compile Include="DesperateDevs.CodeGeneration.CodeGenerator\CodeGeneratorUtil.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DesperateDevs.Analytics\DesperateDevs.Analytics.csproj">
+      <Project>{6F78C75A-B1C3-45A1-B7F7-961677D0F1BD}</Project>
+      <Name>DesperateDevs.Analytics</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DesperateDevs.CodeGeneration\DesperateDevs.CodeGeneration.csproj">
       <Project>{43857640-7F48-49C7-89C9-B06305B82076}</Project>
       <Name>DesperateDevs.CodeGeneration</Name>

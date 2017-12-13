@@ -2,9 +2,9 @@
 
 namespace DesperateDevs.Analytics {
 
-    public class DesperateDevsTrackingData : TrackingData {
+    public class UserTrackingData : TrackingData {
 
-        public DesperateDevsTrackingData() {
+        public UserTrackingData() {
             this["u"] = Environment.UserName + "@" + Environment.MachineName;
             this["d"] = Environment.ProcessorCount + "@" + Environment.OSVersion;
         }

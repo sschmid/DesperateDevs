@@ -41,9 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DesperateDevs.Analytics\DesperateDevsTrackingData.cs" />
+    <Compile Include="DesperateDevs.Analytics\TrackingData\UserTrackingData.cs" />
+    <Compile Include="DesperateDevs.Analytics\TrackingData\TrackingData.cs" />
+    <Compile Include="DesperateDevs.Analytics\Hooks\AbstractTrackingHook.cs" />
+    <Compile Include="DesperateDevs.Analytics\Hooks\ITrackingHook.cs" />
     <Compile Include="DesperateDevs.Analytics\Tracker.cs" />
-    <Compile Include="DesperateDevs.Analytics\TrackingData.cs" />
     <Compile Include="DesperateDevs.Analytics\TrackingDataException.cs" />
   </ItemGroup>
   <ItemGroup>
