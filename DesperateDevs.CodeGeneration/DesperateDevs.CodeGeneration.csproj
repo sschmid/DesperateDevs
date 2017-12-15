@@ -43,10 +43,12 @@
   <ItemGroup>
     <Compile Include="DesperateDevs.CodeGeneration\CodeGeneratorData.cs" />
     <Compile Include="DesperateDevs.CodeGeneration\CodeGenFile.cs" />
+    <Compile Include="DesperateDevs.CodeGeneration\Diagnosis.cs" />
     <Compile Include="DesperateDevs.CodeGeneration\Interfaces\ICodeGenerator.cs" />
     <Compile Include="DesperateDevs.CodeGeneration\Interfaces\ICachable.cs" />
     <Compile Include="DesperateDevs.CodeGeneration\Interfaces\IDataProvider.cs" />
     <Compile Include="DesperateDevs.CodeGeneration\Interfaces\ICodeGeneratorBase.cs" />
+    <Compile Include="DesperateDevs.CodeGeneration\Interfaces\IDoctor.cs" />
     <Compile Include="DesperateDevs.CodeGeneration\Interfaces\IPostProcessor.cs" />
   </ItemGroup>
   <ItemGroup>

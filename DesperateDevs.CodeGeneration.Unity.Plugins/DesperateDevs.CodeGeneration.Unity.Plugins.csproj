@@ -51,6 +51,10 @@
       <Project>{43857640-7F48-49C7-89C9-B06305B82076}</Project>
       <Name>DesperateDevs.CodeGeneration</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DesperateDevs.Utils\DesperateDevs.Utils.csproj">
+      <Project>{F81E2E63-8F15-43D9-85C0-57237ED42250}</Project>
+      <Name>DesperateDevs.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
