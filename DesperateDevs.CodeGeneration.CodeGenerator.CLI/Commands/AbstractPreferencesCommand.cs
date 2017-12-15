@@ -17,6 +17,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         public override void Run(string[] args) {
             try {
                 _preferences = new Preferences(args.GetPropertiesPath(), args.GetUserPropertiesPath());
+                Preferences.sharedInstance = _preferences;
             } catch (Exception ex) {
                 _logger.Error(ex.Message);
                 _logger.Info("Run 'jenny new My.properties' to create My.properties with default values");

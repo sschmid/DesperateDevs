@@ -3,5 +3,6 @@
     public interface IDoctor {
 
         Diagnosis Diagnose();
+        bool Fix();
     }
 }

@@ -1,5 +1,7 @@
 using System;
 using System.Linq;
+using DesperateDevs.CodeGeneration.CodeGenerator;
+using DesperateDevs.Serialization;
 using DesperateDevs.Utils;
 using UnityEngine;
 
@@ -27,14 +29,33 @@ namespace DesperateDevs.CodeGeneration.Unity.Plugins {
 
             if (isStandalone) {
                 var typeName = typeof(DebugLogPostProcessor).FullName;
-                return new Diagnosis(
-                    typeName + "uses Unity APIs but is used outside of Unity!",
-                    "Please remove " + typeName + " when using the standalone code generator.",
-                    DiagnosisSeverity.Error
-                );
+                var preferences = Preferences.sharedInstance;
+                var config = preferences.CreateAndConfigure<CodeGeneratorConfig>();
+                if (config.postProcessors.Contains(typeName)) {
+                    return new Diagnosis(
+                        typeName + " uses Unity APIs but is used outside of Unity!",
+                        "Remove " + typeName + " from CodeGenerator.DataProviders",
+                        DiagnosisSeverity.Error
+                    );
+                }
             }
 
             return Diagnosis.Healthy;
+        }
+
+        public bool Fix() {
+            var preferences = Preferences.sharedInstance;
+            var config = preferences.CreateAndConfigure<CodeGeneratorConfig>();
+            var postProcessorList = config.postProcessors.ToList();
+            var removed = postProcessorList.Remove(typeof(DebugLogPostProcessor).FullName);
+            if (removed) {
+                config.postProcessors = postProcessorList.ToArray();
+                preferences.Save();
+
+                return true;
+            }
+
+            return false;
         }
     }
 }

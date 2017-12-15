@@ -34,6 +34,18 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             var askedAddKeys = new HashSet<string>();
             while (fix(askedRemoveKeys, askedAddKeys, types, config, cliConfig, _preferences)) {
             }
+
+            var doctors = AppDomain.CurrentDomain.GetInstancesOf<IDoctor>();
+            foreach (var doctor in doctors) {
+                var diagnosis = doctor.Diagnose();
+                if (diagnosis.severity == DiagnosisSeverity.Error) {
+                    _logger.Info("💉  Apply fix: " + diagnosis.treatment);
+                    _logger.Info("to treat symptoms: " + diagnosis.symptoms + " ? (y / n)");
+                    if (APIUtil.GetUserDecision()) {
+                        doctor.Fix();
+                    }
+                }
+            }
         }
 
         static void forceAddMissingKeys(Dictionary<string, string> requiredProperties, Preferences preferences) {
