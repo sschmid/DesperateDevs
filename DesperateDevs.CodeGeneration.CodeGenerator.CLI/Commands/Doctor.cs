@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using DesperateDevs.Serialization;
 using DesperateDevs.Utils;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
@@ -27,8 +28,12 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         }
 
         void diagnose() {
-            var diagnoses = AppDomain.CurrentDomain
-                .GetInstancesOf<IDoctor>()
+            var doctors = AppDomain.CurrentDomain.GetInstancesOf<IDoctor>();
+            foreach (var doctor in doctors.OfType<IConfigurable>()) {
+                doctor.Configure(_preferences);
+            }
+
+            var diagnoses = doctors
                 .Select(doctor => doctor.Diagnose())
                 .ToArray();
 
