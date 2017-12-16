@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Logging.Appen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Logging.Formatters", "DesperateDevs.Logging.Formatters\DesperateDevs.Logging.Formatters.csproj", "{2135CBAE-A0E3-4715-8969-246DCE3E7538}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CLI", "DesperateDevs.CLI\DesperateDevs.CLI.csproj", "{C62F56CD-83AA-428B-B75B-6EE5654CF56D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CLI.Utils", "DesperateDevs.CLI.Utils\DesperateDevs.CLI.Utils.csproj", "{C62F56CD-83AA-428B-B75B-6EE5654CF56D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Networking", "DesperateDevs.Networking\DesperateDevs.Networking.csproj", "{925D6640-CB5A-4833-85FE-63332651880A}"
 EndProject
@@ -59,7 +59,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Builder.CLI",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CLI", "CLI", "{4FD6FEE8-272A-445D-9117-235CE76EFC03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Serialization.CLI", "DesperateDevs.Serialization.CLI\DesperateDevs.Serialization.CLI.csproj", "{B583EC30-961F-4688-B6E7-3024B2242C6A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Serialization.CLI.Utils", "DesperateDevs.Serialization.CLI.Utils\DesperateDevs.Serialization.CLI.Utils.csproj", "{B583EC30-961F-4688-B6E7-3024B2242C6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

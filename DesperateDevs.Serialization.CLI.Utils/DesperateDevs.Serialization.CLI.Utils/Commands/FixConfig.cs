@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace DesperateDevs.Serialization.CLI {
+namespace DesperateDevs.Serialization.CLI.Utils {
 
     public class FixConfig : AbstractPreferencesCommand {
 

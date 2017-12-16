@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using DesperateDevs.Serialization;
-using DesperateDevs.Serialization.CLI;
+using DesperateDevs.Serialization.CLI.Utils;
 
 namespace DesperateDevs.Builder.CLI {
 

@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using DesperateDevs.Logging;
 
-namespace DesperateDevs.Serialization.CLI {
+namespace DesperateDevs.Serialization.CLI.Utils {
 
     public enum UserDecision {
         Accept,

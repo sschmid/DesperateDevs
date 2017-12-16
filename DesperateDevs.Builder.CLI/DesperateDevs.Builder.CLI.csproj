@@ -47,7 +47,7 @@
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DesperateDevs.CLI\DesperateDevs.CLI.csproj">
+    <ProjectReference Include="..\DesperateDevs.CLI.Utils\DesperateDevs.CLI.Utils.csproj">
       <Project>{C62F56CD-83AA-428B-B75B-6EE5654CF56D}</Project>
       <Name>DesperateDevs.CLI</Name>
     </ProjectReference>
@@ -55,7 +55,7 @@
       <Project>{219375E3-8AA6-4A75-8F9A-297D23E34D8C}</Project>
       <Name>DesperateDevs.Logging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DesperateDevs.Serialization.CLI\DesperateDevs.Serialization.CLI.csproj">
+    <ProjectReference Include="..\DesperateDevs.Serialization.CLI.Utils\DesperateDevs.Serialization.CLI.Utils.csproj">
       <Project>{B583EC30-961F-4688-B6E7-3024B2242C6A}</Project>
       <Name>DesperateDevs.Serialization.CLI</Name>
     </ProjectReference>

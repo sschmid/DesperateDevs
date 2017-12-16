@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DesperateDevs.CLI {
+namespace DesperateDevs.CLI.Utils {
 
     public static class ArgsExtension {
 

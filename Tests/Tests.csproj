@@ -56,7 +56,7 @@
     <Compile Include="Tests\chech_namespaces.cs" />
     <Compile Include="Tests\DesperateDevs.Analytics\describe_Tracker.cs" />
     <Compile Include="Tests\DesperateDevs.Analytics\describe_TrackingData.cs" />
-    <Compile Include="Tests\DesperateDevs.CLI\describe_ArgsExtension.cs" />
+    <Compile Include="Tests\DesperateDevs.CLI.Utils\describe_ArgsExtension.cs" />
     <Compile Include="Tests\DesperateDevs.CodeGeneration.CodeGenerator\describe_CodeGenerator.cs" />
     <Compile Include="Tests\DesperateDevs.CodeGeneration.Plugins\describe_MergeFilesPostProcessor.cs" />
     <Compile Include="Tests\DesperateDevs.CodeGeneration.Plugins\describe_TargetDirectoryExtension.cs" />
@@ -86,9 +86,9 @@
       <Project>{6F78C75A-B1C3-45A1-B7F7-961677D0F1BD}</Project>
       <Name>DesperateDevs.Analytics</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DesperateDevs.CLI\DesperateDevs.CLI.csproj">
+    <ProjectReference Include="..\DesperateDevs.CLI.Utils\DesperateDevs.CLI.Utils.csproj">
       <Project>{c62f56cd-83aa-428b-b75b-6ee5654cf56d}</Project>
-      <Name>DesperateDevs.CLI</Name>
+      <Name>DesperateDevs.CLI.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\DesperateDevs.CodeGeneration.CodeGenerator\DesperateDevs.CodeGeneration.CodeGenerator.csproj">
       <Project>{7AFE3A5A-6CB5-4738-972A-458A16BC19AC}</Project>

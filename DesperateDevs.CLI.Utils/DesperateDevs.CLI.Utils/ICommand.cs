@@ -1,4 +1,4 @@
-﻿namespace DesperateDevs.CLI {
+﻿namespace DesperateDevs.CLI.Utils {
 
     public interface ICommand {
 

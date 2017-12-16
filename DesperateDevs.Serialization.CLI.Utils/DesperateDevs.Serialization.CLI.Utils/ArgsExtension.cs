@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace DesperateDevs.Serialization.CLI {
+namespace DesperateDevs.Serialization.CLI.Utils {
 
     public static class ArgsExtension {
 

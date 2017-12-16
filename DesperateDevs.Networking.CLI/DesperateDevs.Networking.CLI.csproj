@@ -49,7 +49,7 @@
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DesperateDevs.CLI\DesperateDevs.CLI.csproj">
+    <ProjectReference Include="..\DesperateDevs.CLI.Utils\DesperateDevs.CLI.Utils.csproj">
       <Project>{C62F56CD-83AA-428B-B75B-6EE5654CF56D}</Project>
       <Name>DesperateDevs.CLI</Name>
     </ProjectReference>
@@ -61,7 +61,7 @@
       <Project>{925D6640-CB5A-4833-85FE-63332651880A}</Project>
       <Name>DesperateDevs.Networking</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DesperateDevs.Serialization.CLI\DesperateDevs.Serialization.CLI.csproj">
+    <ProjectReference Include="..\DesperateDevs.Serialization.CLI.Utils\DesperateDevs.Serialization.CLI.Utils.csproj">
       <Project>{B583EC30-961F-4688-B6E7-3024B2242C6A}</Project>
       <Name>DesperateDevs.Serialization.CLI</Name>
     </ProjectReference>

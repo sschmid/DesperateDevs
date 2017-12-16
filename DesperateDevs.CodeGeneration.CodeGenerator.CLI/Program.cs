@@ -1,5 +1,5 @@
 ﻿using System;
-using DesperateDevs.CLI;
+using DesperateDevs.CLI.Utils;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 

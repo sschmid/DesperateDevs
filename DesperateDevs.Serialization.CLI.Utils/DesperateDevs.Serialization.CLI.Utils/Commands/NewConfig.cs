@@ -1,8 +1,8 @@
 using System.IO;
-using DesperateDevs.CLI;
+using DesperateDevs.CLI.Utils;
 using DesperateDevs.Logging;
 
-namespace DesperateDevs.Serialization.CLI {
+namespace DesperateDevs.Serialization.CLI.Utils {
 
     public class NewConfig : AbstractCommand {
 

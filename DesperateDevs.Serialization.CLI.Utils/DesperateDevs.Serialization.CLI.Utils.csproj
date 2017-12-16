@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C62F56CD-83AA-428B-B75B-6EE5654CF56D}</ProjectGuid>
+    <ProjectGuid>{B583EC30-961F-4688-B6E7-3024B2242C6A}</ProjectGuid>
     <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DesperateDevs.CLI</RootNamespace>
-    <AssemblyName>DesperateDevs.CLI</AssemblyName>
+    <RootNamespace>DesperateDevs.Serialization.CLI.Utils</RootNamespace>
+    <AssemblyName>DesperateDevs.Serialization.CLI.Utils</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <LangVersion>4</LangVersion>
@@ -41,19 +41,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DesperateDevs.CLI\AbstractCommand.cs" />
-    <Compile Include="DesperateDevs.CLI\CLIProgram.cs" />
-    <Compile Include="DesperateDevs.CLI\ArgsExtension.cs" />
-    <Compile Include="DesperateDevs.CLI\ICommand.cs" />
+    <Compile Include="DesperateDevs.Serialization.CLI.Utils\AbstractPreferencesCommand.cs" />
+    <Compile Include="DesperateDevs.Serialization.CLI.Utils\ArgsExtension.cs" />
+    <Compile Include="DesperateDevs.Serialization.CLI.Utils\CLIUtil.cs" />
+    <Compile Include="DesperateDevs.Serialization.CLI.Utils\Commands\AddKeyValue.cs" />
+    <Compile Include="DesperateDevs.Serialization.CLI.Utils\Commands\Dump.cs" />
+    <Compile Include="DesperateDevs.Serialization.CLI.Utils\Commands\EditConfig.cs" />
+    <Compile Include="DesperateDevs.Serialization.CLI.Utils\Commands\FixConfig.cs" />
+    <Compile Include="DesperateDevs.Serialization.CLI.Utils\Commands\Format.cs" />
+    <Compile Include="DesperateDevs.Serialization.CLI.Utils\Commands\NewConfig.cs" />
+    <Compile Include="DesperateDevs.Serialization.CLI.Utils\Commands\RemoveKeyValue.cs" />
+    <Compile Include="DesperateDevs.Serialization.CLI.Utils\Commands\SetKeyValue.cs" />
+    <Compile Include="DesperateDevs.Serialization.CLI.Utils\PreferencesExtension.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DesperateDevs.Logging.Formatters\DesperateDevs.Logging.Formatters.csproj">
-      <Project>{2135cbae-a0e3-4715-8969-246dce3e7538}</Project>
-      <Name>DesperateDevs.Logging.Formatters</Name>
+    <ProjectReference Include="..\DesperateDevs.CLI.Utils\DesperateDevs.CLI.Utils.csproj">
+      <Project>{C62F56CD-83AA-428B-B75B-6EE5654CF56D}</Project>
+      <Name>DesperateDevs.CLI</Name>
     </ProjectReference>
     <ProjectReference Include="..\DesperateDevs.Logging\DesperateDevs.Logging.csproj">
       <Project>{219375E3-8AA6-4A75-8F9A-297D23E34D8C}</Project>
       <Name>DesperateDevs.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DesperateDevs.Serialization\DesperateDevs.Serialization.csproj">
+      <Project>{3F7A0EC0-ECFE-4DA5-A02F-C716AD8F0817}</Project>
+      <Name>DesperateDevs.Serialization</Name>
     </ProjectReference>
     <ProjectReference Include="..\DesperateDevs.Utils\DesperateDevs.Utils.csproj">
       <Project>{F81E2E63-8F15-43D9-85C0-57237ED42250}</Project>

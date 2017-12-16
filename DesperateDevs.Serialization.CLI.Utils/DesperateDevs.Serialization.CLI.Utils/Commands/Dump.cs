@@ -1,6 +1,6 @@
 ﻿using DesperateDevs.Utils;
 
-namespace DesperateDevs.Serialization.CLI {
+namespace DesperateDevs.Serialization.CLI.Utils {
 
     public class Dump : AbstractPreferencesCommand {
 

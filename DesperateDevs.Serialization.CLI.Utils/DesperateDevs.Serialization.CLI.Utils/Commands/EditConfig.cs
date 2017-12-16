@@ -1,6 +1,6 @@
 using System.Threading;
 
-namespace DesperateDevs.Serialization.CLI {
+namespace DesperateDevs.Serialization.CLI.Utils {
 
     public class EditConfig : AbstractPreferencesCommand {
 

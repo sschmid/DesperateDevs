@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
-using DesperateDevs.CLI;
+using DesperateDevs.CLI.Utils;
 using DesperateDevs.Logging;
 using DesperateDevs.Networking;
 using DesperateDevs.Serialization;
-using DesperateDevs.Serialization.CLI;
+using DesperateDevs.Serialization.CLI.Utils;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
