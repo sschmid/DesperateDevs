@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DesperateDevs.Serialization;
+using DesperateDevs.Serialization.CLI;
 using DesperateDevs.Utils;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
@@ -10,7 +11,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         public override string trigger { get { return "status"; } }
         public override string description { get { return "List available and unavailable plugins"; } }
-        public override string example { get { return "jenny status"; } }
+        public override string example { get { return "status"; } }
 
         public Status() : base(typeof(Status).Name) {
         }
@@ -45,15 +46,14 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         }
 
         void printKeyStatus(string[] requiredKeys, CLIConfig cliConfig, Preferences preferences) {
-            var unusedKeys = APIUtil
-                .GetUnusedKeys(requiredKeys, preferences)
+            var unusedKeys = preferences.GetUnusedKeys(requiredKeys)
                 .Where(key => !cliConfig.ignoreUnusedKeys.Contains(key));
 
             foreach (var key in unusedKeys) {
                 _logger.Info("ℹ️️  Unused key: " + key);
             }
 
-            foreach (var key in APIUtil.GetMissingKeys(requiredKeys, preferences)) {
+            foreach (var key in preferences.GetMissingKeys(requiredKeys)) {
                 _logger.Warn("⚠️  Missing key: " + key);
             }
         }

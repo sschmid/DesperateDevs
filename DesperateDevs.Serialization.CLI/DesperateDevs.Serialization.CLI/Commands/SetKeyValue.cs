@@ -1,12 +1,12 @@
 ﻿using DesperateDevs.Utils;
 
-namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
+namespace DesperateDevs.Serialization.CLI {
 
     public class SetKeyValue : AbstractPreferencesCommand {
 
         public override string trigger { get { return "set"; } }
         public override string description { get { return "Set the value of a key"; } }
-        public override string example { get { return "jenny set key value"; } }
+        public override string example { get { return "set key value"; } }
 
         public SetKeyValue() : base(typeof(SetKeyValue).Name) {
         }
@@ -16,19 +16,18 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
                 setKeyValue(_args[0], _args[1]);
             } else {
                 _logger.Warn("The set command expects exactly two arguments");
-                _logger.Info("E.g. jenny set myKey myValue");
+                _logger.Info("E.g. set myKey myValue");
             }
         }
 
         void setKeyValue(string key, string value) {
             if (_preferences.HasKey(key)) {
-                APIUtil.AddValue(
+                _preferences.AddValue(
                     value,
                     new string[0],
-                    values => _preferences[key] = values.ToCSV(),
-                    _preferences);
+                    values => _preferences[key] = values.ToCSV());
             } else {
-                APIUtil.AskAddKey("Key doesn't exist. Do you want to add", key, value, _preferences);
+                _preferences.AskAddKey("Key doesn't exist. Do you want to add", key, value);
             }
         }
     }

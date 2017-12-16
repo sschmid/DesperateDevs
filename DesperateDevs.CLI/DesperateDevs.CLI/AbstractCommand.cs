@@ -13,7 +13,7 @@ namespace DesperateDevs.CLI {
             _rawArgs = args;
             _args = args
                 .WithoutTrigger()
-                .WithoutParameter();
+                .WithoutDefaultParameter();
             run();
         }
 

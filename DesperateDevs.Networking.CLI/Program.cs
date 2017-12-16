@@ -8,7 +8,7 @@ namespace DesperateDevs.Networking.CLI {
         static CLIProgram _program;
 
         public static void Main(string[] args) {
-            _program = new CLIProgram("TCPezy", typeof(Program).Assembly);
+            _program = new CLIProgram("TCPezy");
             _program.Run(args, printUsage);
         }
 
@@ -29,13 +29,12 @@ namespace DesperateDevs.Networking.CLI {
    Connecting sockets since 2013
 ";
 
-            Console.WriteLine(header);
             const string footer = "EXAMPLE\n" +
                                   "  pezy listen 1234\n" +
                                   "  pezy connect localhost 1234";
 
             Console.WriteLine(header);
-            Console.WriteLine(string.Format("usage:\n{0}", string.Join("\n", commandList)));
+            Console.WriteLine("usage:\n" + string.Join("\n", commandList));
             Console.WriteLine("\n" + footer);
         }
     }

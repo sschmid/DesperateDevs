@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using DesperateDevs.Serialization;
+using DesperateDevs.Serialization.CLI;
 using DesperateDevs.Utils;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
@@ -9,7 +10,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         public override string trigger { get { return "doctor"; } }
         public override string description { get { return "Check the config for potential problems"; } }
-        public override string example { get { return "jenny doctor"; } }
+        public override string example { get { return "doctor"; } }
 
         public Doctor() : base(typeof(Doctor).Name) {
         }

@@ -8,7 +8,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         static CLIProgram _program;
 
         public static void Main(string[] args) {
-            _program = new CLIProgram("Jenny", typeof(Program).Assembly);
+            _program = new CLIProgram("Jenny");
             _program.Run(args, printUsage);
         }
 
@@ -54,7 +54,7 @@ I8,      ,8'    A lovely .NET Code Generator        I8   8I
                                   "  jenny new My.properties username.userproperties";
 
             Console.WriteLine(header);
-            Console.WriteLine(string.Format("usage:\n{0}", string.Join("\n", commandList)));
+            Console.WriteLine("usage:\n" + string.Join("\n", commandList));
             Console.WriteLine("\n" + footer);
         }
     }

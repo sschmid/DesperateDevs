@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
+namespace DesperateDevs.Serialization.CLI {
 
     public static class ArgsExtension {
 

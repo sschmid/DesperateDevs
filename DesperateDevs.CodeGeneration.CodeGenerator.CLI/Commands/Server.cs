@@ -7,6 +7,7 @@ using DesperateDevs.CLI;
 using DesperateDevs.Logging;
 using DesperateDevs.Networking;
 using DesperateDevs.Serialization;
+using DesperateDevs.Serialization.CLI;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
@@ -14,7 +15,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         public override string trigger { get { return "server"; } }
         public override string description { get { return "Start server mode"; } }
-        public override string example { get { return "jenny server"; } }
+        public override string example { get { return "server"; } }
 
         AbstractTcpSocket _socket;
         readonly List<string> _logBuffer = new List<string>();
@@ -44,7 +45,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
                 if (args[0] == trigger) {
                     throw new Exception("Server is already running!");
                 }
-                var command = Program.GetCommand(args.WithoutParameter()[0]);
+                var command = Program.GetCommand(args.WithoutDefaultParameter()[0]);
                 fabl.AddAppender(onLog);
                 command.Run(args);
                 fabl.RemoveAppender(onLog);

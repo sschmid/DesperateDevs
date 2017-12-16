@@ -1,15 +1,14 @@
 using System.IO;
 using DesperateDevs.CLI;
 using DesperateDevs.Logging;
-using DesperateDevs.Serialization;
 
-namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
+namespace DesperateDevs.Serialization.CLI {
 
     public class NewConfig : AbstractCommand {
 
         public override string trigger { get { return "new"; } }
         public override string description { get { return "Create new properties file(s) with default values"; } }
-        public override string example { get { return "jenny new file userFile [-f]"; } }
+        public override string example { get { return "new file userFile [-f]"; } }
 
         readonly Logger _logger = fabl.GetLogger(typeof(NewConfig).Name);
 
@@ -24,8 +23,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
             var preferences = new Preferences(properties, userProperties);
             preferences.Reset(true);
-            preferences.properties.AddProperties(new CodeGeneratorConfig().defaultProperties, true);
-            preferences.properties.AddProperties(new CLIConfig().defaultProperties, true);
+            var defaultProperties = CLIUtil.GetDefaultProperties();
+            preferences.properties.AddProperties(defaultProperties, true);
             preferences.Save();
 
             _logger.Info("Created " + preferences.propertiesPath);
@@ -39,8 +38,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         bool doesAlreadyExist(string path) {
             if (File.Exists(path)) {
                 _logger.Warn(path + " already exists!");
-                _logger.Info("Use jenny new -f to overwrite the exiting file.");
-                _logger.Info("Use jenny edit to open the exiting file.");
+                _logger.Info("Use new -f to overwrite the exiting file.");
+                _logger.Info("Use edit to open the exiting file.");
 
                 return true;
             }

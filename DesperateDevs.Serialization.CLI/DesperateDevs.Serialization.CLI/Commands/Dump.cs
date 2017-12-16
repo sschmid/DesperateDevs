@@ -1,12 +1,12 @@
 ﻿using DesperateDevs.Utils;
 
-namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
+namespace DesperateDevs.Serialization.CLI {
 
     public class Dump : AbstractPreferencesCommand {
 
         public override string trigger { get { return "dump"; } }
         public override string description { get { return "List all config keys and values"; } }
-        public override string example { get { return "jenny dump"; } }
+        public override string example { get { return "dump"; } }
 
         public Dump() : base(typeof(Dump).Name) {
         }

@@ -1,9 +1,8 @@
 using System;
 using DesperateDevs.CLI;
 using DesperateDevs.Logging;
-using DesperateDevs.Serialization;
 
-namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
+namespace DesperateDevs.Serialization.CLI {
 
     public abstract class AbstractPreferencesCommand : AbstractCommand {
 
@@ -19,7 +18,6 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
                 _preferences = new Preferences(args.GetPropertiesPath(), args.GetUserPropertiesPath());
             } catch (Exception ex) {
                 _logger.Error(ex.Message);
-                _logger.Info("Run 'jenny new My.properties' to create My.properties with default values");
 
                 return;
             }

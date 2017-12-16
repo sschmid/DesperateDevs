@@ -14,7 +14,7 @@ namespace DesperateDevs.Utils {
         readonly string[] _basePaths;
         readonly List<Assembly> _assemblies;
 
-        public AssemblyResolver(AppDomain appDomain, string[] basePaths) {
+        public AssemblyResolver(AppDomain appDomain, params string[] basePaths) {
             _appDomain = appDomain;
             _appDomain.AssemblyResolve += onAssemblyResolve;
             _basePaths = basePaths;

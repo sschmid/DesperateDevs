@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Reflection;
 using DesperateDevs.Logging;
 using DesperateDevs.Logging.Formatters;
 using DesperateDevs.Utils;
@@ -20,9 +20,17 @@ namespace DesperateDevs.CLI {
         readonly Logger _logger;
         readonly ICommand[] _commands;
 
-        public CLIProgram(string applicationName, Assembly assembly) {
+        public CLIProgram(string applicationName) {
             _logger = fabl.GetLogger(applicationName);
-            _commands = getOrderedCommands(assembly);
+            var basePath = Directory.GetCurrentDirectory();
+            var files = Directory.GetFiles(basePath);
+            var resolver = new AssemblyResolver(AppDomain.CurrentDomain, basePath);
+
+            foreach (var file in files) {
+                resolver.Load(file);
+            }
+
+            _commands = getOrderedCommands(resolver.GetTypes());
         }
 
         public void Run(string[] args, Action<ICommand[]> printUsage) {
@@ -60,15 +68,14 @@ namespace DesperateDevs.CLI {
 
         void runCommand(string[] args) {
             try {
-                GetCommand(args.WithoutParameter()[0]).Run(args);
+                GetCommand(args.WithoutDefaultParameter()[0]).Run(args);
             } catch (Exception ex) {
                 _logger.Error(args.isVerbose() ? ex.ToString() : ex.Message);
             }
         }
 
-        static ICommand[] getOrderedCommands(Assembly assembly) {
-            return assembly
-                .GetTypes()
+        static ICommand[] getOrderedCommands(Type[] types) {
+            return types
                 .GetInstancesOf<ICommand>()
                 .OrderBy(c => c.trigger)
                 .ToArray();

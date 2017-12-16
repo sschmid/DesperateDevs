@@ -7,7 +7,7 @@ namespace DesperateDevs.Networking.CLI {
 
         public override string trigger { get { return "connect"; } }
         public override string description { get { return "Connect to ip on port"; } }
-        public override string example { get { return "pezy connect [ip port]"; } }
+        public override string example { get { return "connect [ip port]"; } }
 
         public Connect() : base(typeof(Connect).Name) {
         }

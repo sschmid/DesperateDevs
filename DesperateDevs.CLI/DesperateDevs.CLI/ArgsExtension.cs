@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DesperateDevs.CLI {
@@ -24,21 +25,19 @@ namespace DesperateDevs.CLI {
         }
 
         public static string[] WithoutTrigger(this string[] args) {
-            var argsList = args.ToList();
-            argsList.RemoveAt(0);
-            return argsList.ToArray();
+            return args.Skip(1).ToArray();
+        }
+
+        public static string[] WithoutDefaultParameter(this string[] args) {
+            return args
+                .Where(arg => !_defaultParameter.Contains(arg))
+                .ToArray();
         }
 
         public static string[] WithoutParameter(this string[] args) {
-            var argsList = args.ToList();
-
-            foreach (var arg in args) {
-                if (_defaultParameter.Contains(arg)) {
-                    argsList.Remove(arg);
-                }
-            }
-
-            return argsList.ToArray();
+            return args
+                .Where(arg => !arg.StartsWith("-", StringComparison.Ordinal))
+                .ToArray();
         }
     }
 }

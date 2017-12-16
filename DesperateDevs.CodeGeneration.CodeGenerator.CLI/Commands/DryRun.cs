@@ -1,10 +1,12 @@
+using DesperateDevs.Serialization.CLI;
+
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
     public class DryRun : AbstractPreferencesCommand {
 
         public override string trigger { get { return "dry"; } }
         public override string description { get { return "Run the code generator in dry mode"; } }
-        public override string example { get { return "jenny dry"; } }
+        public override string example { get { return "dry"; } }
 
         public DryRun() : base(typeof(DryRun).Name) {
         }

@@ -1,12 +1,12 @@
 ﻿using DesperateDevs.Utils;
 
-namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
+namespace DesperateDevs.Serialization.CLI {
 
     public class RemoveKeyValue : AbstractPreferencesCommand {
 
         public override string trigger { get { return "remove"; } }
         public override string description { get { return "Remove a key or a value from a key"; } }
-        public override string example { get { return "jenny remove key value"; } }
+        public override string example { get { return "remove key value"; } }
 
         public RemoveKeyValue() : base(typeof(RemoveKeyValue).Name) {
         }
@@ -18,17 +18,16 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
                 removeKey(_args[0]);
             } else {
                 _logger.Warn("The remove command expects one or two arguments");
-                _logger.Info("E.g. jenny remove myKey myValue");
+                _logger.Info("E.g. remove myKey myValue");
             }
         }
 
         void removeValue(string key, string value) {
             if (_preferences.HasKey(key)) {
-                APIUtil.RemoveValue(
+                _preferences.RemoveValue(
                     value,
                     _preferences[key].ArrayFromCSV(),
-                    values => _preferences[key] = values.ToCSV(),
-                    _preferences);
+                    values => _preferences[key] = values.ToCSV());
             } else {
                 _logger.Warn("Key doesn't exist: " + key);
             }
@@ -36,10 +35,9 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         void removeKey(string key) {
             if (_preferences.HasKey(key)) {
-                APIUtil.AskRemoveKey(
+                _preferences.AskRemoveKey(
                     "Do you want to remove",
-                    key,
-                    _preferences);
+                    key);
             } else {
                 _logger.Warn("Key doesn't exist: " + key);
             }

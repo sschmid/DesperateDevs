@@ -13,7 +13,7 @@ class describe_ArgsExtension : nspec {
 
         it["filters default parameter starting with -"] = () => {
             var args = new[] { "-v", "-s", "-d", "value" };
-            var filtered = args.WithoutParameter();
+            var filtered = args.WithoutDefaultParameter();
 
             filtered.Length.should_be(1);
             filtered.should_contain("value");
@@ -21,10 +21,18 @@ class describe_ArgsExtension : nspec {
 
         it["keeps custom parameter starting with -"] = () => {
             var args = new[] { "-v", "-s", "-d", "-f" };
-            var filtered = args.WithoutParameter();
+            var filtered = args.WithoutDefaultParameter();
 
             filtered.Length.should_be(1);
             filtered.should_contain("-f");
+        };
+
+        it["filters all parameter starting with -"] = () => {
+            var args = new[] { "-v", "-s", "-d", "-x", "-y", "value" };
+            var filtered = args.WithoutParameter();
+
+            filtered.Length.should_be(1);
+            filtered.should_contain("value");
         };
 
         it["filters trigger"] = () => {

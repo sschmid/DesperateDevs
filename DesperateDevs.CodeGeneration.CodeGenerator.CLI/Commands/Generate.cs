@@ -1,10 +1,12 @@
+using DesperateDevs.Serialization.CLI;
+
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
     public class Generate : AbstractPreferencesCommand {
 
         public override string trigger { get { return "gen"; } }
         public override string description { get { return "Generate files based on properties file"; } }
-        public override string example { get { return "jenny gen"; } }
+        public override string example { get { return "gen"; } }
 
         public Generate() : base(typeof(Generate).Name) {
         }

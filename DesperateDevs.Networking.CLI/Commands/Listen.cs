@@ -6,7 +6,7 @@ namespace DesperateDevs.Networking.CLI {
 
         public override string trigger { get { return "listen"; } }
         public override string description { get { return "Listen on port"; } }
-        public override string example { get { return "pezy listen [port]"; } }
+        public override string example { get { return "listen [port]"; } }
 
         public Listen() : base(typeof(Listen).Name) {
         }

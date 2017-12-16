@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DesperateDevs.Serialization;
+using DesperateDevs.Serialization.CLI;
 using DesperateDevs.Utils;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
@@ -10,7 +11,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         public override string trigger { get { return "fix"; } }
         public override string description { get { return "Add missing or remove unused keys interactively"; } }
-        public override string example { get { return "jenny fix"; } }
+        public override string example { get { return "fix"; } }
 
         public FixConfig() : base(typeof(FixConfig).Name) {
         }
@@ -46,7 +47,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
                 if (diagnosis.severity == DiagnosisSeverity.Error) {
                     _logger.Info("💉  Apply fix: " + diagnosis.treatment);
                     _logger.Info("to treat symptoms: " + diagnosis.symptoms + " ? (y / n)");
-                    if (APIUtil.GetUserDecision()) {
+                    if (PreferencesExtension.GetUserDecision()) {
                         if (doctor.Fix()) {
                             _preferences.Save();
                         }
@@ -57,10 +58,10 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         static void forceAddMissingKeys(Dictionary<string, string> requiredProperties, Preferences preferences) {
             var requiredKeys = requiredProperties.Keys.ToArray();
-            var missingKeys = APIUtil.GetMissingKeys(requiredKeys, preferences);
+            var missingKeys = preferences.GetMissingKeys(requiredKeys);
 
             foreach (var key in missingKeys) {
-                APIUtil.ForceAddKey("Will add missing key", key, requiredProperties[key], preferences);
+                preferences.ForceAddKey("Will add missing key", key, requiredProperties[key]);
             }
         }
 
@@ -96,8 +97,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
             foreach (var key in unavailablePreProcessors) {
                 if (!askedRemoveKeys.Contains(key)) {
-                    APIUtil.AskRemoveValue("Remove unavailable pre processor", key, config.preProcessors,
-                        values => config.preProcessors = values, preferences);
+                    preferences.AskRemoveValue("Remove unavailable pre processor", key, config.preProcessors,
+                        values => config.preProcessors = values);
                     askedRemoveKeys.Add(key);
                     changed = true;
                 }
@@ -105,8 +106,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
             foreach (var key in unavailableDataProviders) {
                 if (!askedRemoveKeys.Contains(key)) {
-                    APIUtil.AskRemoveValue("Remove unavailable data provider", key, config.dataProviders,
-                        values => config.dataProviders = values, preferences);
+                    preferences.AskRemoveValue("Remove unavailable data provider", key, config.dataProviders,
+                        values => config.dataProviders = values);
                     askedRemoveKeys.Add(key);
                     changed = true;
                 }
@@ -114,8 +115,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
             foreach (var key in unavailableCodeGenerators) {
                 if (!askedRemoveKeys.Contains(key)) {
-                    APIUtil.AskRemoveValue("Remove unavailable code generator", key, config.codeGenerators,
-                        values => config.codeGenerators = values, preferences);
+                    preferences.AskRemoveValue("Remove unavailable code generator", key, config.codeGenerators,
+                        values => config.codeGenerators = values);
                     askedRemoveKeys.Add(key);
                     changed = true;
                 }
@@ -123,8 +124,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
             foreach (var key in unavailablePostProcessors) {
                 if (!askedRemoveKeys.Contains(key)) {
-                    APIUtil.AskRemoveValue("Remove unavailable post processor", key, config.postProcessors,
-                        values => config.postProcessors = values, preferences);
+                    preferences.AskRemoveValue("Remove unavailable post processor", key, config.postProcessors,
+                        values => config.postProcessors = values);
                     askedRemoveKeys.Add(key);
                     changed = true;
                 }
@@ -132,8 +133,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
             foreach (var key in availablePreProcessors) {
                 if (!askedAddKeys.Contains(key)) {
-                    APIUtil.AskAddValue("Add available pre processor", key, config.preProcessors,
-                        values => config.preProcessors = values, preferences);
+                    preferences.AskAddValue("Add available pre processor", key, config.preProcessors,
+                        values => config.preProcessors = values);
                     askedAddKeys.Add(key);
                     changed = true;
                 }
@@ -141,8 +142,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
             foreach (var key in availableDataProviders) {
                 if (!askedAddKeys.Contains(key)) {
-                    APIUtil.AskAddValue("Add available data provider", key, config.dataProviders,
-                        values => config.dataProviders = values, preferences);
+                    preferences.AskAddValue("Add available data provider", key, config.dataProviders,
+                        values => config.dataProviders = values);
                     askedAddKeys.Add(key);
                     changed = true;
                 }
@@ -150,8 +151,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
             foreach (var key in availableCodeGenerators) {
                 if (!askedAddKeys.Contains(key)) {
-                    APIUtil.AskAddValue("Add available code generator", key, config.codeGenerators,
-                        values => config.codeGenerators = values, preferences);
+                    preferences.AskAddValue("Add available code generator", key, config.codeGenerators,
+                        values => config.codeGenerators = values);
                     askedAddKeys.Add(key);
                     changed = true;
                 }
@@ -159,8 +160,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
             foreach (var key in availablePostProcessors) {
                 if (!askedAddKeys.Contains(key)) {
-                    APIUtil.AskAddValue("Add available post processor", key, config.postProcessors,
-                        values => config.postProcessors = values, preferences);
+                    preferences.AskAddValue("Add available post processor", key, config.postProcessors,
+                        values => config.postProcessors = values);
                     askedAddKeys.Add(key);
                     changed = true;
                 }
@@ -205,18 +206,17 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
                 printCollisions(collisions);
                 var inputChars = getInputChars(collisions);
-                var keyChar = APIUtil.GetGenericUserDecision(inputChars);
+                var keyChar = PreferencesExtension.GetGenericUserDecision(inputChars);
                 if (keyChar != '0') {
                     var index = int.Parse(keyChar.ToString()) - 1;
                     var keep = collisions[index];
 
                     foreach (var collision in collisions) {
                         if (collision != keep) {
-                            APIUtil.RemoveValue(
+                            preferences.RemoveValue(
                                 collision,
                                 values,
-                                result => values = updateAction(result),
-                                preferences);
+                                result => values = updateAction(result));
                             askedAddKeys.Add(collision);
                             changed = true;
                         }
@@ -256,13 +256,13 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         }
 
         static void removeUnusedKeys(HashSet<string> askedRemoveKeys, string[] requiredKeys, CLIConfig cliConfig, Preferences preferences) {
-            var unusedKeys = APIUtil
-                .GetUnusedKeys(requiredKeys, preferences)
+            var unusedKeys = preferences.GetUnusedKeys(requiredKeys)
                 .Where(key => !cliConfig.ignoreUnusedKeys.Contains(key));
 
             foreach (var key in unusedKeys) {
                 if (!askedRemoveKeys.Contains(key)) {
-                    APIUtil.AskRemoveOrIgnoreKey("Remove unused key", key, cliConfig, preferences);
+                    preferences.AskRemoveOrIgnoreKey("Remove unused key", key, cliConfig.ignoreUnusedKeys,
+                        values => cliConfig.ignoreUnusedKeys = values);
                     askedRemoveKeys.Add(key);
                 }
             }

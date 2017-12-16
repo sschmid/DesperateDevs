@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using DesperateDevs.Serialization;
+using DesperateDevs.Serialization.CLI;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
@@ -9,7 +10,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         public override string trigger { get { return "auto-import"; } }
         public override string description { get { return "Find and import all plugins"; } }
-        public override string example { get { return "jenny auto-import"; } }
+        public override string example { get { return "auto-import"; } }
 
         public AutoImport() : base(typeof(AutoImport).Name) {
         }

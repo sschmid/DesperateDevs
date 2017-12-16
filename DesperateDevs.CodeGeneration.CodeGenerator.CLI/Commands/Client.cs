@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Text;
 using DesperateDevs.Networking;
 using DesperateDevs.Serialization;
+using DesperateDevs.Serialization.CLI;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
@@ -11,7 +12,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         public override string trigger { get { return "client"; } }
         public override string description { get { return "Start client mode"; } }
-        public override string example { get { return "jenny client command"; } }
+        public override string example { get { return "client command"; } }
 
         string _command;
 

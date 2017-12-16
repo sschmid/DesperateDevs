@@ -4,13 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{64AE0FE5-CD14-4797-9566-93065CDB1A98}</ProjectGuid>
+    <ProjectGuid>{B583EC30-961F-4688-B6E7-3024B2242C6A}</ProjectGuid>
     <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DesperateDevs.Networking.CLI</RootNamespace>
-    <AssemblyName>DesperateDevs.Networking.CLI</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>DesperateDevs.Serialization.CLI</RootNamespace>
+    <AssemblyName>DesperateDevs.Serialization.CLI</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
@@ -37,16 +37,22 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\AbstractSocketCommand.cs" />
-    <Compile Include="Commands\Connect.cs" />
-    <Compile Include="Commands\Listen.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="DesperateDevs.Serialization.CLI\AbstractPreferencesCommand.cs" />
+    <Compile Include="DesperateDevs.Serialization.CLI\ArgsExtension.cs" />
+    <Compile Include="DesperateDevs.Serialization.CLI\CLIUtil.cs" />
+    <Compile Include="DesperateDevs.Serialization.CLI\Commands\AddKeyValue.cs" />
+    <Compile Include="DesperateDevs.Serialization.CLI\Commands\Dump.cs" />
+    <Compile Include="DesperateDevs.Serialization.CLI\Commands\EditConfig.cs" />
+    <Compile Include="DesperateDevs.Serialization.CLI\Commands\FixConfig.cs" />
+    <Compile Include="DesperateDevs.Serialization.CLI\Commands\Format.cs" />
+    <Compile Include="DesperateDevs.Serialization.CLI\Commands\NewConfig.cs" />
+    <Compile Include="DesperateDevs.Serialization.CLI\Commands\RemoveKeyValue.cs" />
+    <Compile Include="DesperateDevs.Serialization.CLI\Commands\SetKeyValue.cs" />
+    <Compile Include="DesperateDevs.Serialization.CLI\PreferencesExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DesperateDevs.CLI\DesperateDevs.CLI.csproj">
@@ -57,13 +63,9 @@
       <Project>{219375E3-8AA6-4A75-8F9A-297D23E34D8C}</Project>
       <Name>DesperateDevs.Logging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DesperateDevs.Networking\DesperateDevs.Networking.csproj">
-      <Project>{925D6640-CB5A-4833-85FE-63332651880A}</Project>
-      <Name>DesperateDevs.Networking</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DesperateDevs.Serialization.CLI\DesperateDevs.Serialization.CLI.csproj">
-      <Project>{B583EC30-961F-4688-B6E7-3024B2242C6A}</Project>
-      <Name>DesperateDevs.Serialization.CLI</Name>
+    <ProjectReference Include="..\DesperateDevs.Serialization\DesperateDevs.Serialization.csproj">
+      <Project>{3F7A0EC0-ECFE-4DA5-A02F-C716AD8F0817}</Project>
+      <Name>DesperateDevs.Serialization</Name>
     </ProjectReference>
     <ProjectReference Include="..\DesperateDevs.Utils\DesperateDevs.Utils.csproj">
       <Project>{F81E2E63-8F15-43D9-85C0-57237ED42250}</Project>
