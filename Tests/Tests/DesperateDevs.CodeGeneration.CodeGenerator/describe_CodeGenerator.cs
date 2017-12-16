@@ -10,14 +10,19 @@ class describe_CodeGenerator : nspec {
 
         context["generate"] = () => {
 
-            it["executes data providers, generators and post processors"] = () => {
+            it["executes pre processors, data providers, generators and post processors"] = () => {
+                var preStr = new List<string>();
                 var generator = new CodeGenerator(
+                    new [] { new Pre1PreProcessor(preStr) },
                     new [] { new Data_1_2_Provider() },
                     new [] { new DataFile1CodeGenerator() },
                     new [] { new Processed1PostProcessor() }
                 );
 
                 var files = generator.Generate();
+
+                preStr.Count.should_be(1);
+                preStr[0].should_be("Pre1");
 
                 files.Length.should_be(2);
 
@@ -30,6 +35,7 @@ class describe_CodeGenerator : nspec {
 
             it["uses returned CodeGenFiles"] = () => {
                 var generator = new CodeGenerator(
+                    new [] { new Pre1PreProcessor(new List<string>()) },
                     new [] { new Data_1_2_Provider() },
                     new [] { new DataFile1CodeGenerator() },
                     new IPostProcessor[] { new Processed1PostProcessor(), new NoFilesPostProcessor() }
@@ -46,13 +52,18 @@ class describe_CodeGenerator : nspec {
         context["dry run"] = () => {
 
             it["skips plugins which don't run in dry run"] = () => {
+                var preStr = new List<string>();
                 var generator = new CodeGenerator(
+                    new IPreProcessor[] { new Pre1PreProcessor(preStr), new DisabledPreProcessor(preStr) },
                     new IDataProvider[] { new Data_1_2_Provider(), new DisabledDataProvider() },
                     new ICodeGenerator[] { new DataFile1CodeGenerator(), new DisabledCodeGenerator() },
                     new IPostProcessor[] { new Processed1PostProcessor(), new DisabledPostProcessor() }
                 );
 
                 var files = generator.DryRun();
+
+                preStr.Count.should_be(1);
+                preStr[0].should_be("Pre1");
 
                 files.Length.should_be(2);
 
@@ -63,8 +74,25 @@ class describe_CodeGenerator : nspec {
 
         context["priority"] = () => {
 
+            it["runs pre processors based on priority"] = () => {
+                var preStr = new List<string>();
+                var generator = new CodeGenerator(
+                    new IPreProcessor[] { new Pre2PreProcessor(preStr), new Pre1PreProcessor(preStr) },
+                    new [] { new Data_1_2_Provider() },
+                    new [] { new DataFile1CodeGenerator() },
+                    new [] { new Processed1PostProcessor() }
+                );
+
+                var files = generator.Generate();
+
+                preStr.Count.should_be(2);
+                preStr[0].should_be("Pre1");
+                preStr[1].should_be("Pre2");
+            };
+
             it["runs data provider based on priority"] = () => {
                 var generator = new CodeGenerator(
+                    new [] { new Pre1PreProcessor(new List<string>()) },
                     new IDataProvider[] { new Data_3_4_Provider(), new Data_1_2_Provider() },
                     new [] { new DataFile1CodeGenerator() },
                     new [] { new Processed1PostProcessor() }
@@ -89,6 +117,7 @@ class describe_CodeGenerator : nspec {
 
             it["runs code generators based on priority"] = () => {
                 var generator = new CodeGenerator(
+                    new [] { new Pre1PreProcessor(new List<string>()) },
                     new [] { new Data_1_2_Provider() },
                     new ICodeGenerator[] { new DataFile2CodeGenerator(), new DataFile1CodeGenerator() },
                     new [] { new Processed1PostProcessor() }
@@ -106,6 +135,7 @@ class describe_CodeGenerator : nspec {
 
             it["runs post processors based on priority"] = () => {
                 var generator = new CodeGenerator(
+                    new [] { new Pre1PreProcessor(new List<string>()) },
                     new [] { new Data_1_2_Provider() },
                     new [] { new DataFile1CodeGenerator() },
                     new IPostProcessor[] { new Processed2PostProcessor(), new Processed1PostProcessor() }
@@ -124,6 +154,7 @@ class describe_CodeGenerator : nspec {
 
             it["cancels"] = () => {
                 var generator = new CodeGenerator(
+                    new [] { new Pre1PreProcessor(new List<string>()) },
                     new [] { new Data_1_2_Provider() },
                     new [] { new DataFile1CodeGenerator() },
                     new [] { new Processed1PostProcessor() }
@@ -138,6 +169,7 @@ class describe_CodeGenerator : nspec {
 
             it["cancels dry run"] = () => {
                 var generator = new CodeGenerator(
+                    new [] { new Pre1PreProcessor(new List<string>()) },
                     new [] { new Data_1_2_Provider() },
                     new [] { new DataFile1CodeGenerator() },
                     new [] { new Processed1PostProcessor() }
@@ -152,6 +184,7 @@ class describe_CodeGenerator : nspec {
 
             it["can generate again after cancel"] = () => {
                 var generator = new CodeGenerator(
+                    new [] { new Pre1PreProcessor(new List<string>()) },
                     new [] { new Data_1_2_Provider() },
                     new [] { new DataFile1CodeGenerator() },
                     new [] { new Processed1PostProcessor() }
@@ -171,6 +204,7 @@ class describe_CodeGenerator : nspec {
 
             it["can do dry run after cancel"] = () => {
                 var generator = new CodeGenerator(
+                    new [] { new Pre1PreProcessor(new List<string>()) },
                     new [] { new Data_1_2_Provider() },
                     new [] { new DataFile1CodeGenerator() },
                     new [] { new Processed1PostProcessor() }
@@ -193,6 +227,7 @@ class describe_CodeGenerator : nspec {
 
             it["registers object to shared cache"] = () => {
                 var generator = new CodeGenerator(
+                    new [] { new Pre1PreProcessor(new List<string>()) },
                     new [] { new CachableProvider(), new CachableProvider() },
                     new [] { new DataFile1CodeGenerator() },
                     new [] { new Processed1PostProcessor() }
@@ -205,6 +240,7 @@ class describe_CodeGenerator : nspec {
 
             it["resets cache before each new run"] = () => {
                 var generator = new CodeGenerator(
+                    new [] { new Pre1PreProcessor(new List<string>()) },
                     new [] { new CachableProvider(), new CachableProvider() },
                     new [] { new DataFile1CodeGenerator() },
                     new [] { new Processed1PostProcessor() }
@@ -400,5 +436,56 @@ public class CachableProvider : IDataProvider, ICachable {
         var data = new CodeGeneratorData();
         data.Add("testKey", o.GetHashCode());
         return new [] { data };
+    }
+}
+
+public class Pre1PreProcessor : IPreProcessor {
+
+    public string name { get { return ""; } }
+    public int priority { get { return 0; } }
+    public bool runInDryMode { get { return true; } }
+
+    List<string> _strings;
+
+    public Pre1PreProcessor(List<string> strings) {
+        _strings = strings;
+    }
+
+    public void PreProcess() {
+        _strings.Add("Pre1");
+    }
+}
+
+public class Pre2PreProcessor : IPreProcessor {
+
+    public string name { get { return ""; } }
+    public int priority { get { return 5; } }
+    public bool runInDryMode { get { return true; } }
+
+    List<string> _strings;
+
+    public Pre2PreProcessor(List<string> strings) {
+        _strings = strings;
+    }
+
+    public void PreProcess() {
+        _strings.Add("Pre2");
+    }
+}
+
+public class DisabledPreProcessor : IPreProcessor {
+
+    public string name { get { return ""; } }
+    public int priority { get { return 0; } }
+    public bool runInDryMode { get { return false; } }
+
+    List<string> _strings;
+
+    public DisabledPreProcessor(List<string> strings) {
+        _strings = strings;
+    }
+
+    public void PreProcess() {
+        _strings.Add("DisabledPre");
     }
 }

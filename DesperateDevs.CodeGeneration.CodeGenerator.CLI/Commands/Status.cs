@@ -59,10 +59,12 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         }
 
         void printPluginStatus(Type[] types, CodeGeneratorConfig config) {
+            printUnavailable(CodeGeneratorUtil.GetUnavailableNamesOf<IPreProcessor>(types, config.preProcessors));
             printUnavailable(CodeGeneratorUtil.GetUnavailableNamesOf<IDataProvider>(types, config.dataProviders));
             printUnavailable(CodeGeneratorUtil.GetUnavailableNamesOf<ICodeGenerator>(types, config.codeGenerators));
             printUnavailable(CodeGeneratorUtil.GetUnavailableNamesOf<IPostProcessor>(types, config.postProcessors));
 
+            printAvailable(CodeGeneratorUtil.GetAvailableNamesOf<IPreProcessor>(types, config.preProcessors));
             printAvailable(CodeGeneratorUtil.GetAvailableNamesOf<IDataProvider>(types, config.dataProviders));
             printAvailable(CodeGeneratorUtil.GetAvailableNamesOf<ICodeGenerator>(types, config.codeGenerators));
             printAvailable(CodeGeneratorUtil.GetAvailableNamesOf<IPostProcessor>(types, config.postProcessors));
@@ -81,6 +83,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         }
 
         void printCollisions(CodeGeneratorConfig config) {
+            printDuplicates(config.preProcessors);
             printDuplicates(config.dataProviders);
             printDuplicates(config.codeGenerators);
             printDuplicates(config.postProcessors);

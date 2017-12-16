@@ -26,6 +26,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
             types = CodeGeneratorUtil.LoadTypesFromPlugins(_preferences);
             // A test to check if all types can be resolved and instantiated.
+            CodeGeneratorUtil.GetEnabledInstancesOf<IPreProcessor>(types, config.preProcessors);
             CodeGeneratorUtil.GetEnabledInstancesOf<IDataProvider>(types, config.dataProviders);
             CodeGeneratorUtil.GetEnabledInstancesOf<ICodeGenerator>(types, config.codeGenerators);
             CodeGeneratorUtil.GetEnabledInstancesOf<IPostProcessor>(types, config.postProcessors);
@@ -83,13 +84,24 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         static bool fixPlugins(HashSet<string> askedRemoveKeys, HashSet<string> askedAddKeys, Type[] types, CodeGeneratorConfig config, Preferences preferences) {
             var changed = false;
 
+            var unavailablePreProcessors = CodeGeneratorUtil.GetUnavailableNamesOf<IPreProcessor>(types, config.preProcessors);
             var unavailableDataProviders = CodeGeneratorUtil.GetUnavailableNamesOf<IDataProvider>(types, config.dataProviders);
             var unavailableCodeGenerators = CodeGeneratorUtil.GetUnavailableNamesOf<ICodeGenerator>(types, config.codeGenerators);
             var unavailablePostProcessors = CodeGeneratorUtil.GetUnavailableNamesOf<IPostProcessor>(types, config.postProcessors);
 
+            var availablePreProcessors = CodeGeneratorUtil.GetAvailableNamesOf<IPreProcessor>(types, config.preProcessors);
             var availableDataProviders = CodeGeneratorUtil.GetAvailableNamesOf<IDataProvider>(types, config.dataProviders);
             var availableCodeGenerators = CodeGeneratorUtil.GetAvailableNamesOf<ICodeGenerator>(types, config.codeGenerators);
             var availablePostProcessors = CodeGeneratorUtil.GetAvailableNamesOf<IPostProcessor>(types, config.postProcessors);
+
+            foreach (var key in unavailablePreProcessors) {
+                if (!askedRemoveKeys.Contains(key)) {
+                    APIUtil.AskRemoveValue("Remove unavailable pre processor", key, config.preProcessors,
+                        values => config.preProcessors = values, preferences);
+                    askedRemoveKeys.Add(key);
+                    changed = true;
+                }
+            }
 
             foreach (var key in unavailableDataProviders) {
                 if (!askedRemoveKeys.Contains(key)) {
@@ -114,6 +126,15 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
                     APIUtil.AskRemoveValue("Remove unavailable post processor", key, config.postProcessors,
                         values => config.postProcessors = values, preferences);
                     askedRemoveKeys.Add(key);
+                    changed = true;
+                }
+            }
+
+            foreach (var key in availablePreProcessors) {
+                if (!askedAddKeys.Contains(key)) {
+                    APIUtil.AskAddValue("Add available pre processor", key, config.preProcessors,
+                        values => config.preProcessors = values, preferences);
+                    askedAddKeys.Add(key);
                     changed = true;
                 }
             }
@@ -149,10 +170,15 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         }
 
         bool fixCollisions(HashSet<string> askedAddKeys, CodeGeneratorConfig config, Preferences preferences) {
-            var changed = fixDuplicates(askedAddKeys, config.dataProviders, values => {
+            var changed = fixDuplicates(askedAddKeys, config.preProcessors, values => {
+                config.preProcessors = values;
+                return config.preProcessors;
+            }, preferences);
+
+            changed = fixDuplicates(askedAddKeys, config.dataProviders, values => {
                 config.dataProviders = values;
                 return config.dataProviders;
-            }, preferences);
+            }, preferences) | changed;
 
             changed = fixDuplicates(askedAddKeys, config.codeGenerators, values => {
                 config.codeGenerators = values;

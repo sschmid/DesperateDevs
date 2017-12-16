@@ -12,15 +12,17 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
             var types = LoadTypesFromPlugins(preferences);
             var config = preferences.CreateAndConfigure<CodeGeneratorConfig>();
 
+            var preProcessors = GetEnabledInstancesOf<IPreProcessor>(types, config.preProcessors);
             var dataProviders = GetEnabledInstancesOf<IDataProvider>(types, config.dataProviders);
             var codeGenerators = GetEnabledInstancesOf<ICodeGenerator>(types, config.codeGenerators);
             var postProcessors = GetEnabledInstancesOf<IPostProcessor>(types, config.postProcessors);
 
+            configure(preProcessors, preferences);
             configure(dataProviders, preferences);
             configure(codeGenerators, preferences);
             configure(postProcessors, preferences);
 
-            return new CodeGenerator(dataProviders, codeGenerators, postProcessors);
+            return new CodeGenerator(preProcessors, dataProviders, codeGenerators, postProcessors);
         }
 
         static void configure(ICodeGeneratorBase[] plugins, Preferences preferences) {
@@ -74,7 +76,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
 
         public static Dictionary<string, string> GetDefaultProperties(Type[] types, CodeGeneratorConfig config) {
             return new Dictionary<string, string>().Merge(
-                GetEnabledInstancesOf<IDataProvider>(types, config.dataProviders).OfType<IConfigurable>()
+                GetEnabledInstancesOf<IPreProcessor>(types, config.preProcessors).OfType<IConfigurable>()
+                    .Concat(GetEnabledInstancesOf<IDataProvider>(types, config.dataProviders).OfType<IConfigurable>())
                     .Concat(GetEnabledInstancesOf<ICodeGenerator>(types, config.codeGenerators).OfType<IConfigurable>())
                     .Concat(GetEnabledInstancesOf<IPostProcessor>(types, config.postProcessors).OfType<IConfigurable>())
                     .Select(instance => instance.defaultProperties)

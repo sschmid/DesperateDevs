@@ -9,6 +9,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
         const string SEARCH_PATHS_KEY = "CodeGenerator.SearchPaths";
         const string PLUGINS_PATHS_KEY = "CodeGenerator.Plugins";
 
+        const string PRE_PROCESSORS_KEY = "CodeGenerator.PreProcessors";
         const string DATA_PROVIDERS_KEY = "CodeGenerator.DataProviders";
         const string CODE_GENERATORS_KEY = "CodeGenerator.CodeGenerators";
         const string POST_PROCESSORS_KEY = "CodeGenerator.PostProcessors";
@@ -21,6 +22,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
                 return new Dictionary<string, string> {
                     { SEARCH_PATHS_KEY, "CodeGenerator/Plugins" },
                     { PLUGINS_PATHS_KEY, string.Empty },
+                    { PRE_PROCESSORS_KEY, string.Empty },
                     { DATA_PROVIDERS_KEY, string.Empty },
                     { CODE_GENERATORS_KEY, string.Empty },
                     { POST_PROCESSORS_KEY, string.Empty },
@@ -38,6 +40,11 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
         public string[] plugins {
             get { return _preferences[PLUGINS_PATHS_KEY].ArrayFromCSV(); }
             set { _preferences[PLUGINS_PATHS_KEY] = value.ToCSV(); }
+        }
+
+        public string[] preProcessors {
+            get { return _preferences[PRE_PROCESSORS_KEY].ArrayFromCSV(); }
+            set { _preferences[PRE_PROCESSORS_KEY] = value.ToCSV(); }
         }
 
         public string[] dataProviders {

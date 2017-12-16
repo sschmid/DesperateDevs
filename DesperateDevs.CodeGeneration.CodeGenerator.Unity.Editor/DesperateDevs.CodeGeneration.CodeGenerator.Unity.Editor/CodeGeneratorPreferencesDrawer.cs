@@ -15,10 +15,12 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
         public override int priority { get { return 10; } }
         public override string title { get { return "Jenny"; } }
 
+        string[] _availablePreProcessorTypes;
         string[] _availableDataProviderTypes;
         string[] _availableGeneratorTypes;
         string[] _availablePostProcessorTypes;
 
+        string[] _availablePreProcessorNames;
         string[] _availableDataProviderNames;
         string[] _availableGeneratorNames;
         string[] _availablePostProcessorNames;
@@ -35,6 +37,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
 
             _types = CodeGeneratorUtil.LoadTypesFromPlugins(preferences);
 
+            setTypesAndNames<IPreProcessor>(_types, out _availablePreProcessorTypes, out _availablePreProcessorNames);
             setTypesAndNames<IDataProvider>(_types, out _availableDataProviderTypes, out _availableDataProviderNames);
             setTypesAndNames<ICodeGenerator>(_types, out _availableGeneratorTypes, out _availableGeneratorNames);
             setTypesAndNames<IPostProcessor>(_types, out _availablePostProcessorTypes, out _availablePostProcessorNames);
@@ -55,6 +58,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
             }
             EditorGUILayout.EndHorizontal();
 
+            _codeGeneratorConfig.preProcessors = drawMaskField("Pre Processors", _availablePreProcessorTypes, _availablePreProcessorNames, _codeGeneratorConfig.preProcessors);
             _codeGeneratorConfig.dataProviders = drawMaskField("Data Providers", _availableDataProviderTypes, _availableDataProviderNames, _codeGeneratorConfig.dataProviders);
             _codeGeneratorConfig.codeGenerators = drawMaskField("Code Generators", _availableGeneratorTypes, _availableGeneratorNames, _codeGeneratorConfig.codeGenerators);
             _codeGeneratorConfig.postProcessors = drawMaskField("Post Processors", _availablePostProcessorTypes, _availablePostProcessorNames, _codeGeneratorConfig.postProcessors);
@@ -97,6 +101,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
                 _preferences.Save();
 
                 Initialize(_preferences);
+                _codeGeneratorConfig.preProcessors = _availablePreProcessorTypes;
                 _codeGeneratorConfig.dataProviders = _availableDataProviderTypes;
                 _codeGeneratorConfig.codeGenerators = _availableGeneratorTypes;
                 _codeGeneratorConfig.postProcessors = _availablePostProcessorTypes;

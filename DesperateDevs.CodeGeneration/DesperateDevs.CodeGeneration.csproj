@@ -50,6 +50,7 @@
     <Compile Include="DesperateDevs.CodeGeneration\Interfaces\ICodeGeneratorBase.cs" />
     <Compile Include="DesperateDevs.CodeGeneration\Interfaces\IDoctor.cs" />
     <Compile Include="DesperateDevs.CodeGeneration\Interfaces\IPostProcessor.cs" />
+    <Compile Include="DesperateDevs.CodeGeneration\Interfaces\IPreProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DesperateDevs.Utils\DesperateDevs.Utils.csproj">
