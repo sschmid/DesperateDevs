@@ -4,8 +4,6 @@ using NSpec;
 
 class describe_UpdateCSProjPostProcessor : nspec {
 
-    readonly string pathPrefix = TestExtensions.GetProjectRoot() + "/Tests/TestFixtures/DesperateDevs.CodeGeneration.Plugins/";
-
     void when_post_processing() {
 
         xit["manual test"] = () => {
