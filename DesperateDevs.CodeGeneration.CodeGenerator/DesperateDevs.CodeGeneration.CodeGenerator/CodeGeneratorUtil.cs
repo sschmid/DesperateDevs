@@ -33,7 +33,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
 
         public static Type[] LoadTypesFromPlugins(Preferences preferences) {
             var config = preferences.CreateAndConfigure<CodeGeneratorConfig>();
-            var resolver = new AssemblyResolver(AppDomain.CurrentDomain, config.searchPaths);
+            var resolver = new AssemblyResolver(false, config.searchPaths);
             foreach (var path in config.plugins) {
                 resolver.Load(path);
             }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using DesperateDevs.Logging;
 
@@ -10,49 +11,78 @@ namespace DesperateDevs.Utils {
 
         readonly Logger _logger = fabl.GetLogger(typeof(AssemblyResolver).Name);
 
-        readonly AppDomain _appDomain;
-        readonly string[] _basePaths;
-        readonly List<Assembly> _assemblies;
+        public Assembly[] assemblies { get { return _assemblies.ToArray(); } }
 
-        public AssemblyResolver(AppDomain appDomain, params string[] basePaths) {
-            _appDomain = appDomain;
-            _appDomain.AssemblyResolve += onAssemblyResolve;
+        readonly bool _reflectionOnly;
+        readonly string[] _basePaths;
+        readonly HashSet<Assembly> _assemblies;
+
+        public AssemblyResolver(bool reflectionOnly, params string[] basePaths) {
+            _reflectionOnly = reflectionOnly;
+            if (reflectionOnly) {
+                AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += onReflectionOnlyAssemblyResolve;
+            } else {
+                AppDomain.CurrentDomain.AssemblyResolve += onAssemblyResolve;
+            }
+
             _basePaths = basePaths;
-            _assemblies = new List<Assembly>();
+            _assemblies = new HashSet<Assembly>();
         }
 
         public void Load(string path) {
-            _logger.Debug("AppDomain load: " + path);
-            var assembly = _appDomain.Load(path);
-            _assemblies.Add(assembly);
+            _logger.Debug(AppDomain.CurrentDomain + " load: " + path);
+
+            if (_reflectionOnly) {
+                resolveAndLoad(path, Assembly.ReflectionOnlyLoadFrom, false);
+            } else {
+                resolveAndLoad(path, Assembly.LoadFrom, false);
+            }
         }
 
-        Assembly onAssemblyResolve(object sender, ResolveEventArgs args) {
+        Assembly resolveAndLoad(string name, Func<string, Assembly> loadMethod, bool isDependency) {
             Assembly assembly = null;
             try {
-                _logger.Debug("  ➜ Loading: " + args.Name);
-                assembly = Assembly.LoadFrom(args.Name);
-            } catch (Exception) {
-                var name = new AssemblyName(args.Name).Name;
-                if (!name.EndsWith(".dll", StringComparison.OrdinalIgnoreCase) &&
-                    !name.EndsWith(".exe", StringComparison.OrdinalIgnoreCase)) {
-                    name += ".dll";
+                if (isDependency) {
+                    _logger.Debug("  ➜ Loading Dependency: " + name);
+                } else {
+                    _logger.Debug("  ➜ Loading: " + name);
                 }
-
+                assembly = loadMethod(name);
+                addAssembly(assembly);
+            } catch (Exception) {
                 var path = resolvePath(name);
                 if (path != null) {
-                    assembly = Assembly.LoadFrom(path);
+                    assembly = loadMethod(path);
+                    addAssembly(assembly);
                 }
             }
 
             return assembly;
         }
 
-        string resolvePath(string assemblyName) {
+        Assembly onAssemblyResolve(object sender, ResolveEventArgs args) {
+            return resolveAndLoad(args.Name, Assembly.LoadFrom, true);
+        }
+
+        Assembly onReflectionOnlyAssemblyResolve(object sender, ResolveEventArgs args) {
+            return resolveAndLoad(args.Name, Assembly.ReflectionOnlyLoadFrom, true);
+        }
+
+        void addAssembly(Assembly assembly) {
+            _assemblies.Add(assembly);
+        }
+
+        string resolvePath(string name) {
+            var assemblyName = new AssemblyName(name).Name;
+            if (!assemblyName.EndsWith(".dll", StringComparison.OrdinalIgnoreCase) &&
+                !assemblyName.EndsWith(".exe", StringComparison.OrdinalIgnoreCase)) {
+                assemblyName += ".dll";
+            }
+
             foreach (var basePath in _basePaths) {
                 var path = basePath + Path.DirectorySeparatorChar + assemblyName;
                 if (File.Exists(path)) {
-                    _logger.Debug("    √ Resolved: " + path);
+                    _logger.Debug("    ➜ Resolved: " + path);
                     return path;
                 }
             }

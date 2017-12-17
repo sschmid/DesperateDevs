@@ -24,7 +24,7 @@ namespace DesperateDevs.CLI.Utils {
             _logger = fabl.GetLogger(applicationName);
             var basePath = Directory.GetCurrentDirectory();
             var files = Directory.GetFiles(basePath);
-            var resolver = new AssemblyResolver(AppDomain.CurrentDomain, basePath);
+            var resolver = new AssemblyResolver(false, basePath);
 
             foreach (var file in files) {
                 resolver.Load(file);
