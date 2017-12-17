@@ -22,7 +22,7 @@ namespace DesperateDevs.CLI.Utils {
 
         public CLIProgram(string applicationName) {
             _logger = fabl.GetLogger(applicationName);
-            var resolver = AssemblyResolver.LoadAssembliesContainingType<ICommand>(Directory.GetCurrentDirectory());
+            var resolver = AssemblyResolver.LoadAssembliesContainingType<ICommand>(false, Directory.GetCurrentDirectory());
 
             _commands = AppDomain.CurrentDomain
                 .GetInstancesOf<ICommand>()

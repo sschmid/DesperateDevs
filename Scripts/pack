@@ -36,7 +36,10 @@ cp_dll "$DNS.Unity.Editor" $BUILD_SRC
 cp_dll "$DNS.Analytics" $BUILD_SRC
 
 # CLI
-cp_dll "$DNS.CLI" $BUILD_SRC
+cp_dll "$DNS.CLI.Utils" $BUILD_SRC
+
+# CLI
+cp_dll "$DNS.Serialization.CLI.Utils" $BUILD_SRC
 
 ## Serialization
 cp_dll "$DNS.Serialization" $BUILD_SRC

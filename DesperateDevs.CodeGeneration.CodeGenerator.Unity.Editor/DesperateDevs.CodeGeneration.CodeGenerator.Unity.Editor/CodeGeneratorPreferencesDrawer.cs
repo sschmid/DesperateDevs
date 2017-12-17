@@ -82,7 +82,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
             )) {
 
                 var plugins = AssemblyResolver
-                    .GetAssembliesContainingType<ICodeGenerationPlugin>(_codeGeneratorConfig
+                    .GetAssembliesContainingType<ICodeGenerationPlugin>(true, _codeGeneratorConfig
                         .searchPaths
                         .Concat(new[] { "Assets" })
                         .Where(Directory.Exists)

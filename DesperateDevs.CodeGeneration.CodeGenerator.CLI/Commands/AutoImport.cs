@@ -25,7 +25,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             var config = _preferences.CreateAndConfigure<CodeGeneratorConfig>();
 
             var plugins = AssemblyResolver
-                .GetAssembliesContainingType<ICodeGenerationPlugin>(config.searchPaths)
+                .GetAssembliesContainingType<ICodeGenerationPlugin>(true, config.searchPaths)
                 .Select(assembly => assembly.CodeBase)
                 .ToArray();
 
