@@ -13,7 +13,7 @@ namespace DesperateDevs.Networking {
 
         public bool isConnected { get { return _socket.Connected; } }
 
-        public TcpClientSocket() : base(typeof(TcpClientSocket).Name) {
+        public TcpClientSocket() : base(typeof(TcpClientSocket).FullName) {
         }
 
         public void Connect(IPAddress ipAddress, int port) {

@@ -8,7 +8,7 @@ namespace DesperateDevs.Serialization.CLI.Utils {
         public override string description { get { return "List all config keys and values"; } }
         public override string example { get { return "dump"; } }
 
-        public Dump() : base(typeof(Dump).Name) {
+        public Dump() : base(typeof(Dump).FullName) {
         }
 
         protected override void run() {

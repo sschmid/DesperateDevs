@@ -13,7 +13,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         public override string description { get { return "List available and unavailable plugins"; } }
         public override string example { get { return "status"; } }
 
-        public Status() : base(typeof(Status).Name) {
+        public Status() : base(typeof(Status).FullName) {
         }
 
         protected override void run() {

@@ -9,7 +9,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         public override string description { get { return "Scan and print available types found in specified assemblies"; } }
         public override string example { get { return "scan"; } }
 
-        public ScanAssemblies() : base(typeof(ScanAssemblies).Name) {
+        public ScanAssemblies() : base(typeof(ScanAssemblies).FullName) {
         }
 
         protected override void run() {

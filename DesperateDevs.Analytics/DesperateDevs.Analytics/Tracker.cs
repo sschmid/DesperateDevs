@@ -9,7 +9,7 @@ namespace DesperateDevs.Analytics {
 
         readonly string _url;
         readonly bool _throwExceptions;
-        readonly Logger _logger = fabl.GetLogger(typeof(Tracker).Name);
+        readonly Logger _logger = fabl.GetLogger(typeof(Tracker));
 
         public Tracker(string host, string endPoint, bool throwExceptions) {
             _url = host + "/" + endPoint;

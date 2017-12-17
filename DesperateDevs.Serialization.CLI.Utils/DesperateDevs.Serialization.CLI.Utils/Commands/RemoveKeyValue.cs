@@ -8,7 +8,7 @@ namespace DesperateDevs.Serialization.CLI.Utils {
         public override string description { get { return "Remove a key or a value from a key"; } }
         public override string example { get { return "remove key value"; } }
 
-        public RemoveKeyValue() : base(typeof(RemoveKeyValue).Name) {
+        public RemoveKeyValue() : base(typeof(RemoveKeyValue).FullName) {
         }
 
         protected override void run() {

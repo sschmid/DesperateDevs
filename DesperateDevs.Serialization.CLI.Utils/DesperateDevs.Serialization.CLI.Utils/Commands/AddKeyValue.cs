@@ -8,7 +8,7 @@ namespace DesperateDevs.Serialization.CLI.Utils {
         public override string description { get { return "Add a value to a key"; } }
         public override string example { get { return "add key value"; } }
 
-        public AddKeyValue() : base(typeof(AddKeyValue).Name) {
+        public AddKeyValue() : base(typeof(AddKeyValue).FullName) {
         }
 
         protected override void run() {

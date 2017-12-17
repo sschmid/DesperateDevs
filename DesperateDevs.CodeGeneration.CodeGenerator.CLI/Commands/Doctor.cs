@@ -12,7 +12,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         public override string description { get { return "Check the config for potential problems"; } }
         public override string example { get { return "doctor"; } }
 
-        public Doctor() : base(typeof(Doctor).Name) {
+        public Doctor() : base(typeof(Doctor).FullName) {
         }
 
         protected override void run() {

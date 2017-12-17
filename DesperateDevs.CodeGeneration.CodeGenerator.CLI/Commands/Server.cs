@@ -20,7 +20,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         AbstractTcpSocket _socket;
         readonly List<string> _logBuffer = new List<string>();
 
-        public Server() : base(typeof(Server).Name) {
+        public Server() : base(typeof(Server).FullName) {
         }
 
         protected override void run() {

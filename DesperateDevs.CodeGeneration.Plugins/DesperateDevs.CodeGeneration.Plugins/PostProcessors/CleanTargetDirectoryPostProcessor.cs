@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
+using DesperateDevs.Logging;
 using DesperateDevs.Serialization;
 
 namespace DesperateDevs.CodeGeneration.Plugins {
@@ -12,6 +12,8 @@ namespace DesperateDevs.CodeGeneration.Plugins {
         public bool runInDryMode { get { return false; } }
 
         public Dictionary<string, string> defaultProperties { get { return _targetDirectoryConfig.defaultProperties; } }
+
+        readonly Logger _logger = fabl.GetLogger(typeof(CleanTargetDirectoryPostProcessor));
 
         readonly TargetDirectoryConfig _targetDirectoryConfig = new TargetDirectoryConfig();
 
@@ -31,7 +33,7 @@ namespace DesperateDevs.CodeGeneration.Plugins {
                     try {
                         File.Delete(file.FullName);
                     } catch {
-                        Console.WriteLine("Could not delete file " + file);
+                        _logger.Error("Could not delete file " + file);
                     }
                 }
             } else {

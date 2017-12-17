@@ -16,7 +16,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         string _command;
 
-        public Client() : base(typeof(Client).Name) {
+        public Client() : base(typeof(Client).FullName) {
         }
 
         protected override void run() {

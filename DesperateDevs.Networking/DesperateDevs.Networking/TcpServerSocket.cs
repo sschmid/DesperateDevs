@@ -17,7 +17,7 @@ namespace DesperateDevs.Networking {
 
         readonly Dictionary<string, Socket> _clients;
 
-        public TcpServerSocket() : base(typeof(TcpServerSocket).Name) {
+        public TcpServerSocket() : base(typeof(TcpServerSocket).FullName) {
             _clients = new Dictionary<string, Socket>();
         }
 

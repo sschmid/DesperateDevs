@@ -13,7 +13,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         public override string description { get { return "Add missing or remove unused keys interactively"; } }
         public override string example { get { return "fix"; } }
 
-        public FixConfig() : base(typeof(FixConfig).Name) {
+        public FixConfig() : base(typeof(FixConfig).FullName) {
         }
 
         protected override void run() {

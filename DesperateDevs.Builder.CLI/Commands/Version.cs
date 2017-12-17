@@ -15,7 +15,7 @@ namespace DesperateDevs.Builder.CLI {
 
         readonly VersionConfig _versionConfig = new VersionConfig();
 
-        public Version() : base(typeof(Version).Name) {
+        public Version() : base(typeof(Version).FullName) {
             Configure(_preferences);
         }
 

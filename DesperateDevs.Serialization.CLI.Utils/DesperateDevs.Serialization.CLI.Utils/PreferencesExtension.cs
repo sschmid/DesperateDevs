@@ -12,7 +12,7 @@ namespace DesperateDevs.Serialization.CLI.Utils {
 
     public static class PreferencesExtension {
 
-        static readonly Logger _logger = fabl.GetLogger(typeof(PreferencesExtension).FullName);
+        static readonly Logger _logger = fabl.GetLogger(typeof(PreferencesExtension));
 
         public static string[] GetUnusedKeys(this Preferences preferences, string[] requiredKeys) {
             return preferences.keys

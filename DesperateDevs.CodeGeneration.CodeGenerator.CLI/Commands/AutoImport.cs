@@ -12,7 +12,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         public override string description { get { return "Find and import all plugins"; } }
         public override string example { get { return "auto-import"; } }
 
-        public AutoImport() : base(typeof(AutoImport).Name) {
+        public AutoImport() : base(typeof(AutoImport).FullName) {
         }
 
         protected override void run() {

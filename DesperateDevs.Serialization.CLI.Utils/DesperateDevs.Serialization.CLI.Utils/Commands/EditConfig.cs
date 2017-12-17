@@ -8,7 +8,7 @@ namespace DesperateDevs.Serialization.CLI.Utils {
         public override string description { get { return "Open config files with default editor"; } }
         public override string example { get { return "edit"; } }
 
-        public EditConfig() : base(typeof(EditConfig).Name) {
+        public EditConfig() : base(typeof(EditConfig).FullName) {
         }
 
         protected override void run() {

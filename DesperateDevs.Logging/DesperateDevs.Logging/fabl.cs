@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace DesperateDevs.Logging {
@@ -40,6 +41,10 @@ namespace DesperateDevs.Logging {
             foreach (var logger in _loggers.Values) {
                 logger.OnLog -= appender;
             }
+        }
+
+        public static Logger GetLogger(Type type) {
+            return GetLogger(type.FullName);
         }
 
         public static Logger GetLogger(string name) {

@@ -10,7 +10,7 @@ namespace DesperateDevs.Serialization.CLI.Utils {
         public override string description { get { return "Create new properties file(s) with default values"; } }
         public override string example { get { return "new file userFile [-f]"; } }
 
-        readonly Logger _logger = fabl.GetLogger(typeof(NewConfig).Name);
+        readonly Logger _logger = fabl.GetLogger(typeof(NewConfig));
 
         protected override void run() {
             var currentDir = Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar;

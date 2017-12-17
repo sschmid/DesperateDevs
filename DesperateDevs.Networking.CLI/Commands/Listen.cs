@@ -8,7 +8,7 @@ namespace DesperateDevs.Networking.CLI {
         public override string description { get { return "Listen on port"; } }
         public override string example { get { return "listen [port]"; } }
 
-        public Listen() : base(typeof(Listen).Name) {
+        public Listen() : base(typeof(Listen).FullName) {
         }
 
         protected override void run() {
