@@ -7,7 +7,7 @@ using DesperateDevs.Logging;
 
 namespace DesperateDevs.Utils {
 
-    public class AssemblyResolver {
+    public partial class AssemblyResolver {
 
         readonly Logger _logger = fabl.GetLogger(typeof(AssemblyResolver).Name);
 
@@ -30,12 +30,20 @@ namespace DesperateDevs.Utils {
         }
 
         public void Load(string path) {
-            _logger.Debug(AppDomain.CurrentDomain + " load: " + path);
-
             if (_reflectionOnly) {
+                _logger.Debug(AppDomain.CurrentDomain + " reflect: " + path);
                 resolveAndLoad(path, Assembly.ReflectionOnlyLoadFrom, false);
             } else {
+                _logger.Debug(AppDomain.CurrentDomain + " load: " + path);
                 resolveAndLoad(path, Assembly.LoadFrom, false);
+            }
+        }
+
+        public void Close() {
+            if (_reflectionOnly) {
+                AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve -= onReflectionOnlyAssemblyResolve;
+            } else {
+                AppDomain.CurrentDomain.AssemblyResolve -= onAssemblyResolve;
             }
         }
 

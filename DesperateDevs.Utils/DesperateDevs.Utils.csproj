@@ -49,6 +49,7 @@
     <Compile Include="DesperateDevs.Utils\Extensions\SerializationTypeExtension.cs" />
     <Compile Include="DesperateDevs.Utils\Extensions\StringExtension.cs" />
     <Compile Include="DesperateDevs.Utils\Reflection\AssemblyResolver.cs" />
+    <Compile Include="DesperateDevs.Utils\Reflection\AssemblyResolverStatic.cs" />
     <Compile Include="DesperateDevs.Utils\Reflection\AttributeInfo.cs" />
     <Compile Include="DesperateDevs.Utils\Reflection\PublicMemberInfo.cs" />
     <Compile Include="DesperateDevs.Utils\Reflection\PublicMemberInfoExtension.cs" />

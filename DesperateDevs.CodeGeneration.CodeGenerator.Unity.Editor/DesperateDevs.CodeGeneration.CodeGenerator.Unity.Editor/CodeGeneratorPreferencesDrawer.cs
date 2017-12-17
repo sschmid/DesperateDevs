@@ -26,7 +26,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
         string[] _availablePostProcessorNames;
 
         Preferences _preferences;
-        Type[] _types;
+        ICodeGeneratorBase[] _instances;
 
         CodeGeneratorConfig _codeGeneratorConfig;
 
@@ -35,14 +35,14 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
             _codeGeneratorConfig = preferences.CreateAndConfigure<CodeGeneratorConfig>();
             preferences.properties.AddProperties(_codeGeneratorConfig.defaultProperties, false);
 
-            _types = CodeGeneratorUtil.LoadTypesFromPlugins(preferences);
+            _instances = CodeGeneratorUtil.LoadFromPlugins(preferences);
 
-            setTypesAndNames<IPreProcessor>(_types, out _availablePreProcessorTypes, out _availablePreProcessorNames);
-            setTypesAndNames<IDataProvider>(_types, out _availableDataProviderTypes, out _availableDataProviderNames);
-            setTypesAndNames<ICodeGenerator>(_types, out _availableGeneratorTypes, out _availableGeneratorNames);
-            setTypesAndNames<IPostProcessor>(_types, out _availablePostProcessorTypes, out _availablePostProcessorNames);
+            setTypesAndNames<IPreProcessor>(_instances, out _availablePreProcessorTypes, out _availablePreProcessorNames);
+            setTypesAndNames<IDataProvider>(_instances, out _availableDataProviderTypes, out _availableDataProviderNames);
+            setTypesAndNames<ICodeGenerator>(_instances, out _availableGeneratorTypes, out _availableGeneratorNames);
+            setTypesAndNames<IPostProcessor>(_instances, out _availablePostProcessorTypes, out _availablePostProcessorNames);
 
-            _preferences.properties.AddProperties(CodeGeneratorUtil.GetDefaultProperties(_types, _codeGeneratorConfig), false);
+            _preferences.properties.AddProperties(CodeGeneratorUtil.GetDefaultProperties(_instances, _codeGeneratorConfig), false);
         }
 
         public override void DrawHeader(Preferences preferences) {
@@ -109,7 +109,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
         }
 
         void drawConfigurables() {
-            var defaultProperties = CodeGeneratorUtil.GetDefaultProperties(_types, _codeGeneratorConfig);
+            var defaultProperties = CodeGeneratorUtil.GetDefaultProperties(_instances, _codeGeneratorConfig);
             _preferences.properties.AddProperties(defaultProperties, false);
 
             foreach (var kv in defaultProperties.OrderBy(kv => kv.Key)) {
@@ -117,14 +117,14 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
             }
         }
 
-        static void setTypesAndNames<T>(Type[] types, out string[] availableTypes, out string[] availableNames) where T : ICodeGeneratorBase {
-            IEnumerable<T> instances = CodeGeneratorUtil.GetOrderedInstancesOf<T>(types);
+        static void setTypesAndNames<T>(ICodeGeneratorBase[] instances, out string[] availableTypes, out string[] availableNames) where T : ICodeGeneratorBase {
+            var orderedInstances = CodeGeneratorUtil.GetOrderedInstancesOf<T>(instances);
 
-            availableTypes = instances
+            availableTypes = orderedInstances
                 .Select(instance => instance.GetType().ToCompilableString())
                 .ToArray();
 
-            availableNames = instances
+            availableNames = orderedInstances
                 .Select(instance => instance.name)
                 .ToArray();
         }

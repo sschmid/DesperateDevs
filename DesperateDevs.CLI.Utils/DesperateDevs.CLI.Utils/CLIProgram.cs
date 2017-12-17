@@ -22,15 +22,14 @@ namespace DesperateDevs.CLI.Utils {
 
         public CLIProgram(string applicationName) {
             _logger = fabl.GetLogger(applicationName);
-            var basePath = Directory.GetCurrentDirectory();
-            var files = Directory.GetFiles(basePath);
-            var resolver = new AssemblyResolver(false, basePath);
+            var resolver = AssemblyResolver.LoadAssembliesContainingType<ICommand>(Directory.GetCurrentDirectory());
 
-            foreach (var file in files) {
-                resolver.Load(file);
-            }
+            _commands = AppDomain.CurrentDomain
+                .GetInstancesOf<ICommand>()
+                .OrderBy(c => c.trigger)
+                .ToArray();
 
-            _commands = getOrderedCommands(resolver.GetTypes());
+            resolver.Close();
         }
 
         public void Run(string[] args, Action<ICommand[]> printUsage) {
@@ -72,13 +71,6 @@ namespace DesperateDevs.CLI.Utils {
             } catch (Exception ex) {
                 _logger.Error(args.isVerbose() ? ex.ToString() : ex.Message);
             }
-        }
-
-        static ICommand[] getOrderedCommands(Type[] types) {
-            return types
-                .GetInstancesOf<ICommand>()
-                .OrderBy(c => c.trigger)
-                .ToArray();
         }
 
         void initializeLogging(string[] args, Dictionary<LogLevel, ConsoleColor> consoleColors) {

@@ -23,18 +23,16 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             forceAddMissingKeys(config.defaultProperties, _preferences);
             forceAddMissingKeys(cliConfig.defaultProperties, _preferences);
 
-            Type[] types = null;
-
-            types = CodeGeneratorUtil.LoadTypesFromPlugins(_preferences);
+            var instances = CodeGeneratorUtil.LoadFromPlugins(_preferences);
             // A test to check if all types can be resolved and instantiated.
-            CodeGeneratorUtil.GetEnabledInstancesOf<IPreProcessor>(types, config.preProcessors);
-            CodeGeneratorUtil.GetEnabledInstancesOf<IDataProvider>(types, config.dataProviders);
-            CodeGeneratorUtil.GetEnabledInstancesOf<ICodeGenerator>(types, config.codeGenerators);
-            CodeGeneratorUtil.GetEnabledInstancesOf<IPostProcessor>(types, config.postProcessors);
+            CodeGeneratorUtil.GetEnabledInstancesOf<IPreProcessor>(instances, config.preProcessors);
+            CodeGeneratorUtil.GetEnabledInstancesOf<IDataProvider>(instances, config.dataProviders);
+            CodeGeneratorUtil.GetEnabledInstancesOf<ICodeGenerator>(instances, config.codeGenerators);
+            CodeGeneratorUtil.GetEnabledInstancesOf<IPostProcessor>(instances, config.postProcessors);
 
             var askedRemoveKeys = new HashSet<string>();
             var askedAddKeys = new HashSet<string>();
-            while (fix(askedRemoveKeys, askedAddKeys, types, config, cliConfig, _preferences)) {
+            while (fix(askedRemoveKeys, askedAddKeys, instances, config, cliConfig, _preferences)) {
             }
 
             var doctors = AppDomain.CurrentDomain.GetInstancesOf<IDoctor>();
@@ -65,15 +63,15 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             }
         }
 
-        bool fix(HashSet<string> askedRemoveKeys, HashSet<string> askedAddKeys, Type[] types, CodeGeneratorConfig config, CLIConfig cliConfig, Preferences preferences) {
-            var changed = fixPlugins(askedRemoveKeys, askedAddKeys, types, config, preferences);
+        bool fix(HashSet<string> askedRemoveKeys, HashSet<string> askedAddKeys, ICodeGeneratorBase[] instances, CodeGeneratorConfig config, CLIConfig cliConfig, Preferences preferences) {
+            var changed = fixPlugins(askedRemoveKeys, askedAddKeys, instances, config, preferences);
             changed |= fixCollisions(askedAddKeys, config, preferences);
 
-            forceAddMissingKeys(CodeGeneratorUtil.GetDefaultProperties(types, config), preferences);
+            forceAddMissingKeys(CodeGeneratorUtil.GetDefaultProperties(instances, config), preferences);
 
             var requiredKeys = config.defaultProperties
                 .Merge(cliConfig.defaultProperties)
-                .Merge(CodeGeneratorUtil.GetDefaultProperties(types, config))
+                .Merge(CodeGeneratorUtil.GetDefaultProperties(instances, config))
                 .Keys
                 .ToArray();
 
@@ -82,18 +80,18 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             return changed;
         }
 
-        static bool fixPlugins(HashSet<string> askedRemoveKeys, HashSet<string> askedAddKeys, Type[] types, CodeGeneratorConfig config, Preferences preferences) {
+        static bool fixPlugins(HashSet<string> askedRemoveKeys, HashSet<string> askedAddKeys, ICodeGeneratorBase[] instances, CodeGeneratorConfig config, Preferences preferences) {
             var changed = false;
 
-            var unavailablePreProcessors = CodeGeneratorUtil.GetUnavailableNamesOf<IPreProcessor>(types, config.preProcessors);
-            var unavailableDataProviders = CodeGeneratorUtil.GetUnavailableNamesOf<IDataProvider>(types, config.dataProviders);
-            var unavailableCodeGenerators = CodeGeneratorUtil.GetUnavailableNamesOf<ICodeGenerator>(types, config.codeGenerators);
-            var unavailablePostProcessors = CodeGeneratorUtil.GetUnavailableNamesOf<IPostProcessor>(types, config.postProcessors);
+            var unavailablePreProcessors = CodeGeneratorUtil.GetUnavailableNamesOf<IPreProcessor>(instances, config.preProcessors);
+            var unavailableDataProviders = CodeGeneratorUtil.GetUnavailableNamesOf<IDataProvider>(instances, config.dataProviders);
+            var unavailableCodeGenerators = CodeGeneratorUtil.GetUnavailableNamesOf<ICodeGenerator>(instances, config.codeGenerators);
+            var unavailablePostProcessors = CodeGeneratorUtil.GetUnavailableNamesOf<IPostProcessor>(instances, config.postProcessors);
 
-            var availablePreProcessors = CodeGeneratorUtil.GetAvailableNamesOf<IPreProcessor>(types, config.preProcessors);
-            var availableDataProviders = CodeGeneratorUtil.GetAvailableNamesOf<IDataProvider>(types, config.dataProviders);
-            var availableCodeGenerators = CodeGeneratorUtil.GetAvailableNamesOf<ICodeGenerator>(types, config.codeGenerators);
-            var availablePostProcessors = CodeGeneratorUtil.GetAvailableNamesOf<IPostProcessor>(types, config.postProcessors);
+            var availablePreProcessors = CodeGeneratorUtil.GetAvailableNamesOf<IPreProcessor>(instances, config.preProcessors);
+            var availableDataProviders = CodeGeneratorUtil.GetAvailableNamesOf<IDataProvider>(instances, config.dataProviders);
+            var availableCodeGenerators = CodeGeneratorUtil.GetAvailableNamesOf<ICodeGenerator>(instances, config.codeGenerators);
+            var availablePostProcessors = CodeGeneratorUtil.GetAvailableNamesOf<IPostProcessor>(instances, config.postProcessors);
 
             foreach (var key in unavailablePreProcessors) {
                 if (!askedRemoveKeys.Contains(key)) {

@@ -22,12 +22,12 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
             _logger.Debug(_preferences.ToString());
 
-            Type[] types = null;
+            ICodeGeneratorBase[] instances = null;
             Dictionary<string, string> defaultProperties = null;
 
             try {
-                types = CodeGeneratorUtil.LoadTypesFromPlugins(_preferences);
-                defaultProperties = CodeGeneratorUtil.GetDefaultProperties(types, config);
+                instances = CodeGeneratorUtil.LoadFromPlugins(_preferences);
+                defaultProperties = CodeGeneratorUtil.GetDefaultProperties(instances, config);
             } catch (Exception) {
                 printKeyStatus(
                     config.defaultProperties.Merge(cliConfig.defaultProperties).Keys.ToArray(),
@@ -41,7 +41,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
                 .Merge(defaultProperties).Keys.ToArray();
 
             printKeyStatus(requiredKeys, cliConfig, _preferences);
-            printPluginStatus(types, config);
+            printPluginStatus(instances, config);
             printCollisions(config);
         }
 
@@ -58,16 +58,16 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             }
         }
 
-        void printPluginStatus(Type[] types, CodeGeneratorConfig config) {
-            printUnavailable(CodeGeneratorUtil.GetUnavailableNamesOf<IPreProcessor>(types, config.preProcessors));
-            printUnavailable(CodeGeneratorUtil.GetUnavailableNamesOf<IDataProvider>(types, config.dataProviders));
-            printUnavailable(CodeGeneratorUtil.GetUnavailableNamesOf<ICodeGenerator>(types, config.codeGenerators));
-            printUnavailable(CodeGeneratorUtil.GetUnavailableNamesOf<IPostProcessor>(types, config.postProcessors));
+        void printPluginStatus(ICodeGeneratorBase[] instances, CodeGeneratorConfig config) {
+            printUnavailable(CodeGeneratorUtil.GetUnavailableNamesOf<IPreProcessor>(instances, config.preProcessors));
+            printUnavailable(CodeGeneratorUtil.GetUnavailableNamesOf<IDataProvider>(instances, config.dataProviders));
+            printUnavailable(CodeGeneratorUtil.GetUnavailableNamesOf<ICodeGenerator>(instances, config.codeGenerators));
+            printUnavailable(CodeGeneratorUtil.GetUnavailableNamesOf<IPostProcessor>(instances, config.postProcessors));
 
-            printAvailable(CodeGeneratorUtil.GetAvailableNamesOf<IPreProcessor>(types, config.preProcessors));
-            printAvailable(CodeGeneratorUtil.GetAvailableNamesOf<IDataProvider>(types, config.dataProviders));
-            printAvailable(CodeGeneratorUtil.GetAvailableNamesOf<ICodeGenerator>(types, config.codeGenerators));
-            printAvailable(CodeGeneratorUtil.GetAvailableNamesOf<IPostProcessor>(types, config.postProcessors));
+            printAvailable(CodeGeneratorUtil.GetAvailableNamesOf<IPreProcessor>(instances, config.preProcessors));
+            printAvailable(CodeGeneratorUtil.GetAvailableNamesOf<IDataProvider>(instances, config.dataProviders));
+            printAvailable(CodeGeneratorUtil.GetAvailableNamesOf<ICodeGenerator>(instances, config.codeGenerators));
+            printAvailable(CodeGeneratorUtil.GetAvailableNamesOf<IPostProcessor>(instances, config.postProcessors));
         }
 
         void printUnavailable(string[] names) {
