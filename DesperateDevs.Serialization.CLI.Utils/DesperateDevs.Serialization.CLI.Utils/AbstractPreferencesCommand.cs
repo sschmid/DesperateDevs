@@ -16,6 +16,10 @@ namespace DesperateDevs.Serialization.CLI.Utils {
         public override void Run(string[] args) {
             try {
                 _preferences = new Preferences(args.GetPropertiesPath(), args.GetUserPropertiesPath());
+                var configurable = this as IConfigurable;
+                if (configurable != null) {
+                    configurable.Configure(_preferences);
+                }
             } catch (Exception ex) {
                 _logger.Error(ex.Message);
 

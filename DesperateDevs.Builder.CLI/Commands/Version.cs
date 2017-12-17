@@ -16,7 +16,6 @@ namespace DesperateDevs.Builder.CLI {
         readonly VersionConfig _versionConfig = new VersionConfig();
 
         public Version() : base(typeof(Version).FullName) {
-            Configure(_preferences);
         }
 
         public void Configure(Preferences preferences) {
@@ -27,12 +26,16 @@ namespace DesperateDevs.Builder.CLI {
             var number = _args[0];
 
             var version = System.Version.Parse(File.ReadAllText(_versionConfig.versionPath));
-            if (number == "patch") {
-                version = new System.Version(version.Major, version.Minor, version.Build + 1);
-            } else if (number == "minor") {
-                version = new System.Version(version.Major, version.Minor + 1, 0);
-            } else if (number == "major") {
-                version = new System.Version(version.Major + 1, 0, 0);
+            switch (number) {
+                case "patch":
+                    version = new System.Version(version.Major, version.Minor, version.Build + 1);
+                    break;
+                case "minor":
+                    version = new System.Version(version.Major, version.Minor + 1, 0);
+                    break;
+                case "major":
+                    version = new System.Version(version.Major + 1, 0, 0);
+                    break;
             }
 
             File.WriteAllText(_versionConfig.versionPath, version.ToString());
