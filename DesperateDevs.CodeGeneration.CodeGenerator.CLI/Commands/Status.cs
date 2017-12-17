@@ -22,7 +22,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
             _logger.Debug(_preferences.ToString());
 
-            ICodeGeneratorBase[] instances = null;
+            ICodeGenerationPlugin[] instances = null;
             Dictionary<string, string> defaultProperties = null;
 
             try {
@@ -58,7 +58,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             }
         }
 
-        void printPluginStatus(ICodeGeneratorBase[] instances, CodeGeneratorConfig config) {
+        void printPluginStatus(ICodeGenerationPlugin[] instances, CodeGeneratorConfig config) {
             printUnavailable(CodeGeneratorUtil.GetUnavailableNamesOf<IPreProcessor>(instances, config.preProcessors));
             printUnavailable(CodeGeneratorUtil.GetUnavailableNamesOf<IDataProvider>(instances, config.dataProviders));
             printUnavailable(CodeGeneratorUtil.GetUnavailableNamesOf<ICodeGenerator>(instances, config.codeGenerators));

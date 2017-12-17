@@ -47,7 +47,7 @@
     <Compile Include="DesperateDevs.CodeGeneration\Interfaces\ICodeGenerator.cs" />
     <Compile Include="DesperateDevs.CodeGeneration\Interfaces\ICachable.cs" />
     <Compile Include="DesperateDevs.CodeGeneration\Interfaces\IDataProvider.cs" />
-    <Compile Include="DesperateDevs.CodeGeneration\Interfaces\ICodeGeneratorBase.cs" />
+    <Compile Include="DesperateDevs.CodeGeneration\Interfaces\ICodeGenerationPlugin.cs" />
     <Compile Include="DesperateDevs.CodeGeneration\Interfaces\IDoctor.cs" />
     <Compile Include="DesperateDevs.CodeGeneration\Interfaces\IPostProcessor.cs" />
     <Compile Include="DesperateDevs.CodeGeneration\Interfaces\IPreProcessor.cs" />

@@ -1,6 +1,6 @@
 ﻿namespace DesperateDevs.CodeGeneration {
 
-    public interface ICodeGeneratorBase {
+    public interface ICodeGenerationPlugin {
 
         string name { get; }
         int priority { get; }

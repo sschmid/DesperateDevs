@@ -68,7 +68,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
 
             _objectCache.Clear();
 
-            var cachables = ((ICodeGeneratorBase[])preProcessors)
+            var cachables = ((ICodeGenerationPlugin[])preProcessors)
                 .Concat(dataProviders)
                 .Concat(codeGenerators)
                 .Concat(postProcessors)

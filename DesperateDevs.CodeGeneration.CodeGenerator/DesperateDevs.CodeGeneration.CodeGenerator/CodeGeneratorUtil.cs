@@ -24,13 +24,13 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
             return new CodeGenerator(preProcessors, dataProviders, codeGenerators, postProcessors);
         }
 
-        static void configure(ICodeGeneratorBase[] plugins, Preferences preferences) {
+        static void configure(ICodeGenerationPlugin[] plugins, Preferences preferences) {
             foreach (var plugin in plugins.OfType<IConfigurable>()) {
                 plugin.Configure(preferences);
             }
         }
 
-        public static ICodeGeneratorBase[] LoadFromPlugins(Preferences preferences) {
+        public static ICodeGenerationPlugin[] LoadFromPlugins(Preferences preferences) {
             var config = preferences.CreateAndConfigure<CodeGeneratorConfig>();
             var resolver = new AssemblyResolver(false, config.searchPaths);
             foreach (var path in config.plugins) {
@@ -39,14 +39,14 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
 
             var instances = resolver
                 .GetTypes()
-                .GetInstancesOf<ICodeGeneratorBase>();
+                .GetInstancesOf<ICodeGenerationPlugin>();
 
             resolver.Close();
 
             return instances;
         }
 
-        public static T[] GetOrderedInstancesOf<T>(ICodeGeneratorBase[] instances) where T : ICodeGeneratorBase {
+        public static T[] GetOrderedInstancesOf<T>(ICodeGenerationPlugin[] instances) where T : ICodeGenerationPlugin {
             return instances
                 .OfType<T>()
                 .OrderBy(instance => instance.priority)
@@ -54,32 +54,32 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
                 .ToArray();
         }
 
-        public static string[] GetOrderedTypeNamesOf<T>(ICodeGeneratorBase[] instances) where T : ICodeGeneratorBase {
+        public static string[] GetOrderedTypeNamesOf<T>(ICodeGenerationPlugin[] instances) where T : ICodeGenerationPlugin {
             return GetOrderedInstancesOf<T>(instances)
                 .Select(instance => instance.GetType().ToCompilableString())
                 .ToArray();
         }
 
-        public static T[] GetEnabledInstancesOf<T>(ICodeGeneratorBase[] instances, string[] typeNames) where T : ICodeGeneratorBase {
+        public static T[] GetEnabledInstancesOf<T>(ICodeGenerationPlugin[] instances, string[] typeNames) where T : ICodeGenerationPlugin {
             return GetOrderedInstancesOf<T>(instances)
                 .Where(instance => typeNames.Contains(instance.GetType().ToCompilableString()))
                 .ToArray();
         }
 
-        public static string[] GetAvailableNamesOf<T>(ICodeGeneratorBase[] instances, string[] typeNames) where T : ICodeGeneratorBase {
+        public static string[] GetAvailableNamesOf<T>(ICodeGenerationPlugin[] instances, string[] typeNames) where T : ICodeGenerationPlugin {
             return GetOrderedTypeNamesOf<T>(instances)
                 .Where(typeName => !typeNames.Contains(typeName))
                 .ToArray();
         }
 
-        public static string[] GetUnavailableNamesOf<T>(ICodeGeneratorBase[] instances, string[] typeNames) where T : ICodeGeneratorBase {
+        public static string[] GetUnavailableNamesOf<T>(ICodeGenerationPlugin[] instances, string[] typeNames) where T : ICodeGenerationPlugin {
             var orderedTypeNames = GetOrderedTypeNamesOf<T>(instances);
             return typeNames
                 .Where(typeName => !orderedTypeNames.Contains(typeName))
                 .ToArray();
         }
 
-        public static Dictionary<string, string> GetDefaultProperties(ICodeGeneratorBase[] instances, CodeGeneratorConfig config) {
+        public static Dictionary<string, string> GetDefaultProperties(ICodeGenerationPlugin[] instances, CodeGeneratorConfig config) {
             return new Dictionary<string, string>().Merge(
                 GetEnabledInstancesOf<IPreProcessor>(instances, config.preProcessors).OfType<IConfigurable>()
                     .Concat(GetEnabledInstancesOf<IDataProvider>(instances, config.dataProviders).OfType<IConfigurable>())

@@ -1,6 +1,6 @@
 ﻿namespace DesperateDevs.CodeGeneration {
 
-    public interface IPostProcessor : ICodeGeneratorBase {
+    public interface IPostProcessor : ICodeGenerationPlugin {
 
         CodeGenFile[] PostProcess(CodeGenFile[] files);
     }

@@ -44,6 +44,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DesperateDevs.CodeGeneration.Unity.Plugins\DebugLogDoctor.cs" />
     <Compile Include="DesperateDevs.CodeGeneration.Unity.Plugins\DebugLogPostProcessor.cs" />
   </ItemGroup>
   <ItemGroup>

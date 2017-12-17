@@ -1,6 +1,6 @@
 ﻿namespace DesperateDevs.CodeGeneration {
 
-    public interface IDoctor {
+    public interface IDoctor : ICodeGenerationPlugin {
 
         Diagnosis Diagnose();
         bool Fix();

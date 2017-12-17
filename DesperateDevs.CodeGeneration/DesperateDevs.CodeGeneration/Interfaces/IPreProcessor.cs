@@ -1,6 +1,6 @@
 ﻿namespace DesperateDevs.CodeGeneration {
 
-    public interface IPreProcessor : ICodeGeneratorBase {
+    public interface IPreProcessor : ICodeGenerationPlugin {
 
         void PreProcess();
     }

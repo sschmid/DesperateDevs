@@ -1,6 +1,6 @@
 namespace DesperateDevs.CodeGeneration {
 
-    public interface ICodeGenerator : ICodeGeneratorBase {
+    public interface ICodeGenerator : ICodeGenerationPlugin {
 
         CodeGenFile[] Generate(CodeGeneratorData[] data);
     }

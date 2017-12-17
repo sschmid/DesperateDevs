@@ -26,7 +26,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
         string[] _availablePostProcessorNames;
 
         Preferences _preferences;
-        ICodeGeneratorBase[] _instances;
+        ICodeGenerationPlugin[] _instances;
 
         CodeGeneratorConfig _codeGeneratorConfig;
 
@@ -80,12 +80,14 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
                 "Continue and Overwrite",
                 "Cancel"
             )) {
-                var plugins = _codeGeneratorConfig.searchPaths
-                    .Concat(new[] { "Assets" })
-                    .SelectMany(path => Directory.Exists(path)
-                        ? Directory.GetFiles(path, "*.dll", SearchOption.AllDirectories)
-                        : new string[0])
-                    .Where(path => path.EndsWith(".plugins.dll", StringComparison.OrdinalIgnoreCase))
+
+                var plugins = AssemblyResolver
+                    .GetAssembliesContainingType<ICodeGenerationPlugin>(_codeGeneratorConfig
+                        .searchPaths
+                        .Concat(new[] { "Assets" })
+                        .Where(Directory.Exists)
+                        .ToArray())
+                    .Select(assembly => assembly.CodeBase)
                     .ToArray();
 
                 _codeGeneratorConfig.searchPaths = _codeGeneratorConfig.searchPaths
@@ -117,7 +119,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
             }
         }
 
-        static void setTypesAndNames<T>(ICodeGeneratorBase[] instances, out string[] availableTypes, out string[] availableNames) where T : ICodeGeneratorBase {
+        static void setTypesAndNames<T>(ICodeGenerationPlugin[] instances, out string[] availableTypes, out string[] availableNames) where T : ICodeGenerationPlugin {
             var orderedInstances = CodeGeneratorUtil.GetOrderedInstancesOf<T>(instances);
 
             availableTypes = orderedInstances

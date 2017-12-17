@@ -63,7 +63,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             }
         }
 
-        bool fix(HashSet<string> askedRemoveKeys, HashSet<string> askedAddKeys, ICodeGeneratorBase[] instances, CodeGeneratorConfig config, CLIConfig cliConfig, Preferences preferences) {
+        bool fix(HashSet<string> askedRemoveKeys, HashSet<string> askedAddKeys, ICodeGenerationPlugin[] instances, CodeGeneratorConfig config, CLIConfig cliConfig, Preferences preferences) {
             var changed = fixPlugins(askedRemoveKeys, askedAddKeys, instances, config, preferences);
             changed |= fixCollisions(askedAddKeys, config, preferences);
 
@@ -80,7 +80,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             return changed;
         }
 
-        static bool fixPlugins(HashSet<string> askedRemoveKeys, HashSet<string> askedAddKeys, ICodeGeneratorBase[] instances, CodeGeneratorConfig config, Preferences preferences) {
+        static bool fixPlugins(HashSet<string> askedRemoveKeys, HashSet<string> askedAddKeys, ICodeGenerationPlugin[] instances, CodeGeneratorConfig config, Preferences preferences) {
             var changed = false;
 
             var unavailablePreProcessors = CodeGeneratorUtil.GetUnavailableNamesOf<IPreProcessor>(instances, config.preProcessors);

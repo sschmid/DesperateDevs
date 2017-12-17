@@ -1,8 +1,8 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using DesperateDevs.Serialization;
 using DesperateDevs.Serialization.CLI.Utils;
+using DesperateDevs.Utils;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
@@ -24,9 +24,9 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         void autoImport() {
             var config = _preferences.CreateAndConfigure<CodeGeneratorConfig>();
 
-            var plugins = config.searchPaths
-                .SelectMany(path => Directory.GetFiles(path, "*.dll", SearchOption.AllDirectories))
-                .Where(path => path.EndsWith(".plugins.dll", StringComparison.OrdinalIgnoreCase))
+            var plugins = AssemblyResolver
+                .GetAssembliesContainingType<ICodeGenerationPlugin>(config.searchPaths)
+                .Select(assembly => assembly.CodeBase)
                 .ToArray();
 
             config.searchPaths = config.searchPaths
