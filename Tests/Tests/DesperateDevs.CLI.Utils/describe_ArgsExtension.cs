@@ -6,10 +6,10 @@ class describe_ArgsExtension : nspec {
 
     void when_Args() {
 
-        detectsParameter("verbose", "-v", ArgsExtension.isVerbose);
-        detectsParameter("silent", "-s", ArgsExtension.isSilent);
-        detectsParameter("debug", "-d", ArgsExtension.isDebug);
-        detectsParameter("verbose because of debug", "-d", ArgsExtension.isVerbose);
+        detectsParameter("verbose", "-v", ArgsExtension.IsVerbose);
+        detectsParameter("silent", "-s", ArgsExtension.IsSilent);
+        detectsParameter("debug", "-d", ArgsExtension.IsDebug);
+        detectsParameter("verbose because of debug", "-d", ArgsExtension.IsVerbose);
 
         it["filters default parameter starting with -"] = () => {
             var args = new[] { "-v", "-s", "-d", "value" };

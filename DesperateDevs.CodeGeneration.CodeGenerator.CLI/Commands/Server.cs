@@ -55,7 +55,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
                     : Encoding.UTF8.GetBytes(logBufferString);
                 socket.Send(sendBytes);
             } catch (Exception ex) {
-                _logger.Error(args.isVerbose()
+                _logger.Error(args.IsVerbose()
                     ? ex.ToString()
                     : ex.Message);
 

@@ -69,17 +69,17 @@ namespace DesperateDevs.CLI.Utils {
             try {
                 GetCommand(args.WithoutDefaultParameter()[0]).Run(args);
             } catch (Exception ex) {
-                _logger.Error(args.isVerbose() ? ex.ToString() : ex.Message);
+                _logger.Error(args.IsVerbose() ? ex.ToString() : ex.Message);
             }
         }
 
         void initializeLogging(string[] args, Dictionary<LogLevel, ConsoleColor> consoleColors) {
-            fabl.globalLogLevel = args.isVerbose()
+            fabl.globalLogLevel = args.IsVerbose()
                 ? LogLevel.On
                 : LogLevel.Info;
 
             LogFormatter formatter;
-            if (args.isDebug()) {
+            if (args.IsDebug()) {
                 formatter = new DefaultLogMessageFormatter().FormatMessage;
             } else {
                 formatter = (logger, level, message) => message;

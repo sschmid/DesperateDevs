@@ -118,7 +118,11 @@ namespace DesperateDevs.Serialization {
                 .Replace("\\t", "\t");
         }
 
-        static string propertyPair(string key, string value) {
+        static string propertyPair(string key, string value, bool minified) {
+            if (minified) {
+                return key + "=" + value;
+            }
+
             return key + " = " + value;
         }
 
@@ -131,14 +135,14 @@ namespace DesperateDevs.Serialization {
 
                 var content = string.Join(", \\\n", contentValues).TrimStart();
 
-                return properties + propertyPair(kv.Key, content) + (contentValues.Length > 1 ? "\n\n" : "\n");
+                return properties + propertyPair(kv.Key, content, false) + (contentValues.Length > 1 ? "\n\n" : "\n");
             });
         }
 
         public string ToMinifiedString() {
             return _dict.Aggregate(string.Empty, (properties, kv) => {
                 var content = escapedSpecialCharacters(kv.Value);
-                return properties + propertyPair(kv.Key, content) + "\n";
+                return properties + propertyPair(kv.Key, content, true) + "\n";
             });
         }
     }

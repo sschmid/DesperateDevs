@@ -12,16 +12,20 @@ namespace DesperateDevs.CLI.Utils {
             "-d"
         };
 
-        public static bool isVerbose(this string[] args) {
-            return args.Any(arg => arg == "-v") || isDebug(args);
+        public static bool IsVerbose(this string[] args) {
+            return HasParameter(args, "-v") || IsDebug(args);
         }
 
-        public static bool isSilent(this string[] args) {
-            return args.Any(arg => arg == "-s");
+        public static bool IsSilent(this string[] args) {
+            return HasParameter(args, "-s");
         }
 
-        public static bool isDebug(this string[] args) {
-            return args.Any(arg => arg == "-d");
+        public static bool IsDebug(this string[] args) {
+            return HasParameter(args, "-d");
+        }
+
+        public static bool HasParameter(this string[] args, string parameter) {
+            return args.Any(arg => arg == parameter);
         }
 
         public static string[] WithoutTrigger(this string[] args) {

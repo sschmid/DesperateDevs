@@ -58,9 +58,9 @@ namespace DesperateDevs.Serialization {
             _userProperties = loadProperties(_userPropertiesPath);
         }
 
-        public void Save() {
-            File.WriteAllText(_propertiesPath, _properties.ToString());
-            File.WriteAllText(_userPropertiesPath, _userProperties.ToString());
+        public void Save(bool minified = false) {
+            File.WriteAllText(_propertiesPath, minified ? _properties.ToMinifiedString() : _properties.ToString());
+            File.WriteAllText(_userPropertiesPath, minified ? _userProperties.ToMinifiedString() : _userProperties.ToString());
         }
 
         public string this[string key] {

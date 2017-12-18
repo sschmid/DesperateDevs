@@ -489,8 +489,8 @@ class describe_Properties : nspec {
 key2 = value4");
 
                 properties.ToMinifiedString().should_be(
-@"key = value1, value2, value3
-key2 = value4
+@"key=value1, value2, value3
+key2=value4
 ");
             };
         };
