@@ -26,5 +26,5 @@ Assembly-CSharp-Editor-firstpass.csproj
 Build
 
 # Unity Test Projects
-Tests/Unity/CodeGenerator/Assets/Plugins
-Tests/Unity/CodeGenerator/Assets/Libraries
+Tests/Fixtures/Unity/CodeGenerator/Assets/Plugins
+Tests/Fixtures/Unity/CodeGenerator/Assets/Libraries

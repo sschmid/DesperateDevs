@@ -57,7 +57,7 @@
     <Compile Include="TestFixtures\TestPreferences.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DesperateDevs.Serialization\DesperateDevs.Serialization.csproj">
+    <ProjectReference Include="..\..\..\DesperateDevs.Serialization\DesperateDevs.Serialization.csproj">
       <Project>{3F7A0EC0-ECFE-4DA5-A02F-C716AD8F0817}</Project>
       <Name>DesperateDevs.Serialization</Name>
     </ProjectReference>

@@ -9,8 +9,8 @@ class describe_AssemblyResolver : nspec {
 
         var projectRoot = TestExtensions.GetProjectRoot();
 
-        var basePathTestDependency = projectRoot + "/Tests/TestDependency/bin/Release";
-        var basePathTestDependencyBase = projectRoot + "/Tests/TestDependencyBase/bin/Release";
+        var basePathTestDependency = projectRoot + "/Tests/Fixtures/TestDependency/bin/Release";
+        var basePathTestDependencyBase = projectRoot + "/Tests/Fixtures/TestDependencyBase/bin/Release";
 
         AssemblyResolver resolver = null;
         string assemblyName = null;

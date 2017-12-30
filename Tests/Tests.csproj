@@ -126,7 +126,7 @@
       <Project>{f81e2e63-8f15-43d9-85c0-57237ed42250}</Project>
       <Name>DesperateDevs.Utils</Name>
     </ProjectReference>
-    <ProjectReference Include="TestFixtures\TestFixtures.csproj">
+    <ProjectReference Include="Fixtures\TestFixtures\TestFixtures.csproj">
       <Project>{101f0979-50f9-41ea-8d22-87ae185b8489}</Project>
       <Name>TestFixtures</Name>
     </ProjectReference>

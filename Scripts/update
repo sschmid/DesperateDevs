@@ -8,7 +8,7 @@ $SCRIPTS/build
 # update unity project
 
 # CodeGenerator
-libDir="Tests/Unity/CodeGenerator/Assets/Libraries"
+libDir="Tests/Fixtures/Unity/CodeGenerator/Assets/Libraries"
 editorLibDir="$libDir/Editor"
 rm -rf $libDir
 mkdir $libDir $editorLibDir
