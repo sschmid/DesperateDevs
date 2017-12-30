@@ -14,8 +14,7 @@ namespace DesperateDevs.Serialization.CLI.Utils {
         }
 
         public static string GetUserPropertiesPath(this string[] args) {
-            return args.SingleOrDefault(arg => arg.EndsWith(".userproperties", StringComparison.OrdinalIgnoreCase))
-                   ?? Environment.UserName + ".userproperties";
+            return args.SingleOrDefault(arg => arg.EndsWith(".userproperties", StringComparison.OrdinalIgnoreCase));
         }
     }
 }

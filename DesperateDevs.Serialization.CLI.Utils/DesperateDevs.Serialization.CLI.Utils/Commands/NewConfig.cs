@@ -29,7 +29,6 @@ namespace DesperateDevs.Serialization.CLI.Utils {
 
             _logger.Info("Created " + preferences.propertiesPath);
             _logger.Info("Created " + preferences.userPropertiesPath);
-            _logger.Info("👍");
             _logger.Debug(preferences.ToString());
 
             new EditConfig().Run(_args);

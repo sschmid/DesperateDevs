@@ -15,7 +15,7 @@ namespace DesperateDevs.Unity.Editor {
             if (buttonText.Length > 24) {
                 buttonText = "..." + buttonText.Substring(buttonText.Length - 24);
             }
-            clicked = (GUILayout.Button(buttonText, EditorStyles.objectField));
+            clicked = GUILayout.Button(buttonText, EditorStyles.objectField);
             EditorGUILayout.EndHorizontal();
 
             return clicked;

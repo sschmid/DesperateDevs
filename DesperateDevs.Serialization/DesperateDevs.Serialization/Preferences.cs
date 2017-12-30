@@ -87,10 +87,23 @@ namespace DesperateDevs.Serialization {
             return getMergedProperties().ToString();
         }
 
-        static string findFilePath(string searchPattern) {
+        public static string[] FindAll(string searchPattern) {
             return Directory
-                .GetFiles(Directory.GetCurrentDirectory(), searchPattern, SearchOption.TopDirectoryOnly)
-                .FirstOrDefault();
+                .GetFiles(Directory.GetCurrentDirectory(), searchPattern, SearchOption.TopDirectoryOnly);
+        }
+
+        static string findFilePath(string searchPattern) {
+            var files = Directory.GetFiles(Directory.GetCurrentDirectory(), searchPattern, SearchOption.TopDirectoryOnly);
+
+            if (files.Length > 1) {
+                throw new Exception(
+                    "Found multiple files matching " + searchPattern + ":\n" +
+                    string.Join("\n", files.Select(Path.GetFileName).ToArray()) + "\n" +
+                    "Please specify the desired file"
+                );
+            }
+
+            return files.SingleOrDefault();
         }
 
         static Properties loadProperties(string path) {

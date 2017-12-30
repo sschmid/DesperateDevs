@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Linq;
 using DesperateDevs.Serialization;
 using DesperateDevs.Utils;
@@ -8,6 +9,8 @@ using UnityEngine;
 namespace DesperateDevs.Unity.Editor {
 
     public class PreferencesWindow : EditorWindow {
+
+        public const string PREFERENCES_KEY = "DesperateDevs.Unity.Editor.PreferencesWindow.Preferences.Path";
 
         public string preferencesName;
 
@@ -19,7 +22,17 @@ namespace DesperateDevs.Unity.Editor {
 
         void initialize() {
             try {
+                var path = EditorPrefs.GetString(PREFERENCES_KEY, string.Empty);
+                if (path != string.Empty && File.Exists(path)) {
+                    Preferences.sharedInstance = new Preferences(path, null);
+                }
+            } catch (Exception) {
+                // ignored
+            }
+
+            try {
                 _preferences = Preferences.sharedInstance;
+                EditorPrefs.SetString(PREFERENCES_KEY, Preferences.sharedInstance.propertiesPath);
 
                 var config = new PreferencesConfig(preferencesName);
                 _preferences.properties.AddProperties(config.defaultProperties, false);
