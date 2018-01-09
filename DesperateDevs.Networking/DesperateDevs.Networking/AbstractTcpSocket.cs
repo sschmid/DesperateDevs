@@ -52,7 +52,11 @@ namespace DesperateDevs.Networking {
 
         void onSent(IAsyncResult ar) {
             var socket = (Socket)ar.AsyncState;
-            socket.EndSend(ar);
+            try {
+                socket.EndSend(ar);
+            } catch (ObjectDisposedException) {
+                // ignored
+            }
         }
 
         protected void receive(ReceiveVO receiveVO) {
