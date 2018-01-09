@@ -5,16 +5,13 @@ namespace DesperateDevs.Networking.CLI {
 
     class Program {
 
-        static CLIProgram _program;
-
         public static void Main(string[] args) {
-            _program = new CLIProgram("TCPezy");
-            _program.Run(args, printUsage);
+            new CLIProgram("TCPezy", args, printUsage);
         }
 
         static void printUsage(ICommand[] commands) {
-            var pad = _program.GetCommandListPad();
-            var commandList = _program.GetFormattedCommandList();
+            var pad = CLIProgram.GetCommandListPad(commands);
+            var commandList = CLIProgram.GetFormattedCommandList(commands);
 
             commandList.Add("[-v]".PadRight(pad) + " - verbose output");
 

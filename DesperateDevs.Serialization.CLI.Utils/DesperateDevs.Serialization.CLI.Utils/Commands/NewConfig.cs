@@ -13,9 +13,8 @@ namespace DesperateDevs.Serialization.CLI.Utils {
         readonly Logger _logger = fabl.GetLogger(typeof(NewConfig));
 
         protected override void run() {
-            var currentDir = Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar;
-            var properties = currentDir + _args.GetPropertiesPath();
-            var userProperties = currentDir + _args.GetUserPropertiesPath();
+            var properties = _args.GetPropertiesPath();
+            var userProperties = _args.GetUserPropertiesPath();
 
             if (!_args.isForce() && (doesAlreadyExist(properties) || doesAlreadyExist(userProperties))) {
                 return;

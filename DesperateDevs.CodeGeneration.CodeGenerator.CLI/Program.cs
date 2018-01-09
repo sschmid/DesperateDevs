@@ -8,8 +8,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         static CLIProgram _program;
 
         public static void Main(string[] args) {
-            _program = new CLIProgram("Jenny");
-            _program.Run(args, printUsage);
+            _program = new CLIProgram("Jenny", args, printUsage);
         }
 
         public static ICommand GetCommand(string trigger) {
@@ -17,8 +16,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         }
 
         static void printUsage(ICommand[] commands) {
-            var pad = _program.GetCommandListPad();
-            var commandList = _program.GetFormattedCommandList();
+            var pad = CLIProgram.GetCommandListPad(commands);
+            var commandList = CLIProgram.GetFormattedCommandList(commands);
 
             commandList.Add("[-v]".PadRight(pad) + " - verbose output");
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using DesperateDevs.Logging;
 using DesperateDevs.Logging.Formatters;
 using DesperateDevs.Utils;
@@ -10,7 +11,7 @@ namespace DesperateDevs.CLI.Utils {
 
     public class CLIProgram {
 
-        public readonly Dictionary<LogLevel, ConsoleColor> consoleColors =
+        public static readonly Dictionary<LogLevel, ConsoleColor> consoleColors =
             new Dictionary<LogLevel, ConsoleColor> {
                 { LogLevel.Warn, ConsoleColor.DarkYellow },
                 { LogLevel.Error, ConsoleColor.Red },
@@ -20,9 +21,14 @@ namespace DesperateDevs.CLI.Utils {
         readonly Logger _logger;
         readonly ICommand[] _commands;
 
-        public CLIProgram(string applicationName) {
+        public CLIProgram(string applicationName, string[] args, Action<ICommand[]> printUsage) {
             _logger = fabl.GetLogger(applicationName);
-            var resolver = AssemblyResolver.LoadAssembliesContainingType<ICommand>(false, Directory.GetCurrentDirectory());
+            initializeLogging(args, consoleColors);
+
+            var path = Assembly.GetExecutingAssembly().Location;
+            var assemblyDir = Path.GetDirectoryName(path);
+            _logger.Debug("Loading commands from " + assemblyDir);
+            var resolver = AssemblyResolver.LoadAssembliesContainingType<ICommand>(false, assemblyDir);
 
             _commands = AppDomain.CurrentDomain
                 .GetInstancesOf<ICommand>()
@@ -30,15 +36,12 @@ namespace DesperateDevs.CLI.Utils {
                 .ToArray();
 
             resolver.Close();
-        }
 
-        public void Run(string[] args, Action<ICommand[]> printUsage) {
-            if (args == null || args.Length == 0) {
+            if (args == null || args.WithoutParameter().Length == 0) {
                 printUsage(_commands);
                 return;
             }
 
-            initializeLogging(args, consoleColors);
             runCommand(args);
         }
 
@@ -51,15 +54,15 @@ namespace DesperateDevs.CLI.Utils {
             return command;
         }
 
-        public int GetCommandListPad() {
-            return _commands.Length == 0
+        public static int GetCommandListPad(ICommand[] commands) {
+            return commands.Length == 0
                 ? 0
-                : _commands.Max(c => c.example != null ? c.example.Length : 0);
+                : commands.Max(c => c.example != null ? c.example.Length : 0);
         }
 
-        public List<string> GetFormattedCommandList() {
-            var pad = GetCommandListPad();
-            return _commands
+        public static List<string> GetFormattedCommandList(ICommand[] commands) {
+            var pad = GetCommandListPad(commands);
+            return commands
                 .Where(c => c.example != null)
                 .Select(c => c.example.PadRight(pad) + " - " + c.description)
                 .ToList();
