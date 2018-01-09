@@ -9,15 +9,14 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
     public class FixPlugins : AbstractPreferencesCommand {
 
-        public override string trigger { get { return "fix-plugins"; } }
-        public override string description { get { return "Add available or remove unavailable plugins interactively"; } }
-        public override string example { get { return "fix-plugins"; } }
+        public override string trigger { get { return "fix"; } }
+        public override string description { get { return "Add missing keys and add available or remove unavailable plugins interactively"; } }
+        public override string example { get { return "fix"; } }
 
         public FixPlugins() : base(typeof(FixPlugins).FullName) {
         }
 
         protected override void run() {
-            new FixConfig().Run(_rawArgs);
             var config = _preferences.CreateAndConfigure<CodeGeneratorConfig>();
             var cliConfig = _preferences.CreateAndConfigure<CLIConfig>();
 

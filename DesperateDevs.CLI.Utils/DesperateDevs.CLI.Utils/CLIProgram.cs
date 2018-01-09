@@ -27,8 +27,8 @@ namespace DesperateDevs.CLI.Utils {
 
             var path = Assembly.GetExecutingAssembly().Location;
             var assemblyDir = Path.GetDirectoryName(path);
-            _logger.Debug("Loading commands from " + assemblyDir);
-            var resolver = AssemblyResolver.LoadAssembliesContainingType<ICommand>(false, assemblyDir);
+            _logger.Debug("Loading assemblies from " + assemblyDir);
+            var resolver = AssemblyResolver.LoadAssemblies(false, assemblyDir);
 
             _commands = AppDomain.CurrentDomain
                 .GetInstancesOf<ICommand>()

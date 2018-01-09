@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DesperateDevs.CLI.Utils;
 using DesperateDevs.Utils;
 
 namespace DesperateDevs.Serialization.CLI.Utils {
@@ -11,8 +10,7 @@ namespace DesperateDevs.Serialization.CLI.Utils {
         public static Dictionary<string, string> GetDefaultProperties() {
             return new Dictionary<string, string>().Merge(
                 AppDomain.CurrentDomain
-                    .GetInstancesOf<ICommand>()
-                    .OfType<IConfigurable>()
+                    .GetInstancesOf<IConfigurable>()
                     .Select(instance => instance.defaultProperties)
                     .ToArray());
         }

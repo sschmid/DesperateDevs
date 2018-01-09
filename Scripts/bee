@@ -114,7 +114,6 @@ collect_fabl() {
     "DesperateDevs.Logging.Appenders"
     "DesperateDevs.Logging.Formatters"
   )
-
   for p in "${projects[@]}"; do
     sync_files "${ROOT}/$p/${BIN}/" "$dir"
   done
@@ -124,6 +123,7 @@ collect_jenny() {
   logf
   local dir="${BUILD_DIST}/Jenny"
   clean_dir "$dir"
+
   sync_files "${ROOT}/DesperateDevs.CodeGeneration.CodeGenerator.CLI/${BIN}/" "$dir"
   mv "$dir/DesperateDevs.CodeGeneration.CodeGenerator.CLI.exe" "$dir/Jenny.exe"
 }
@@ -132,6 +132,7 @@ collect_tcpezy() {
   logf
   local dir="${BUILD_DIST}/TCPezy"
   clean_dir "$dir"
+
   sync_files "${ROOT}/DesperateDevs.Networking.CLI/${BIN}/" "$dir"
   mv "$dir/DesperateDevs.Networking.CLI.exe" "$dir/TCPezy.exe"
 }
