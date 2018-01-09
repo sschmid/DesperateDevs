@@ -1,0 +1,156 @@
+#!/bin/bash
+set -e
+
+# Shell Style Guide
+# https://google.github.io/styleguide/shell.xml
+
+################################################################################
+# Globals
+################################################################################
+readonly SCRIPTS="$(cd $(dirname ${BASH_SOURCE[0]}) && pwd)"
+readonly ROOT="$(dirname ${SCRIPTS})"
+
+readonly PROJECT="DesperateDevs"
+readonly SOLUTION="${ROOT}/${PROJECT}.sln"
+readonly BIN="bin/Release"
+
+readonly TESTS_PROJECT="${ROOT}/Tests/Tests.csproj"
+readonly TESTS_RUNNER="${ROOT}/Tests/${BIN}/Tests.exe"
+
+readonly BUILD="${ROOT}/Build"
+readonly BUILD_DIST="${BUILD}/dist"
+
+declare -a -r PROJECTS=(
+  "DesperateDevs.Analytics"
+  "DesperateDevs.CLI.Utils"
+  "DesperateDevs.CodeGeneration"
+  "DesperateDevs.CodeGeneration.CodeGenerator"
+  "DesperateDevs.CodeGeneration.CodeGenerator.CLI"
+  "DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor"
+  "DesperateDevs.CodeGeneration.Plugins"
+  "DesperateDevs.CodeGeneration.Unity.Plugins"
+  "DesperateDevs.Logging"
+  "DesperateDevs.Logging.Appenders"
+  "DesperateDevs.Logging.Formatters"
+  "DesperateDevs.Networking"
+  "DesperateDevs.Networking.CLI"
+  "DesperateDevs.Serialization"
+  "DesperateDevs.Serialization.CLI.Utils"
+  "DesperateDevs.Unity.Editor"
+  "DesperateDevs.Utils"
+)
+
+################################################################################
+# Utils
+################################################################################
+log() {
+  echo "🐝  $@"
+}
+
+err() {
+  echo "ERROR: $@" >&2
+}
+
+logb() {
+  echo ""
+  echo "################################################################################"
+  echo "# 🐝  $@"
+  echo "################################################################################"
+}
+
+logf() {
+  logb "${FUNCNAME[1]} $@"
+}
+
+clean_dir() {
+  logf "$1"
+  rm -rf "$1"
+  mkdir -p "$1"
+}
+
+require() {
+  command -v "$1" >/dev/null 2>&1 || {
+    err "Error: $1 not found! $1 is required. Try \"brew install $1\"."
+    exit 1
+  }
+}
+
+sync_files() {
+  rsync -ai --include-from "${SCRIPTS}/rsync_include.txt" --exclude-from "${SCRIPTS}/rsync_exclude.txt" "$1" "$2"
+}
+
+################################################################################
+# Globals
+################################################################################
+build() {
+  local path
+  if [[ $# -eq 1 ]]; then
+    path="$1"
+  else
+    path="${SOLUTION}"
+  fi
+
+  logf "${path}"
+  xbuild /property:Configuration=Release /verbosity:minimal "${path}"
+}
+
+clean() {
+  logf
+  xbuild /target:Clean /property:Configuration=Release /verbosity:minimal "${SOLUTION}"
+}
+
+build_tests() {
+  build "${TESTS_PROJECT}"
+}
+
+run_tests() {
+  logf
+  mono "${TESTS_RUNNER}" $@
+}
+
+################################################################################
+# Workflows
+################################################################################
+clean_build() {
+  logf
+  clean
+  build
+}
+
+tests() {
+  logf
+  build_tests
+  run_tests
+}
+
+collect() {
+  logf
+  for p in "${PROJECTS[@]}"; do
+    sync_files "${ROOT}/$p/${BIN}/" "${BUILD_DIST}"
+  done
+}
+
+pack() {
+  logf
+  clean_dir "${BUILD_DIST}"
+  build
+  tests
+  collect
+}
+
+################################################################################
+# Bee
+################################################################################
+main() {
+  if [[ $# -ge 1 ]]; then
+    local start=${SECONDS}
+    $@
+    local elapsed=$((${SECONDS} - ${start}))
+    log "bzzzz (${elapsed} seconds)"
+  else
+    logb "Commands:"
+    compgen -A function
+  fi
+}
+
+main "$@"
