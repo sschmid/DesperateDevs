@@ -49,7 +49,7 @@
     <Compile Include="Commands\Doctor.cs" />
     <Compile Include="Commands\Donate.cs" />
     <Compile Include="Commands\DryRun.cs" />
-    <Compile Include="Commands\FixConfig.cs" />
+    <Compile Include="Commands\FixPlugins.cs" />
     <Compile Include="Commands\Generate.cs" />
     <Compile Include="Commands\ScanAssemblies.cs" />
     <Compile Include="Commands\Server.cs" />

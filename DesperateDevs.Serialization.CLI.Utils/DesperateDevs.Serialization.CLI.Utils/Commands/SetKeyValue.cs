@@ -6,7 +6,7 @@ namespace DesperateDevs.Serialization.CLI.Utils {
 
         public override string trigger { get { return "set"; } }
         public override string description { get { return "Set the value of a key"; } }
-        public override string example { get { return "set key value"; } }
+        public override string example { get { return "set [key] [value]"; } }
 
         public SetKeyValue() : base(typeof(SetKeyValue).FullName) {
         }

@@ -12,7 +12,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         public override string trigger { get { return "client"; } }
         public override string description { get { return "Start client mode"; } }
-        public override string example { get { return "client command"; } }
+        public override string example { get { return "client [command]"; } }
 
         string _command;
 

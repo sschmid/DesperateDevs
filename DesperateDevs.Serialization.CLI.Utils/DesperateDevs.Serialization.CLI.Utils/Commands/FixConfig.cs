@@ -5,7 +5,7 @@ namespace DesperateDevs.Serialization.CLI.Utils {
     public class FixConfig : AbstractPreferencesCommand {
 
         public override string trigger { get { return "fix"; } }
-        public override string description { get { return "Add missing or remove unused keys interactively"; } }
+        public override string description { get { return "Add missing keys"; } }
         public override string example { get { return "fix"; } }
 
         public FixConfig() : base(typeof(FixConfig).FullName) {

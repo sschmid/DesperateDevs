@@ -7,16 +7,17 @@ using DesperateDevs.Utils;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
-    public class FixConfig : AbstractPreferencesCommand {
+    public class FixPlugins : AbstractPreferencesCommand {
 
-        public override string trigger { get { return "fix"; } }
-        public override string description { get { return "Add missing or remove unused keys interactively"; } }
-        public override string example { get { return "fix"; } }
+        public override string trigger { get { return "fix-plugins"; } }
+        public override string description { get { return "Add available or remove unavailable plugins interactively"; } }
+        public override string example { get { return "fix-plugins"; } }
 
-        public FixConfig() : base(typeof(FixConfig).FullName) {
+        public FixPlugins() : base(typeof(FixPlugins).FullName) {
         }
 
         protected override void run() {
+            new FixConfig().Run(_rawArgs);
             var config = _preferences.CreateAndConfigure<CodeGeneratorConfig>();
             var cliConfig = _preferences.CreateAndConfigure<CLIConfig>();
 

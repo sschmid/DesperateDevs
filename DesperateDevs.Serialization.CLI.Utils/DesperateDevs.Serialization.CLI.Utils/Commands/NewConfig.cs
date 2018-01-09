@@ -8,7 +8,7 @@ namespace DesperateDevs.Serialization.CLI.Utils {
 
         public override string trigger { get { return "new"; } }
         public override string description { get { return "Create new properties file(s) with default values"; } }
-        public override string example { get { return "new file userFile [-f]"; } }
+        public override string example { get { return "new [file] [userFile] [-f]"; } }
 
         readonly Logger _logger = fabl.GetLogger(typeof(NewConfig));
 

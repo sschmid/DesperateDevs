@@ -44,14 +44,14 @@ I8,      ,8'    A lovely .NET Code Generator        I8   8I
             const string footer = "Jenny automatically detects *.properties and *.userproperties.\n" +
                                   "If you have multiple property files in one folder, please specify the desired file(s) along with the command.\n\n" +
                                   "EXAMPLE\n" +
-                                  "  jenny gen\n" +
-                                  "  jenny gen My.properties\n" +
-                                  "  jenny edit\n" +
-                                  "  jenny edit My.properties\n" +
+                                  "  jenny new Preferences.properties\n" +
+                                  "  jenny auto-import\n" +
                                   "  jenny doctor\n" +
+                                  "  jenny edit\n" +
                                   "  jenny fix\n" +
-                                  "  jenny new My.properties\n" +
-                                  "  jenny new My.properties username.userproperties";
+                                  "  jenny gen\n" +
+                                  "  jenny gen MyOther.properties\n" +
+                                  "  jenny gen MyOther.properties username.userproperties";
 
             Console.WriteLine(header);
             Console.WriteLine("usage:\n" + string.Join("\n", commandList));

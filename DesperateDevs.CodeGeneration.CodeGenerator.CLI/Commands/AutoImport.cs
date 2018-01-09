@@ -18,7 +18,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         protected override void run() {
             _logger.Debug(_preferences.ToString());
             autoImport();
-            new FixConfig().Run(_rawArgs);
+            new FixPlugins().Run(_rawArgs);
         }
 
         void autoImport() {

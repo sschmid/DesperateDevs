@@ -6,7 +6,7 @@ namespace DesperateDevs.Serialization.CLI.Utils {
 
         public override string trigger { get { return "format"; } }
         public override string description { get { return "Format the config files"; } }
-        public override string example { get { return "format -mini"; } }
+        public override string example { get { return "format [-mini]"; } }
 
         public Format() : base(typeof(Format).FullName) {
         }

@@ -18,27 +18,8 @@ readonly TESTS_PROJECT="${ROOT}/Tests/Tests.csproj"
 readonly TESTS_RUNNER="${ROOT}/Tests/${BIN}/Tests.exe"
 
 readonly BUILD="${ROOT}/Build"
+readonly BUILD_SRC="${BUILD}/src"
 readonly BUILD_DIST="${BUILD}/dist"
-
-declare -a -r PROJECTS=(
-  "DesperateDevs.Analytics"
-  "DesperateDevs.CLI.Utils"
-  "DesperateDevs.CodeGeneration"
-  "DesperateDevs.CodeGeneration.CodeGenerator"
-  "DesperateDevs.CodeGeneration.CodeGenerator.CLI"
-  "DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor"
-  "DesperateDevs.CodeGeneration.Plugins"
-  "DesperateDevs.CodeGeneration.Unity.Plugins"
-  "DesperateDevs.Logging"
-  "DesperateDevs.Logging.Appenders"
-  "DesperateDevs.Logging.Formatters"
-  "DesperateDevs.Networking"
-  "DesperateDevs.Networking.CLI"
-  "DesperateDevs.Serialization"
-  "DesperateDevs.Serialization.CLI.Utils"
-  "DesperateDevs.Unity.Editor"
-  "DesperateDevs.Utils"
-)
 
 ################################################################################
 # Utils
@@ -123,16 +104,77 @@ tests() {
   run_tests
 }
 
+collect_fabl() {
+  logf
+  local dir="${BUILD_DIST}/fabl"
+  clean_dir "$dir"
+
+  declare -a -r projects=(
+    "DesperateDevs.Logging"
+    "DesperateDevs.Logging.Appenders"
+    "DesperateDevs.Logging.Formatters"
+  )
+
+  for p in "${projects[@]}"; do
+    sync_files "${ROOT}/$p/${BIN}/" "$dir"
+  done
+}
+
+collect_jenny() {
+  logf
+  local dir="${BUILD_DIST}/Jenny"
+  clean_dir "$dir"
+  sync_files "${ROOT}/DesperateDevs.CodeGeneration.CodeGenerator.CLI/${BIN}/" "$dir"
+  mv "$dir/DesperateDevs.CodeGeneration.CodeGenerator.CLI.exe" "$dir/Jenny.exe"
+}
+
+collect_tcpezy() {
+  logf
+  local dir="${BUILD_DIST}/TCPezy"
+  clean_dir "$dir"
+  sync_files "${ROOT}/DesperateDevs.Networking.CLI/${BIN}/" "$dir"
+  mv "$dir/DesperateDevs.Networking.CLI.exe" "$dir/TCPezy.exe"
+}
+
+collect_src() {
+  logf
+  declare -a -r projects=(
+    "DesperateDevs.Analytics"
+    "DesperateDevs.CLI.Utils"
+    "DesperateDevs.CodeGeneration"
+    "DesperateDevs.CodeGeneration.CodeGenerator"
+    "DesperateDevs.CodeGeneration.CodeGenerator.CLI"
+    "DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor"
+    "DesperateDevs.CodeGeneration.Plugins"
+    "DesperateDevs.CodeGeneration.Unity.Plugins"
+    "DesperateDevs.Logging"
+    "DesperateDevs.Logging.Appenders"
+    "DesperateDevs.Logging.Formatters"
+    "DesperateDevs.Networking"
+    "DesperateDevs.Networking.CLI"
+    "DesperateDevs.Serialization"
+    "DesperateDevs.Serialization.CLI.Utils"
+    "DesperateDevs.Unity.Editor"
+    "DesperateDevs.Utils"
+  )
+  for p in "${projects[@]}"; do
+    sync_files "${ROOT}/$p/${BIN}/" "${BUILD_SRC}"
+  done
+}
+
 collect() {
   logf
-  for p in "${PROJECTS[@]}"; do
-    sync_files "${ROOT}/$p/${BIN}/" "${BUILD_DIST}"
-  done
+  clean_dir "${BUILD_SRC}"
+  clean_dir "${BUILD_DIST}"
+
+  collect_src
+  collect_fabl
+  collect_jenny
+  collect_tcpezy
 }
 
 pack() {
   logf
-  clean_dir "${BUILD_DIST}"
   build
   tests
   collect
