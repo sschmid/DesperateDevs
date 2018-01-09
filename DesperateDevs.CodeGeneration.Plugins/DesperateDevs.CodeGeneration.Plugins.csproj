@@ -53,10 +53,6 @@
     <Compile Include="DesperateDevs.CodeGeneration.Plugins\PreProcessors\TargetFrameworkProfilePreProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DesperateDevs.CodeGeneration.CodeGenerator\DesperateDevs.CodeGeneration.CodeGenerator.csproj">
-      <Project>{7AFE3A5A-6CB5-4738-972A-458A16BC19AC}</Project>
-      <Name>DesperateDevs.CodeGeneration.CodeGenerator</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DesperateDevs.CodeGeneration\DesperateDevs.CodeGeneration.csproj">
       <Project>{43857640-7F48-49C7-89C9-B06305B82076}</Project>
       <Name>DesperateDevs.CodeGeneration</Name>
