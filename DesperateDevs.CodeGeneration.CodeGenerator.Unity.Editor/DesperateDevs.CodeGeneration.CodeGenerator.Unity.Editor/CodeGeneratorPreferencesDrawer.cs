@@ -87,7 +87,10 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
                         .Concat(new[] { "Assets" })
                         .Where(Directory.Exists)
                         .ToArray())
-                    .Select(assembly => assembly.CodeBase)
+                    .Select(assembly => new Uri(assembly.CodeBase))
+                    .Select(uri => uri.AbsolutePath + uri.Fragment)
+                    .Select(path => path.Replace(Directory.GetCurrentDirectory(), string.Empty))
+                    .Select(path => path.StartsWith(Path.DirectorySeparatorChar.ToString()) ? "." + path : path)
                     .ToArray();
 
                 _codeGeneratorConfig.searchPaths = _codeGeneratorConfig.searchPaths

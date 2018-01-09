@@ -101,12 +101,12 @@ clean_build() {
 tests() {
   logf
   build_tests
-  run_tests
+  run_tests "$@"
 }
 
 collect_fabl() {
   logf
-  local dir="${BUILD_DIST}/fabl"
+  local dir="${BUILD_DIST}/CSharp/fabl"
   clean_dir "${dir}"
 
   declare -a -r projects=(
@@ -119,13 +119,23 @@ collect_fabl() {
   done
 }
 
-collect_jenny() {
+collect_jenny_cli() {
   logf
-  local dir="${BUILD_DIST}/Jenny"
+  local dir="${BUILD_DIST}/CSharp/Jenny"
   clean_dir "${dir}"
 
   sync_files "${ROOT}/DesperateDevs.CodeGeneration.CodeGenerator.CLI/${BIN}/" "${dir}"
   mv "${dir}/DesperateDevs.CodeGeneration.CodeGenerator.CLI.exe" "${dir}/Jenny.exe"
+
+  local plugins="${dir}/Plugins"
+  mkdir "${plugins}"
+  declare -a -r projects=(
+    "DesperateDevs.CodeGeneration.Plugins"
+    "DesperateDevs.CodeGeneration.Unity.Plugins"
+  )
+  for p in "${projects[@]}"; do
+    sync_files "${ROOT}/${p}/${BIN}/" "${plugins}/Jenny/"
+  done
 }
 
 collect_jenny_unity() {
@@ -169,7 +179,7 @@ collect_jenny_unity() {
 
 collect_tcpezy() {
   logf
-  local dir="${BUILD_DIST}/TCPezy"
+  local dir="${BUILD_DIST}/CSharp/TCPezy"
   clean_dir "${dir}"
 
   sync_files "${ROOT}/DesperateDevs.Networking.CLI/${BIN}/" "${dir}"
@@ -209,7 +219,7 @@ collect() {
 
   collect_src
   collect_fabl
-  collect_jenny
+  collect_jenny_cli
   collect_jenny_unity
   collect_tcpezy
 }

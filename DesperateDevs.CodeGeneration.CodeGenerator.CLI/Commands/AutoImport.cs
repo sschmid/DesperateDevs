@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using DesperateDevs.Serialization;
 using DesperateDevs.Serialization.CLI.Utils;
@@ -24,17 +25,20 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         void autoImport() {
             var config = _preferences.CreateAndConfigure<CodeGeneratorConfig>();
 
-            var plugins = AssemblyResolver
+            var assemblies = AssemblyResolver
                 .GetAssembliesContainingType<ICodeGenerationPlugin>(true, config.searchPaths)
-                .Select(assembly => assembly.CodeBase)
+                .Select(assembly => new Uri(assembly.CodeBase))
+                .Select(uri => uri.AbsolutePath + uri.Fragment)
+                .Select(path => path.Replace(Directory.GetCurrentDirectory(), string.Empty))
+                .Select(path => path.StartsWith(Path.DirectorySeparatorChar.ToString()) ? "." + path : path)
                 .ToArray();
 
             config.searchPaths = config.searchPaths
-                .Concat(plugins.Select(Path.GetDirectoryName))
+                .Concat(assemblies.Select(Path.GetDirectoryName))
                 .Distinct()
                 .ToArray();
 
-            config.plugins = plugins
+            config.plugins = assemblies
                 .Select(Path.GetFileNameWithoutExtension)
                 .Distinct()
                 .ToArray();

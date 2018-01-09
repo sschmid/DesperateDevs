@@ -25,10 +25,9 @@ namespace DesperateDevs.CLI.Utils {
             _logger = fabl.GetLogger(applicationName);
             initializeLogging(args, consoleColors);
 
-            var path = Assembly.GetExecutingAssembly().Location;
-            var assemblyDir = Path.GetDirectoryName(path);
-            _logger.Debug("Loading assemblies from " + assemblyDir);
-            var resolver = AssemblyResolver.LoadAssemblies(false, assemblyDir);
+            var baseDirectory = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory);
+            _logger.Debug("Loading assemblies from " + baseDirectory);
+            var resolver = AssemblyResolver.LoadAssemblies(false, baseDirectory);
 
             _commands = AppDomain.CurrentDomain
                 .GetInstancesOf<ICommand>()
