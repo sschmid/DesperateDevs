@@ -84,7 +84,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
                 var plugins = AssemblyResolver
                     .GetAssembliesContainingType<ICodeGenerationPlugin>(true, _codeGeneratorConfig
                         .searchPaths
-                        .Concat(new[] { "Assets" })
+                        .Concat(new[] { "./Assets", "./Library/ScriptAssemblies" })
                         .Where(Directory.Exists)
                         .ToArray())
                     .Select(assembly => new Uri(assembly.CodeBase))
