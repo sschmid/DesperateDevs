@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -81,28 +80,13 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
                 "Cancel"
             )) {
 
-                var plugins = AssemblyResolver
-                    .GetAssembliesContainingType<ICodeGenerationPlugin>(true, _codeGeneratorConfig
-                        .searchPaths
-                        .Concat(new[] { "./Assets", "./Library/ScriptAssemblies" })
-                        .Where(Directory.Exists)
-                        .ToArray())
-                    .Select(assembly => new Uri(assembly.CodeBase))
-                    .Select(uri => uri.AbsolutePath + uri.Fragment)
-                    .Select(path => path.Replace(Directory.GetCurrentDirectory(), string.Empty))
-                    .Select(path => path.StartsWith(Path.DirectorySeparatorChar.ToString()) ? "." + path : path)
+                var searchPaths = _codeGeneratorConfig
+                    .searchPaths
+                    .Concat(new[] { "./Assets", "./Library/ScriptAssemblies" })
+                    .Where(Directory.Exists)
                     .ToArray();
 
-                _codeGeneratorConfig.searchPaths = _codeGeneratorConfig.searchPaths
-                    .Concat(plugins.Select(Path.GetDirectoryName))
-                    .Distinct()
-                    .ToArray();
-
-                _codeGeneratorConfig.plugins = plugins
-                    .Select(Path.GetFileNameWithoutExtension)
-                    .Distinct()
-                    .ToArray();
-
+                CodeGeneratorUtil.AutoImport(_codeGeneratorConfig, searchPaths);
                 _preferences.Save();
 
                 Initialize(_preferences);

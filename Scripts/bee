@@ -29,7 +29,7 @@ log() {
 }
 
 err() {
-  echo "ERROR: $@" >&2
+  echo "❌  ERROR: $@" >&2
 }
 
 logb() {
@@ -50,7 +50,7 @@ clean_dir() {
 }
 
 require() {
-  command -v "$1" >/dev/null 2>&1 || {
+  command -v "$1" > /dev/null 2>&1 || {
     err "Error: $1 not found! $1 is required. Try \"brew install $1\"."
     exit 1
   }

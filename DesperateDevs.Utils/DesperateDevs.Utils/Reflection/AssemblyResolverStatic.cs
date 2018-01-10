@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -8,7 +9,7 @@ namespace DesperateDevs.Utils {
 
         public static AssemblyResolver LoadAssemblies(bool allDirectories, params string[] basePaths) {
             var resolver = new AssemblyResolver(false, basePaths);
-            foreach (var file in basePaths.SelectMany(s => Directory.GetFiles(s, "*", allDirectories ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly))) {
+            foreach (var file in getAssemblyFiles(allDirectories, basePaths)) {
                 resolver.Load(file);
             }
 
@@ -17,7 +18,7 @@ namespace DesperateDevs.Utils {
 
         public static Assembly[] GetAssembliesContainingType<T>(bool allDirectories, params string[] basePaths) {
             var resolver = new AssemblyResolver(true, basePaths);
-            foreach (var file in basePaths.SelectMany(s => Directory.GetFiles(s, "*", allDirectories ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly))) {
+            foreach (var file in getAssemblyFiles(allDirectories, basePaths)) {
                 resolver.Load(file);
             }
 
@@ -43,6 +44,16 @@ namespace DesperateDevs.Utils {
             }
 
             return resolver;
+        }
+
+        static string[] getAssemblyFiles(bool allDirectories, params string[] basePaths) {
+            var patterns = new[] { "*.dll", "*.exe" };
+            var files = new List<string>();
+            foreach (var pattern in patterns) {
+                files.AddRange(basePaths.SelectMany(s => Directory.GetFiles(s, pattern, allDirectories ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly)));
+            }
+
+            return files.ToArray();
         }
     }
 }

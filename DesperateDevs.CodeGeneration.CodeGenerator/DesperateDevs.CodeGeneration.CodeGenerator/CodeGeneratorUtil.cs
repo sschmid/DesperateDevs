@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using DesperateDevs.Serialization;
 using DesperateDevs.Utils;
@@ -87,6 +89,27 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
                     .Concat(GetEnabledInstancesOf<IPostProcessor>(instances, config.postProcessors).OfType<IConfigurable>())
                     .Select(instance => instance.defaultProperties)
                     .ToArray());
+        }
+
+        public static void AutoImport(CodeGeneratorConfig config, params string[] searchPaths) {
+            var assemblies = AssemblyResolver
+                .GetAssembliesContainingType<ICodeGenerationPlugin>(true, searchPaths)
+                .Where(assembly => assembly.GetTypes().GetNonAbstractTypes<ICodeGenerationPlugin>().Length > 0)
+                .Select(assembly => new Uri(assembly.CodeBase))
+                .Select(uri => uri.AbsolutePath + uri.Fragment)
+                .Select(path => path.Replace(Directory.GetCurrentDirectory(), string.Empty))
+                .Select(path => path.StartsWith(Path.DirectorySeparatorChar.ToString()) ? "." + path : path)
+                .ToArray();
+
+            config.searchPaths = config.searchPaths
+                .Concat(assemblies.Select(Path.GetDirectoryName))
+                .Distinct()
+                .ToArray();
+
+            config.plugins = assemblies
+                .Select(Path.GetFileNameWithoutExtension)
+                .Distinct()
+                .ToArray();
         }
     }
 }
