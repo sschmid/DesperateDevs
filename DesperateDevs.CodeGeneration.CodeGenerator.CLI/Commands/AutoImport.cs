@@ -1,4 +1,6 @@
-﻿using DesperateDevs.Serialization;
+﻿using System.IO;
+using System.Linq;
+using DesperateDevs.Serialization;
 using DesperateDevs.Serialization.CLI.Utils;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
@@ -20,7 +22,14 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         void autoImport() {
             var config = _preferences.CreateAndConfigure<CodeGeneratorConfig>();
-            CodeGeneratorUtil.AutoImport(config, config.searchPaths);
+
+            var searchPaths = config
+                .searchPaths
+                .Concat(new[] { "." })
+                .Where(Directory.Exists)
+                .ToArray();
+
+            CodeGeneratorUtil.AutoImport(config, searchPaths);
             _preferences.Save();
         }
     }

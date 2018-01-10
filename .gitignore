@@ -26,3 +26,4 @@ Assembly-CSharp*.csproj
 Build
 **/Assets/Libraries
 **/Assets/Libraries.meta
+Tests/Unity/CodeGenerator/Jenny

@@ -94,7 +94,10 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
         public static void AutoImport(CodeGeneratorConfig config, params string[] searchPaths) {
             var assemblies = AssemblyResolver
                 .GetAssembliesContainingType<ICodeGenerationPlugin>(true, searchPaths)
-                .Where(assembly => assembly.GetTypes().GetNonAbstractTypes<ICodeGenerationPlugin>().Length > 0)
+                .GetAllTypes()
+                .GetNonAbstractTypes<ICodeGenerationPlugin>()
+                .Select(type => type.Assembly)
+                .Distinct()
                 .Select(assembly => new Uri(assembly.CodeBase))
                 .Select(uri => uri.AbsolutePath + uri.Fragment)
                 .Select(path => path.Replace(Directory.GetCurrentDirectory(), string.Empty))

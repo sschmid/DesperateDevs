@@ -114,11 +114,10 @@ pack() {
 ################################################################################
 collect_codegenerator_unity() {
   logf
-  clean_dir "${BUILD_SRC}"
-  local codegenerator="${BUILD_SRC}/Unity/Jenny/Assets"
+  local codegenerator="${BUILD_SRC}/Unity/Jenny/Assets/Jenny"
   local editor="${codegenerator}/Editor"
   local plugins="${editor}/Plugins"
-  mkdir -p "${codegenerator}" "${editor}" "${plugins}"
+  clean_dir "${codegenerator}" "${editor}" "${plugins}"
 
   declare -a -r projects=(
     "DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor"
@@ -151,16 +150,47 @@ collect_codegenerator_unity() {
   done
 }
 
+collect_codegenerator_cli() {
+  logf
+  local codegenerator="${BUILD_SRC}/Jenny"
+  local plugins="${codegenerator}/Plugins"
+  clean_dir "${codegenerator}" "${plugins}"
+
+  declare -a -r projects=(
+    "DesperateDevs.CodeGeneration.CodeGenerator.CLI"
+    "DesperateDevs.CodeGeneration.Plugins"
+    "DesperateDevs.CodeGeneration.Unity.Plugins"
+  )
+  for p in "${projects[@]}"; do
+    sync_files "${ROOT}/${p}/${BIN}/" "${codegenerator}"
+  done
+
+  declare -a -r to_plugins=(
+    "DesperateDevs.CodeGeneration.Plugins.dll"
+    "DesperateDevs.CodeGeneration.Unity.Plugins.dll"
+  )
+  for f in "${to_plugins[@]}"; do
+    mv "${codegenerator}/${f}" "${plugins}"
+  done
+
+  mv "${codegenerator}/DesperateDevs.CodeGeneration.CodeGenerator.CLI.exe" "${codegenerator}/Jenny.exe"
+}
+
 sync_unity_codegenerator() {
   logf
   collect_codegenerator_unity
-  local dir="${ROOT}/Tests/Unity/CodeGenerator/Assets/Libraries"
-  clean_dir "${dir}"
+  local unity_libs="${ROOT}/Tests/Unity/CodeGenerator/Assets/Libraries"
+  clean_dir "${unity_libs}"
+  sync_files "${BUILD_SRC}/Unity/Jenny/Assets/Jenny" "${unity_libs}"
 
-  sync_files "${BUILD_SRC}/Unity/Jenny/Assets/" "${dir}/Jenny"
+  collect_codegenerator_cli
+  local cli="${ROOT}/Tests/Unity/CodeGenerator/Jenny"
+  clean_dir "${cli}"
+  sync_files "${BUILD_SRC}/Jenny/" "${cli}"
 }
 
 sync() {
+  clean_dir "${BUILD_SRC}"
   sync_unity_codegenerator
 }
 
