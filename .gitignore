@@ -18,13 +18,11 @@ test-results
 Library
 Temp
 *.unitypackage
-Assembly-CSharp.csproj
-Assembly-CSharp-Editor.csproj
-Assembly-CSharp-Editor-firstpass.csproj
+Assembly-CSharp*.csproj
 
 # Custom
 Build
 
 # Unity Test Projects
-Tests/Fixtures/Unity/CodeGenerator/Assets/Plugins
-Tests/Fixtures/Unity/CodeGenerator/Assets/Libraries
+Assets/Plugins
+Assets/Libraries
