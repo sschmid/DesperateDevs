@@ -19,7 +19,6 @@ readonly TESTS_RUNNER="${ROOT}/Tests/${BIN}/Tests.exe"
 
 readonly BUILD="${ROOT}/Build"
 readonly BUILD_SRC="${BUILD}/src"
-readonly BUILD_DIST="${BUILD}/dist"
 
 ################################################################################
 # Utils
@@ -44,9 +43,9 @@ logf() {
 }
 
 clean_dir() {
-  logf "$1"
-  rm -rf "$1"
-  mkdir -p "$1"
+  logf "$@"
+  rm -rf "$@"
+  mkdir -p "$@"
 }
 
 require() {
@@ -61,7 +60,7 @@ sync_files() {
 }
 
 ################################################################################
-# Globals
+# Atomic Tasks
 ################################################################################
 build() {
   local path
@@ -104,44 +103,22 @@ tests() {
   run_tests "$@"
 }
 
-collect_fabl() {
+pack() {
   logf
-  local dir="${BUILD_DIST}/CSharp/fabl"
-  clean_dir "${dir}"
-
-  declare -a -r projects=(
-    "DesperateDevs.Logging"
-    "DesperateDevs.Logging.Appenders"
-    "DesperateDevs.Logging.Formatters"
-  )
-  for p in "${projects[@]}"; do
-    sync_files "${ROOT}/${p}/${BIN}/" "${dir}"
-  done
+  clean_build
+  tests
 }
 
-collect_jenny_cli() {
+################################################################################
+# Test projects
+################################################################################
+collect_codegenerator_unity() {
   logf
-  local dir="${BUILD_DIST}/CSharp/Jenny"
-  clean_dir "${dir}"
-
-  sync_files "${ROOT}/DesperateDevs.CodeGeneration.CodeGenerator.CLI/${BIN}/" "${dir}"
-  mv "${dir}/DesperateDevs.CodeGeneration.CodeGenerator.CLI.exe" "${dir}/Jenny.exe"
-
-  local plugins="${dir}/Plugins"
-  mkdir "${plugins}"
-  declare -a -r projects=(
-    "DesperateDevs.CodeGeneration.Plugins"
-    "DesperateDevs.CodeGeneration.Unity.Plugins"
-  )
-  for p in "${projects[@]}"; do
-    sync_files "${ROOT}/${p}/${BIN}/" "${plugins}/Jenny/"
-  done
-}
-
-collect_jenny_unity() {
-  logf
-  local dir="${BUILD_DIST}/Unity/Jenny"
-  clean_dir "${dir}"
+  clean_dir "${BUILD_SRC}"
+  local codegenerator="${BUILD_SRC}/Unity/Jenny/Assets"
+  local editor="${codegenerator}/Editor"
+  local plugins="${editor}/Plugins"
+  mkdir -p "${codegenerator}" "${editor}" "${plugins}"
 
   declare -a -r projects=(
     "DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor"
@@ -149,11 +126,9 @@ collect_jenny_unity() {
     "DesperateDevs.CodeGeneration.Unity.Plugins"
   )
   for p in "${projects[@]}"; do
-    sync_files "${ROOT}/${p}/${BIN}/" "${dir}"
+    sync_files "${ROOT}/${p}/${BIN}/" "${codegenerator}"
   done
 
-  local editor="${dir}/Editor"
-  mkdir "${editor}"
   declare -a -r to_editor=(
     "DesperateDevs.Analytics.dll"
     "DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor.dll"
@@ -161,88 +136,32 @@ collect_jenny_unity() {
     "DesperateDevs.CodeGeneration.dll"
     "DesperateDevs.Networking.dll"
     "DesperateDevs.Serialization.dll"
+    "DesperateDevs.Unity.Editor.dll"
   )
   for f in "${to_editor[@]}"; do
-    mv "${dir}/${f}" "${editor}"
+    mv "${codegenerator}/${f}" "${editor}"
   done
 
-  local plugins="${editor}/Plugins"
-  mkdir "${plugins}"
   declare -a -r to_plugins=(
     "DesperateDevs.CodeGeneration.Plugins.dll"
     "DesperateDevs.CodeGeneration.Unity.Plugins.dll"
   )
   for f in "${to_plugins[@]}"; do
-    mv "${dir}/${f}" "${plugins}"
+    mv "${codegenerator}/${f}" "${plugins}"
   done
-}
-
-collect_tcpezy() {
-  logf
-  local dir="${BUILD_DIST}/CSharp/TCPezy"
-  clean_dir "${dir}"
-
-  sync_files "${ROOT}/DesperateDevs.Networking.CLI/${BIN}/" "${dir}"
-  mv "${dir}/DesperateDevs.Networking.CLI.exe" "${dir}/TCPezy.exe"
-}
-
-collect_src() {
-  logf
-  declare -a -r projects=(
-    "DesperateDevs.Analytics"
-    "DesperateDevs.CLI.Utils"
-    "DesperateDevs.CodeGeneration"
-    "DesperateDevs.CodeGeneration.CodeGenerator"
-    "DesperateDevs.CodeGeneration.CodeGenerator.CLI"
-    "DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor"
-    "DesperateDevs.CodeGeneration.Plugins"
-    "DesperateDevs.CodeGeneration.Unity.Plugins"
-    "DesperateDevs.Logging"
-    "DesperateDevs.Logging.Appenders"
-    "DesperateDevs.Logging.Formatters"
-    "DesperateDevs.Networking"
-    "DesperateDevs.Networking.CLI"
-    "DesperateDevs.Serialization"
-    "DesperateDevs.Serialization.CLI.Utils"
-    "DesperateDevs.Unity.Editor"
-    "DesperateDevs.Utils"
-  )
-  for p in "${projects[@]}"; do
-    sync_files "${ROOT}/${p}/${BIN}/" "${BUILD_SRC}"
-  done
-}
-
-collect() {
-  logf
-  clean_dir "${BUILD_SRC}"
-  clean_dir "${BUILD_DIST}"
-
-  collect_src
-  collect_fabl
-  collect_jenny_cli
-  collect_jenny_unity
-  collect_tcpezy
 }
 
 sync_unity_codegenerator() {
   logf
-  local dir="${ROOT}/Tests/Fixtures/Unity/CodeGenerator/Assets/Libraries"
+  collect_codegenerator_unity
+  local dir="${ROOT}/Tests/Unity/CodeGenerator/Assets/Libraries"
   clean_dir "${dir}"
 
-  sync_files "${BUILD_DIST}/Unity/Jenny" "${dir}"
+  sync_files "${BUILD_SRC}/Unity/Jenny/Assets/" "${dir}/Jenny"
 }
 
-sync_unity() {
-  logf
-  collect
+sync() {
   sync_unity_codegenerator
-}
-
-pack() {
-  logf
-  build
-  tests
-  collect
 }
 
 ################################################################################

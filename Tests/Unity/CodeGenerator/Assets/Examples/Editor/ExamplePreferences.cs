@@ -13,3 +13,4 @@ public static class ExamplePreferences {
         window.Show();
     }
 }
+

@@ -13,6 +13,8 @@ test-results
 .vs
 .vscode
 .idea
+**/Assets/Plugins/Editor/JetBrains
+**/Assets/Plugins/Editor/JetBrains.meta
 
 # Unity
 Library
@@ -22,7 +24,5 @@ Assembly-CSharp*.csproj
 
 # Custom
 Build
-
-# Unity Test Projects
-Assets/Plugins
-Assets/Libraries
+**/Assets/Libraries
+**/Assets/Libraries.meta
