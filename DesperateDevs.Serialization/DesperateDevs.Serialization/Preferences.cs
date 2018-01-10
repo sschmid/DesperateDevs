@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using DesperateDevs.Logging;
 
 namespace DesperateDevs.Serialization {
 
@@ -29,6 +30,8 @@ namespace DesperateDevs.Serialization {
 
         public Properties properties { get { return _properties; } }
         public Properties userProperties { get { return _userProperties; } }
+
+        static readonly Logger _logger = fabl.GetLogger(typeof(Preferences).FullName);
 
         readonly string _propertiesPath;
         readonly string _userPropertiesPath;
@@ -94,16 +97,16 @@ namespace DesperateDevs.Serialization {
 
         static string findFilePath(string searchPattern) {
             var files = Directory.GetFiles(Directory.GetCurrentDirectory(), searchPattern, SearchOption.TopDirectoryOnly);
-
+            var file = files.FirstOrDefault();
             if (files.Length > 1) {
-                throw new Exception(
+                _logger.Warn(
                     "Found multiple files matching " + searchPattern + ":\n" +
                     string.Join("\n", files.Select(Path.GetFileName).ToArray()) + "\n" +
-                    "Please specify the desired file"
+                    "Using " + file
                 );
             }
 
-            return files.SingleOrDefault();
+            return file;
         }
 
         static Properties loadProperties(string path) {
