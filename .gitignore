@@ -10,6 +10,7 @@ bin
 test-results
 
 # IDEs
+packages
 .vs
 .vscode
 .idea
