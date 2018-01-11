@@ -1,0 +1,73 @@
+Too many open files
+===================
+
+OS X - El Capitan
+-----------------
+
+1. Create limit.maxfiles.plist file with sudo from command line (doing this with sudo might be important as it will set the file ownership to root):
+
+```
+$ sudo vim /Library/LaunchDaemons/limit.maxfiles.plist
+```
+
+2. Copy the following into the file
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+        "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>limit.maxfiles</string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>launchctl</string>
+      <string>limit</string>
+      <string>maxfiles</string>
+      <string>32768</string>
+      <string>32768</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>ServiceIPC</key>
+    <false/>
+  </dict>
+</plist>
+```
+
+3. Create limit.maxproc.plist file with sudo from command line:
+
+```
+ $ sudo vim /Library/LaunchDaemons/limit.maxproc.plist
+```
+
+4. Copy the following into the file:
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple/DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+  <plist version="1.0">
+    <dict>
+      <key>Label</key>
+        <string>limit.maxproc</string>
+      <key>ProgramArguments</key>
+        <array>
+          <string>launchctl</string>
+          <string>limit</string>
+          <string>maxproc</string>
+          <string>2048</string>
+          <string>2048</string>
+        </array>
+      <key>RunAtLoad</key>
+        <true />
+      <key>ServiceIPC</key>
+        <false />
+    </dict>
+  </plist>
+```
+
+5. Restart OS
+
+Source:
+https://blog.dekstroza.io/ulimit-shenanigans-on-osx-el-capitan/
