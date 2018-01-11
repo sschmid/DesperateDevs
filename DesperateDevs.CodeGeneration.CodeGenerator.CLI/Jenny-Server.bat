@@ -1,3 +1,3 @@
 pushd %~dp0
-CodeGenerator\Jenny.exe server
+.\Jenny.exe server
 popd

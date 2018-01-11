@@ -136,6 +136,9 @@ collect_codegenerator_cli() {
   done
 
   mv "${codegenerator}/DesperateDevs.CodeGeneration.CodeGenerator.CLI.exe" "${codegenerator}/Jenny.exe"
+
+  cp "${ROOT}/DesperateDevs.CodeGeneration.CodeGenerator.CLI/Jenny-Server" "${codegenerator}"
+  cp "${ROOT}/DesperateDevs.CodeGeneration.CodeGenerator.CLI/Jenny-Server.bat" "${codegenerator}"
 }
 
 collect_codegenerator_unity() {
