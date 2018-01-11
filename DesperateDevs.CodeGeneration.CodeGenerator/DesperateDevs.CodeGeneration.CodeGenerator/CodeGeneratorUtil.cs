@@ -43,8 +43,6 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
                 .GetTypes()
                 .GetInstancesOf<ICodeGenerationPlugin>();
 
-            resolver.Close();
-
             return instances;
         }
 
