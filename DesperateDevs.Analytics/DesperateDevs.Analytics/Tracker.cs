@@ -84,7 +84,7 @@ namespace DesperateDevs.Analytics {
                                                  .ToArray()))
                 : _url;
 
-            _logger.Debug(call);
+            _logger.Trace(call);
 
             return call;
         }
