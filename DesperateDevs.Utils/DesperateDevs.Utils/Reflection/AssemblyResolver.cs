@@ -98,7 +98,7 @@ namespace DesperateDevs.Utils {
                 }
             }
 
-            _logger.Warn("    × Could not resolve: " + assemblyName);
+            _logger.Debug("    × Could not resolve: " + assemblyName);
 
             return null;
         }
