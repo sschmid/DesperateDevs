@@ -9,6 +9,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         public static void Main(string[] args) {
             _program = new CLIProgram("Jenny", args, printUsage);
+            _program.Run();
         }
 
         public static ICommand GetCommand(string trigger) {

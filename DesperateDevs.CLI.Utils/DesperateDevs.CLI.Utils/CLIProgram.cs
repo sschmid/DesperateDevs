@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using DesperateDevs.Logging;
 using DesperateDevs.Logging.Formatters;
 using DesperateDevs.Utils;
@@ -19,10 +18,14 @@ namespace DesperateDevs.CLI.Utils {
             };
 
         readonly Logger _logger;
+        readonly string[] _args;
         readonly ICommand[] _commands;
+        readonly Action<ICommand[]> _printUsage;
 
         public CLIProgram(string applicationName, string[] args, Action<ICommand[]> printUsage) {
             _logger = fabl.GetLogger(applicationName);
+            _args = args;
+            _printUsage = printUsage;
             initializeLogging(args, consoleColors);
 
             var baseDirectory = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory);
@@ -35,13 +38,14 @@ namespace DesperateDevs.CLI.Utils {
                 .ToArray();
 
             resolver.Close();
+        }
 
-            if (args == null || args.WithoutParameter().Length == 0) {
-                printUsage(_commands);
+        public void Run() {
+            if (_args == null || _args.WithoutParameter().Length == 0) {
+                _printUsage(_commands);
                 return;
             }
-
-            runCommand(args);
+            runCommand(_args);
         }
 
         public ICommand GetCommand(string trigger) {

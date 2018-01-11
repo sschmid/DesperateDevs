@@ -6,7 +6,7 @@ namespace DesperateDevs.Networking.CLI {
     class Program {
 
         public static void Main(string[] args) {
-            new CLIProgram("TCPezy", args, printUsage);
+            new CLIProgram("TCPezy", args, printUsage).Run();
         }
 
         static void printUsage(ICommand[] commands) {
