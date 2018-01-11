@@ -77,7 +77,7 @@ namespace DesperateDevs.CLI.Utils {
 
         void initializeLogging(string[] args, Dictionary<LogLevel, ConsoleColor> consoleColors) {
             fabl.globalLogLevel = args.IsVerbose()
-                ? LogLevel.On
+                ? LogLevel.Debug
                 : LogLevel.Info;
 
             LogFormatter formatter;
