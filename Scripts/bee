@@ -60,7 +60,7 @@ sync_files() {
 }
 
 ################################################################################
-# Atomic Tasks
+# Tasks
 ################################################################################
 build() {
   local path
@@ -112,11 +112,37 @@ pack() {
 ################################################################################
 # Test projects
 ################################################################################
+collect_codegenerator_cli() {
+  logf
+  local codegenerator="${BUILD_SRC}/Jenny"
+  local plugins="${codegenerator}/Plugins/DesperateDevs"
+  clean_dir "${codegenerator}" "${plugins}"
+
+  declare -a -r projects=(
+    "DesperateDevs.CodeGeneration.CodeGenerator.CLI"
+    "DesperateDevs.CodeGeneration.Plugins"
+    "DesperateDevs.CodeGeneration.Unity.Plugins"
+  )
+  for p in "${projects[@]}"; do
+    sync_files "${ROOT}/${p}/${BIN}/" "${codegenerator}"
+  done
+
+  declare -a -r to_plugins=(
+    "DesperateDevs.CodeGeneration.Plugins.dll"
+    "DesperateDevs.CodeGeneration.Unity.Plugins.dll"
+  )
+  for f in "${to_plugins[@]}"; do
+    mv "${codegenerator}/${f}" "${plugins}"
+  done
+
+  mv "${codegenerator}/DesperateDevs.CodeGeneration.CodeGenerator.CLI.exe" "${codegenerator}/Jenny.exe"
+}
+
 collect_codegenerator_unity() {
   logf
   local codegenerator="${BUILD_SRC}/Unity/Jenny/Assets/Jenny"
   local editor="${codegenerator}/Editor"
-  local plugins="${editor}/Plugins"
+  local plugins="${editor}/Plugins/DesperateDevs"
   clean_dir "${codegenerator}" "${editor}" "${plugins}"
 
   declare -a -r projects=(
@@ -150,43 +176,22 @@ collect_codegenerator_unity() {
   done
 }
 
-collect_codegenerator_cli() {
-  logf
-  local codegenerator="${BUILD_SRC}/Jenny"
-  local plugins="${codegenerator}/Plugins"
-  clean_dir "${codegenerator}" "${plugins}"
-
-  declare -a -r projects=(
-    "DesperateDevs.CodeGeneration.CodeGenerator.CLI"
-    "DesperateDevs.CodeGeneration.Plugins"
-    "DesperateDevs.CodeGeneration.Unity.Plugins"
-  )
-  for p in "${projects[@]}"; do
-    sync_files "${ROOT}/${p}/${BIN}/" "${codegenerator}"
-  done
-
-  declare -a -r to_plugins=(
-    "DesperateDevs.CodeGeneration.Plugins.dll"
-    "DesperateDevs.CodeGeneration.Unity.Plugins.dll"
-  )
-  for f in "${to_plugins[@]}"; do
-    mv "${codegenerator}/${f}" "${plugins}"
-  done
-
-  mv "${codegenerator}/DesperateDevs.CodeGeneration.CodeGenerator.CLI.exe" "${codegenerator}/Jenny.exe"
+collect() {
+  collect_codegenerator_cli
+  collect_codegenerator_unity
 }
 
 sync_unity_codegenerator() {
   logf
-  collect_codegenerator_unity
-  local unity_libs="${ROOT}/Tests/Unity/CodeGenerator/Assets/Libraries"
-  clean_dir "${unity_libs}"
-  sync_files "${BUILD_SRC}/Unity/Jenny/Assets/Jenny" "${unity_libs}"
+  collect
 
-  collect_codegenerator_cli
   local cli="${ROOT}/Tests/Unity/CodeGenerator/Jenny"
   clean_dir "${cli}"
   sync_files "${BUILD_SRC}/Jenny/" "${cli}"
+
+  local unity_libs="${ROOT}/Tests/Unity/CodeGenerator/Assets/Libraries"
+  clean_dir "${unity_libs}"
+  sync_files "${BUILD_SRC}/Unity/Jenny/Assets/Jenny" "${unity_libs}"
 }
 
 sync() {
