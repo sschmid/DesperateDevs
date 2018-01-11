@@ -1,3 +1,3 @@
 pushd %~dp0
-.\Jenny.exe server
+.\Jenny\Jenny.exe server
 popd
