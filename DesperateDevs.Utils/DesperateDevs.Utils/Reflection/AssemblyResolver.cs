@@ -60,8 +60,11 @@ namespace DesperateDevs.Utils {
             } catch (Exception) {
                 var path = resolvePath(name);
                 if (path != null) {
-                    assembly = loadMethod(path);
-                    addAssembly(assembly);
+                    try {
+                        assembly = loadMethod(path);
+                        addAssembly(assembly);
+                    } catch (BadImageFormatException) {
+                    }
                 }
             }
 
