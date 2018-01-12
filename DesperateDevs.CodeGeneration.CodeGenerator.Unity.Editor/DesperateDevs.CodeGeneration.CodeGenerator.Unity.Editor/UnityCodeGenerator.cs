@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using DesperateDevs.Networking;
@@ -82,9 +81,13 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
             }
         }
 
+        static string _propertiesPath;
+
         [MenuItem("Tools/Jenny/Generate with external Code Generator %&g", false, 101)]
         public static void GenerateExternal() {
             Debug.Log("Connecting...");
+
+            _propertiesPath = EditorPrefs.GetString(DesperateDevs.Unity.Editor.PreferencesWindow.PREFERENCES_KEY, string.Empty);
 
             var config = Preferences.sharedInstance.CreateAndConfigure<CodeGeneratorConfig>();
             var client = new TcpClientSocket();
@@ -97,7 +100,12 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
         static void onConnected(TcpClientSocket client) {
             Debug.Log("Connected");
             Debug.Log("Generating...");
-            client.Send(Encoding.UTF8.GetBytes("gen"));
+
+            if (_propertiesPath != string.Empty) {
+                client.Send(Encoding.UTF8.GetBytes("gen " + _propertiesPath));
+            } else {
+                client.Send(Encoding.UTF8.GetBytes("gen"));
+            }
         }
 
         static void onReceive(AbstractTcpSocket socket, Socket client, byte[] bytes) {
