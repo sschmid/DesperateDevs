@@ -8,7 +8,7 @@ using DesperateDevs.Serialization.CLI.Utils;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
-    public class Client : AbstractPreferencesCommand {
+    public class ClientCommand : AbstractPreferencesCommand {
 
         public override string trigger { get { return "client"; } }
         public override string description { get { return "Start client mode"; } }
@@ -16,7 +16,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         string _command;
 
-        public Client() : base(typeof(Client).FullName) {
+        public ClientCommand() : base(typeof(ClientCommand).FullName) {
         }
 
         protected override void run() {

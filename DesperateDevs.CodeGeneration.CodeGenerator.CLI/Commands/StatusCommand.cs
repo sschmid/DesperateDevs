@@ -7,13 +7,13 @@ using DesperateDevs.Utils;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
-    public class Status : AbstractPreferencesCommand {
+    public class StatusCommand : AbstractPreferencesCommand {
 
         public override string trigger { get { return "status"; } }
         public override string description { get { return "List available and unavailable plugins"; } }
         public override string example { get { return "status"; } }
 
-        public Status() : base(typeof(Status).FullName) {
+        public StatusCommand() : base(typeof(StatusCommand).FullName) {
         }
 
         protected override void run() {

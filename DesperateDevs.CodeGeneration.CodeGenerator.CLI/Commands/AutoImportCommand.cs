@@ -5,19 +5,19 @@ using DesperateDevs.Serialization.CLI.Utils;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
-    public class AutoImport : AbstractPreferencesCommand {
+    public class AutoImportCommand : AbstractPreferencesCommand {
 
         public override string trigger { get { return "auto-import"; } }
         public override string description { get { return "Find and import all plugins"; } }
         public override string example { get { return "auto-import"; } }
 
-        public AutoImport() : base(typeof(AutoImport).FullName) {
+        public AutoImportCommand() : base(typeof(AutoImportCommand).FullName) {
         }
 
         protected override void run() {
             _logger.Debug(_preferences.ToString());
             autoImport();
-            new FixPlugins().Run(_rawArgs);
+            new FixCommand().Run(_rawArgs);
         }
 
         void autoImport() {

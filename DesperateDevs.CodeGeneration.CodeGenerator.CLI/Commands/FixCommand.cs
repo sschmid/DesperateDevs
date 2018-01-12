@@ -7,13 +7,13 @@ using DesperateDevs.Utils;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
-    public class FixPlugins : AbstractPreferencesCommand {
+    public class FixCommand : AbstractPreferencesCommand {
 
         public override string trigger { get { return "fix"; } }
         public override string description { get { return "Add missing keys and add available or remove unavailable plugins interactively"; } }
         public override string example { get { return "fix"; } }
 
-        public FixPlugins() : base(typeof(FixPlugins).FullName) {
+        public FixCommand() : base(typeof(FixCommand).FullName) {
         }
 
         protected override void run() {

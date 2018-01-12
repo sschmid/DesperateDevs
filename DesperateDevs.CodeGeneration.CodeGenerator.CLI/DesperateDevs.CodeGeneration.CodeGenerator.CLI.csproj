@@ -44,16 +44,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CLIConfig.cs" />
-    <Compile Include="Commands\AutoImport.cs" />
-    <Compile Include="Commands\Client.cs" />
-    <Compile Include="Commands\Doctor.cs" />
-    <Compile Include="Commands\Donate.cs" />
-    <Compile Include="Commands\DryRun.cs" />
-    <Compile Include="Commands\FixPlugins.cs" />
-    <Compile Include="Commands\Generate.cs" />
-    <Compile Include="Commands\ScanAssemblies.cs" />
-    <Compile Include="Commands\Server.cs" />
-    <Compile Include="Commands\Status.cs" />
+    <Compile Include="Commands\AutoImportCommand.cs" />
+    <Compile Include="Commands\ClientCommand.cs" />
+    <Compile Include="Commands\DoctorCommand.cs" />
+    <Compile Include="Commands\DonateCommand.cs" />
+    <Compile Include="Commands\DryRunCommand.cs" />
+    <Compile Include="Commands\FixCommand.cs" />
+    <Compile Include="Commands\GenerateCommand.cs" />
+    <Compile Include="Commands\ScanCommand.cs" />
+    <Compile Include="Commands\ServerCommand.cs" />
+    <Compile Include="Commands\StatusCommand.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>

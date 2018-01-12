@@ -6,17 +6,17 @@ using DesperateDevs.Utils;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
-    public class Doctor : AbstractPreferencesCommand {
+    public class DoctorCommand : AbstractPreferencesCommand {
 
         public override string trigger { get { return "doctor"; } }
         public override string description { get { return "Check the config for potential problems"; } }
         public override string example { get { return "doctor"; } }
 
-        public Doctor() : base(typeof(Doctor).FullName) {
+        public DoctorCommand() : base(typeof(DoctorCommand).FullName) {
         }
 
         protected override void run() {
-            new Status().Run(_rawArgs);
+            new StatusCommand().Run(_rawArgs);
 
             diagnose();
 

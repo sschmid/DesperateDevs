@@ -44,8 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\AbstractSocketCommand.cs" />
-    <Compile Include="Commands\Connect.cs" />
-    <Compile Include="Commands\Listen.cs" />
+    <Compile Include="Commands\ConnectCommand.cs" />
+    <Compile Include="Commands\ListenCommand.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>

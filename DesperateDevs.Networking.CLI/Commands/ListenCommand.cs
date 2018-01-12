@@ -2,13 +2,13 @@
 
 namespace DesperateDevs.Networking.CLI {
 
-    public class Listen : AbstractSocketCommand {
+    public class ListenCommand : AbstractSocketCommand {
 
         public override string trigger { get { return "listen"; } }
         public override string description { get { return "Listen on port"; } }
         public override string example { get { return "listen [port]"; } }
 
-        public Listen() : base(typeof(Listen).FullName) {
+        public ListenCommand() : base(typeof(ListenCommand).FullName) {
         }
 
         protected override void run() {

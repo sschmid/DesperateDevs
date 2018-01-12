@@ -2,13 +2,13 @@ using DesperateDevs.Serialization.CLI.Utils;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
-    public class DryRun : AbstractPreferencesCommand {
+    public class GenerateCommand : AbstractPreferencesCommand {
 
-        public override string trigger { get { return "dry"; } }
-        public override string description { get { return "Run the code generator in dry mode"; } }
-        public override string example { get { return "dry"; } }
+        public override string trigger { get { return "gen"; } }
+        public override string description { get { return "Generate files based on properties file"; } }
+        public override string example { get { return "gen"; } }
 
-        public DryRun() : base(typeof(DryRun).FullName) {
+        public GenerateCommand() : base(typeof(GenerateCommand).FullName) {
         }
 
         protected override void run() {
@@ -18,7 +18,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
                 var p = (int)(progress * 100);
                 _logger.Debug(string.Format("{0}: {1} ({2}%)", title, info, p));
             };
-            codeGenerator.DryRun();
+
+            codeGenerator.Generate();
         }
     }
 }

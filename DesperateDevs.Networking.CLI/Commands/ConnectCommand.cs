@@ -3,13 +3,13 @@ using System.Net;
 
 namespace DesperateDevs.Networking.CLI {
 
-    public class Connect : AbstractSocketCommand {
+    public class ConnectCommand : AbstractSocketCommand {
 
         public override string trigger { get { return "connect"; } }
         public override string description { get { return "Connect to ip on port"; } }
         public override string example { get { return "connect [ip] [port]"; } }
 
-        public Connect() : base(typeof(Connect).FullName) {
+        public ConnectCommand() : base(typeof(ConnectCommand).FullName) {
         }
 
         protected override void run() {

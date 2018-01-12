@@ -11,7 +11,7 @@ using DesperateDevs.Serialization.CLI.Utils;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
-    public class Server : AbstractPreferencesCommand {
+    public class ServerCommand : AbstractPreferencesCommand {
 
         public override string trigger { get { return "server"; } }
         public override string description { get { return "Start server mode"; } }
@@ -20,7 +20,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         AbstractTcpSocket _socket;
         readonly List<string> _logBuffer = new List<string>();
 
-        public Server() : base(typeof(Server).FullName) {
+        public ServerCommand() : base(typeof(ServerCommand).FullName) {
         }
 
         protected override void run() {
