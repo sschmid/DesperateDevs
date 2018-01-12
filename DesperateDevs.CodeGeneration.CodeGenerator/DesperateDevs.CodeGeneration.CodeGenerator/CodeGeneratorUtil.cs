@@ -90,7 +90,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
         }
 
         public static void AutoImport(CodeGeneratorConfig config, params string[] searchPaths) {
-            var assemblies = AssemblyResolver
+            var assemblyPaths = AssemblyResolver
                 .GetAssembliesContainingType<ICodeGenerationPlugin>(true, searchPaths)
                 .GetAllTypes()
                 .GetNonAbstractTypes<ICodeGenerationPlugin>()
@@ -98,19 +98,33 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
                 .Distinct()
                 .Select(assembly => new Uri(assembly.CodeBase))
                 .Select(uri => uri.AbsolutePath + uri.Fragment)
-                .Select(path => path.Replace(Directory.GetCurrentDirectory(), string.Empty))
-                .Select(path => path.StartsWith(Path.DirectorySeparatorChar.ToString()) ? "." + path : path)
+                .Select(path => makeRelativePath(Directory.GetCurrentDirectory(), path))
                 .ToArray();
 
+            var currentFullPaths = new HashSet<string>(config.searchPaths.Select(Path.GetFullPath));
+            var newPaths = assemblyPaths
+                .Where(path => !currentFullPaths.Contains(Path.GetDirectoryName(path)));
+
             config.searchPaths = config.searchPaths
-                .Concat(assemblies.Select(Path.GetDirectoryName))
+                .Concat(newPaths.Select(Path.GetDirectoryName))
                 .Distinct()
                 .ToArray();
 
-            config.plugins = assemblies
+            config.plugins = assemblyPaths
                 .Select(Path.GetFileNameWithoutExtension)
                 .Distinct()
                 .ToArray();
+        }
+
+        static string makeRelativePath(string dir, string otherDir) {
+            if (otherDir.StartsWith(dir)) {
+                otherDir = otherDir.Replace(dir, string.Empty);
+                if (otherDir.StartsWith(Path.DirectorySeparatorChar.ToString())) {
+                    otherDir = "." + otherDir;
+                }
+            }
+
+            return otherDir;
         }
     }
 }
