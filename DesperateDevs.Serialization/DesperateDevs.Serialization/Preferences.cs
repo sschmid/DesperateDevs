@@ -91,8 +91,7 @@ namespace DesperateDevs.Serialization {
         }
 
         public static string[] FindAll(string searchPattern) {
-            return Directory
-                .GetFiles(Directory.GetCurrentDirectory(), searchPattern, SearchOption.TopDirectoryOnly);
+            return Directory.GetFiles(Directory.GetCurrentDirectory(), searchPattern, SearchOption.TopDirectoryOnly);
         }
 
         static string findFilePath(string searchPattern) {

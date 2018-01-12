@@ -36,8 +36,8 @@ namespace DesperateDevs.Serialization.CLI.Utils {
         bool doesAlreadyExist(string path) {
             if (File.Exists(path)) {
                 _logger.Warn(path + " already exists!");
-                _logger.Info("Use new -f to overwrite the exiting file.");
-                _logger.Info("Use edit to open the exiting file.");
+                _logger.Info("Use 'new -f' to overwrite the exiting file.");
+                _logger.Info("Use 'edit' to open the exiting file.");
 
                 return true;
             }
