@@ -23,7 +23,13 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
             configure(codeGenerators, preferences);
             configure(postProcessors, preferences);
 
-            return new CodeGenerator(preProcessors, dataProviders, codeGenerators, postProcessors);
+            const string key = "Jenny.TrackHooks";
+            var trackHooks = true;
+            if (preferences.HasKey(key)) {
+                trackHooks = preferences[key] == "true";
+            }
+
+            return new CodeGenerator(preProcessors, dataProviders, codeGenerators, postProcessors, trackHooks);
         }
 
         static void configure(ICodeGenerationPlugin[] plugins, Preferences preferences) {

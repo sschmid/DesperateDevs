@@ -42,7 +42,7 @@ namespace DesperateDevs.Analytics {
 
         HttpWebRequest createWebRequest(TrackingData data) {
             var request = (HttpWebRequest)WebRequest.Create(buildTrackingCall(data));
-            request.Timeout = 1000;
+            request.Timeout = 3000;
 
             return request;
         }

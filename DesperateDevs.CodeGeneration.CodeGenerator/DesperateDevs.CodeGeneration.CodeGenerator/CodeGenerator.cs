@@ -16,16 +16,23 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
         readonly IDataProvider[] _dataProviders;
         readonly ICodeGenerator[] _codeGenerators;
         readonly IPostProcessor[] _postProcessors;
+        readonly bool _trackHooks;
 
         readonly Dictionary<string, object> _objectCache;
 
         bool _cancel;
 
-        public CodeGenerator(IPreProcessor[] preProcessors, IDataProvider[] dataProviders, ICodeGenerator[] codeGenerators, IPostProcessor[] postProcessors) {
+        public CodeGenerator(
+            IPreProcessor[] preProcessors,
+            IDataProvider[] dataProviders,
+            ICodeGenerator[] codeGenerators,
+            IPostProcessor[] postProcessors,
+            bool trackHooks = true) {
             _preProcessors = preProcessors.OrderBy(i => i.priority).ToArray();
             _dataProviders = dataProviders.OrderBy(i => i.priority).ToArray();
             _codeGenerators = codeGenerators.OrderBy(i => i.priority).ToArray();
             _postProcessors = postProcessors.OrderBy(i => i.priority).ToArray();
+            _trackHooks = trackHooks;
             _objectCache = new Dictionary<string, object>();
         }
 
@@ -48,6 +55,14 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
                 _postProcessors
             );
 
+            if (_trackHooks) {
+                trackHooks(files);
+            }
+
+            return files;
+        }
+
+        void trackHooks(CodeGenFile[] files) {
             var hooks = AppDomain.CurrentDomain
                 .GetInstancesOf<ITrackingHook>()
                 .OfType<CodeGeneratorTrackingHook>();
@@ -55,8 +70,6 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
             foreach (var hook in hooks) {
                 hook.Track(_preProcessors, _dataProviders, _codeGenerators, _postProcessors, files);
             }
-
-            return files;
         }
 
         CodeGenFile[] generate(string messagePrefix,
