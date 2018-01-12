@@ -120,7 +120,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
             if (otherDir.StartsWith(dir)) {
                 otherDir = otherDir.Replace(dir, string.Empty);
                 if (otherDir.StartsWith(Path.DirectorySeparatorChar.ToString())) {
-                    otherDir = "." + otherDir;
+                    otherDir = otherDir.Substring(1);
                 }
             }
 
