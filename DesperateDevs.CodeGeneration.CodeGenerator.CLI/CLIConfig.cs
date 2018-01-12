@@ -6,7 +6,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
     public class CLIConfig : AbstractConfigurableConfig {
 
-        const string IGNORE_UNUSED_KEYS_KEY = "Ignore.Keys";
+        const string IGNORE_UNUSED_KEYS_KEY = "Jenny.Ignore.Keys";
 
         public override Dictionary<string, string> defaultProperties {
             get {
