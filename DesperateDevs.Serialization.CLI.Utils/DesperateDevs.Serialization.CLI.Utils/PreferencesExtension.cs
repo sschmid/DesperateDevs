@@ -26,7 +26,7 @@ namespace DesperateDevs.Serialization.CLI.Utils {
                 .ToArray();
         }
 
-        public static void ForceAddKey(this Preferences preferences, string message, string key, string value) {
+        public static void NotifyForceAddKey(this Preferences preferences, string message, string key, string value) {
             _logger.Info("ℹ️  " + message + ": '" + key + "' (press any key)");
             Console.ReadKey(true);
             AddKey(preferences, key, value);
