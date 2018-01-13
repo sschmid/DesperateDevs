@@ -32,7 +32,7 @@ namespace DesperateDevs.Unity.Editor {
 
             try {
                 _preferences = Preferences.sharedInstance;
-                EditorPrefs.SetString(PREFERENCES_KEY, Preferences.sharedInstance.propertiesPath);
+                EditorPrefs.SetString(PREFERENCES_KEY, Path.GetFileName(Preferences.sharedInstance.propertiesPath));
 
                 var config = new PreferencesConfig(preferencesName);
                 _preferences.properties.AddProperties(config.defaultProperties, false);
