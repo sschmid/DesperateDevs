@@ -104,15 +104,17 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
                 .Distinct()
                 .Select(assembly => new Uri(assembly.CodeBase))
                 .Select(uri => uri.AbsolutePath + uri.Fragment)
+                .Select(Uri.UnescapeDataString)
                 .Select(path => makeRelativePath(Directory.GetCurrentDirectory(), path))
                 .ToArray();
 
             var currentFullPaths = new HashSet<string>(config.searchPaths.Select(Path.GetFullPath));
             var newPaths = assemblyPaths
-                .Where(path => !currentFullPaths.Contains(Path.GetDirectoryName(path)));
+                .Select(Path.GetDirectoryName)
+                .Where(path => !currentFullPaths.Contains(path));
 
             config.searchPaths = config.searchPaths
-                .Concat(newPaths.Select(Path.GetDirectoryName))
+                .Concat(newPaths)
                 .Distinct()
                 .ToArray();
 

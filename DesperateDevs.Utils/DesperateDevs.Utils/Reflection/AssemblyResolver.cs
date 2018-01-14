@@ -16,34 +16,36 @@ namespace DesperateDevs.Utils {
         readonly bool _reflectionOnly;
         readonly string[] _basePaths;
         readonly HashSet<Assembly> _assemblies;
+        readonly AppDomain _appDomain;
 
         public AssemblyResolver(bool reflectionOnly, params string[] basePaths) {
             _reflectionOnly = reflectionOnly;
-            if (reflectionOnly) {
-                AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += onReflectionOnlyAssemblyResolve;
-            } else {
-                AppDomain.CurrentDomain.AssemblyResolve += onAssemblyResolve;
-            }
-
             _basePaths = basePaths;
             _assemblies = new HashSet<Assembly>();
+            _appDomain = AppDomain.CurrentDomain;
+
+            if (reflectionOnly) {
+                _appDomain.ReflectionOnlyAssemblyResolve += onReflectionOnlyAssemblyResolve;
+            } else {
+                _appDomain.AssemblyResolve += onAssemblyResolve;
+            }
         }
 
         public void Load(string path) {
             if (_reflectionOnly) {
-                _logger.Debug(AppDomain.CurrentDomain + " reflect: " + path);
+                _logger.Debug(_appDomain + " reflect: " + path);
                 resolveAndLoad(path, Assembly.ReflectionOnlyLoadFrom, false);
             } else {
-                _logger.Debug(AppDomain.CurrentDomain + " load: " + path);
+                _logger.Debug(_appDomain + " load: " + path);
                 resolveAndLoad(path, Assembly.LoadFrom, false);
             }
         }
 
         public void Close() {
             if (_reflectionOnly) {
-                AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve -= onReflectionOnlyAssemblyResolve;
+                _appDomain.ReflectionOnlyAssemblyResolve -= onReflectionOnlyAssemblyResolve;
             } else {
-                AppDomain.CurrentDomain.AssemblyResolve -= onAssemblyResolve;
+                _appDomain.AssemblyResolve -= onAssemblyResolve;
             }
         }
 

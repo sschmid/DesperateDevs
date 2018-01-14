@@ -155,6 +155,7 @@
     <Compile Include="Tests\DesperateDevs.Analytics\describe_TrackingData.cs" />
     <Compile Include="Tests\DesperateDevs.CLI.Utils\describe_ArgsExtension.cs" />
     <Compile Include="Tests\DesperateDevs.CodeGeneration.CodeGenerator\describe_CodeGenerator.cs" />
+    <Compile Include="Tests\DesperateDevs.CodeGeneration.CodeGenerator\describe_CodeGeneratorUtil.cs" />
     <Compile Include="Tests\DesperateDevs.CodeGeneration.Plugins\describe_MergeFilesPostProcessor.cs" />
     <Compile Include="Tests\DesperateDevs.CodeGeneration.Plugins\describe_TargetDirectoryExtension.cs" />
     <Compile Include="Tests\DesperateDevs.CodeGeneration.Plugins\describe_TargetFrameworkProfilePreProcessor.cs" />
