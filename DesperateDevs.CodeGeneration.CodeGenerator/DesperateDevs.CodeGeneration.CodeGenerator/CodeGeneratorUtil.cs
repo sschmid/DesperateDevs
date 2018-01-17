@@ -102,10 +102,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
                 .GetNonAbstractTypes<ICodeGenerationPlugin>()
                 .Select(type => type.Assembly)
                 .Distinct()
-                .Select(assembly => new Uri(assembly.CodeBase))
-                .Select(uri => uri.AbsolutePath + uri.Fragment)
-                .Select(Uri.UnescapeDataString)
-                .Select(path => makeRelativePath(Directory.GetCurrentDirectory(), path))
+                .Select(assembly => makeRelativePath(Directory.GetCurrentDirectory(), assembly.CodeBase))
                 .ToArray();
 
             var currentFullPaths = new HashSet<string>(config.searchPaths.Select(Path.GetFullPath));
@@ -125,14 +122,21 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
         }
 
         static string makeRelativePath(string dir, string otherDir) {
+            dir = createUri(dir);
+            otherDir = createUri(otherDir);
             if (otherDir.StartsWith(dir)) {
                 otherDir = otherDir.Replace(dir, string.Empty);
-                if (otherDir.StartsWith(Path.DirectorySeparatorChar.ToString())) {
+                if (otherDir.StartsWith("/")) {
                     otherDir = otherDir.Substring(1);
                 }
             }
 
             return otherDir;
+        }
+
+        static string createUri(string path) {
+            var uri = new Uri(path);
+            return Uri.UnescapeDataString(uri.AbsolutePath + uri.Fragment);
         }
     }
 }
