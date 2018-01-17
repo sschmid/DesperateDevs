@@ -86,21 +86,24 @@ namespace DesperateDevs.Utils {
         }
 
         string resolvePath(string name) {
-            var assemblyName = new AssemblyName(name).Name;
-            if (!assemblyName.EndsWith(".dll", StringComparison.OrdinalIgnoreCase) &&
-                !assemblyName.EndsWith(".exe", StringComparison.OrdinalIgnoreCase)) {
-                assemblyName += ".dll";
-            }
+            try {
+                var assemblyName = new AssemblyName(name).Name;
 
-            foreach (var basePath in _basePaths) {
-                var path = basePath + Path.DirectorySeparatorChar + assemblyName;
-                if (File.Exists(path)) {
-                    _logger.Debug("    ➜ Resolved: " + path);
-                    return path;
+                if (!assemblyName.EndsWith(".dll", StringComparison.OrdinalIgnoreCase) &&
+                    !assemblyName.EndsWith(".exe", StringComparison.OrdinalIgnoreCase)) {
+                    assemblyName += ".dll";
                 }
-            }
 
-            _logger.Debug("    × Could not resolve: " + assemblyName);
+                foreach (var basePath in _basePaths) {
+                    var path = basePath + Path.DirectorySeparatorChar + assemblyName;
+                    if (File.Exists(path)) {
+                        _logger.Debug("    ➜ Resolved: " + path);
+                        return path;
+                    }
+                }
+            } catch (FileLoadException) {
+                _logger.Debug("    × Could not resolve: " + name);
+            }
 
             return null;
         }
