@@ -127,7 +127,11 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
                 }
             }
 
-            mask = EditorGUILayout.MaskField(title, mask, names);
+            if (names.Length != 0) {
+                mask = EditorGUILayout.MaskField(title, mask, names);
+            } else {
+                EditorGUILayout.LabelField(title, "No " + title + " available");
+            }
 
             var selected = new List<string>();
             for (int i = 0; i < types.Length; i++) {

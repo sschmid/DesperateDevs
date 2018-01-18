@@ -84,9 +84,9 @@ namespace DesperateDevs.Unity.Editor {
         }
 
         void drawHeader() {
-            for (int i = 0; i < _preferencesDrawers.Length; i++) {
+            foreach (var drawer in _preferencesDrawers) {
                 try {
-                    _preferencesDrawers[i].DrawHeader(_preferences);
+                    drawer.DrawHeader(_preferences);
                 } catch (Exception ex) {
                     drawException(ex);
                 }
@@ -111,7 +111,7 @@ namespace DesperateDevs.Unity.Editor {
             }
         }
 
-        void drawException(Exception exception) {
+        static void drawException(Exception exception) {
             var style = new GUIStyle(GUI.skin.label);
             style.wordWrap = true;
             style.normal.textColor = Color.red;
