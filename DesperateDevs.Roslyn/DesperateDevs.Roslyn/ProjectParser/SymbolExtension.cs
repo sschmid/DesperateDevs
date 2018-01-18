@@ -16,13 +16,15 @@ namespace DesperateDevs.Roslyn {
                 .ToArray();
         }
 
-        public static ISymbol[] GetPublicMembers(this ITypeSymbol type) {
+        public static ISymbol[] GetPublicMembers(this ITypeSymbol type, bool includeBaseTypeMembers) {
             var members = type.GetMembers()
                 .Where(isPublicMember)
                 .ToArray();
 
-            if (type.BaseType != null && type.BaseType.ToDisplayString() != "object") {
-                members = members.Concat(GetPublicMembers(type.BaseType)).ToArray();
+            if (includeBaseTypeMembers) {
+                if (type.BaseType != null && type.BaseType.ToDisplayString() != "object") {
+                    members = members.Concat(GetPublicMembers(type.BaseType, true)).ToArray();
+                }
             }
 
             return members;
