@@ -73,8 +73,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
             if (EditorUtility.DisplayDialog("Jenny - Auto Import",
                 "Auto Import will automatically find and set all plugins for you. " +
                 "It will search in folders and sub folders specified in " + propertiesPath +
-                " under the key 'CodeGenerator.SearchPaths'." +
-                "\n\nThis will overwrite your current plugin preferences." +
+                " under the key 'Jenny.SearchPaths'." +
+                "\n\nThis will overwrite your current plugin settings." +
                 "\n\nDo you want to continue?",
                 "Continue and Overwrite",
                 "Cancel"
