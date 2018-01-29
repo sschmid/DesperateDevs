@@ -4,13 +4,13 @@ using DesperateDevs.Logging;
 
 namespace DesperateDevs.Serialization.CLI.Utils {
 
-    public class NewConfig : AbstractCommand {
+    public class NewConfigCommand : AbstractCommand {
 
         public override string trigger { get { return "new"; } }
         public override string description { get { return "Create new properties file(s) with default values"; } }
         public override string example { get { return "new [file] [userFile] [-f]"; } }
 
-        readonly Logger _logger = fabl.GetLogger(typeof(NewConfig));
+        readonly Logger _logger = fabl.GetLogger(typeof(NewConfigCommand));
 
         protected override void run() {
             var properties = _args.GetPropertiesPath();
@@ -30,7 +30,7 @@ namespace DesperateDevs.Serialization.CLI.Utils {
             _logger.Info("Created " + preferences.userPropertiesPath);
             _logger.Debug(preferences.ToString());
 
-            new EditConfig().Run(_args);
+            new EditConfigCommand().Run(_args);
         }
 
         bool doesAlreadyExist(string path) {

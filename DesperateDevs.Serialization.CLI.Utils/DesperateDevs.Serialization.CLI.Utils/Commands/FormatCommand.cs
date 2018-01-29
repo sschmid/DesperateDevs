@@ -2,13 +2,13 @@
 
 namespace DesperateDevs.Serialization.CLI.Utils {
 
-    public class Format : AbstractPreferencesCommand {
+    public class FormatCommand : AbstractPreferencesCommand {
 
         public override string trigger { get { return "format"; } }
         public override string description { get { return "Format the config files"; } }
         public override string example { get { return "format [-mini]"; } }
 
-        public Format() : base(typeof(Format).FullName) {
+        public FormatCommand() : base(typeof(FormatCommand).FullName) {
         }
 
         protected override void run() {

@@ -2,13 +2,13 @@ using System.Threading;
 
 namespace DesperateDevs.Serialization.CLI.Utils {
 
-    public class EditConfig : AbstractPreferencesCommand {
+    public class EditConfigCommand : AbstractPreferencesCommand {
 
         public override string trigger { get { return "edit"; } }
         public override string description { get { return "Open config files with default editor"; } }
         public override string example { get { return "edit"; } }
 
-        public EditConfig() : base(typeof(EditConfig).FullName) {
+        public EditConfigCommand() : base(typeof(EditConfigCommand).FullName) {
         }
 
         protected override void run() {

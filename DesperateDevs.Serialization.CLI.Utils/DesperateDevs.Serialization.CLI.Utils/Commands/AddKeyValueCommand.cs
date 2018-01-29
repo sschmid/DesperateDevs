@@ -2,13 +2,13 @@
 
 namespace DesperateDevs.Serialization.CLI.Utils {
 
-    public class AddKeyValue : AbstractPreferencesCommand {
+    public class AddKeyValueCommand : AbstractPreferencesCommand {
 
         public override string trigger { get { return "add"; } }
         public override string description { get { return "Add a value to a key"; } }
         public override string example { get { return "add [key] [value]"; } }
 
-        public AddKeyValue() : base(typeof(AddKeyValue).FullName) {
+        public AddKeyValueCommand() : base(typeof(AddKeyValueCommand).FullName) {
         }
 
         protected override void run() {

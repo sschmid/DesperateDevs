@@ -21,6 +21,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             var commandList = CLIProgram.GetFormattedCommandList(commands);
 
             commandList.Add("[-v]".PadRight(pad) + " - verbose output");
+            commandList.Add("[-s]".PadRight(pad) + " - silent (minimal output)");
 
             const string header = @"
      gg
