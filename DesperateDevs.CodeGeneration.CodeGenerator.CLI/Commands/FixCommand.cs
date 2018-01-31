@@ -54,8 +54,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
                             _logger.Info("💉  Applied fix: " + diagnosis.treatment);
                         }
                     } else {
-                        _logger.Info("💉  Apply fix: " + diagnosis.treatment);
-                        _logger.Info("to treat symptoms: " + diagnosis.symptoms + " ? (y / n)");
+                        Console.WriteLine("💉  Apply fix: " + diagnosis.treatment);
+                        Console.WriteLine("to treat symptoms: " + diagnosis.symptoms + " ? (y / n)");
                         if (PreferencesExtension.GetUserDecision()) {
                             if (doctor.Fix()) {
                                 _preferences.Save();
@@ -253,8 +253,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             var duplicates = getDuplicates(values);
 
             foreach (var duplicate in duplicates) {
-                _logger.Info("⚠️  Potential plugin collision: " + duplicate);
-                _logger.Info("0: Keep all (no changes)");
+                Console.WriteLine("⚠️  Potential plugin collision: " + duplicate);
+                Console.WriteLine("0: Keep all (no changes)");
 
                 var collisions = values
                     .Where(name => name.EndsWith(duplicate))
@@ -298,7 +298,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         void printCollisions(string[] collisions) {
             for (int i = 0; i < collisions.Length; i++) {
-                _logger.Info((i + 1) + ": Keep " + collisions[i]);
+                Console.WriteLine((i + 1) + ": Keep " + collisions[i]);
             }
         }
 

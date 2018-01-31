@@ -27,13 +27,13 @@ namespace DesperateDevs.Serialization.CLI.Utils {
         }
 
         public static void NotifyForceAddKey(this Preferences preferences, string message, string key, string value) {
-            _logger.Info("ℹ️  " + message + ": '" + key + "' (press any key)");
+            Console.WriteLine("ℹ️  " + message + ": '" + key + "' (press any key)");
             Console.ReadKey(true);
             AddKey(preferences, key, value);
         }
 
         public static void AskAddKey(this Preferences preferences, string question, string key, string value) {
-            _logger.Info("✅  " + question + ": '" + key + "' ? (y / n)");
+            Console.WriteLine("✅  " + question + ": '" + key + "' ? (y / n)");
             if (GetUserDecision()) {
                 AddKey(preferences, key, value);
             }
@@ -46,7 +46,7 @@ namespace DesperateDevs.Serialization.CLI.Utils {
         }
 
         public static void AskAddValue(this Preferences preferences, string question, string value, string[] values, Action<string[]> updateAction) {
-            _logger.Info("✅  " + question + ": '" + value + "' ? (y / n)");
+            Console.WriteLine("✅  " + question + ": '" + value + "' ? (y / n)");
             if (GetUserDecision()) {
                 AddValue(preferences, value, values, updateAction);
             }
@@ -61,14 +61,14 @@ namespace DesperateDevs.Serialization.CLI.Utils {
         }
 
         public static void AskRemoveKey(this Preferences preferences, string question, string key) {
-            _logger.Warn("❌  " + question + ": '" + key + "' ? (y / n)");
+            Console.WriteLine("❌  " + question + ": '" + key + "' ? (y / n)");
             if (GetUserDecision()) {
                 RemoveKey(preferences, key);
             }
         }
 
         public static void AskRemoveOrIgnoreKey(this Preferences preferences, string question, string key, string[] values, Action<string[]> updateAction) {
-            _logger.Warn("❌  " + question + ": '" + key + "' ? (y / n / (i)gnore)");
+            Console.WriteLine("❌  " + question + ": '" + key + "' ? (y / n / (i)gnore)");
             var userDecision = GetUserDecisionOrIgnore();
             if (userDecision == UserDecision.Accept) {
                 RemoveKey(preferences, key);
@@ -84,7 +84,7 @@ namespace DesperateDevs.Serialization.CLI.Utils {
         }
 
         public static void AskRemoveValue(this Preferences preferences, string question, string value, string[] values, Action<string[]> updateAction) {
-            _logger.Warn("❌  " + question + ": '" + value + "' ? (y / n)");
+            Console.WriteLine("❌  " + question + ": '" + value + "' ? (y / n)");
             if (GetUserDecision()) {
                 RemoveValue(preferences, value, values, updateAction);
             }
