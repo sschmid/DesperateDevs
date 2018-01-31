@@ -134,6 +134,8 @@ collect_codegenerator_cli() {
 
   cp "${ROOT}/DesperateDevs.CodeGeneration.CodeGenerator.CLI/Jenny-Server" "${jenny}"
   cp "${ROOT}/DesperateDevs.CodeGeneration.CodeGenerator.CLI/Jenny-Server.bat" "${jenny}"
+  cp "${ROOT}/DesperateDevs.CodeGeneration.CodeGenerator.CLI/Jenny-Auto-Import" "${jenny}"
+  cp "${ROOT}/DesperateDevs.CodeGeneration.CodeGenerator.CLI/Jenny-Auto-Import.bat" "${jenny}"
 }
 
 collect_codegenerator_unity() {
