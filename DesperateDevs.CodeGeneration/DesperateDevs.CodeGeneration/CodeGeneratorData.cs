@@ -6,6 +6,12 @@ namespace DesperateDevs.CodeGeneration {
 
     public class CodeGeneratorData : Dictionary<string, object> {
 
+        public CodeGeneratorData() {
+        }
+
+        public CodeGeneratorData(CodeGeneratorData data) : base(data) {
+        }
+
         public string ReplacePlaceholders(string template) {
             return this.Aggregate(template, (current, kv) => ReplacePlaceholders(current, kv.Key, kv.Value.ToString()));
         }

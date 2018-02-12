@@ -25,5 +25,11 @@ class describe_CodeGeneratorData : nspec {
             const string template = "Hello, ${key}";
             data.ReplacePlaceholders(template).should_be("Hello, world!");
         };
+
+        it["clones data"] = () => {
+            var newData = new CodeGeneratorData(data);
+            newData.Count.should_be(data.Count);
+            newData["Key"].should_be("World!");
+        };
     }
 }
