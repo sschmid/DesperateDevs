@@ -12,7 +12,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
 
     public static class UnityCodeGenerator {
 
-        [MenuItem("Tools/Jenny/Generate #%g", false, 100)]
+        [MenuItem(CodeGeneratorMenuItems.generate, false, CodeGeneratorMenuItemPriorities.generate)]
         public static void Generate() {
             checkCanGenerate();
 
@@ -83,7 +83,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
 
         static string _propertiesPath;
 
-        [MenuItem("Tools/Jenny/Generate with external Code Generator %&g", false, 101)]
+        [MenuItem(CodeGeneratorMenuItems.generate_server, false, CodeGeneratorMenuItemPriorities.generate_server)]
         public static void GenerateExternal() {
             Debug.Log("Connecting...");
 
