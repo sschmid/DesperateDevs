@@ -45,11 +45,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
                 resolver.Load(path);
             }
 
-            var instances = resolver
-                .GetTypes()
-                .GetInstancesOf<ICodeGenerationPlugin>();
-
-            return instances;
+            return resolver.GetTypes().GetInstancesOf<ICodeGenerationPlugin>();
         }
 
         public static T[] GetOrderedInstancesOf<T>(ICodeGenerationPlugin[] instances) where T : ICodeGenerationPlugin {

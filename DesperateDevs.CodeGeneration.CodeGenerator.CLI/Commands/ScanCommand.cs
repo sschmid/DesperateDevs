@@ -14,8 +14,9 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         protected override void run() {
             var instances = CodeGeneratorUtil.LoadFromPlugins(_preferences);
+
             var orderedTypes = instances
-                .Select(instance => instances.GetType())
+                .Select(instance => instance.GetType())
                 .OrderBy(type => type.Assembly.GetName().Name)
                 .ThenBy(type => type.FullName);
 
