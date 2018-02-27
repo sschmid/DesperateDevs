@@ -10,9 +10,19 @@ class describe_StringExtension : nspec {
             str.UppercaseFirst().should_be("Hi");
         };
 
+        it["UppercaseFirst handles empty string"] = () => {
+            const string str = "";
+            str.UppercaseFirst().should_be("");
+        };
+
         it["LowercaseFirst"] = () => {
             const string str = "Hi";
             str.LowercaseFirst().should_be("hi");
+        };
+
+        it["LowercaseFirst"] = () => {
+            const string str = "";
+            str.LowercaseFirst().should_be("");
         };
 
         it["ToUnixLineEndings"] = () => {

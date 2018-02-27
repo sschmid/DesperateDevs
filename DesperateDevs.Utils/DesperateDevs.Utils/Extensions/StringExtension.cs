@@ -6,10 +6,18 @@ namespace DesperateDevs.Utils {
     public static class StringExtension {
 
         public static string UppercaseFirst(this string str) {
+            if (string.IsNullOrEmpty(str)) {
+                return str;
+            }
+
             return char.ToUpper(str[0]) + str.Substring(1);
         }
 
         public static string LowercaseFirst(this string str) {
+            if (string.IsNullOrEmpty(str)) {
+                return str;
+            }
+
             return char.ToLower(str[0]) + str.Substring(1);
         }
 
@@ -39,6 +47,7 @@ namespace DesperateDevs.Utils {
                 if (char.IsUpper(text[i]) && text[i - 1] != ' ') {
                     sb.Append(' ');
                 }
+
                 sb.Append(text[i]);
             }
 
