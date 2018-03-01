@@ -51,6 +51,7 @@
     <Compile Include="DesperateDevs.CodeGeneration.Plugins\PostProcessors\UpdateCSProjPostProcessor.cs" />
     <Compile Include="DesperateDevs.CodeGeneration.Plugins\PostProcessors\WriteToDiskPostProcessor.cs" />
     <Compile Include="DesperateDevs.CodeGeneration.Plugins\PreProcessors\TargetFrameworkProfilePreProcessor.cs" />
+    <Compile Include="DesperateDevs.CodeGeneration.Plugins\PreProcessors\ValidateProjectPathPreProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DesperateDevs.CodeGeneration\DesperateDevs.CodeGeneration.csproj">
