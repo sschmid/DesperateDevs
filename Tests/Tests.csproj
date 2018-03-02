@@ -170,6 +170,14 @@
     <Compile Include="Tests\DesperateDevs.Roslyn\describe_ProjectParser.cs" />
     <Compile Include="Tests\DesperateDevs.Serialization\describe_Preferences.cs" />
     <Compile Include="Tests\DesperateDevs.Serialization\describe_Properties.cs" />
+    <Compile Include="Tests\DesperateDevs.Threading.Promises\describe_All.cs" />
+    <Compile Include="Tests\DesperateDevs.Threading.Promises\describe_Any.cs" />
+    <Compile Include="Tests\DesperateDevs.Threading.Promises\describe_Collect.cs" />
+    <Compile Include="Tests\DesperateDevs.Threading.Promises\describe_Promise.cs" />
+    <Compile Include="Tests\DesperateDevs.Threading.Promises\describe_Rescue.cs" />
+    <Compile Include="Tests\DesperateDevs.Threading.Promises\describe_Then.cs" />
+    <Compile Include="Tests\DesperateDevs.Threading.Promises\PromisesTestHelper.cs" />
+    <Compile Include="Tests\DesperateDevs.Threading\describe_Dispatcher.cs" />
     <Compile Include="Tests\DesperateDevs.Utils\Caching\describe_ObjectCache.cs" />
     <Compile Include="Tests\DesperateDevs.Utils\Caching\describe_ObjectPool.cs" />
     <Compile Include="Tests\DesperateDevs.Utils\Extensions\describe_DictionaryExtension.cs" />
@@ -224,6 +232,14 @@
     <ProjectReference Include="..\DesperateDevs.Serialization\DesperateDevs.Serialization.csproj">
       <Project>{3F7A0EC0-ECFE-4DA5-A02F-C716AD8F0817}</Project>
       <Name>DesperateDevs.Serialization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DesperateDevs.Threading.Promises\DesperateDevs.Threading.Promises.csproj">
+      <Project>{FBEEF8E7-544D-4043-BC74-064E62E88E2A}</Project>
+      <Name>DesperateDevs.Threading.Promises</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DesperateDevs.Threading\DesperateDevs.Threading.csproj">
+      <Project>{88014F63-EFE9-4F03-B5FA-3539AAD20D21}</Project>
+      <Name>DesperateDevs.Threading</Name>
     </ProjectReference>
     <ProjectReference Include="..\DesperateDevs.Utils\DesperateDevs.Utils.csproj">
       <Project>{f81e2e63-8f15-43d9-85c0-57237ed42250}</Project>

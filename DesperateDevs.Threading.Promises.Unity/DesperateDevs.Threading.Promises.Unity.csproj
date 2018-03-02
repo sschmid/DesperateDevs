@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8221CB5F-A82A-452A-A201-C04C6424B6F2}</ProjectGuid>
+    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DesperateDevs.Threading.Promises.Unity</RootNamespace>
+    <AssemblyName>DesperateDevs.Threading.Promises.Unity</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <LangVersion>4</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\Libraries\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DesperateDevs.Threading.Promises.Unity\Coroutine.cs" />
+    <Compile Include="DesperateDevs.Threading.Promises.Unity\CoroutineRunner.cs" />
+    <Compile Include="DesperateDevs.Threading.Promises.Unity\UnityDeferred.cs" />
+    <Compile Include="DesperateDevs.Threading.Promises.Unity\MainThreadDispatcher.cs" />
+    <Compile Include="DesperateDevs.Threading.Promises.Unity\Promise.cs" />
+    <Compile Include="DesperateDevs.Threading.Promises.Unity\PromiseService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DesperateDevs.Threading.Promises\DesperateDevs.Threading.Promises.csproj">
+      <Project>{FBEEF8E7-544D-4043-BC74-064E62E88E2A}</Project>
+      <Name>DesperateDevs.Threading.Promises</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DesperateDevs.Threading\DesperateDevs.Threading.csproj">
+      <Project>{88014f63-efe9-4f03-b5fa-3539aad20d21}</Project>
+      <Name>DesperateDevs.Threading</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

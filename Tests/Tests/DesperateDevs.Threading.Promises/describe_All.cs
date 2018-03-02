@@ -1,0 +1,74 @@
+﻿using NSpec;
+using System.Collections.Generic;
+using DesperateDevs.Threading.Promises;
+
+class describe_All : nspec {
+
+    const int delay = 5;
+
+    void when_running_in_parallel_with_all() {
+
+        Promise<object> p1 = null;
+        Promise<object> p2 = null;
+        Promise<object[]> promise = null;
+        List<float> eventProgresses = null;
+
+        context["when all promises fulfill"] = () => {
+
+            before = () => {
+                eventProgresses = new List<float>();
+                p1 = PromisesTestHelper.PromiseWithResult<object>(42, delay);
+                p2 = PromisesTestHelper.PromiseWithResult<object>("42", 2 * delay);
+                promise = Promise.All(p1, p2);
+                promise.OnProgressed += eventProgresses.Add;
+                promise.Await();
+            };
+
+            it["is fulfilled"] = () => promise.state.should_be(PromiseState.Fulfilled);
+            it["has progressed 100%"] = () => promise.progress.should_be(1f);
+            it["has result"] = () => promise.result.should_not_be_null();
+            it["has no error"] = () => promise.error.should_be_null();
+            it["has results at correct index"] = () => {
+                (promise.result[0]).should_be(42);
+                (promise.result[1]).should_be("42");
+            };
+
+            it["calls progress"] = () => {
+                eventProgresses.Count.should_be(2);
+                eventProgresses[0].should_be(0.5f);
+                eventProgresses[1].should_be(1f);
+            };
+
+            it["has initial progress"] = () => {
+                var deferred = new Deferred<object>();
+                deferred.Progress(0.5f);
+                p2 = PromisesTestHelper.PromiseWithResult<object>("42", 2 * delay);
+                promise = Promise.All(deferred, p2);
+                promise.progress.should_be(0.25f);
+                deferred.Fulfill(null);
+                promise.Await();
+            };
+        };
+
+        context["when a promise fails"] = () => {
+
+            before = () => {
+                eventProgresses = new List<float>();
+                p1 = PromisesTestHelper.PromiseWithResult<object>(42, delay);
+                p2 = PromisesTestHelper.PromiseWithError<object>("error 42", 2 * delay);
+                promise = Promise.All(p1, p2);
+                promise.OnProgressed += eventProgresses.Add;
+                promise.Await();
+            };
+
+            it["failed"] = () => promise.state.should_be(PromiseState.Failed);
+            it["has progressed 50%"] = () => promise.progress.should_be(0.5f);
+            it["has no result"] = () => promise.result.should_be_null();
+            it["has error"] = () => promise.error.Message.should_be("error 42");
+            it["calls progress"] = () => {
+                eventProgresses.Count.should_be(1);
+                eventProgresses[0].should_be(0.5f);
+            };
+        };
+    }
+}
