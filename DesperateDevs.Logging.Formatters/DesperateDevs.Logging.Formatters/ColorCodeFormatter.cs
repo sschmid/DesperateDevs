@@ -43,7 +43,7 @@ namespace DesperateDevs.Logging.Formatters {
             { LogLevel.Fatal, new [] { FG_White,  BG_Magenta } }
         };
 
-        StringBuilder _stringBuilder = new StringBuilder();
+        readonly StringBuilder _stringBuilder = new StringBuilder();
 
         public string FormatMessage(Logger logger, LogLevel logLevel, string message) {
             _stringBuilder.Length = 0;

@@ -7,7 +7,7 @@ namespace DesperateDevs.Logging.Formatters {
 
         static readonly int _maxLogLevelLength;
 
-        StringBuilder _stringBuilder = new StringBuilder();
+        readonly StringBuilder _stringBuilder = new StringBuilder();
 
         static DefaultLogMessageFormatter() {
             _maxLogLevelLength = getLongestLogLevelWordLength() + 2;
