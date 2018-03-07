@@ -48,7 +48,6 @@
     <Compile Include="DesperateDevs.Threading.Promises.Unity\CoroutineRunner.cs" />
     <Compile Include="DesperateDevs.Threading.Promises.Unity\UnityDeferred.cs" />
     <Compile Include="DesperateDevs.Threading.Promises.Unity\MainThreadDispatcher.cs" />
-    <Compile Include="DesperateDevs.Threading.Promises.Unity\Promise.cs" />
     <Compile Include="DesperateDevs.Threading.Promises.Unity\PromiseService.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -14,14 +14,14 @@ namespace DesperateDevs.Threading.Promises.Unity {
                 DontDestroyOnLoad(_coroutineRunner);
             }
 
-            return _coroutineRunner.StartCoroutine<T>(coroutine, onComplete);
+            return _coroutineRunner.StartCoroutine(coroutine, onComplete);
         }
 
         public Coroutine<T> StartCoroutine<T>(IEnumerator coroutine, Action<Coroutine<T>> onComplete = null) {
             var coroutineObject = new Coroutine<T>();
             coroutineObject.coroutine = StartCoroutine(coroutineObject.WrapRoutine(coroutine));
             if (onComplete != null) {
-                StartCoroutine(onCompleteCoroutine<T>(coroutineObject, onComplete));
+                StartCoroutine(onCompleteCoroutine(coroutineObject, onComplete));
             }
 
             return coroutineObject;

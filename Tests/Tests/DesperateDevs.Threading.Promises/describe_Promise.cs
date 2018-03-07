@@ -252,7 +252,7 @@ class describe_Promise : nspec {
             it["returns description of unfulfilled promise"] = () => {
                 var deferred = new Deferred<string>();
                 deferred.Progress(0.1234567890f);
-                deferred.promise.ToString().should_be("[Promise<String>: state = Unfulfilled, progress = 0,123]");
+                deferred.promise.ToString().should_be("[Promise<String>: state = Unfulfilled, progress = 0.123]");
             };
 
             it["returns description of fulfilled promise"] = () => {
