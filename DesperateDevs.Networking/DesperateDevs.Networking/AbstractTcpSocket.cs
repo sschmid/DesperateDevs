@@ -37,8 +37,8 @@ namespace DesperateDevs.Networking {
         public abstract void Send(byte[] buffer);
 
         protected void send(Socket socket, byte[] buffer) {
-//            var key = keyForEndPoint((IPEndPoint)socket.RemoteEndPoint);
-//            _logger.Debug("Sending " + buffer.Length + " bytes via " + key);
+            var key = keyForEndPoint((IPEndPoint)socket.RemoteEndPoint);
+            _logger.Debug("Sending " + buffer.Length + " bytes via " + key);
 
             socket.BeginSend(
                 buffer,

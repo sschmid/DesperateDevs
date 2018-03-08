@@ -15,6 +15,14 @@ class describe_Logger : nspec {
             it["doesn't throw when condition is true"] = () => _logger.Assert(true, "works");
             it["throws when condition is false"] = expect<FablAssertException>(() => _logger.Assert(false, "doesn't work"));
         };
+
+        it["resets OnLog"] = () => {
+            var didLog = 0;
+            _logger.OnLog += (logger, level, s) => didLog += 1;
+            _logger.Reset();
+            _logger.Info("Test");
+            didLog.should_be(0);
+        };
     }
 
     void doLogLevelTests() {

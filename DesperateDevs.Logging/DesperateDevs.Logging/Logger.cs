@@ -30,6 +30,10 @@ namespace DesperateDevs.Logging {
                 OnLog(this, logLvl, message);
             }
         }
+
+        public void Reset() {
+            OnLog = null;
+        }
     }
 
     public class FablAssertException : Exception {
