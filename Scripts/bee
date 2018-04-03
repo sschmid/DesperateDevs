@@ -192,6 +192,7 @@ collect_all() {
     "DesperateDevs.Serialization"
     "DesperateDevs.Threading"
     "DesperateDevs.Threading.Promises"
+    "DesperateDevs.Threading.Promises.Unity"
     "DesperateDevs.Utils"
 
     # editor
