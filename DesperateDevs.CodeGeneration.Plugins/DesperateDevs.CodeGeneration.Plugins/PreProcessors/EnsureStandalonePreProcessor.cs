@@ -14,7 +14,8 @@ namespace DesperateDevs.CodeGeneration.Plugins {
             var types = AppDomain.CurrentDomain.GetAllTypes();
             var isStandalone = types.Any(type => type.FullName == "DesperateDevs.CodeGeneration.CodeGenerator.CLI.Program");
             if (!isStandalone) {
-                throw new Exception("Jenny is configured to only work with the standalone code generator!");
+                throw new Exception("Jenny is configured to only work with the standalone code generator!\n" +
+                                    "You can remove this error by removing '" + name + "' from the Pre Processors.");
             }
         }
     }
