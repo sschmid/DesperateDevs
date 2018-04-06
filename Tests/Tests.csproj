@@ -166,6 +166,7 @@
     <Compile Include="Tests\DesperateDevs.Logging\describe_fabl.cs" />
     <Compile Include="Tests\DesperateDevs.Logging\describe_Logger.cs" />
     <Compile Include="Tests\DesperateDevs.Networking\describe_TcpClientSocket.cs" />
+    <Compile Include="Tests\DesperateDevs.Networking\describe_TcpMessageParser.cs" />
     <Compile Include="Tests\DesperateDevs.Networking\describe_TcpServerSocket.cs" />
     <Compile Include="Tests\DesperateDevs.Roslyn\describe_ProjectParser.cs" />
     <Compile Include="Tests\DesperateDevs.Serialization\describe_Preferences.cs" />
