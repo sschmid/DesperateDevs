@@ -11,20 +11,28 @@ namespace DesperateDevs.Networking.CLI {
         protected readonly Logger _logger;
         protected AbstractTcpSocket _socket;
 
+        TcpMessageParser _tcpMessageParser;
+
         protected AbstractSocketCommand(string loggerName) {
             _logger = fabl.GetLogger(loggerName);
         }
 
         protected void start() {
+            _tcpMessageParser = new TcpMessageParser();
+            _tcpMessageParser.OnMessage += onMessage;
             _socket.OnReceived += onReceive;
             Console.CancelKeyPress += onCancel;
             while (true) {
-                _socket.Send(Encoding.UTF8.GetBytes(Console.ReadLine()));
+                _socket.Send(TcpMessageParser.WrapMessage(Encoding.UTF8.GetBytes(Console.ReadLine())));
             }
         }
 
-        protected void onReceive(AbstractTcpSocket socket, Socket client, byte[] bytes) {
+        void onMessage(TcpMessageParser messageparser, byte[] bytes) {
             _logger.Info(Encoding.UTF8.GetString(bytes));
+        }
+
+        protected void onReceive(AbstractTcpSocket socket, Socket client, byte[] bytes) {
+            _tcpMessageParser.Receive(bytes);
         }
 
         protected void onCancel(object sender, ConsoleCancelEventArgs e) {
