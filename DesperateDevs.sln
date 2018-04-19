@@ -77,6 +77,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Threading.Pro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Threading.Promises.Unity", "DesperateDevs.Threading.Promises.Unity\DesperateDevs.Threading.Promises.Unity.csproj", "{8221CB5F-A82A-452A-A201-C04C6424B6F2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Unity", "DesperateDevs.Unity\DesperateDevs.Unity.csproj", "{1C26CEE8-3C1F-4F32-B57D-C7EE80CFDF2C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -191,6 +193,10 @@ Global
 		{8221CB5F-A82A-452A-A201-C04C6424B6F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8221CB5F-A82A-452A-A201-C04C6424B6F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8221CB5F-A82A-452A-A201-C04C6424B6F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C26CEE8-3C1F-4F32-B57D-C7EE80CFDF2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C26CEE8-3C1F-4F32-B57D-C7EE80CFDF2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C26CEE8-3C1F-4F32-B57D-C7EE80CFDF2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C26CEE8-3C1F-4F32-B57D-C7EE80CFDF2C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -231,5 +237,6 @@ Global
 		{FBEEF8E7-544D-4043-BC74-064E62E88E2A} = {485A9269-94CB-440F-BE27-BBB2FC7C2AEA}
 		{8221CB5F-A82A-452A-A201-C04C6424B6F2} = {485A9269-94CB-440F-BE27-BBB2FC7C2AEA}
 		{485A9269-94CB-440F-BE27-BBB2FC7C2AEA} = {A58AD823-DB93-4B01-B315-4EFCE6A5CC0D}
+		{1C26CEE8-3C1F-4F32-B57D-C7EE80CFDF2C} = {45E87FEC-14D7-45B3-ADC6-BB0A1DDC1E29}
 	EndGlobalSection
 EndGlobal

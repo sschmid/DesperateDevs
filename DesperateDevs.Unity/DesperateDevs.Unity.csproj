@@ -4,12 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8221CB5F-A82A-452A-A201-C04C6424B6F2}</ProjectGuid>
-    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{1C26CEE8-3C1F-4F32-B57D-C7EE80CFDF2C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DesperateDevs.Threading.Promises.Unity</RootNamespace>
-    <AssemblyName>DesperateDevs.Threading.Promises.Unity</AssemblyName>
+    <RootNamespace>DesperateDevs.Unity</RootNamespace>
+    <AssemblyName>DesperateDevs.Unity</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <LangVersion>4</LangVersion>
@@ -44,29 +43,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DesperateDevs.Threading.Promises\DesperateDevs.Threading.Promises.csproj">
-      <Project>{FBEEF8E7-544D-4043-BC74-064E62E88E2A}</Project>
-      <Name>DesperateDevs.Threading.Promises</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DesperateDevs.Threading\DesperateDevs.Threading.csproj">
-      <Project>{88014f63-efe9-4f03-b5fa-3539aad20d21}</Project>
-      <Name>DesperateDevs.Threading</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DesperateDevs.Unity\DesperateDevs.Unity.csproj">
-      <Project>{1C26CEE8-3C1F-4F32-B57D-C7EE80CFDF2C}</Project>
-      <Name>DesperateDevs.Unity</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="DesperateDevs.Threading.Promises.Unity\MainThreadDispatcher.cs" />
-    <Compile Include="DesperateDevs.Threading.Promises.Unity\PromiseService.cs" />
+    <Compile Include="DesperateDevs.Unity\CoroutineRunner.cs" />
+    <Compile Include="DesperateDevs.Unity\CoroutineWithData.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+         Other similar extension points exist, see Microsoft.Common.targets.
+    <Target Name="BeforeBuild">
+    </Target>
+    <Target Name="AfterBuild">
+    </Target>
+    -->
 </Project>
