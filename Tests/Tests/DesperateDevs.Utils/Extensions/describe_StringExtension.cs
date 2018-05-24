@@ -30,6 +30,11 @@ class describe_StringExtension : nspec {
             str.ToUnixLineEndings().should_be("1\n2\n3\n");
         };
 
+        it["ToUnixPath"] = () => {
+            const string str = "a/b\\c\\d/e";
+            str.ToUnixPath().should_be("a/b/c/d/e");
+        };
+
         it["ToCSV"] = () => {
             var strings = new[] { "1", "2", "3" };
             strings.ToCSV().should_be("1, 2, 3");

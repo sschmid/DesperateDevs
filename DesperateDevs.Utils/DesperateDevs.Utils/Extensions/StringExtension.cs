@@ -25,6 +25,10 @@ namespace DesperateDevs.Utils {
             return str.Replace("\r\n", "\n").Replace("\r", "\n");
         }
 
+        public static string ToUnixPath(this string str) {
+            return str.Replace("\\", "/");
+        }
+
         public static string ToCSV(this string[] values) {
             return string.Join(", ", values
                 .Where(value => !string.IsNullOrEmpty(value))
