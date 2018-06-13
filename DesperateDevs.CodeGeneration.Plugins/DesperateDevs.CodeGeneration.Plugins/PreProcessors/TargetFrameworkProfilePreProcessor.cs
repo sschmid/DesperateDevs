@@ -26,8 +26,10 @@ namespace DesperateDevs.CodeGeneration.Plugins {
         }
 
         string removeTargetFrameworkProfile(string project) {
-            const string pattern = @"\s*<TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>";
-            project = Regex.Replace(project, pattern, string.Empty);
+            const string pattern1 = @"\s*<TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>";
+            const string pattern2 = @"\s*<TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>";
+            project = Regex.Replace(project, pattern1, string.Empty);
+            project = Regex.Replace(project, pattern2, string.Empty);
             return project;
         }
     }
