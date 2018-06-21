@@ -39,13 +39,18 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="UnityEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\Libraries\UnityEditor.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\Libraries\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DesperateDevs.CodeGeneration.Unity.Plugins\DebugLogDoctor.cs" />
-    <Compile Include="DesperateDevs.CodeGeneration.Unity.Plugins\DebugLogPostProcessor.cs" />
+    <Compile Include="DesperateDevs.CodeGeneration.Unity.Plugins\PostProcessors\DebugLogDoctor.cs" />
+    <Compile Include="DesperateDevs.CodeGeneration.Unity.Plugins\PostProcessors\DebugLogPostProcessor.cs" />
+    <Compile Include="DesperateDevs.CodeGeneration.Unity.Plugins\PreProcessors\WarnIfCompilationErrorsDoctor.cs" />
+    <Compile Include="DesperateDevs.CodeGeneration.Unity.Plugins\PreProcessors\WarnIfCompilationErrorsPreProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DesperateDevs.CodeGeneration.CodeGenerator\DesperateDevs.CodeGeneration.CodeGenerator.csproj">
