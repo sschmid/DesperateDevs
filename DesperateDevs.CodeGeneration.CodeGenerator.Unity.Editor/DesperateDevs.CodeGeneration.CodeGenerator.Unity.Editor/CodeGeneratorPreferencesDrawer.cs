@@ -30,6 +30,9 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
 
         CodeGeneratorConfig _codeGeneratorConfig;
 
+        const string USE_EXTERNAL_CODE_GENERATOR = "DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor.UseExternalCodeGenerator";
+        bool _useExternalCodeGenerator;
+
         public override void Initialize(Preferences preferences) {
             _preferences = preferences;
             _codeGeneratorConfig = preferences.CreateAndConfigure<CodeGeneratorConfig>();
@@ -43,6 +46,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
             setTypesAndNames<IPostProcessor>(_instances, out _availablePostProcessorTypes, out _availablePostProcessorNames);
 
             _preferences.properties.AddProperties(CodeGeneratorUtil.GetDefaultProperties(_instances, _codeGeneratorConfig), false);
+
+            _useExternalCodeGenerator = EditorPrefs.GetBool(USE_EXTERNAL_CODE_GENERATOR);
         }
 
         public override void DrawHeader(Preferences preferences) {
@@ -63,9 +68,9 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
             _codeGeneratorConfig.codeGenerators = drawMaskField("Code Generators", _availableGeneratorTypes, _availableGeneratorNames, _codeGeneratorConfig.codeGenerators);
             _codeGeneratorConfig.postProcessors = drawMaskField("Post Processors", _availablePostProcessorTypes, _availablePostProcessorNames, _codeGeneratorConfig.postProcessors);
 
-            EditorGUILayout.Space();
             drawConfigurables();
 
+            EditorGUILayout.Space();
             drawGenerateButtons();
         }
 
@@ -101,6 +106,11 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
         void drawConfigurables() {
             var defaultProperties = CodeGeneratorUtil.GetDefaultProperties(_instances, _codeGeneratorConfig);
             _preferences.properties.AddProperties(defaultProperties, false);
+
+            if (defaultProperties.Count != 0) {
+                EditorGUILayout.Space();
+                EditorGUILayout.LabelField("Plugins Configuration", EditorStyles.boldLabel);
+            }
 
             foreach (var kv in defaultProperties.OrderBy(kv => kv.Key)) {
                 _preferences[kv.Key] = EditorGUILayout.TextField(kv.Key.ShortTypeName().ToSpacedCamelCase(), _preferences[kv.Key]);
@@ -154,23 +164,36 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
         }
 
         void drawGenerateButtons() {
-            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.BeginVertical();
             {
+                EditorGUI.BeginChangeCheck();
+                {
+                    _useExternalCodeGenerator = EditorGUILayout.Toggle("Use Jenny Server", _useExternalCodeGenerator);
+                }
+                var changed = EditorGUI.EndChangeCheck();
+                if (changed) {
+                    EditorPrefs.SetBool(USE_EXTERNAL_CODE_GENERATOR, _useExternalCodeGenerator);
+                }
+
+                if (_useExternalCodeGenerator) {
+                    _codeGeneratorConfig.port = EditorGUILayout.IntField("Port", _codeGeneratorConfig.port);
+                    _codeGeneratorConfig.host = EditorGUILayout.TextField("Host", _codeGeneratorConfig.host);
+                }
+
                 var bgColor = GUI.backgroundColor;
                 GUI.backgroundColor = Color.green;
                 if (GUILayout.Button("Generate", GUILayout.Height(32))) {
-                    UnityCodeGenerator.Generate();
-                }
-
-                GUI.backgroundColor = Color.yellow;
-                if (GUILayout.Button("External Generate", GUILayout.Width(128), GUILayout.Height(32))) {
-                    UnityCodeGenerator.GenerateExternal();
+                    if (_useExternalCodeGenerator) {
+                        UnityCodeGenerator.GenerateExternal();
+                    } else {
+                        UnityCodeGenerator.Generate();
+                    }
                 }
 
                 GUI.backgroundColor = bgColor;
 
             }
-            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndVertical();
         }
     }
 }
