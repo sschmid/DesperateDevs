@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -128,6 +129,11 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
             }
 
             if (names.Length != 0) {
+                var everything = (int)Math.Pow(2, types.Length) - 1;
+                if (mask == everything) {
+                    mask = -1;
+                }
+
                 mask = EditorGUILayout.MaskField(title, mask, names);
             } else {
                 EditorGUILayout.LabelField(title, "No " + title + " available");
