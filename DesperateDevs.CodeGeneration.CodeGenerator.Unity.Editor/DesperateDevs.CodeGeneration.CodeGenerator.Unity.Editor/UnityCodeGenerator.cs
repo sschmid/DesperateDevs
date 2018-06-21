@@ -12,6 +12,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
 
     public static class UnityCodeGenerator {
 
+        public const string DRY_RUN = "DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor.DryRun";
+
         [MenuItem(CodeGeneratorMenuItems.generate, false, CodeGeneratorMenuItemPriorities.generate)]
         public static void Generate() {
             Debug.Log("Generating...");
@@ -31,7 +33,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
             CodeGenFile[] files = null;
 
             try {
-                dryFiles = codeGenerator.DryRun();
+                dryFiles = EditorPrefs.GetBool(DRY_RUN, true) ? codeGenerator.DryRun() : new CodeGenFile[0];
                 progressOffset = 0.5f;
                 files = codeGenerator.Generate();
             } catch (Exception ex) {

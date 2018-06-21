@@ -32,6 +32,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
 
         const string USE_EXTERNAL_CODE_GENERATOR = "DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor.UseExternalCodeGenerator";
         bool _useExternalCodeGenerator;
+        bool _doDryRun;
 
         public override void Initialize(Preferences preferences) {
             _preferences = preferences;
@@ -48,6 +49,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
             _preferences.properties.AddProperties(CodeGeneratorUtil.GetDefaultProperties(_instances, _codeGeneratorConfig), false);
 
             _useExternalCodeGenerator = EditorPrefs.GetBool(USE_EXTERNAL_CODE_GENERATOR);
+            _doDryRun = EditorPrefs.GetBool(UnityCodeGenerator.DRY_RUN, true);
         }
 
         public override void DrawHeader(Preferences preferences) {
@@ -170,14 +172,23 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
                 {
                     _useExternalCodeGenerator = EditorGUILayout.Toggle("Use Jenny Server", _useExternalCodeGenerator);
                 }
-                var changed = EditorGUI.EndChangeCheck();
-                if (changed) {
+                var useExternalCodeGeneratorChanged = EditorGUI.EndChangeCheck();
+                if (useExternalCodeGeneratorChanged) {
                     EditorPrefs.SetBool(USE_EXTERNAL_CODE_GENERATOR, _useExternalCodeGenerator);
                 }
 
                 if (_useExternalCodeGenerator) {
                     _codeGeneratorConfig.port = EditorGUILayout.IntField("Port", _codeGeneratorConfig.port);
                     _codeGeneratorConfig.host = EditorGUILayout.TextField("Host", _codeGeneratorConfig.host);
+                } else {
+                    EditorGUI.BeginChangeCheck();
+                    {
+                        _doDryRun = EditorGUILayout.Toggle("Safe Mode (Dry Run first)", _doDryRun);
+                    }
+                    var doDryRunChanged = EditorGUI.EndChangeCheck();
+                    if (doDryRunChanged) {
+                        EditorPrefs.SetBool(UnityCodeGenerator.DRY_RUN, _doDryRun);
+                    }
                 }
 
                 var bgColor = GUI.backgroundColor;
