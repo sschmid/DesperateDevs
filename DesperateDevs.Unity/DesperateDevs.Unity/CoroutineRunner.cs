@@ -8,17 +8,27 @@ namespace DesperateDevs.Unity {
 
         static CoroutineRunner _coroutineRunner;
 
-        public static void Run<T>(IEnumerator enumerator, Action<T> onComplete = null) {
-            if (_coroutineRunner == null) {
-                _coroutineRunner = new GameObject("Coroutine Runner").AddComponent<CoroutineRunner>();
-                DontDestroyOnLoad(_coroutineRunner);
-            }
+        static CoroutineRunner runner {
+            get {
+                if (_coroutineRunner == null) {
+                    _coroutineRunner = new GameObject("Coroutine Runner").AddComponent<CoroutineRunner>();
+                    DontDestroyOnLoad(_coroutineRunner);
+                }
 
-            _coroutineRunner.StartCoroutine(enumerator, onComplete);
+                return _coroutineRunner;
+            }
         }
 
-        public void StartCoroutine<T>(IEnumerator enumerator, Action<T> onComplete = null) {
-            StartCoroutine(new CoroutineWithData<T>().Wrap(enumerator, onComplete));
+        public static Coroutine Run<T>(IEnumerator enumerator, Action<T> onComplete = null) {
+            return runner.StartCoroutine(enumerator, onComplete);
+        }
+
+        public static void CancelCoroutine(Coroutine coroutine) {
+            runner.StopCoroutine(coroutine);
+        }
+
+        public Coroutine StartCoroutine<T>(IEnumerator enumerator, Action<T> onComplete = null) {
+            return StartCoroutine(new CoroutineWithData<T>().Wrap(enumerator, onComplete));
         }
 
         void OnDestroy() {
