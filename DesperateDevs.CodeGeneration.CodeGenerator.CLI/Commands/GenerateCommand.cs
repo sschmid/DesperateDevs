@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using DesperateDevs.Serialization.CLI.Utils;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
@@ -12,6 +13,11 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         }
 
         protected override void run() {
+            _logger.Info("Generating using " + _preferences.propertiesPath);
+
+            var watch = new Stopwatch();
+            watch.Start();
+
             var codeGenerator = CodeGeneratorUtil.CodeGeneratorFromPreferences(_preferences);
 
             codeGenerator.OnProgress += (title, info, progress) => {
@@ -19,7 +25,11 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
                 _logger.Debug(string.Format("{0}: {1} ({2}%)", title, info, p));
             };
 
-            codeGenerator.Generate();
+            var files = codeGenerator.Generate();
+
+            watch.Stop();
+
+            _logger.Info("Generating done (" + files.Length + " files in " + (watch.ElapsedMilliseconds / 1000) + " seconds)");
         }
     }
 }
