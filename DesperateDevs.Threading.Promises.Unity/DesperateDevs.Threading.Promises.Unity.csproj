@@ -58,7 +58,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DesperateDevs.Threading.Promises.Unity\MainThreadDispatcher.cs" />
     <Compile Include="DesperateDevs.Threading.Promises.Unity\PromiseService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
