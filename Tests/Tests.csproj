@@ -150,7 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TestRunner.cs" />
-    <Compile Include="Tests\chech_namespaces.cs" />
+    <Compile Include="Tests\check_namespaces.cs" />
     <Compile Include="Tests\DesperateDevs.Analytics\describe_Tracker.cs" />
     <Compile Include="Tests\DesperateDevs.Analytics\describe_TrackingData.cs" />
     <Compile Include="Tests\DesperateDevs.CLI.Utils\describe_ArgsExtension.cs" />
