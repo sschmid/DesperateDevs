@@ -20,8 +20,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             var pad = CLIProgram.GetCommandListPad(commands);
             var commandList = CLIProgram.GetFormattedCommandList(commands);
 
-            commandList.Add("[-v]".PadRight(pad) + " - verbose output");
-            commandList.Add("[-s]".PadRight(pad) + " - silent (minimal output)");
+            commandList.Add("[-v]".PadRight(pad) + "   - verbose output");
+            commandList.Add("[-s]".PadRight(pad) + "   - silent (minimal output)");
 
             const string header = @"
      gg
@@ -45,8 +45,8 @@ I8,      ,8'    A lovely .NET Code Generator        I8   8I
             const string footer = "Jenny automatically detects *.properties and *.userproperties.\n" +
                                   "If you have multiple property files in one folder, please specify the desired file(s) along with the command.\n\n" +
                                   "EXAMPLE\n" +
-                                  "  jenny new Preferences.properties\n" +
-                                  "  jenny auto-import\n" +
+                                  "  jenny new Jenny.properties\n" +
+                                  "  jenny auto-import -s\n" +
                                   "  jenny doctor\n" +
                                   "  jenny edit\n" +
                                   "  jenny fix\n" +

@@ -7,6 +7,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         public override string trigger { get { return "gen"; } }
         public override string description { get { return "Generate files based on properties file"; } }
+        public override string group { get { return "Code Generation"; } }
         public override string example { get { return "gen"; } }
 
         public GenerateCommand() : base(typeof(GenerateCommand).FullName) {

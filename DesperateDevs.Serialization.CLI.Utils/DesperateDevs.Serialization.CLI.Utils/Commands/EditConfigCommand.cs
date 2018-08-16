@@ -6,6 +6,7 @@ namespace DesperateDevs.Serialization.CLI.Utils {
 
         public override string trigger { get { return "edit"; } }
         public override string description { get { return "Open config files with default editor"; } }
+        public override string group { get { return "Properties"; } }
         public override string example { get { return "edit"; } }
 
         public EditConfigCommand() : base(typeof(EditConfigCommand).FullName) {

@@ -7,6 +7,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         public override string trigger { get { return "donate"; } }
         public override string description { get { return null; } }
+      public override string group { get { return null; } }
         public override string example { get { return null; } }
 
         protected override void run() {

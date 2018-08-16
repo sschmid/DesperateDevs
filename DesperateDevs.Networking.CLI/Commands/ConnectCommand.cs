@@ -7,6 +7,7 @@ namespace DesperateDevs.Networking.CLI {
 
         public override string trigger { get { return "connect"; } }
         public override string description { get { return "Connect to ip on port"; } }
+        public override string group { get { return null; } }
         public override string example { get { return "connect [ip] [port]"; } }
 
         public ConnectCommand() : base(typeof(ConnectCommand).FullName) {

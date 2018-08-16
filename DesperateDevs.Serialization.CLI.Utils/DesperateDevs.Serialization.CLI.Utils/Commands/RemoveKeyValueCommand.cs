@@ -6,6 +6,7 @@ namespace DesperateDevs.Serialization.CLI.Utils {
 
         public override string trigger { get { return "remove"; } }
         public override string description { get { return "Remove a key or a value from a key"; } }
+        public override string group { get { return "Properties"; } }
         public override string example { get { return "remove [key] [value]"; } }
 
         public RemoveKeyValueCommand() : base(typeof(RemoveKeyValueCommand).FullName) {
@@ -17,7 +18,7 @@ namespace DesperateDevs.Serialization.CLI.Utils {
             } else if (_args.Length == 1) {
                 removeKey(_args[0]);
             } else {
-                _logger.Warn("The remove command expects one or two arguments");
+                _logger.Error("The remove command expects one or two arguments");
                 _logger.Info("E.g. remove myKey myValue");
             }
         }

@@ -4,6 +4,7 @@ namespace DesperateDevs.CLI.Utils {
 
         public abstract string trigger { get; }
         public abstract string description { get; }
+        public abstract string group { get; }
         public abstract string example { get; }
 
         protected string[] _rawArgs;

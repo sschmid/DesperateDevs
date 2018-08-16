@@ -6,6 +6,7 @@ namespace DesperateDevs.Networking.CLI {
 
         public override string trigger { get { return "listen"; } }
         public override string description { get { return "Listen on port"; } }
+        public override string group { get { return null; } }
         public override string example { get { return "listen [port]"; } }
 
         public ListenCommand() : base(typeof(ListenCommand).FullName) {

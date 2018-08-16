@@ -15,6 +15,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         public override string trigger { get { return "server"; } }
         public override string description { get { return "Start server mode"; } }
+        public override string group { get { return "Code Generation"; } }
         public override string example { get { return "server"; } }
 
         AbstractTcpSocket _socket;

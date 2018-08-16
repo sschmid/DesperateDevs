@@ -65,10 +65,21 @@ namespace DesperateDevs.CLI.Utils {
 
         public static List<string> GetFormattedCommandList(ICommand[] commands) {
             var pad = GetCommandListPad(commands);
-            return commands
+
+            var groupedCommands = commands
                 .Where(c => c.example != null)
-                .Select(c => c.example.PadRight(pad) + " - " + c.description)
-                .ToList();
+                .GroupBy(c => c.group ?? string.Empty)
+                .OrderBy(group => group.Key);
+
+            return groupedCommands
+                .SelectMany(group => {
+                    var commandsInGroup = @group.ToList();
+                    var list = new List<string>(commandsInGroup.Count + 2);
+                    list.Add(group.Key == string.Empty ? String.Empty : group.Key + ":");
+                    list.AddRange(commandsInGroup.Select(c => "  " + c.example.PadRight(pad) + " - " + c.description));
+                    list.Add(string.Empty);
+                    return list;
+                }).ToList();
         }
 
         void runCommand(string[] args) {

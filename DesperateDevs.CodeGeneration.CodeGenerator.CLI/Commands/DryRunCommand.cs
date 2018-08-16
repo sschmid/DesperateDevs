@@ -6,6 +6,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         public override string trigger { get { return "dry"; } }
         public override string description { get { return "Run the code generator in dry mode"; } }
+        public override string group { get { return "Code Generation"; } }
         public override string example { get { return "dry"; } }
 
         public DryRunCommand() : base(typeof(DryRunCommand).FullName) {

@@ -42,7 +42,7 @@ namespace DesperateDevs.Serialization {
         public Preferences(string propertiesPath, string userPropertiesPath) {
             _propertiesPath = propertiesPath
                               ?? findFilePath("*.properties")
-                              ?? "Preferences.properties";
+                              ?? "Jenny.properties";
 
             _userPropertiesPath = userPropertiesPath
                                   ?? findFilePath("*.userproperties")

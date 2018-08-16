@@ -7,6 +7,7 @@ namespace DesperateDevs.Serialization.CLI.Utils {
 
         public override string trigger { get { return "dump"; } }
         public override string description { get { return "List all config keys and values"; } }
+        public override string group { get { return "Properties"; } }
         public override string example { get { return "dump"; } }
 
         public DumpCommand() : base(typeof(DumpCommand).FullName) {

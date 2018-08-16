@@ -6,7 +6,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
     public class ScanCommand : AbstractPreferencesCommand {
 
         public override string trigger { get { return "scan"; } }
-        public override string description { get { return "Scan and print available types found in specified assemblies"; } }
+        public override string description { get { return "Scan and print available types found in specified plugins"; } }
+        public override string group { get { return "Plugins"; } }
         public override string example { get { return "scan"; } }
 
         public ScanCommand() : base(typeof(ScanCommand).FullName) {

@@ -11,6 +11,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         public override string trigger { get { return "status"; } }
         public override string description { get { return "List available and unavailable plugins"; } }
+        public override string group { get { return "Plugins"; } }
         public override string example { get { return "status"; } }
 
         public StatusCommand() : base(typeof(StatusCommand).FullName) {

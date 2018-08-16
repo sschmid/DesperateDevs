@@ -10,6 +10,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         public override string trigger { get { return "doctor"; } }
         public override string description { get { return "Check the config for potential problems"; } }
+        public override string group { get { return "Plugins"; } }
         public override string example { get { return "doctor"; } }
 
         public DoctorCommand() : base(typeof(DoctorCommand).FullName) {

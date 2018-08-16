@@ -9,6 +9,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         public override string trigger { get { return "auto-import"; } }
         public override string description { get { return "Find and import all plugins"; } }
+        public override string group { get { return "Plugins"; } }
         public override string example { get { return "auto-import"; } }
 
         public AutoImportCommand() : base(typeof(AutoImportCommand).FullName) {

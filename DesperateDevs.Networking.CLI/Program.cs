@@ -13,7 +13,7 @@ namespace DesperateDevs.Networking.CLI {
             var pad = CLIProgram.GetCommandListPad(commands);
             var commandList = CLIProgram.GetFormattedCommandList(commands);
 
-            commandList.Add("[-v]".PadRight(pad) + " - verbose output");
+            commandList.Add("[-v]".PadRight(pad) + "   - verbose output");
 
             const string header = @"
 ████████╗ ██████╗██████╗ ███████╗███████╗██╗   ██╗

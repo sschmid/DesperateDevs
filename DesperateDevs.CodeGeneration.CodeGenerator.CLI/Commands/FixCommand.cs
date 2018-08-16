@@ -12,6 +12,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
         public override string trigger { get { return "fix"; } }
         public override string description { get { return "Add missing keys and add available or remove unavailable plugins interactively"; } }
+        public override string group { get { return "Plugins"; } }
         public override string example { get { return "fix"; } }
 
         static bool _silent;

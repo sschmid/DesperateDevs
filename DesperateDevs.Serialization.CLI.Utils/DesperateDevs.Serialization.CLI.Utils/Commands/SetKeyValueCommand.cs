@@ -6,6 +6,7 @@ namespace DesperateDevs.Serialization.CLI.Utils {
 
         public override string trigger { get { return "set"; } }
         public override string description { get { return "Set the value of a key"; } }
+        public override string group { get { return "Properties"; } }
         public override string example { get { return "set [key] [value]"; } }
 
         public SetKeyValueCommand() : base(typeof(SetKeyValueCommand).FullName) {
@@ -15,7 +16,7 @@ namespace DesperateDevs.Serialization.CLI.Utils {
             if (_args.Length == 2) {
                 setKeyValue(_args[0], _args[1]);
             } else {
-                _logger.Warn("The set command expects exactly two arguments");
+                _logger.Error("The set command expects exactly two arguments");
                 _logger.Info("E.g. set myKey myValue");
             }
         }
