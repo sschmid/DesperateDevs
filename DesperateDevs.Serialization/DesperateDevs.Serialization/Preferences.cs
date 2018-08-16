@@ -7,6 +7,8 @@ namespace DesperateDevs.Serialization {
 
     public class Preferences {
 
+        public const string DEFAULT_PATH = "Jenny.properties";
+
         public static Preferences sharedInstance {
             get {
                 if (_sharedInstance == null) {
@@ -42,7 +44,7 @@ namespace DesperateDevs.Serialization {
         public Preferences(string propertiesPath, string userPropertiesPath) {
             _propertiesPath = propertiesPath
                               ?? findFilePath("*.properties")
-                              ?? "Jenny.properties";
+                              ?? DEFAULT_PATH;
 
             _userPropertiesPath = userPropertiesPath
                                   ?? findFilePath("*.userproperties")
@@ -90,12 +92,16 @@ namespace DesperateDevs.Serialization {
             return getMergedProperties().ToString();
         }
 
+        public static string[] FindAll() {
+            return Directory.GetFiles(Directory.GetCurrentDirectory(), "*.properties", SearchOption.TopDirectoryOnly);
+        }
+
         public static string[] FindAll(string searchPattern) {
             return Directory.GetFiles(Directory.GetCurrentDirectory(), searchPattern, SearchOption.TopDirectoryOnly);
         }
 
         static string findFilePath(string searchPattern) {
-            var files = Directory.GetFiles(Directory.GetCurrentDirectory(), searchPattern, SearchOption.TopDirectoryOnly);
+            var files = FindAll(searchPattern);
             var file = files.FirstOrDefault();
             if (files.Length > 1) {
                 _logger.Warn(

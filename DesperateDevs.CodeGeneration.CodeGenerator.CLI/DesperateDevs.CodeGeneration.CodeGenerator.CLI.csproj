@@ -54,6 +54,9 @@
     <Compile Include="Commands\ScanCommand.cs" />
     <Compile Include="Commands\ServerCommand.cs" />
     <Compile Include="Commands\StatusCommand.cs" />
+    <Compile Include="Commands\Wizard\Step1_PropertiesMenu.cs" />
+    <Compile Include="Commands\Wizard\Step2_PluginsMenu.cs" />
+    <Compile Include="Commands\Wizard\WizardCommand.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +92,9 @@
       <Project>{F81E2E63-8F15-43D9-85C0-57237ED42250}</Project>
       <Name>DesperateDevs.Utils</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Commands\Wizard\CreateProperties" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

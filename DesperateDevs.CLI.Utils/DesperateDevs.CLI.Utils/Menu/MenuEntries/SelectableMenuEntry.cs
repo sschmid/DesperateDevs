@@ -2,27 +2,44 @@
 
 namespace DesperateDevs.CLI.Utils
 {
-    public class SelectableMenuEntry : IMenuEntry
+    public class SelectableMenuEntry : MenuEntry
     {
-        public string title { get { return (_selected ? "[x] " : "[ ] ") + _title; } }
-        public ConsoleKey? trigger { get { return null; } }
-        public Action action { get { return toggleSelection; } }
-        public bool showTriggerInTitle { get { return false; } }
-
-        public bool selected { get { return _selected; } }
-
-        readonly string _title;
-
-        bool _selected;
-
-        public SelectableMenuEntry(string title)
-        {
-            _title = title;
+        public  bool isSelected {
+            get { return _isSelected; }
+            set  {
+                if (value != _isSelected)
+                {
+                    _isSelected = value;
+                    updateTitle();
+                    if (_onSelected != null)
+                        _onSelected(_isSelected);
+                }
+            }
         }
 
-        void toggleSelection()
+        readonly string _title;
+        bool _isSelected;
+        readonly Action<bool> _onSelected;
+
+        public SelectableMenuEntry(string title, bool isSelected, Action<bool> onSelected = null) :
+            base(title, null, false, null)
         {
-            _selected = !_selected;
+            _title = title;
+            _isSelected = isSelected;
+            updateTitle();
+            _onSelected = onSelected;
+            action = toggleSelected;
+        }
+
+        void toggleSelected()
+        {
+            isSelected = !isSelected;
+            updateTitle();
+        }
+
+        void updateTitle()
+        {
+            title = (_isSelected ? "[x] " : "[ ] ") + _title;
         }
     }
 }

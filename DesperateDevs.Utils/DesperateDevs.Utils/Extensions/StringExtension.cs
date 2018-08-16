@@ -57,5 +57,23 @@ namespace DesperateDevs.Utils {
 
             return sb.ToString();
         }
+
+        public static string MakePathRelativeTo(this string path, string currentDirectory) {
+            currentDirectory = createUri(currentDirectory);
+            path = createUri(path);
+            if (path.StartsWith(currentDirectory)) {
+                path = path.Replace(currentDirectory, string.Empty);
+                if (path.StartsWith("/")) {
+                    path = path.Substring(1);
+                }
+            }
+
+            return path;
+        }
+
+        static string createUri(string path) {
+            var uri = new Uri(path);
+            return Uri.UnescapeDataString(uri.AbsolutePath + uri.Fragment);
+        }
     }
 }

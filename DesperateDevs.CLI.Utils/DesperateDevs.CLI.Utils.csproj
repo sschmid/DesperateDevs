@@ -49,6 +49,8 @@
     <Compile Include="DesperateDevs.CLI.Utils\Menu\IMenuColors.cs" />
     <Compile Include="DesperateDevs.CLI.Utils\Menu\IMenuEntry.cs" />
     <Compile Include="DesperateDevs.CLI.Utils\Menu\CLIMenu.cs" />
+    <Compile Include="DesperateDevs.CLI.Utils\Menu\MenuEntries\ExitMenuEntry.cs" />
+    <Compile Include="DesperateDevs.CLI.Utils\Menu\MenuEntries\MenuEntry.cs" />
     <Compile Include="DesperateDevs.CLI.Utils\Menu\MenuEntries\SelectableMenuEntry.cs" />
     <Compile Include="DesperateDevs.CLI.Utils\Menu\MenuEntries\StopMenuEntry.cs" />
     <Compile Include="DesperateDevs.CLI.Utils\Menu\MenuSelection.cs" />

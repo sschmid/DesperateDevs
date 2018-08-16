@@ -12,7 +12,7 @@ namespace CLITester
             menu.AddMenuEntry(new GreetMenuEntry());
             menu.AddMenuEntry(new SubMenuEntry(menu.title));
             menu.AddMenuEntry(new SelectionMenuEntry(menu.title));
-            menu.AddMenuEntry(new StopMenuEntry(menu, "Exit"));
+            menu.AddMenuEntry(new StopMenuEntry(menu, "Exit", true));
             menu.Start();
             Console.Clear();
         }
@@ -50,7 +50,7 @@ public sealed class SubMenuEntry : IMenuEntry
         var menu = new CLIMenu(_subtitle, new DefaultMenuColors());
         menu.AddMenuEntry(new GreetMenuEntry());
         menu.AddMenuEntry(new SubMenuEntry(_subtitle));
-        menu.AddMenuEntry(new StopMenuEntry(menu, "Back"));
+        menu.AddMenuEntry(new StopMenuEntry(menu, "Back", true));
         menu.Start();
     };
 }
@@ -71,11 +71,11 @@ public sealed class SelectionMenuEntry : IMenuEntry
     public Action action => () =>
     {
         var menu = new CLIMenu(_subtitle, new DefaultMenuColors());
-        menu.AddMenuEntry(new SelectableMenuEntry("Desperate"));
-        menu.AddMenuEntry(new SelectableMenuEntry("Devs"));
-        menu.AddMenuEntry(new SelectableMenuEntry("Console"));
-        menu.AddMenuEntry(new SelectableMenuEntry("Menu"));
-        menu.AddMenuEntry(new StopMenuEntry(menu, "Back"));
+        menu.AddMenuEntry(new SelectableMenuEntry("Desperate", false));
+        menu.AddMenuEntry(new SelectableMenuEntry("Devs", false));
+        menu.AddMenuEntry(new SelectableMenuEntry("Console", false));
+        menu.AddMenuEntry(new SelectableMenuEntry("Menu", false));
+        menu.AddMenuEntry(new StopMenuEntry(menu, "Back", true));
         menu.Start();
     };
 }

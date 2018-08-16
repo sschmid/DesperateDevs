@@ -88,11 +88,10 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor {
                 "Cancel"
             )) {
 
-                var searchPaths = _codeGeneratorConfig
-                    .searchPaths
-                    .Concat(new[] { "./Assets", "./Library/ScriptAssemblies" })
-                    .Where(Directory.Exists)
-                    .ToArray();
+                var searchPaths = CodeGeneratorUtil.BuildSearchPaths(
+                    _codeGeneratorConfig.searchPaths,
+                    new[] { "./Assets", "./Library/ScriptAssemblies" }
+                );
 
                 CodeGeneratorUtil.AutoImport(_codeGeneratorConfig, searchPaths);
                 _preferences.Save();

@@ -91,6 +91,13 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
                     .ToArray());
         }
 
+        public static string[] BuildSearchPaths(string[] searchPaths, string[] additionalSearchPaths) {
+            return searchPaths
+                .Concat(additionalSearchPaths)
+                .Where(Directory.Exists)
+                .ToArray();
+        }
+
         public static void AutoImport(CodeGeneratorConfig config, params string[] searchPaths) {
             var assemblyPaths = AssemblyResolver
                 .GetAssembliesContainingType<ICodeGenerationPlugin>(true, searchPaths)
@@ -98,7 +105,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
                 .GetNonAbstractTypes<ICodeGenerationPlugin>()
                 .Select(type => type.Assembly)
                 .Distinct()
-                .Select(assembly => makeRelativePath(Directory.GetCurrentDirectory(), assembly.CodeBase))
+                .Select(assembly => assembly.CodeBase.MakePathRelativeTo(Directory.GetCurrentDirectory()))
                 .ToArray();
 
             var currentFullPaths = new HashSet<string>(config.searchPaths.Select(Path.GetFullPath));
@@ -115,24 +122,6 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
                 .Select(Path.GetFileNameWithoutExtension)
                 .Distinct()
                 .ToArray();
-        }
-
-        static string makeRelativePath(string dir, string otherDir) {
-            dir = createUri(dir);
-            otherDir = createUri(otherDir);
-            if (otherDir.StartsWith(dir)) {
-                otherDir = otherDir.Replace(dir, string.Empty);
-                if (otherDir.StartsWith("/")) {
-                    otherDir = otherDir.Substring(1);
-                }
-            }
-
-            return otherDir;
-        }
-
-        static string createUri(string path) {
-            var uri = new Uri(path);
-            return Uri.UnescapeDataString(uri.AbsolutePath + uri.Fragment);
         }
     }
 }

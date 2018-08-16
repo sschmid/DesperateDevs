@@ -6,6 +6,7 @@ namespace DesperateDevs.CLI.Utils
     public class CLIMenu
     {
         public string title { get { return _title; } }
+        public string indent = string.Empty;
 
         readonly string _title;
         readonly MenuSelection _selection;
@@ -65,9 +66,9 @@ namespace DesperateDevs.CLI.Utils
                 }
 
                 if (_menuEntries[i].showTriggerInTitle)
-                    Console.WriteLine("[" + _menuEntries[i].trigger + "] " + _menuEntries[i].title);
+                    Console.WriteLine(indent + "[" + _menuEntries[i].trigger + "] " + _menuEntries[i].title);
                 else
-                    Console.WriteLine(_menuEntries[i].title);
+                    Console.WriteLine(indent + _menuEntries[i].title);
 
                 Console.ResetColor();
             }

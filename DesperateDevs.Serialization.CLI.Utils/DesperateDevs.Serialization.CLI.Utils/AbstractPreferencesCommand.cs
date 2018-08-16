@@ -18,7 +18,7 @@ namespace DesperateDevs.Serialization.CLI.Utils {
             try {
                 var propertiesPath = args.GetPropertiesPath();
                 if (propertiesPath == null) {
-                    var allPreferences = Preferences.FindAll("*.properties");
+                    var allPreferences = Preferences.FindAll();
                     if (allPreferences.Length == 0) {
                         _logger.Warn("Couldn't find any *.properties files!");
                         _logger.Info("Use 'new Preferences.properties' to create an new file.");
