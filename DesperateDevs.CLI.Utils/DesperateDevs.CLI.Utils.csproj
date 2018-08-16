@@ -45,6 +45,13 @@
     <Compile Include="DesperateDevs.CLI.Utils\CLIProgram.cs" />
     <Compile Include="DesperateDevs.CLI.Utils\ArgsExtension.cs" />
     <Compile Include="DesperateDevs.CLI.Utils\ICommand.cs" />
+    <Compile Include="DesperateDevs.CLI.Utils\Menu\DefaultMenuColors.cs" />
+    <Compile Include="DesperateDevs.CLI.Utils\Menu\IMenuColors.cs" />
+    <Compile Include="DesperateDevs.CLI.Utils\Menu\IMenuEntry.cs" />
+    <Compile Include="DesperateDevs.CLI.Utils\Menu\CLIMenu.cs" />
+    <Compile Include="DesperateDevs.CLI.Utils\Menu\MenuEntries\SelectableMenuEntry.cs" />
+    <Compile Include="DesperateDevs.CLI.Utils\Menu\MenuEntries\StopMenuEntry.cs" />
+    <Compile Include="DesperateDevs.CLI.Utils\Menu\MenuSelection.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DesperateDevs.Logging.Formatters\DesperateDevs.Logging.Formatters.csproj">
