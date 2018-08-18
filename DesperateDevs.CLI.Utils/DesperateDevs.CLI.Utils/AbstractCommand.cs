@@ -1,3 +1,5 @@
+using System;
+
 namespace DesperateDevs.CLI.Utils {
 
     public abstract class AbstractCommand : ICommand {
@@ -11,10 +13,12 @@ namespace DesperateDevs.CLI.Utils {
         protected string[] _args;
 
         public virtual void Run(string[] args) {
+            Console.Title = "Jenny " + string.Join("  ", args);
             _rawArgs = args;
             _args = args
                 .WithoutTrigger()
                 .WithoutDefaultParameter();
+
             run();
         }
 

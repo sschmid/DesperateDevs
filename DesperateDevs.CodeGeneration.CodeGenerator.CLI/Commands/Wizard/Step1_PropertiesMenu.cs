@@ -12,7 +12,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
     {
         public string properties;
 
-        public Step1_PropertiesMenu(string title, IMenuColors colors, string[] properties) : base(buildTitle(title, properties), colors)
+        public Step1_PropertiesMenu(string title, ConsoleColors colors, string[] properties) : base(buildTitle(title, properties), colors)
         {
             foreach (var p in properties)
                 AddMenuEntry(new SelectPropertiesMenuEntry(this, p.MakePathRelativeTo(Directory.GetCurrentDirectory())));

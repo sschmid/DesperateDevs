@@ -8,7 +8,7 @@ namespace CLITester
     {
         public static void Main(string[] args)
         {
-            var menu = new CLIMenu("CLI Tester", new DefaultMenuColors());
+            var menu = new CLIMenu("CLI Tester", new ConsoleColors());
             menu.AddMenuEntry(new GreetMenuEntry());
             menu.AddMenuEntry(new SubMenuEntry(menu.title));
             menu.AddMenuEntry(new SelectionMenuEntry(menu.title));
@@ -47,7 +47,7 @@ public sealed class SubMenuEntry : IMenuEntry
 
     public Action action => () =>
     {
-        var menu = new CLIMenu(_subtitle, new DefaultMenuColors());
+        var menu = new CLIMenu(_subtitle, new ConsoleColors());
         menu.AddMenuEntry(new GreetMenuEntry());
         menu.AddMenuEntry(new SubMenuEntry(_subtitle));
         menu.AddMenuEntry(new StopMenuEntry(menu, "Back", true));
@@ -70,7 +70,7 @@ public sealed class SelectionMenuEntry : IMenuEntry
 
     public Action action => () =>
     {
-        var menu = new CLIMenu(_subtitle, new DefaultMenuColors());
+        var menu = new CLIMenu(_subtitle, new ConsoleColors());
         menu.AddMenuEntry(new SelectableMenuEntry("Desperate", false));
         menu.AddMenuEntry(new SelectableMenuEntry("Devs", false));
         menu.AddMenuEntry(new SelectableMenuEntry("Console", false));

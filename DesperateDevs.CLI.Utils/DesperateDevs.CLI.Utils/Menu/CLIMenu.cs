@@ -1,21 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DesperateDevs.CLI.Utils
 {
     public class CLIMenu
     {
-        public string title { get { return _title; } }
+        public string title => _title;
         public string indent = string.Empty;
 
         readonly string _title;
         readonly MenuSelection _selection;
         readonly List<IMenuEntry> _menuEntries;
-        readonly IMenuColors _colors;
+        readonly ConsoleColors _colors;
 
+        int _longestTitle;
         bool _stopRequested;
 
-        public CLIMenu(string title, IMenuColors colors)
+        public CLIMenu(string title, ConsoleColors colors)
         {
             _title = title;
             _selection = new MenuSelection();
@@ -30,6 +32,7 @@ namespace DesperateDevs.CLI.Utils
 
         public void Start()
         {
+            _longestTitle = _menuEntries.Max(e => e.title.Length);
             _stopRequested = false;
             while (!_stopRequested)
             {
@@ -56,8 +59,8 @@ namespace DesperateDevs.CLI.Utils
             {
                 if (i == _selection.index)
                 {
-                    Console.BackgroundColor = _colors.selectedBackground;
-                    Console.ForegroundColor = _colors.selectedForeground;
+                    Console.BackgroundColor = _colors.highlightedBackground;
+                    Console.ForegroundColor = _colors.highlightedForeground;
                 }
                 else
                 {
@@ -66,9 +69,9 @@ namespace DesperateDevs.CLI.Utils
                 }
 
                 if (_menuEntries[i].showTriggerInTitle)
-                    Console.WriteLine(indent + "[" + _menuEntries[i].trigger + "] " + _menuEntries[i].title);
+                    Console.WriteLine(indent + "[" + _menuEntries[i].trigger + "] " + _menuEntries[i].title.PadRight(_longestTitle));
                 else
-                    Console.WriteLine(indent + _menuEntries[i].title);
+                    Console.WriteLine(indent + _menuEntries[i].title.PadRight(_longestTitle));
 
                 Console.ResetColor();
             }

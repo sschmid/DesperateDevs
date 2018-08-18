@@ -8,7 +8,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 {
     public class Step2_PluginsMenu : CLIMenu
     {
-        public Step2_PluginsMenu(string title, IMenuColors colors, Preferences preferences) : base(buildTitle(title), colors)
+        public Step2_PluginsMenu(string title, ConsoleColors colors, Preferences preferences) : base(buildTitle(title), colors)
         {
             Console.WriteLine(title);
             Console.WriteLine("Searching for plugins. Please wait...");
