@@ -19,7 +19,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
             foreach (var plugin in allPlugins)
             {
                 var localPlugin = plugin;
-                var entry = new SelectableMenuEntry(plugin, config.plugins.Contains(plugin), isSelected => updateConfig(config, localPlugin, isSelected));
+                var entry = new SelectableMenuEntry(localPlugin, config.plugins.Contains(localPlugin), isSelected => updateConfig(config, localPlugin, isSelected));
                 AddMenuEntry(entry);
                 pluginEntries.Add(entry);
             }
@@ -67,7 +67,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                    "- PreProcessors - prepare the data source if needed\n" +
                    "- DataProviders - process the data source and create the model\n" +
                    "- CodeGenerators - read the model and generate CodeGenFiles in memory\n" +
-                   "- PostProcessors - process the CodeGenFiles, e.g. writing to disc\n\n" +
+                   "- PostProcessors - process the CodeGenFiles, e.g. writing to disc\n" +
+                   "- Doctors - diagnose and fix problems\n\n" +
                    "Please select the plugins you want to activate";
         }
     }
@@ -81,7 +82,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                     .OrderBy(path => path)
                     .ToArray();
 
-                config.plugins = config.searchPaths
+                config.plugins = config.plugins
                     .OrderBy(path => path)
                     .ToArray();
 

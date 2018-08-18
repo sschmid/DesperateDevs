@@ -111,6 +111,14 @@ namespace DesperateDevs.CLI.Utils
                         _selection.runAction = false;
                     }
                     break;
+                case ConsoleKey.Home:
+                    _selection.index = 0;
+                    _selection.runAction = false;
+                    break;
+                case ConsoleKey.End:
+                    _selection.index = _menuEntries.Count - 1;
+                    _selection.runAction = false;
+                    break;
                 case ConsoleKey.Enter:
                     _selection.runAction = true;
                     break;

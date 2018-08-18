@@ -45,6 +45,9 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
             pluginsMenu.indent = indent;
             pluginsMenu.Start();
 
+            var fixCommand = new FixCommand();
+            fixCommand.Run(new[] { fixCommand.trigger, preferences.propertiesPath, "-s" });
+
             Console.Clear();
         }
 
