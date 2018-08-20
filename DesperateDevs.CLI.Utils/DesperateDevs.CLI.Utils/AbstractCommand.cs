@@ -1,5 +1,3 @@
-using System;
-
 namespace DesperateDevs.CLI.Utils {
 
     public abstract class AbstractCommand : ICommand {
@@ -9,11 +7,12 @@ namespace DesperateDevs.CLI.Utils {
         public abstract string group { get; }
         public abstract string example { get; }
 
+        protected CLIProgram _program;
         protected string[] _rawArgs;
         protected string[] _args;
 
-        public virtual void Run(string[] args) {
-            Console.Title = "Jenny " + string.Join("  ", args);
+        public void Run(CLIProgram program, string[] args) {
+            _program = program;
             _rawArgs = args;
             _args = args
                 .WithoutTrigger()

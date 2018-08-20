@@ -40,7 +40,7 @@ I8,      ,8'    A lovely .NET Code Generator        I8   8I
 
             // Step 1: Properties
             var allPreferenes = Preferences.FindAll();
-            var propertiesMenu = new Step1_PropertiesMenu(title, CLIHelper.consoleColors, allPreferenes);
+            var propertiesMenu = new Step1_PropertiesMenu(_program, title, CLIHelper.consoleColors, allPreferenes);
             propertiesMenu.indent = indent;
             propertiesMenu.Start();
 
@@ -52,7 +52,7 @@ I8,      ,8'    A lovely .NET Code Generator        I8   8I
             pluginsMenu.Start();
 
             var fixCommand = new FixCommand();
-            fixCommand.Run(new[] { fixCommand.trigger, preferences.propertiesPath, "-s" });
+            fixCommand.Run(_program, new[] { fixCommand.trigger, preferences.propertiesPath, "-s" });
 
             Console.Clear();
         }

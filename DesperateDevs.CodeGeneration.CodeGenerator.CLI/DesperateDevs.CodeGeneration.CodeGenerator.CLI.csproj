@@ -51,6 +51,7 @@
     <Compile Include="Commands\DryRunCommand.cs" />
     <Compile Include="Commands\FixCommand.cs" />
     <Compile Include="Commands\GenerateCommand.cs" />
+    <Compile Include="Commands\HelpCommand.cs" />
     <Compile Include="Commands\ScanCommand.cs" />
     <Compile Include="Commands\ServerCommand.cs" />
     <Compile Include="Commands\StatusCommand.cs" />

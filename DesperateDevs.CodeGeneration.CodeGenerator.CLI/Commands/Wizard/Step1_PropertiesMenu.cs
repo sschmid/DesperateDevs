@@ -12,15 +12,15 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
     {
         public string properties;
 
-        public Step1_PropertiesMenu(string title, ConsoleColors colors, string[] properties) : base(buildTitle(title, properties), colors)
+        public Step1_PropertiesMenu(CLIProgram progam, string title, ConsoleColors colors, string[] properties) : base(buildTitle(title, properties), colors)
         {
             foreach (var p in properties)
                 AddMenuEntry(new SelectPropertiesMenuEntry(this, p.MakePathRelativeTo(Directory.GetCurrentDirectory())));
 
             if (!properties.Any(p => p.EndsWith(Preferences.DEFAULT_PATH)))
-                AddMenuEntry(new CreateDefaultPropertiesMenuEntry(this));
+                AddMenuEntry(new CreateDefaultPropertiesMenuEntry(progam, this));
 
-            AddMenuEntry(new CreateCustomPropertiesMenuEntry(this));
+            AddMenuEntry(new CreateCustomPropertiesMenuEntry(progam, this));
             AddMenuEntry(new ExitMenuEntry("Exit", false));
         }
 
@@ -62,11 +62,11 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 
     public class CreateDefaultPropertiesMenuEntry : MenuEntry
     {
-        public CreateDefaultPropertiesMenuEntry(Step1_PropertiesMenu menu) :
+        public CreateDefaultPropertiesMenuEntry(CLIProgram progam, Step1_PropertiesMenu menu) :
             base("Create new Jenny.properties", null, false, () =>
             {
                 var command = new NewConfigCommand();
-                command.Run(new[] { command.trigger, Preferences.DEFAULT_PATH });
+                command.Run(progam, new[] { command.trigger, Preferences.DEFAULT_PATH });
                 menu.properties = Preferences.DEFAULT_PATH;
                 menu.Stop();
             })
@@ -76,13 +76,13 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 
     public class CreateCustomPropertiesMenuEntry : MenuEntry
     {
-        public CreateCustomPropertiesMenuEntry(Step1_PropertiesMenu menu) :
+        public CreateCustomPropertiesMenuEntry(CLIProgram progam, Step1_PropertiesMenu menu) :
             base("Create a new properties file with a custom name", null, false, () =>
             {
                 Console.WriteLine("Please enter a file name");
                 var fileName = Console.ReadLine();
                 var command = new NewConfigCommand();
-                command.Run(new[] { command.trigger, fileName });
+                command.Run(progam, new[] { command.trigger, fileName });
                 menu.properties = fileName;
                 menu.Stop();
             })

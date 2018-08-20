@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using DesperateDevs.Logging;
@@ -11,35 +10,42 @@ namespace DesperateDevs.CLI.Utils {
     public class CLIProgram {
 
         readonly Logger _logger;
+        readonly Type _defaultCommand;
         readonly string[] _args;
         readonly ICommand[] _commands;
-        readonly Action<ICommand[]> _printUsage;
 
-        public CLIProgram(string applicationName, string[] args, Action<ICommand[]> printUsage) {
+        public CLIProgram(string applicationName, Type defaultCommand, string[] args, ConsoleColors consoleColors = null) {
             _logger = fabl.GetLogger(applicationName);
+            _defaultCommand = defaultCommand;
             _args = args;
-            _printUsage = printUsage;
-            CLIHelper.consoleColors = new ConsoleColors();
+            CLIHelper.consoleColors = consoleColors ?? new ConsoleColors();
+            Console.Title = applicationName + string.Join("  ", args);
             initializeLogging(args, CLIHelper.consoleColors);
+            _commands = loadCommands(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory));
+        }
 
-            var baseDirectory = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory);
-            _logger.Debug("Loading assemblies from " + baseDirectory);
-            var resolver = AssemblyResolver.LoadAssemblies(false, baseDirectory);
+        public void Run() {
+            if (_args != null && _args.WithoutParameter().Length != 0) {
+                runCommand(_args);
+            } else {
+                _commands
+                    .Single(c => c.GetType() == _defaultCommand)
+                    .Run(this, _args);
+            }
+        }
 
-            _commands = AppDomain.CurrentDomain
+        ICommand[] loadCommands(string dir) {
+            _logger.Debug("Loading assemblies from " + dir);
+            var resolver = AssemblyResolver.LoadAssemblies(false, dir);
+
+            var commands = AppDomain.CurrentDomain
                 .GetInstancesOf<ICommand>()
                 .OrderBy(c => c.trigger)
                 .ToArray();
 
             resolver.Close();
-        }
 
-        public void Run() {
-            if (_args == null || _args.WithoutParameter().Length == 0) {
-                _printUsage(_commands);
-                return;
-            }
-            runCommand(_args);
+            return commands;
         }
 
         public ICommand GetCommand(string trigger) {
@@ -51,34 +57,31 @@ namespace DesperateDevs.CLI.Utils {
             return command;
         }
 
-        public static int GetCommandListPad(ICommand[] commands) {
-            return commands.Length == 0
+        public int GetCommandListPad() {
+            return _commands.Length == 0
                 ? 0
-                : commands.Max(c => c.example != null ? c.example.Length : 0);
+                : _commands.Max(c => c.example?.Length ?? 0);
         }
 
-        public static List<string> GetFormattedCommandList(ICommand[] commands) {
-            var pad = GetCommandListPad(commands);
+        public string GetFormattedCommandList() {
+            var pad = GetCommandListPad();
 
-            var groupedCommands = commands
+            var groupedCommands = _commands
                 .Where(c => c.example != null)
                 .GroupBy(c => c.group ?? string.Empty)
                 .OrderBy(group => group.Key);
 
-            return groupedCommands
-                .SelectMany(group => {
-                    var commandsInGroup = @group.ToList();
-                    var list = new List<string>(commandsInGroup.Count + 2);
-                    list.Add(group.Key == string.Empty ? String.Empty : group.Key + ":");
-                    list.AddRange(commandsInGroup.Select(c => "  " + c.example.PadRight(pad) + " - " + c.description));
-                    list.Add(string.Empty);
-                    return list;
-                }).ToList();
+            return string.Join("\n", groupedCommands.Select(group => {
+                var groupHeader = group.Key == string.Empty ? string.Empty : group.Key + ":\n";
+                var commandInGroup = string.Join("\n", group
+                    .Select(command => "  " + command.example.PadRight(pad) + " - " + command.description));
+                return groupHeader + "\n" + commandInGroup + "\n";
+            }));
         }
 
         void runCommand(string[] args) {
             try {
-                GetCommand(args.WithoutDefaultParameter()[0]).Run(args);
+                GetCommand(args.WithoutDefaultParameter()[0]).Run(this, args);
             } catch (Exception ex) {
                 _logger.Error(args.IsVerbose() ? ex.ToString() : ex.Message);
             }

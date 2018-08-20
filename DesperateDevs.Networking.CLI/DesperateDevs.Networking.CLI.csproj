@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Commands\AbstractSocketCommand.cs" />
     <Compile Include="Commands\ConnectCommand.cs" />
+    <Compile Include="Commands\HelpCommand.cs" />
     <Compile Include="Commands\ListenCommand.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
@@ -60,6 +61,10 @@
     <ProjectReference Include="..\DesperateDevs.Networking\DesperateDevs.Networking.csproj">
       <Project>{925D6640-CB5A-4833-85FE-63332651880A}</Project>
       <Name>DesperateDevs.Networking</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DesperateDevs.Utils\DesperateDevs.Utils.csproj">
+      <Project>{f81e2e63-8f15-43d9-85c0-57237ed42250}</Project>
+      <Name>DesperateDevs.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

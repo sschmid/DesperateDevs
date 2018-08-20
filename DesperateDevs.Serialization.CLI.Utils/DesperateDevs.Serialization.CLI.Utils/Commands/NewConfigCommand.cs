@@ -31,7 +31,7 @@ namespace DesperateDevs.Serialization.CLI.Utils {
             _logger.Info("Created " + preferences.userPropertiesPath);
             _logger.Debug(preferences.ToString());
 
-            new EditConfigCommand().Run(_args);
+            new EditConfigCommand().Run(_program, _args);
         }
 
         bool doesAlreadyExist(string path) {

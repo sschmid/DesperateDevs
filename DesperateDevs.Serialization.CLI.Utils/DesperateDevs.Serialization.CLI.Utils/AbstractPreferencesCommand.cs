@@ -14,7 +14,7 @@ namespace DesperateDevs.Serialization.CLI.Utils {
             _logger = fabl.GetLogger(loggerName);
         }
 
-        public override void Run(string[] args) {
+        public void Run(CLIProgram program, string[] args) {
             try {
                 var propertiesPath = args.GetPropertiesPath();
                 if (propertiesPath == null) {
@@ -45,7 +45,7 @@ namespace DesperateDevs.Serialization.CLI.Utils {
                 return;
             }
 
-            base.Run(args);
+            base.Run(program, args);
         }
     }
 }

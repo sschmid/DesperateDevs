@@ -17,7 +17,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
         }
 
         protected override void run() {
-            new StatusCommand().Run(_rawArgs);
+            new StatusCommand().Run(_program, _rawArgs);
 
             diagnose();
 
