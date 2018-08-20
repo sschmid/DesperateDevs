@@ -1,25 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using DesperateDevs.Logging;
-using DesperateDevs.Logging.Appenders;
-using DesperateDevs.Logging.Formatters;
 using NSpec;
 
 public static class TestExtensions {
-
-    [Obsolete("Just for testing. Please remove when done.")]
-    public static void SetupLogging(this nspec spec) {
-        var appender = new ConsoleAppender();
-        var formatter = new DefaultLogMessageFormatter();
-
-        fabl.AddAppender((logger, level, message) => {
-            var msg = formatter.FormatMessage(logger, level, message);
-            appender.WriteLine(logger, level, msg);
-        });
-    }
 
     public static void Fail(this nspec spec) {
         "but did".should_be("should not happen");

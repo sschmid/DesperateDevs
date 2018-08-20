@@ -10,13 +10,6 @@ namespace DesperateDevs.CLI.Utils {
 
     public class CLIProgram {
 
-        public static readonly Dictionary<LogLevel, ConsoleColor> consoleColors =
-            new Dictionary<LogLevel, ConsoleColor> {
-                { LogLevel.Warn, ConsoleColor.DarkYellow },
-                { LogLevel.Error, ConsoleColor.Red },
-                { LogLevel.Fatal, ConsoleColor.DarkRed }
-            };
-
         readonly Logger _logger;
         readonly string[] _args;
         readonly ICommand[] _commands;
@@ -26,7 +19,8 @@ namespace DesperateDevs.CLI.Utils {
             _logger = fabl.GetLogger(applicationName);
             _args = args;
             _printUsage = printUsage;
-            initializeLogging(args, consoleColors);
+            CLIHelper.consoleColors = new ConsoleColors();
+            initializeLogging(args, CLIHelper.consoleColors);
 
             var baseDirectory = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory);
             _logger.Debug("Loading assemblies from " + baseDirectory);
@@ -90,7 +84,7 @@ namespace DesperateDevs.CLI.Utils {
             }
         }
 
-        void initializeLogging(string[] args, Dictionary<LogLevel, ConsoleColor> consoleColors) {
+        void initializeLogging(string[] args, ConsoleColors consoleColors) {
             if (args.IsSilent()) {
                 fabl.globalLogLevel = LogLevel.Error;
             } else if (args.IsVerbose()) {
@@ -109,8 +103,8 @@ namespace DesperateDevs.CLI.Utils {
             fabl.ResetAppenders();
             fabl.AddAppender((logger, logLevel, message) => {
                 message = formatter(logger, logLevel, message);
-                if (consoleColors.ContainsKey(logLevel)) {
-                    Console.ForegroundColor = consoleColors[logLevel];
+                if (consoleColors.logLevelColors.ContainsKey(logLevel)) {
+                    Console.ForegroundColor = consoleColors.logLevelColors[logLevel];
                     Console.WriteLine(message);
                     Console.ResetColor();
                 } else {

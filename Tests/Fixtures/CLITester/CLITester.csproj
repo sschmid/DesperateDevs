@@ -47,6 +47,10 @@
       <Project>{c62f56cd-83aa-428b-b75b-6ee5654cf56d}</Project>
       <Name>DesperateDevs.CLI.Utils</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\DesperateDevs.Utils\DesperateDevs.Utils.csproj">
+      <Project>{f81e2e63-8f15-43d9-85c0-57237ed42250}</Project>
+      <Name>DesperateDevs.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

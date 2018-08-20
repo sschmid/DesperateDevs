@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DesperateDevs.CLI.Utils;
 using DesperateDevs.Serialization;
+using DesperateDevs.Utils;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 {

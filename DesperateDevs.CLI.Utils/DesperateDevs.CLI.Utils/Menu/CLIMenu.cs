@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DesperateDevs.Utils;
 
 namespace DesperateDevs.CLI.Utils
 {
@@ -64,8 +65,8 @@ namespace DesperateDevs.CLI.Utils
                 }
                 else
                 {
-                    Console.BackgroundColor = _colors.normalBackground;
-                    Console.ForegroundColor = _colors.normalForeground;
+                    Console.BackgroundColor = _colors.menuEntryBackground;
+                    Console.ForegroundColor = _colors.menuEntryForeground;
                 }
 
                 if (_menuEntries[i].showTriggerInTitle)
