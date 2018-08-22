@@ -6,10 +6,7 @@ namespace DesperateDevs.Utils
 {
     public class ConsoleColors
     {
-        public ConsoleColor menuEntryBackground { get; set; } = ConsoleColor.Black;
-        public ConsoleColor menuEntryForeground { get; set; } = ConsoleColor.White;
-
-        public ConsoleColor highlightedBackground { get; set; } = ConsoleColor.DarkBlue;
+        public ConsoleColor highlightedBackground { get; set; } = ConsoleColor.White;
         public ConsoleColor highlightedForeground { get; set; } = ConsoleColor.Black;
 
         public readonly Dictionary<LogLevel, ConsoleColor> logLevelColors;

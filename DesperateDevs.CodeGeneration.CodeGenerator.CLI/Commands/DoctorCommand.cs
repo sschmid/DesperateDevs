@@ -4,19 +4,21 @@ using DesperateDevs.Serialization;
 using DesperateDevs.Serialization.CLI.Utils;
 using DesperateDevs.Utils;
 
-namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
+namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
+{
+    public class DoctorCommand : AbstractPreferencesCommand
+    {
+        public override string trigger => "doctor";
+        public override string description => "Check the config for potential problems";
+        public override string group => "Plugins";
+        public override string example => "doctor";
 
-    public class DoctorCommand : AbstractPreferencesCommand {
-
-        public override string trigger { get { return "doctor"; } }
-        public override string description { get { return "Check the config for potential problems"; } }
-        public override string group { get { return "Plugins"; } }
-        public override string example { get { return "doctor"; } }
-
-        public DoctorCommand() : base(typeof(DoctorCommand).FullName) {
+        public DoctorCommand() : base(typeof(DoctorCommand).FullName)
+        {
         }
 
-        protected override void run() {
+        protected override void run()
+        {
             new StatusCommand().Run(_program, _rawArgs);
 
             diagnose();
@@ -29,9 +31,11 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             _logger.Info("👨‍🔬  No problems detected. Happy coding :)");
         }
 
-        void diagnose() {
+        void diagnose()
+        {
             var doctors = AppDomain.CurrentDomain.GetInstancesOf<IDoctor>();
-            foreach (var doctor in doctors.OfType<IConfigurable>()) {
+            foreach (var doctor in doctors.OfType<IConfigurable>())
+            {
                 doctor.Configure(_preferences);
             }
 
@@ -39,12 +43,14 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
                 .Select(doctor => doctor.Diagnose())
                 .ToArray();
 
-            foreach (var diagnosis in diagnoses.Where(d => d.severity == DiagnosisSeverity.Hint)) {
+            foreach (var diagnosis in diagnoses.Where(d => d.severity == DiagnosisSeverity.Hint))
+            {
                 _logger.Info("👨‍⚕️  Symptoms: " + diagnosis.symptoms);
                 _logger.Info("💊  Treatment: " + diagnosis.treatment);
             }
 
-            foreach (var diagnosis in diagnoses.Where(d => d.severity == DiagnosisSeverity.Warning)) {
+            foreach (var diagnosis in diagnoses.Where(d => d.severity == DiagnosisSeverity.Warning))
+            {
                 _logger.Warn("👨‍⚕️  Symptoms: " + diagnosis.symptoms);
                 _logger.Warn("💊  Treatment: " + diagnosis.treatment);
             }
@@ -54,7 +60,9 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
                 .Select(d => "👨‍⚕️  Symptoms: " + d.symptoms + "\n💊  Treatment: " + d.treatment)
                 .ToArray());
 
-            if (!string.IsNullOrEmpty(errors)) {
+            if (!string.IsNullOrEmpty(errors))
+            {
+                errors += "\nUse 'jenny fix' to apply treatments";
                 throw new Exception(errors);
             }
         }

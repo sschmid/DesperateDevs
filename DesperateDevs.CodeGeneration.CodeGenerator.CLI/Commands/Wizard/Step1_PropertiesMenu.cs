@@ -21,7 +21,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                 AddMenuEntry(new CreateDefaultPropertiesMenuEntry(progam, this));
 
             AddMenuEntry(new CreateCustomPropertiesMenuEntry(progam, this));
-            AddMenuEntry(new ExitMenuEntry("Exit", false));
+            AddMenuEntry(new ExitMenuEntry("Quit", false));
         }
 
         static string buildTitle(string title, string[] properties)

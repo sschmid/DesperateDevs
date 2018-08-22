@@ -25,7 +25,7 @@ namespace DesperateDevs.CLI.Utils
             writeMultiLine(value, centerEachLine, (line, length) =>
             {
                 Console.SetCursorPosition(Math.Max(0, (Console.BufferWidth - length) / 2), Console.CursorTop);
-                Console.WriteLine(value);
+                Console.WriteLine(line);
             });
 
             Console.ResetColor();
@@ -82,12 +82,14 @@ namespace DesperateDevs.CLI.Utils
             Console.ResetColor();
         }
 
-        public static void WriteHighlighted(string value, bool padRight)
+        public static void WriteHighlighted(string value, bool padRight, int pad = -1)
         {
             Console.BackgroundColor = consoleColors.highlightedBackground;
             Console.ForegroundColor = consoleColors.highlightedForeground;
 
-            writeMultiLine(value, true, (line, length) => Console.WriteLine(padRight ? line.PadRight(Console.BufferWidth - Console.CursorLeft - 1) : value));
+            writeMultiLine(value, true, (line, length) => Console.WriteLine(padRight
+                ? line.PadRight(pad == -1 ? (Console.BufferWidth - Console.CursorLeft) : pad)
+                : line));
 
             Console.ResetColor();
         }
@@ -119,37 +121,38 @@ namespace DesperateDevs.CLI.Utils
 //            Console.WriteLine("--------------------------------------------------------------------------------");
 //
 //            WriteCentered("WriteCentered", false);
-//            WriteCentered("WriteCentered per line", true);
+//            WriteCentered("WriteCentered\nper line", true);
 //
 //            Console.WriteLine("--------------------------------------------------------------------------------");
 //
 //            WriteCenteredHighlightedPadded("WriteCenteredHighlightedPadded", false);
-//            WriteCenteredHighlightedPadded("WriteCenteredHighlightedPadded per line", true);
+//            WriteCenteredHighlightedPadded("WriteCenteredHighlightedPadded\nper line", true);
 //
 //            Console.WriteLine("--------------------------------------------------------------------------------");
 //
 //            WriteCenteredHighlighted("WriteCenteredHighlighted", false);
-//            WriteCenteredHighlighted("WriteCenteredHighlighted per line", true);
+//            WriteCenteredHighlighted("WriteCenteredHighlighted\nper line", true);
 //
 //            Console.WriteLine("--------------------------------------------------------------------------------");
 //
 //            WriteRight("WriteRight", false);
-//            WriteRight("WriteRight per line", true);
+//            WriteRight("WriteRight\nper line", true);
 //
 //            Console.WriteLine("--------------------------------------------------------------------------------");
 //
 //            WriteRightHighlightedPadded("WriteRightHighlightedPadded", false);
-//            WriteRightHighlightedPadded("WriteRightHighlightedPadded per line", true);
+//            WriteRightHighlightedPadded("WriteRightHighlightedPadded\nper line", true);
 //
 //            Console.WriteLine("--------------------------------------------------------------------------------");
 //
 //            WriteRightHighlighted("WriteRightHighlighted", false);
-//            WriteRightHighlighted("WriteRightHighlighted per line", true);
+//            WriteRightHighlighted("WriteRightHighlighted\nper line", true);
 //
 //            Console.WriteLine("--------------------------------------------------------------------------------");
 //
 //            WriteHighlighted("WriteHighlighted", false);
-//            WriteHighlighted("WriteHighlighted Padded", true);
+//            WriteHighlighted("WriteHighlighted\nPadded", true);
+//            WriteHighlighted("WriteHighlighted\nCustom Padd", true, 40);
 //
 //            Console.WriteLine("--------------------------------------------------------------------------------");
 //        }

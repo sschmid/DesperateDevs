@@ -33,7 +33,7 @@ namespace DesperateDevs.CLI.Utils
 
         public void Start()
         {
-            _longestTitle = _menuEntries.Max(e => e.title.Length);
+            _longestTitle = _menuEntries.Max(e => e.title.Length) + indent.Length;
             _stopRequested = false;
             while (!_stopRequested)
             {
@@ -58,23 +58,19 @@ namespace DesperateDevs.CLI.Utils
 
             for (int i = 0; i < _menuEntries.Count; i++)
             {
+                var entry = indent + (_menuEntries[i].showTriggerInTitle
+                                ? "[" + _menuEntries[i].trigger + "] " + _menuEntries[i].title
+                                : _menuEntries[i].title);
+
                 if (i == _selection.index)
                 {
-                    Console.BackgroundColor = _colors.highlightedBackground;
-                    Console.ForegroundColor = _colors.highlightedForeground;
+                    CLIHelper.WriteHighlighted(entry, true, _longestTitle);
                 }
                 else
                 {
-                    Console.BackgroundColor = _colors.menuEntryBackground;
-                    Console.ForegroundColor = _colors.menuEntryForeground;
+                    Console.ResetColor();
+                    Console.WriteLine(entry);
                 }
-
-                if (_menuEntries[i].showTriggerInTitle)
-                    Console.WriteLine(indent + "[" + _menuEntries[i].trigger + "] " + _menuEntries[i].title.PadRight(_longestTitle));
-                else
-                    Console.WriteLine(indent + _menuEntries[i].title.PadRight(_longestTitle));
-
-                Console.ResetColor();
             }
         }
 

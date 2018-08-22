@@ -6,16 +6,16 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
 
     public class CodeGeneratorConfig : AbstractConfigurableConfig {
 
-        const string SEARCH_PATHS_KEY = "Jenny.SearchPaths";
-        const string PLUGINS_PATHS_KEY = "Jenny.Plugins";
+        public const string SEARCH_PATHS_KEY = "Jenny.SearchPaths";
+        public const string PLUGINS_PATHS_KEY = "Jenny.Plugins";
 
-        const string PRE_PROCESSORS_KEY = "Jenny.PreProcessors";
-        const string DATA_PROVIDERS_KEY = "Jenny.DataProviders";
-        const string CODE_GENERATORS_KEY = "Jenny.CodeGenerators";
-        const string POST_PROCESSORS_KEY = "Jenny.PostProcessors";
+        public const string PRE_PROCESSORS_KEY = "Jenny.PreProcessors";
+        public const string DATA_PROVIDERS_KEY = "Jenny.DataProviders";
+        public const string CODE_GENERATORS_KEY = "Jenny.CodeGenerators";
+        public const string POST_PROCESSORS_KEY = "Jenny.PostProcessors";
 
-        const string PORT_KEY = "Jenny.Server.Port";
-        const string HOST_KEY = "Jenny.Client.Host";
+        public const string PORT_KEY = "Jenny.Server.Port";
+        public const string HOST_KEY = "Jenny.Client.Host";
 
         public override Dictionary<string, string> defaultProperties {
             get {

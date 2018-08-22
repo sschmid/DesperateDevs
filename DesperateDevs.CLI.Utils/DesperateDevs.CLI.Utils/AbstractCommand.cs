@@ -1,7 +1,7 @@
-namespace DesperateDevs.CLI.Utils {
-
-    public abstract class AbstractCommand : ICommand {
-
+namespace DesperateDevs.CLI.Utils
+{
+    public abstract class AbstractCommand : ICommand
+    {
         public abstract string trigger { get; }
         public abstract string description { get; }
         public abstract string group { get; }
@@ -11,7 +11,8 @@ namespace DesperateDevs.CLI.Utils {
         protected string[] _rawArgs;
         protected string[] _args;
 
-        public void Run(CLIProgram program, string[] args) {
+        public virtual void Run(CLIProgram program, string[] args)
+        {
             _program = program;
             _rawArgs = args;
             _args = args
