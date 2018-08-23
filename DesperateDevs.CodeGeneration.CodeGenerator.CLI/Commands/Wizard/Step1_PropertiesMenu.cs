@@ -66,7 +66,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
             base("Create new Jenny.properties", null, false, () =>
             {
                 var command = new NewConfigCommand();
-                command.Run(progam, new[] { command.trigger, Preferences.DEFAULT_PATH });
+                command.Run(progam, new[] { command.trigger, "-s", Preferences.DEFAULT_PATH });
                 menu.properties = Preferences.DEFAULT_PATH;
                 menu.Stop();
             })
@@ -82,7 +82,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                 Console.WriteLine("Please enter a file name");
                 var fileName = Console.ReadLine();
                 var command = new NewConfigCommand();
-                command.Run(progam, new[] { command.trigger, fileName });
+                command.Run(progam, new[] { command.trigger, "-s", fileName });
                 menu.properties = fileName;
                 menu.Stop();
             })
