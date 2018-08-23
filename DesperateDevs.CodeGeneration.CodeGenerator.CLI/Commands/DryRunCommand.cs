@@ -1,23 +1,26 @@
 using DesperateDevs.Serialization.CLI.Utils;
 
-namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
+namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
+{
+    public class DryRunCommand : AbstractPreferencesCommand
+    {
+        public override string trigger => "dry";
+        public override string description => "Run the code generator in dry mode";
+        public override string group => CommandGroups.CODE_GENERATION;
+        public override string example => "dry";
 
-    public class DryRunCommand : AbstractPreferencesCommand {
-
-        public override string trigger { get { return "dry"; } }
-        public override string description { get { return "Run the code generator in dry mode"; } }
-        public override string group { get { return "Code Generation"; } }
-        public override string example { get { return "dry"; } }
-
-        public DryRunCommand() : base(typeof(DryRunCommand).FullName) {
+        public DryRunCommand() : base(typeof(DryRunCommand).FullName)
+        {
         }
 
-        protected override void run() {
+        protected override void run()
+        {
             var codeGenerator = CodeGeneratorUtil.CodeGeneratorFromPreferences(_preferences);
 
-            codeGenerator.OnProgress += (title, info, progress) => {
+            codeGenerator.OnProgress += (title, info, progress) =>
+            {
                 var p = (int)(progress * 100);
-                _logger.Debug(string.Format("{0}: {1} ({2}%)", title, info, p));
+                _logger.Debug($"{title}: {info} ({p}%)");
             };
             codeGenerator.DryRun();
         }

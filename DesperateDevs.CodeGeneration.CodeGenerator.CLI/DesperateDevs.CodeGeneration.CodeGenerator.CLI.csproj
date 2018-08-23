@@ -46,6 +46,7 @@
     <Compile Include="CLIConfig.cs" />
     <Compile Include="Commands\AutoImportCommand.cs" />
     <Compile Include="Commands\ClientCommand.cs" />
+    <Compile Include="Commands\CommandGroups.cs" />
     <Compile Include="Commands\DoctorCommand.cs" />
     <Compile Include="Commands\DonateCommand.cs" />
     <Compile Include="Commands\DryRunCommand.cs" />

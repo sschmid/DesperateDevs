@@ -9,41 +9,47 @@ using DesperateDevs.Networking;
 using DesperateDevs.Serialization;
 using DesperateDevs.Serialization.CLI.Utils;
 
-namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
-
-    public class ServerCommand : AbstractPreferencesCommand {
-
-        public override string trigger { get { return "server"; } }
-        public override string description { get { return "Start server mode"; } }
-        public override string group { get { return "Code Generation"; } }
-        public override string example { get { return "server"; } }
+namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
+{
+    public class ServerCommand : AbstractPreferencesCommand
+    {
+        public override string trigger => "server";
+        public override string description => "Start server mode";
+        public override string group => CommandGroups.CODE_GENERATION;
+        public override string example => "server";
 
         AbstractTcpSocket _socket;
         readonly List<string> _logBuffer = new List<string>();
 
-        public ServerCommand() : base(typeof(ServerCommand).FullName) {
+        public ServerCommand() : base(typeof(ServerCommand).FullName)
+        {
         }
 
-        protected override void run() {
+        protected override void run()
+        {
             var config = _preferences.CreateAndConfigure<CodeGeneratorConfig>();
             var server = new TcpServerSocket();
             _socket = server;
             server.OnReceived += onReceived;
             server.Listen(config.port);
             Console.CancelKeyPress += onCancel;
-            while (true) {
+            while (true)
+            {
                 server.Send(Encoding.UTF8.GetBytes(Console.ReadLine()));
             }
         }
 
-        void onReceived(AbstractTcpSocket socket, Socket client, byte[] bytes) {
+        void onReceived(AbstractTcpSocket socket, Socket client, byte[] bytes)
+        {
             var message = Encoding.UTF8.GetString(bytes);
             _logger.Info(message);
 
             var args = getArgsFromMessage(message);
 
-            try {
-                if (args[0] == trigger) {
+            try
+            {
+                if (args[0] == trigger)
+                {
                     throw new Exception("Server is already running!");
                 }
                 var command = _program.GetCommand(args.WithoutDefaultParameter()[0]);
@@ -55,7 +61,9 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
                     ? new byte[] { 0 }
                     : Encoding.UTF8.GetBytes(logBufferString);
                 socket.Send(sendBytes);
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 _logger.Error(args.IsVerbose()
                     ? ex.ToString()
                     : ex.Message);
@@ -66,22 +74,26 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             _logBuffer.Clear();
         }
 
-        string[] getArgsFromMessage(string command) {
+        string[] getArgsFromMessage(string command)
+        {
             return command
                 .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(value => value.Trim())
                 .ToArray();
         }
 
-        void onCancel(object sender, ConsoleCancelEventArgs e) {
+        void onCancel(object sender, ConsoleCancelEventArgs e)
+        {
             _socket.Disconnect();
         }
 
-        string getLogBufferString() {
+        string getLogBufferString()
+        {
             return string.Join("\n", _logBuffer.ToArray());
         }
 
-        void onLog(Logger logger, LogLevel loglevel, string message) {
+        void onLog(Logger logger, LogLevel loglevel, string message)
+        {
             _logBuffer.Add(message);
         }
     }

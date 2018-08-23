@@ -6,7 +6,7 @@ namespace DesperateDevs.Serialization.CLI.Utils
     {
         public override string trigger => "edit";
         public override string description => "Open config files with default editor";
-        public override string group => "Properties";
+        public override string group => CommandGroups.PROPERTIES;
         public override string example => "edit";
 
         public EditConfigCommand() : base(typeof(EditConfigCommand).FullName)

@@ -9,10 +9,10 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
     public class StatusCommand : AbstractPreferencesCommand {
 
-        public override string trigger { get { return "status"; } }
-        public override string description { get { return "List available and unavailable plugins"; } }
-        public override string group { get { return "Plugins"; } }
-        public override string example { get { return "status"; } }
+        public override string trigger => "status";
+        public override string description => "List available and unavailable plugins";
+        public override string group => CommandGroups.PLUGINS;
+        public override string example => "status";
 
         public StatusCommand() : base(typeof(StatusCommand).FullName) {
         }

@@ -1,15 +1,15 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using DesperateDevs.Serialization;
 using DesperateDevs.Utils;
 
-namespace DesperateDevs.CodeGeneration.CodeGenerator {
-
-    public static class CodeGeneratorUtil {
-
-        public static CodeGenerator CodeGeneratorFromPreferences(Preferences preferences) {
+namespace DesperateDevs.CodeGeneration.CodeGenerator
+{
+    public static class CodeGeneratorUtil
+    {
+        public static CodeGenerator CodeGeneratorFromPreferences(Preferences preferences)
+        {
             var instances = LoadFromPlugins(preferences);
             var config = preferences.CreateAndConfigure<CodeGeneratorConfig>();
 
@@ -25,30 +25,32 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
 
             const string key = "Jenny.TrackHooks";
             var trackHooks = true;
-            if (preferences.HasKey(key)) {
+            if (preferences.HasKey(key))
+            {
                 trackHooks = preferences[key] == "true";
             }
 
             return new CodeGenerator(preProcessors, dataProviders, codeGenerators, postProcessors, trackHooks);
         }
 
-        static void configure(ICodeGenerationPlugin[] plugins, Preferences preferences) {
-            foreach (var plugin in plugins.OfType<IConfigurable>()) {
+        static void configure(ICodeGenerationPlugin[] plugins, Preferences preferences)
+        {
+            foreach (var plugin in plugins.OfType<IConfigurable>())
                 plugin.Configure(preferences);
-            }
         }
 
-        public static ICodeGenerationPlugin[] LoadFromPlugins(Preferences preferences) {
+        public static ICodeGenerationPlugin[] LoadFromPlugins(Preferences preferences)
+        {
             var config = preferences.CreateAndConfigure<CodeGeneratorConfig>();
             var resolver = new AssemblyResolver(false, config.searchPaths);
-            foreach (var path in config.plugins) {
+            foreach (var path in config.plugins)
                 resolver.Load(path);
-            }
 
             return resolver.GetTypes().GetInstancesOf<ICodeGenerationPlugin>();
         }
 
-        public static T[] GetOrderedInstancesOf<T>(ICodeGenerationPlugin[] instances) where T : ICodeGenerationPlugin {
+        public static T[] GetOrderedInstancesOf<T>(ICodeGenerationPlugin[] instances) where T : ICodeGenerationPlugin
+        {
             return instances
                 .OfType<T>()
                 .OrderBy(instance => instance.priority)
@@ -56,32 +58,37 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
                 .ToArray();
         }
 
-        public static string[] GetOrderedTypeNamesOf<T>(ICodeGenerationPlugin[] instances) where T : ICodeGenerationPlugin {
+        public static string[] GetOrderedTypeNamesOf<T>(ICodeGenerationPlugin[] instances) where T : ICodeGenerationPlugin
+        {
             return GetOrderedInstancesOf<T>(instances)
                 .Select(instance => instance.GetType().ToCompilableString())
                 .ToArray();
         }
 
-        public static T[] GetEnabledInstancesOf<T>(ICodeGenerationPlugin[] instances, string[] typeNames) where T : ICodeGenerationPlugin {
+        public static T[] GetEnabledInstancesOf<T>(ICodeGenerationPlugin[] instances, string[] typeNames) where T : ICodeGenerationPlugin
+        {
             return GetOrderedInstancesOf<T>(instances)
                 .Where(instance => typeNames.Contains(instance.GetType().ToCompilableString()))
                 .ToArray();
         }
 
-        public static string[] GetAvailableNamesOf<T>(ICodeGenerationPlugin[] instances, string[] typeNames) where T : ICodeGenerationPlugin {
+        public static string[] GetAvailableNamesOf<T>(ICodeGenerationPlugin[] instances, string[] typeNames) where T : ICodeGenerationPlugin
+        {
             return GetOrderedTypeNamesOf<T>(instances)
                 .Where(typeName => !typeNames.Contains(typeName))
                 .ToArray();
         }
 
-        public static string[] GetUnavailableNamesOf<T>(ICodeGenerationPlugin[] instances, string[] typeNames) where T : ICodeGenerationPlugin {
+        public static string[] GetUnavailableNamesOf<T>(ICodeGenerationPlugin[] instances, string[] typeNames) where T : ICodeGenerationPlugin
+        {
             var orderedTypeNames = GetOrderedTypeNamesOf<T>(instances);
             return typeNames
                 .Where(typeName => !orderedTypeNames.Contains(typeName))
                 .ToArray();
         }
 
-        public static Dictionary<string, string> GetDefaultProperties(ICodeGenerationPlugin[] instances, CodeGeneratorConfig config) {
+        public static Dictionary<string, string> GetDefaultProperties(ICodeGenerationPlugin[] instances, CodeGeneratorConfig config)
+        {
             return new Dictionary<string, string>().Merge(
                 GetEnabledInstancesOf<IPreProcessor>(instances, config.preProcessors).OfType<IConfigurable>()
                     .Concat(GetEnabledInstancesOf<IDataProvider>(instances, config.dataProviders).OfType<IConfigurable>())
@@ -91,14 +98,16 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
                     .ToArray());
         }
 
-        public static string[] BuildSearchPaths(string[] searchPaths, string[] additionalSearchPaths) {
+        public static string[] BuildSearchPaths(string[] searchPaths, string[] additionalSearchPaths)
+        {
             return searchPaths
                 .Concat(additionalSearchPaths)
                 .Where(Directory.Exists)
                 .ToArray();
         }
 
-        public static void AutoImport(CodeGeneratorConfig config, params string[] searchPaths) {
+        public static void AutoImport(CodeGeneratorConfig config, params string[] searchPaths)
+        {
             var assemblyPaths = AssemblyResolver
                 .GetAssembliesContainingType<ICodeGenerationPlugin>(true, searchPaths)
                 .GetAllTypes()
@@ -116,11 +125,13 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
             config.searchPaths = config.searchPaths
                 .Concat(newPaths)
                 .Distinct()
+                .OrderBy(path => path)
                 .ToArray();
 
             config.plugins = assemblyPaths
                 .Select(Path.GetFileNameWithoutExtension)
                 .Distinct()
+                .OrderBy(plugin => plugin)
                 .ToArray();
         }
     }

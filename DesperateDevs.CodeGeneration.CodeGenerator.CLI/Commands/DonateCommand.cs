@@ -1,17 +1,17 @@
 ﻿using DesperateDevs.CLI.Utils;
 using DesperateDevs.Logging;
 
-namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
+namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
+{
+    public class DonateCommand : AbstractCommand
+    {
+        public override string trigger => "donate";
+        public override string description => null;
+        public override string group => null;
+        public override string example => null;
 
-    public class DonateCommand : AbstractCommand {
-
-        public override string trigger { get { return "donate"; } }
-        public override string description { get { return null; } }
-      public override string group { get { return null; } }
-        public override string example { get { return null; } }
-
-        protected override void run() {
-
+        protected override void run()
+        {
             const string heart = @"
         @@@@@@@@           @@@@@@@@
       @@@@@@@@@@@@       @@@@@@@@@@@@

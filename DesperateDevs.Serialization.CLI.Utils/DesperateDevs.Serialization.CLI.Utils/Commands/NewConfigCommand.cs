@@ -2,22 +2,24 @@ using System.IO;
 using DesperateDevs.CLI.Utils;
 using DesperateDevs.Logging;
 
-namespace DesperateDevs.Serialization.CLI.Utils {
-
-    public class NewConfigCommand : AbstractCommand {
-
-        public override string trigger { get { return "new"; } }
-        public override string description { get { return "Create new properties file(s) with default values"; } }
-        public override string group { get { return "Properties"; } }
-        public override string example { get { return "new [file] [userFile] [-f]"; } }
+namespace DesperateDevs.Serialization.CLI.Utils
+{
+    public class NewConfigCommand : AbstractCommand
+    {
+        public override string trigger => "new";
+        public override string description => "Create new properties file(s) with default values";
+        public override string group => CommandGroups.PROPERTIES;
+        public override string example => "new [file] [userFile] [-f]";
 
         readonly Logger _logger = fabl.GetLogger(typeof(NewConfigCommand));
 
-        protected override void run() {
+        protected override void run()
+        {
             var properties = _args.GetPropertiesPath();
             var userProperties = _args.GetUserPropertiesPath();
 
-            if (!_args.isForce() && (doesAlreadyExist(properties) || doesAlreadyExist(userProperties))) {
+            if (!_args.isForce() && (doesAlreadyExist(properties) || doesAlreadyExist(userProperties)))
+            {
                 return;
             }
 
@@ -34,8 +36,10 @@ namespace DesperateDevs.Serialization.CLI.Utils {
             new EditConfigCommand().Run(_program, _args);
         }
 
-        bool doesAlreadyExist(string path) {
-            if (File.Exists(path)) {
+        bool doesAlreadyExist(string path)
+        {
+            if (File.Exists(path))
+            {
                 _logger.Warn(path + " already exists!");
                 _logger.Info("Use 'new -f' to overwrite the exiting file.");
                 _logger.Info("Use 'edit' to open the exiting file.");

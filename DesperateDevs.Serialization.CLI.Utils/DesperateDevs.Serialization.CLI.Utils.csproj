@@ -45,6 +45,7 @@
     <Compile Include="DesperateDevs.Serialization.CLI.Utils\ArgsExtension.cs" />
     <Compile Include="DesperateDevs.Serialization.CLI.Utils\CLIUtil.cs" />
     <Compile Include="DesperateDevs.Serialization.CLI.Utils\Commands\AddKeyValueCommand.cs" />
+    <Compile Include="DesperateDevs.Serialization.CLI.Utils\Commands\CommandGroups.cs" />
     <Compile Include="DesperateDevs.Serialization.CLI.Utils\Commands\DumpCommand.cs" />
     <Compile Include="DesperateDevs.Serialization.CLI.Utils\Commands\EditConfigCommand.cs" />
     <Compile Include="DesperateDevs.Serialization.CLI.Utils\Commands\FormatCommand.cs" />

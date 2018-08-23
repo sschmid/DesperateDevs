@@ -1,27 +1,30 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using DesperateDevs.CLI.Utils;
 using DesperateDevs.Serialization;
 using DesperateDevs.Serialization.CLI.Utils;
 using DesperateDevs.Utils;
 
-namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
+namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
+{
+    public class FixCommand : AbstractPreferencesCommand
+    {
+        public override string trigger => "fix";
+        public override string description => "Add missing keys and add available or remove unavailable plugins interactively";
+        public override string group => CommandGroups.PLUGINS;
+        public override string example => "fix";
 
-    public class FixCommand : AbstractPreferencesCommand {
+        static bool silent;
 
-        public override string trigger { get { return "fix"; } }
-        public override string description { get { return "Add missing keys and add available or remove unavailable plugins interactively"; } }
-        public override string group { get { return "Plugins"; } }
-        public override string example { get { return "fix"; } }
-
-        static bool _silent;
-
-        public FixCommand() : base(typeof(FixCommand).FullName) {
+        public FixCommand() : base(typeof(FixCommand).FullName)
+        {
         }
 
-        protected override void run() {
-            _silent = _rawArgs.IsSilent();
+        protected override void run()
+        {
+            silent = _rawArgs.IsSilent();
 
             var config = _preferences.CreateAndConfigure<CodeGeneratorConfig>();
             var cliConfig = _preferences.CreateAndConfigure<CLIConfig>();
@@ -38,27 +41,43 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
 
             var askedRemoveKeys = new HashSet<string>();
             var askedAddKeys = new HashSet<string>();
-            while (fix(askedRemoveKeys, askedAddKeys, instances, config, cliConfig, _preferences)) {
+            while (fix(askedRemoveKeys, askedAddKeys, instances, config, cliConfig, _preferences))
+            {
             }
 
+            runDoctors();
+            fixSearchPath(instances, config, _preferences);
+        }
+
+        void runDoctors()
+        {
             var doctors = AppDomain.CurrentDomain.GetInstancesOf<IDoctor>();
-            foreach (var doctor in doctors.OfType<IConfigurable>()) {
+            foreach (var doctor in doctors.OfType<IConfigurable>())
+            {
                 doctor.Configure(_preferences);
             }
 
-            foreach (var doctor in doctors) {
+            foreach (var doctor in doctors)
+            {
                 var diagnosis = doctor.Diagnose();
-                if (diagnosis.severity == DiagnosisSeverity.Error) {
-                    if (_silent) {
-                        if (doctor.Fix()) {
+                if (diagnosis.severity == DiagnosisSeverity.Error)
+                {
+                    if (silent)
+                    {
+                        if (doctor.Fix())
+                        {
                             _preferences.Save();
                             _logger.Info("💉  Applied fix: " + diagnosis.treatment);
                         }
-                    } else {
+                    }
+                    else
+                    {
                         Console.WriteLine("💉  Apply fix: " + diagnosis.treatment);
                         Console.WriteLine("to treat symptoms: " + diagnosis.symptoms + " ? (y / n)");
-                        if (PreferencesExtension.GetUserDecision()) {
-                            if (doctor.Fix()) {
+                        if (PreferencesExtension.GetUserDecision())
+                        {
+                            if (doctor.Fix())
+                            {
                                 _preferences.Save();
                             }
                         }
@@ -67,20 +86,52 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             }
         }
 
-        static void forceAddMissingKeys(Dictionary<string, string> requiredProperties, Preferences preferences) {
+        void fixSearchPath(ICodeGenerationPlugin[] instances, CodeGeneratorConfig config, Preferences preferences)
+        {
+            var requiredSearchPaths = instances
+                .Select(instance => Path.GetDirectoryName(instance.GetType().Assembly.CodeBase.MakePathRelativeTo(Directory.GetCurrentDirectory())))
+                .Distinct()
+                .Select(Path.GetFullPath)
+                .OrderBy(path => path)
+                .ToArray();
+
+            var unusedPaths = config.searchPaths
+                .Where(path => !requiredSearchPaths.Contains(Path.GetFullPath(path)));
+
+            foreach (var path in unusedPaths)
+            {
+                if (silent)
+                {
+                    preferences.RemoveValue(path, config.searchPaths,
+                        values => config.searchPaths = values);
+                }
+                else
+                {
+                    preferences.AskRemoveValue("Remove unused search path", path, config.searchPaths,
+                        values => config.searchPaths = values);
+                }
+            }
+
+            config.searchPaths = config.searchPaths.Distinct().ToArray();
+            preferences.Save();
+        }
+
+        static void forceAddMissingKeys(Dictionary<string, string> requiredProperties, Preferences preferences)
+        {
             var requiredKeys = requiredProperties.Keys.ToArray();
             var missingKeys = preferences.GetMissingKeys(requiredKeys);
 
-            foreach (var key in missingKeys) {
-                if (_silent) {
+            foreach (var key in missingKeys)
+            {
+                if (silent)
                     preferences.AddKey(key, requiredProperties[key]);
-                } else {
+                else
                     preferences.NotifyForceAddKey("Will add missing key", key, requiredProperties[key]);
-                }
             }
         }
 
-        bool fix(HashSet<string> askedRemoveKeys, HashSet<string> askedAddKeys, ICodeGenerationPlugin[] instances, CodeGeneratorConfig config, CLIConfig cliConfig, Preferences preferences) {
+        bool fix(HashSet<string> askedRemoveKeys, HashSet<string> askedAddKeys, ICodeGenerationPlugin[] instances, CodeGeneratorConfig config, CLIConfig cliConfig, Preferences preferences)
+        {
             var changed = fixPlugins(askedRemoveKeys, askedAddKeys, instances, config, preferences);
             changed |= fixCollisions(askedAddKeys, config, preferences);
 
@@ -97,7 +148,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             return changed;
         }
 
-        static bool fixPlugins(HashSet<string> askedRemoveKeys, HashSet<string> askedAddKeys, ICodeGenerationPlugin[] instances, CodeGeneratorConfig config, Preferences preferences) {
+        static bool fixPlugins(HashSet<string> askedRemoveKeys, HashSet<string> askedAddKeys, ICodeGenerationPlugin[] instances, CodeGeneratorConfig config, Preferences preferences)
+        {
             var changed = false;
 
             var unavailablePreProcessors = CodeGeneratorUtil.GetUnavailableNamesOf<IPreProcessor>(instances, config.preProcessors);
@@ -110,116 +162,156 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             var availableCodeGenerators = CodeGeneratorUtil.GetAvailableNamesOf<ICodeGenerator>(instances, config.codeGenerators);
             var availablePostProcessors = CodeGeneratorUtil.GetAvailableNamesOf<IPostProcessor>(instances, config.postProcessors);
 
-            foreach (var key in unavailablePreProcessors) {
-                if (!askedRemoveKeys.Contains(key)) {
-                    if (_silent) {
-                        preferences.RemoveValue(key, config.preProcessors,
-                            values => config.preProcessors = values);
-                    } else {
-                        preferences.AskRemoveValue("Remove unavailable pre processor", key, config.preProcessors,
-                            values => config.preProcessors = values);
-                    }
-                    askedRemoveKeys.Add(key);
-                    changed = true;
-                }
-            }
-
-            foreach (var key in unavailableDataProviders) {
-                if (!askedRemoveKeys.Contains(key)) {
-                    if (_silent) {
-                        preferences.RemoveValue(key, config.dataProviders,
-                            values => config.dataProviders = values);
-                    } else {
-                        preferences.AskRemoveValue("Remove unavailable data provider", key, config.dataProviders,
-                            values => config.dataProviders = values);
-                    }
-
-                    askedRemoveKeys.Add(key);
-                    changed = true;
-                }
-            }
-
-            foreach (var key in unavailableCodeGenerators) {
-                if (!askedRemoveKeys.Contains(key)) {
-                    if (_silent) {
-                        preferences.RemoveValue(key, config.codeGenerators,
-                            values => config.codeGenerators = values);
-                    } else {
-                        preferences.AskRemoveValue("Remove unavailable code generator", key, config.codeGenerators,
-                            values => config.codeGenerators = values);
-                    }
-
-                    askedRemoveKeys.Add(key);
-                    changed = true;
-                }
-            }
-
-            foreach (var key in unavailablePostProcessors) {
-                if (!askedRemoveKeys.Contains(key)) {
-                    if (_silent) {
-                        preferences.RemoveValue(key, config.postProcessors,
-                            values => config.postProcessors = values);
-                    } else {
-                        preferences.AskRemoveValue("Remove unavailable post processor", key, config.postProcessors,
-                            values => config.postProcessors = values);
-                    }
-                    askedRemoveKeys.Add(key);
-                    changed = true;
-                }
-            }
-
-            foreach (var key in availablePreProcessors) {
-                if (!askedAddKeys.Contains(key)) {
-                    if (_silent) {
-                        preferences.AddValue(key, config.preProcessors,
-                            values => config.preProcessors = values);
-                    } else {
-                        preferences.AskAddValue("Add available pre processor", key, config.preProcessors,
+            foreach (var value in unavailablePreProcessors)
+            {
+                if (!askedRemoveKeys.Contains(value))
+                {
+                    if (silent)
+                    {
+                        preferences.RemoveValue(value, config.preProcessors,
                             values => config.preProcessors = values);
                     }
-                    askedAddKeys.Add(key);
+                    else
+                    {
+                        preferences.AskRemoveValue("Remove unavailable pre processor", value, config.preProcessors,
+                            values => config.preProcessors = values);
+                    }
+                    askedRemoveKeys.Add(value);
                     changed = true;
                 }
             }
 
-            foreach (var key in availableDataProviders) {
-                if (!askedAddKeys.Contains(key)) {
-                    if (_silent) {
-                        preferences.AddValue(key, config.dataProviders,
+            foreach (var value in unavailableDataProviders)
+            {
+                if (!askedRemoveKeys.Contains(value))
+                {
+                    if (silent)
+                    {
+                        preferences.RemoveValue(value, config.dataProviders,
                             values => config.dataProviders = values);
-                    } else {
-                        preferences.AskAddValue("Add available data provider", key, config.dataProviders,
+                    }
+                    else
+                    {
+                        preferences.AskRemoveValue("Remove unavailable data provider", value, config.dataProviders,
                             values => config.dataProviders = values);
                     }
-                    askedAddKeys.Add(key);
+
+                    askedRemoveKeys.Add(value);
                     changed = true;
                 }
             }
 
-            foreach (var key in availableCodeGenerators) {
-                if (!askedAddKeys.Contains(key)) {
-                    if (_silent) {
-                        preferences.AddValue(key, config.codeGenerators,
-                            values => config.codeGenerators = values);
-                    } else {
-                        preferences.AskAddValue("Add available code generator", key, config.codeGenerators,
+            foreach (var value in unavailableCodeGenerators)
+            {
+                if (!askedRemoveKeys.Contains(value))
+                {
+                    if (silent)
+                    {
+                        preferences.RemoveValue(value, config.codeGenerators,
                             values => config.codeGenerators = values);
                     }
-                    askedAddKeys.Add(key);
+                    else
+                    {
+                        preferences.AskRemoveValue("Remove unavailable code generator", value, config.codeGenerators,
+                            values => config.codeGenerators = values);
+                    }
+
+                    askedRemoveKeys.Add(value);
                     changed = true;
                 }
             }
 
-            foreach (var key in availablePostProcessors) {
-                if (!askedAddKeys.Contains(key)) {
-                    if (_silent) {
-                        preferences.AddValue(key, config.postProcessors,
-                            values => config.postProcessors = values);
-                    } else {
-                        preferences.AskAddValue("Add available post processor", key, config.postProcessors,
+            foreach (var value in unavailablePostProcessors)
+            {
+                if (!askedRemoveKeys.Contains(value))
+                {
+                    if (silent)
+                    {
+                        preferences.RemoveValue(value, config.postProcessors,
                             values => config.postProcessors = values);
                     }
-                    askedAddKeys.Add(key);
+                    else
+                    {
+                        preferences.AskRemoveValue("Remove unavailable post processor", value, config.postProcessors,
+                            values => config.postProcessors = values);
+                    }
+                    askedRemoveKeys.Add(value);
+                    changed = true;
+                }
+            }
+
+            foreach (var value in availablePreProcessors)
+            {
+                if (!askedAddKeys.Contains(value))
+                {
+                    if (silent)
+                    {
+                        preferences.AddValue(value, config.preProcessors,
+                            values => config.preProcessors = values);
+                    }
+                    else
+                    {
+                        preferences.AskAddValue("Add available pre processor", value, config.preProcessors,
+                            values => config.preProcessors = values);
+                    }
+                    askedAddKeys.Add(value);
+                    changed = true;
+                }
+            }
+
+            foreach (var value in availableDataProviders)
+            {
+                if (!askedAddKeys.Contains(value))
+                {
+                    if (silent)
+                    {
+                        preferences.AddValue(value, config.dataProviders,
+                            values => config.dataProviders = values);
+                    }
+                    else
+                    {
+                        preferences.AskAddValue("Add available data provider", value, config.dataProviders,
+                            values => config.dataProviders = values);
+                    }
+                    askedAddKeys.Add(value);
+                    changed = true;
+                }
+            }
+
+            foreach (var value in availableCodeGenerators)
+            {
+                if (!askedAddKeys.Contains(value))
+                {
+                    if (silent)
+                    {
+                        preferences.AddValue(value, config.codeGenerators,
+                            values => config.codeGenerators = values);
+                    }
+                    else
+                    {
+                        preferences.AskAddValue("Add available code generator", value, config.codeGenerators,
+                            values => config.codeGenerators = values);
+                    }
+                    askedAddKeys.Add(value);
+                    changed = true;
+                }
+            }
+
+            foreach (var value in availablePostProcessors)
+            {
+                if (!askedAddKeys.Contains(value))
+                {
+                    if (silent)
+                    {
+                        preferences.AddValue(value, config.postProcessors,
+                            values => config.postProcessors = values);
+                    }
+                    else
+                    {
+                        preferences.AskAddValue("Add available post processor", value, config.postProcessors,
+                            values => config.postProcessors = values);
+                    }
+                    askedAddKeys.Add(value);
                     changed = true;
                 }
             }
@@ -227,33 +319,40 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             return changed;
         }
 
-        bool fixCollisions(HashSet<string> askedAddKeys, CodeGeneratorConfig config, Preferences preferences) {
-            var changed = fixDuplicates(askedAddKeys, config.preProcessors, values => {
+        bool fixCollisions(HashSet<string> askedAddKeys, CodeGeneratorConfig config, Preferences preferences)
+        {
+            var changed = fixDuplicates(askedAddKeys, config.preProcessors, values =>
+            {
                 config.preProcessors = values;
                 return config.preProcessors;
             }, preferences);
 
-            changed = fixDuplicates(askedAddKeys, config.dataProviders, values => {
+            changed = fixDuplicates(askedAddKeys, config.dataProviders, values =>
+            {
                 config.dataProviders = values;
                 return config.dataProviders;
             }, preferences) | changed;
 
-            changed = fixDuplicates(askedAddKeys, config.codeGenerators, values => {
+            changed = fixDuplicates(askedAddKeys, config.codeGenerators, values =>
+            {
                 config.codeGenerators = values;
                 return config.codeGenerators;
             }, preferences) | changed;
 
-            return fixDuplicates(askedAddKeys, config.postProcessors, values => {
+            return fixDuplicates(askedAddKeys, config.postProcessors, values =>
+            {
                 config.postProcessors = values;
                 return config.postProcessors;
             }, preferences) | changed;
         }
 
-        bool fixDuplicates(HashSet<string> askedAddKeys, string[] values, Func<string[], string[]> updateAction, Preferences preferences) {
+        bool fixDuplicates(HashSet<string> askedAddKeys, string[] values, Func<string[], string[]> updateAction, Preferences preferences)
+        {
             var changed = false;
             var duplicates = getDuplicates(values);
 
-            foreach (var duplicate in duplicates) {
+            foreach (var duplicate in duplicates)
+            {
                 Console.WriteLine("⚠️  Potential plugin collision: " + duplicate);
                 Console.WriteLine("0: Keep all (no changes)");
 
@@ -264,12 +363,15 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
                 printCollisions(collisions);
                 var inputChars = getInputChars(collisions);
                 var keyChar = PreferencesExtension.GetGenericUserDecision(inputChars);
-                if (keyChar != '0') {
+                if (keyChar != '0')
+                {
                     var index = int.Parse(keyChar.ToString()) - 1;
                     var keep = collisions[index];
 
-                    foreach (var collision in collisions) {
-                        if (collision != keep) {
+                    foreach (var collision in collisions)
+                    {
+                        if (collision != keep)
+                        {
                             preferences.RemoveValue(
                                 collision,
                                 values,
@@ -284,7 +386,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             return changed;
         }
 
-        static string[] getDuplicates(string[] values) {
+        static string[] getDuplicates(string[] values)
+        {
             var shortNames = values
                 .Select(name => name.ShortTypeName())
                 .ToArray();
@@ -297,31 +400,41 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
                 .ToArray();
         }
 
-        void printCollisions(string[] collisions) {
-            for (int i = 0; i < collisions.Length; i++) {
+        void printCollisions(string[] collisions)
+        {
+            for (int i = 0; i < collisions.Length; i++)
+            {
                 Console.WriteLine((i + 1) + ": Keep " + collisions[i]);
             }
         }
 
-        static char[] getInputChars(string[] collisions) {
+        static char[] getInputChars(string[] collisions)
+        {
             var chars = new char[collisions.Length + 1];
-            for (int i = 0; i < collisions.Length; i++) {
+            for (int i = 0; i < collisions.Length; i++)
+            {
                 chars[i] = (i + 1).ToString()[0];
             }
             chars[chars.Length - 1] = '0';
             return chars;
         }
 
-        static void removeUnusedKeys(HashSet<string> askedRemoveKeys, string[] requiredKeys, CLIConfig cliConfig, Preferences preferences) {
+        static void removeUnusedKeys(HashSet<string> askedRemoveKeys, string[] requiredKeys, CLIConfig cliConfig, Preferences preferences)
+        {
             var unusedKeys = preferences.GetUnusedKeys(requiredKeys)
                 .Where(key => !cliConfig.ignoreUnusedKeys.Contains(key));
 
-            foreach (var key in unusedKeys) {
-                if (!askedRemoveKeys.Contains(key)) {
-                    if (_silent) {
+            foreach (var key in unusedKeys)
+            {
+                if (!askedRemoveKeys.Contains(key))
+                {
+                    if (silent)
+                    {
                         preferences.AddValue(key, cliConfig.ignoreUnusedKeys,
                             values => cliConfig.ignoreUnusedKeys = values);
-                    } else {
+                    }
+                    else
+                    {
                         preferences.AskRemoveOrIgnoreKey("Remove unused key", key, cliConfig.ignoreUnusedKeys,
                             values => cliConfig.ignoreUnusedKeys = values);
                     }

@@ -1,33 +1,42 @@
 ﻿using DesperateDevs.Utils;
 
-namespace DesperateDevs.Serialization.CLI.Utils {
+namespace DesperateDevs.Serialization.CLI.Utils
+{
+    public class SetKeyValueCommand : AbstractPreferencesCommand
+    {
+        public override string trigger => "set";
+        public override string description => "Set the value of a key";
+        public override string group => CommandGroups.PROPERTIES;
+        public override string example => "set [key] [value]";
 
-    public class SetKeyValueCommand : AbstractPreferencesCommand {
-
-        public override string trigger { get { return "set"; } }
-        public override string description { get { return "Set the value of a key"; } }
-        public override string group { get { return "Properties"; } }
-        public override string example { get { return "set [key] [value]"; } }
-
-        public SetKeyValueCommand() : base(typeof(SetKeyValueCommand).FullName) {
+        public SetKeyValueCommand() : base(typeof(SetKeyValueCommand).FullName)
+        {
         }
 
-        protected override void run() {
-            if (_args.Length == 2) {
+        protected override void run()
+        {
+            if (_args.Length == 2)
+            {
                 setKeyValue(_args[0], _args[1]);
-            } else {
+            }
+            else
+            {
                 _logger.Error("The set command expects exactly two arguments");
                 _logger.Info("E.g. set myKey myValue");
             }
         }
 
-        void setKeyValue(string key, string value) {
-            if (_preferences.HasKey(key)) {
+        void setKeyValue(string key, string value)
+        {
+            if (_preferences.HasKey(key))
+            {
                 _preferences.AddValue(
                     value,
                     new string[0],
                     values => _preferences[key] = values.ToCSV());
-            } else {
+            }
+            else
+            {
                 _preferences.AskAddKey("Key doesn't exist. Do you want to add", key, value);
             }
         }
