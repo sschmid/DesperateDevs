@@ -53,6 +53,8 @@
     <Compile Include="DesperateDevs.CLI.Utils\Menu\MenuEntries\SelectableMenuEntry.cs" />
     <Compile Include="DesperateDevs.CLI.Utils\Menu\MenuEntries\StopMenuEntry.cs" />
     <Compile Include="DesperateDevs.CLI.Utils\Menu\MenuSelection.cs" />
+    <Compile Include="DesperateDevs.CLI.Utils\Spinner.cs" />
+    <Compile Include="DesperateDevs.CLI.Utils\SpinnerStyles.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DesperateDevs.Logging.Formatters\DesperateDevs.Logging.Formatters.csproj">

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DesperateDevs.CLI.Utils;
 using DesperateDevs.Serialization;
 using DesperateDevs.Utils;
@@ -50,7 +51,10 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
         {
             var selectedPlugins = config.plugins;
             var searchPaths = CodeGeneratorUtil.BuildSearchPaths(config.searchPaths, new[] { "." });
-            CodeGeneratorUtil.AutoImport(config, searchPaths);
+            var task = Task.Run(() => CodeGeneratorUtil.AutoImport(config, searchPaths));
+
+            new Spinner(SpinnerStyles.bouncingBar)
+                .WriteWhile(0, Console.CursorTop, () => !task.IsCompleted);
 
             var allPlugins = config.plugins;
             config.plugins = selectedPlugins;
