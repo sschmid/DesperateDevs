@@ -1,5 +1,4 @@
-﻿using System.Net;
-using DesperateDevs.Analytics;
+﻿using DesperateDevs.Analytics;
 using NSpec;
 
 class describe_Tracker : nspec {
@@ -47,8 +46,8 @@ class TestTracker : Tracker {
     public TestTracker(string host, string endPoint) : base(host, endPoint, true) {
     }
 
-    public override WebResponse Track(TrackingData data) {
+    public override void Track(TrackingData data) {
         call = buildTrackingCall(data);
-        return null;
+        return;
     }
 }
