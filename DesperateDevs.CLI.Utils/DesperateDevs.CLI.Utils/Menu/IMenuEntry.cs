@@ -5,7 +5,7 @@ namespace DesperateDevs.CLI.Utils
     public interface IMenuEntry
     {
         string title { get; }
-        ConsoleKey? trigger { get; }
+        ConsoleKey[] triggers { get; }
         bool showTriggerInTitle { get; }
         Action action { get; }
     }

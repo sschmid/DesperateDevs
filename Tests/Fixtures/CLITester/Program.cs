@@ -24,7 +24,7 @@ namespace CLITester
 public sealed class GreetMenuEntry : IMenuEntry
 {
     public string title => "Greet";
-    public ConsoleKey? trigger => ConsoleKey.G;
+    public ConsoleKey[] triggers => new[] { ConsoleKey.G };
     public bool showTriggerInTitle => true;
 
     public Action action => () =>
@@ -37,7 +37,7 @@ public sealed class GreetMenuEntry : IMenuEntry
 public sealed class SubMenuEntry : IMenuEntry
 {
     public string title => "Sub menu";
-    public ConsoleKey? trigger => ConsoleKey.S;
+    public ConsoleKey[] triggers => new[] { ConsoleKey.S };
     public bool showTriggerInTitle => true;
 
     readonly string _subtitle;
@@ -60,7 +60,7 @@ public sealed class SubMenuEntry : IMenuEntry
 public sealed class SelectionMenuEntry : IMenuEntry
 {
     public string title => "Selection";
-    public ConsoleKey? trigger => ConsoleKey.X;
+    public ConsoleKey[] triggers => new[] { ConsoleKey.X };
     public bool showTriggerInTitle => true;
 
     readonly string _subtitle;

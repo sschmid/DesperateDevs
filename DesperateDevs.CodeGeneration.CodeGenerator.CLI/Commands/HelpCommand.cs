@@ -18,6 +18,13 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
             var args = "[-v]".PadRight(pad) + "   - verbose output\n" +
                        "[-s]".PadRight(pad) + "   - silent (minimal output)";
 
+            const string menu = "Menus\n\n" +
+                                "  Down, Right, j, l          - Select next\n" +
+                                "  Up, Left, k, h             - Select previous\n" +
+                                "  Home, a                    - Select first\n" +
+                                "  End, e                     - Select last\n" +
+                                "  Enter, Space               - Run selected menu entry";
+
             const string examples = "Jenny automatically detects *.properties and *.userproperties.\n" +
                                     "If you have multiple property files in one folder, please specify the desired file(s) along with the command.\n\n" +
                                     "EXAMPLE\n" +
@@ -30,7 +37,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                                     "  jenny gen MyOther.properties\n" +
                                     "  jenny gen MyOther.properties username.userproperties";
 
-            Console.WriteLine("usage:\n" + commandList + "\n" + args + "\n\n" + examples);
+            Console.WriteLine("usage:\n" + commandList + "\n" + args + "\n\n" + menu + "\n\n" + examples);
         }
     }
 }

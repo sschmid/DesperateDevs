@@ -9,6 +9,7 @@ namespace DesperateDevs.CLI.Utils
         readonly string[] _frames;
 
         int _index;
+        string _appendix;
 
         public Spinner(SpinnerStyle style) : this(style.interval, style.frames) { }
 
@@ -26,10 +27,17 @@ namespace DesperateDevs.CLI.Utils
             return _frames[_index++];
         }
 
+        public void Append(string text)
+        {
+            _appendix = text;
+        }
+
         public void Write(int left, int top)
         {
             Console.SetCursorPosition(left, top);
-            Console.Write(Next());
+            Console.WriteLine(Next());
+            if (_appendix != null)
+                Console.WriteLine(_appendix);
         }
 
         public void WaitForFrame() => Thread.Sleep(_interval);

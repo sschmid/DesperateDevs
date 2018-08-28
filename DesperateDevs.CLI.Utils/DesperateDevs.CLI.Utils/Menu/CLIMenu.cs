@@ -40,7 +40,6 @@ namespace DesperateDevs.CLI.Utils
                 drawMenu();
                 processInput();
                 tryRunMenuEntry();
-                _selection.runAction = false;
             }
 
             Console.Clear();
@@ -58,9 +57,15 @@ namespace DesperateDevs.CLI.Utils
 
             for (int i = 0; i < _menuEntries.Count; i++)
             {
-                var entry = indent + (_menuEntries[i].showTriggerInTitle
-                                ? "[" + _menuEntries[i].trigger + "] " + _menuEntries[i].title
-                                : _menuEntries[i].title);
+                var entry = indent;
+                if (_menuEntries[i].showTriggerInTitle)
+                {
+                    entry += _menuEntries[i].triggers != null
+                        ? "[" + _menuEntries[i].triggers[0] + "] "
+                        : string.Empty;
+                }
+
+                entry += _menuEntries[i].title;
 
                 if (i == _selection.index)
                 {
@@ -78,6 +83,8 @@ namespace DesperateDevs.CLI.Utils
         {
             if (_selection.runAction)
                 _menuEntries[_selection.index].action();
+
+            _selection.runAction = false;
         }
 
         void processInput()
@@ -112,14 +119,17 @@ namespace DesperateDevs.CLI.Utils
                     }
                     break;
                 case ConsoleKey.Home:
+                case ConsoleKey.A:
                     _selection.index = 0;
                     _selection.runAction = false;
                     break;
                 case ConsoleKey.End:
+                case ConsoleKey.E:
                     _selection.index = _menuEntries.Count - 1;
                     _selection.runAction = false;
                     break;
                 case ConsoleKey.Enter:
+                case ConsoleKey.Spacebar:
                     _selection.runAction = true;
                     break;
             }
@@ -129,11 +139,17 @@ namespace DesperateDevs.CLI.Utils
         {
             for (var i = 0; i < _menuEntries.Count; i++)
             {
-                if (_menuEntries[i].trigger == key.Key)
+                if (_menuEntries[i].triggers != null)
                 {
-                    _selection.index = i;
-                    _selection.runAction = true;
-                    return;
+                    foreach (var trigger in _menuEntries[i].triggers)
+                    {
+                        if (trigger == key.Key)
+                        {
+                            _selection.index = i;
+                            _selection.runAction = true;
+                            return;
+                        }
+                    }
                 }
             }
         }

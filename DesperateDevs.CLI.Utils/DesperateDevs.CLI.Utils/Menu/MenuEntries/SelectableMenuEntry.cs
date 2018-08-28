@@ -11,8 +11,7 @@ namespace DesperateDevs.CLI.Utils
                 {
                     _isSelected = value;
                     updateTitle();
-                    if (_onSelected != null)
-                        _onSelected(_isSelected);
+                    _onSelected?.Invoke(_isSelected);
                 }
             }
         }

@@ -15,7 +15,6 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
         public Step2_PluginsMenu(CLIProgram progam, string title, ConsoleColors colors, Preferences preferences) : base(buildTitle(title), colors)
         {
             Console.WriteLine(title);
-            Console.WriteLine("Searching for plugins. Please wait...");
             var config = preferences.CreateAndConfigure<CodeGeneratorConfig>();
             var allPlugins = autoImport(config);
 
@@ -53,8 +52,9 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
             var searchPaths = CodeGeneratorUtil.BuildSearchPaths(config.searchPaths, new[] { "." });
             var task = Task.Run(() => CodeGeneratorUtil.AutoImport(config, searchPaths));
 
-            new Spinner(SpinnerStyles.bouncingBar)
-                .WriteWhile(0, Console.CursorTop, () => !task.IsCompleted);
+            var spinner = new Spinner(SpinnerStyles.magicCat);
+            spinner.Append("Searching for plugins. Please wait...");
+            spinner.WriteWhile(0, Console.CursorTop, () => !task.IsCompleted);
 
             var allPlugins = config.plugins;
             config.plugins = selectedPlugins;
