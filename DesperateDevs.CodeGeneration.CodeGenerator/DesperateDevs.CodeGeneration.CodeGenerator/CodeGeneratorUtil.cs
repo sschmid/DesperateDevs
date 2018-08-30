@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using DesperateDevs.Logging;
 using DesperateDevs.Serialization;
 using DesperateDevs.Utils;
 
@@ -8,6 +10,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator
 {
     public static class CodeGeneratorUtil
     {
+        static readonly DesperateDevs.Logging.Logger _logger = fabl.GetLogger(typeof(CodeGeneratorUtil).FullName);
+
         public static CodeGenerator CodeGeneratorFromPreferences(Preferences preferences)
         {
             var instances = LoadFromPlugins(preferences);
@@ -46,7 +50,23 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator
             foreach (var path in config.plugins)
                 resolver.Load(path);
 
-            return resolver.GetTypes().GetInstancesOf<ICodeGenerationPlugin>();
+            return resolver.GetTypes()
+                .GetNonAbstractTypes<ICodeGenerationPlugin>()
+                .Select(type =>
+                {
+                    try
+                    {
+                        return (ICodeGenerationPlugin)Activator.CreateInstance(type);
+                    }
+                    catch (TypeLoadException ex)
+                    {
+                        _logger.Warn(ex.Message);
+                    }
+
+                    return null;
+                })
+                .Where(instance => instance != null)
+                .ToArray();
         }
 
         public static T[] GetOrderedInstancesOf<T>(ICodeGenerationPlugin[] instances) where T : ICodeGenerationPlugin
