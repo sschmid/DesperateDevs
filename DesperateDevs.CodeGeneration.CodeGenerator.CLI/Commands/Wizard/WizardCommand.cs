@@ -47,7 +47,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
             var preferences = new Preferences(propertiesMenu.properties, null);
 
             // Step 2: Plugins
-            var pluginsMenu = new Step2_PluginsMenu(_program, title, CLIHelper.consoleColors, preferences);
+            var pluginsMenu = new Step2_PluginsMenu(_program, title, CLIHelper.consoleColors, preferences, _rawArgs.IsVerbose());
             pluginsMenu.indent = indent;
             pluginsMenu.Start();
 

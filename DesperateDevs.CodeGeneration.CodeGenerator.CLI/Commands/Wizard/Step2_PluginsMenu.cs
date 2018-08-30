@@ -12,8 +12,11 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
     {
         public bool shouldAutoImport;
 
-        public Step2_PluginsMenu(CLIProgram progam, string title, ConsoleColors colors, Preferences preferences) : base(buildTitle(title), colors)
+        readonly bool _isVerbose;
+
+        public Step2_PluginsMenu(CLIProgram progam, string title, ConsoleColors colors, Preferences preferences, bool isVerbose) : base(buildTitle(title), colors)
         {
+            _isVerbose = isVerbose;
             Console.WriteLine(title);
             var config = preferences.CreateAndConfigure<CodeGeneratorConfig>();
             var allPlugins = autoImport(config);
@@ -52,9 +55,19 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
             var searchPaths = CodeGeneratorUtil.BuildSearchPaths(config.searchPaths, new[] { "." });
             var task = Task.Run(() => CodeGeneratorUtil.AutoImport(config, searchPaths));
 
-            var spinner = new Spinner(SpinnerStyles.magicCat);
-            spinner.Append("Searching for plugins. Please wait...");
-            spinner.WriteWhile(0, Console.CursorTop, () => !task.IsCompleted);
+            if (!_isVerbose)
+            {
+                var top = Console.CursorTop;
+                var spinner = new Spinner(SpinnerStyles.magicCat);
+                spinner.Append("Searching for plugins. Please wait...");
+                spinner.WriteWhile(0, top, () => !task.IsCompleted);
+            }
+            else
+            {
+                while (!task.IsCompleted)
+                {
+                }
+            }
 
             var allPlugins = config.plugins;
             config.plugins = selectedPlugins;
