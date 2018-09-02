@@ -494,6 +494,46 @@ key2=value4
 ");
             };
         };
+
+        xcontext["double quotes mode"] = () => {
+
+            it["surrounds added values with double quotes"] = () => {
+                var properties = new Properties(string.Empty);
+                properties.EnableDoubleQuoteMode();
+                properties["key"] = "value";
+                properties["key"].should_be("\"value\"");
+            };
+
+            it["doesn't surround added values with double quotes when already double quoted"] = () => {
+                var properties = new Properties(string.Empty);
+                properties.EnableDoubleQuoteMode();
+                properties["key"] = "\"value\"";
+                properties["key"].should_be("\"value\"");
+            };
+
+            it["surrounds existing values with double quotes"] = () => {
+                var properties = new Properties(string.Empty);
+                properties["key"] = "value";
+                properties.EnableDoubleQuoteMode();
+                properties["key"].should_be("\"value\"");
+            };
+
+            it["surrounds other properties values with double quotes"] = () => {
+                var properties = new Properties(new Dictionary<string, string> {
+                    { "key", "value" }
+                });
+                properties.EnableDoubleQuoteMode();
+                properties["key"].should_be("\"value\"");
+            };
+
+            it["removes double quotes when reading values"] = () => {
+                var properties = new Properties(string.Empty);
+                properties["key"] = "\"value\"";
+                properties["key"].should_be("\"value\"");
+                properties.EnableDoubleQuoteMode();
+                properties["key"].should_be("value");
+            };
+        };
     }
 
     void when_creating_properties_from_dictionary() {

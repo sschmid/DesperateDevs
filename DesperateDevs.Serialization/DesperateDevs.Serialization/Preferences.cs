@@ -41,6 +41,8 @@ namespace DesperateDevs.Serialization {
         Properties _properties;
         Properties _userProperties;
 
+        bool _isDoubleQuoteMode;
+
         public Preferences(string propertiesPath, string userPropertiesPath) {
             _propertiesPath = propertiesPath
                               ?? findFilePath("*.properties")
@@ -88,6 +90,12 @@ namespace DesperateDevs.Serialization {
             }
         }
 
+        public void EnableDoubleQuoteMode() {
+            _isDoubleQuoteMode = true;
+            _properties.EnableDoubleQuoteMode();
+            _userProperties.EnableDoubleQuoteMode();
+        }
+
         public override string ToString() {
             return getMergedProperties().ToString();
         }
@@ -123,6 +131,10 @@ namespace DesperateDevs.Serialization {
 
         Properties getMergedProperties() {
             var mergedProperties = new Properties(_properties.ToDictionary());
+            if (_isDoubleQuoteMode) {
+                mergedProperties.EnableDoubleQuoteMode();
+            }
+
             mergedProperties.AddProperties(_userProperties.ToDictionary(), true);
             return mergedProperties;
         }

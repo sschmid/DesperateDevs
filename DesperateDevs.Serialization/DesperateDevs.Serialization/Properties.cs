@@ -15,9 +15,11 @@ namespace DesperateDevs.Serialization {
 
         const string placeholderPattern = @"\${(.+?)}";
 
+        bool _isDoubleQuoteMode;
+
         public string this[string key] {
             get {
-                return Regex.Replace(
+                var value = Regex.Replace(
                     _dict[key],
                     placeholderPattern,
                     match => {
@@ -26,8 +28,17 @@ namespace DesperateDevs.Serialization {
                             ? _dict[matchValue]
                             : "${" + matchValue + "}";
                     });
+
+                return _isDoubleQuoteMode
+                    ? removeDoubleQuotes(value)
+                    : value;
             }
-            set { _dict[key.Trim()] = unescapedSpecialCharacters(value.Trim()); }
+            set {
+                var unescaped = unescapedSpecialCharacters(value.Trim());
+                _dict[key.Trim()] = _isDoubleQuoteMode
+                    ? addDoubleQuotes(unescaped)
+                    : unescaped;
+            }
         }
 
         readonly Dictionary<string, string> _dict;
@@ -60,6 +71,14 @@ namespace DesperateDevs.Serialization {
 
         public void RemoveProperty(string key) {
             _dict.Remove(key);
+        }
+
+        public void EnableDoubleQuoteMode() {
+            _isDoubleQuoteMode = true;
+
+            foreach (var key in _dict.Keys.ToArray()) {
+                this[key] = this[key];
+            }
         }
 
         public Dictionary<string, string> ToDictionary() {
@@ -116,6 +135,22 @@ namespace DesperateDevs.Serialization {
             return str
                 .Replace("\\n", "\n")
                 .Replace("\\t", "\t");
+        }
+
+        static string addDoubleQuotes(string str) {
+            return isInDoubleQuotes(str)
+                ? str
+                : "\"" + str + "\"";
+        }
+
+        static string removeDoubleQuotes(string str) {
+            return isInDoubleQuotes(str)
+                ? str.Substring(1, str.Length - 2)
+                : str;
+        }
+
+        static bool isInDoubleQuotes(string str) {
+            return str.StartsWith("\"") && str.EndsWith("\"");
         }
 
         static string propertyPair(string key, string value, bool minified) {

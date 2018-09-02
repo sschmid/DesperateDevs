@@ -41,6 +41,12 @@ class describe_Preferences : nspec {
             it["can ToString"] = () => {
                 preferences.ToString().should_be("key = value\n");
             };
+
+            xit["supports double quote mode"] = () => {
+                preferences.EnableDoubleQuoteMode();
+                preferences["key2"] = "value2";
+                preferences["key2"].should_be("\"value2\"");
+            };
         };
 
         context["when user properties"] = () => {

@@ -23,7 +23,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 
             diagnose();
 
-            _logger.Debug("Dry Run");
+            _logger.Info("Dry Run");
             CodeGeneratorUtil
                 .CodeGeneratorFromPreferences(_preferences)
                 .DryRun();
