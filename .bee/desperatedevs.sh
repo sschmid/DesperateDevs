@@ -119,7 +119,7 @@ desperatedevs::sync_unity_codegenerator() {
   desperatedevs::collect_jenny
   local cli="Tests/Unity/CodeGenerator/Jenny"
   utils::clean_dir "${cli}"
-  utils::sync "${BUILD_SRC}/Jenny/" "${cli}"
+  utils::sync "${BUILD_SRC}/Jenny/" "${cli}/.."
 
   desperatedevs::collect_jenny_unity
   local unity_libs="Tests/Unity/CodeGenerator/Assets/Libraries"
