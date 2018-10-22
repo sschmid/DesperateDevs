@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 BUILD_SRC=Build/src
 
@@ -133,7 +133,7 @@ desperatedevs::sync() {
 
 desperatedevs::pack() {
   log_func
-  dotnet::clean_build
+  dotnet::rebuild
   dotnet::tests
   desperatedevs::collect
 }
