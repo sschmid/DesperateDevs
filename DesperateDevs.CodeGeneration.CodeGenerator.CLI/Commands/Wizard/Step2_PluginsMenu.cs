@@ -22,28 +22,29 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
             var allPlugins = autoImport(config);
 
             var pluginEntries = new List<SelectableMenuEntry>(allPlugins.Length);
+
+            if (allPlugins.Length > 0)
+            {
+                AddMenuEntry(new AutoSaveMenuEntry(this, preferences, config));
+                AddMenuEntry(new ManualSaveMenuEntry(this, preferences, config));
+
+                AddMenuEntry(new SelectableMenuEntry("Select all", pluginEntries.All(e => e.isSelected), isSelected =>
+                {
+                    foreach (var entry in pluginEntries)
+                        entry.isSelected = isSelected;
+                }));
+            }
+            else
+            {
+                AddMenuEntry(new EditMenuEntry(progam, this, preferences.propertiesPath));
+            }
+
             foreach (var plugin in allPlugins)
             {
                 var localPlugin = plugin;
                 var entry = new SelectableMenuEntry(localPlugin, config.plugins.Contains(localPlugin), isSelected => updateConfig(config, localPlugin, isSelected));
                 AddMenuEntry(entry);
                 pluginEntries.Add(entry);
-            }
-
-            if (allPlugins.Length > 0)
-            {
-                AddMenuEntry(new SelectableMenuEntry("Select all", pluginEntries.All(e => e.isSelected), isSelected =>
-                {
-                    foreach (var entry in pluginEntries)
-                        entry.isSelected = isSelected;
-                }));
-
-                AddMenuEntry(new AutoSaveMenuEntry(this, preferences, config));
-                AddMenuEntry(new ManualSaveMenuEntry(this, preferences, config));
-            }
-            else
-            {
-                AddMenuEntry(new EditMenuEntry(progam, this, preferences.propertiesPath));
             }
 
             AddMenuEntry(new ExitMenuEntry("Quit", false));
