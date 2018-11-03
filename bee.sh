@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 PROJECT="DesperateDevs"
-PLUGINS=(dotnet utils)
+PLUGINS=(dotnet nspec utils)
 RESOURCES=.bee
 
 source "${RESOURCES}"/desperatedevs.sh
 
 # dotnet
 DOTNET_SOLUTION="${PROJECT}.sln"
-DOTNET_TESTS_PROJECT=Tests/Tests.csproj
-DOTNET_TESTS_RUNNER=Tests/bin/Release/Tests.exe
+
+# nspec => dotnet
+NSPEC_TESTS_PROJECT=Tests/Tests.csproj
+NSPEC_TESTS_RUNNER=Tests/bin/Release/Tests.exe
 
 # utils
 UTILS_RSYNC_INCLUDE="${RESOURCES}"/utils/rsync_include.txt
