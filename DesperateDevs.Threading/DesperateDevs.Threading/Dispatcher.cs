@@ -30,17 +30,19 @@ namespace DesperateDevs.Threading {
         }
 
         public void Run() {
-            Action[] actions = null;
-            lock (_lock) {
-                if (_actions.Count > 0) {
-                    actions = _actions.ToArray();
-                    _actions.Clear();
+            if (isOnThread) {
+                Action[] actions = null;
+                lock (_lock) {
+                    if (_actions.Count > 0) {
+                        actions = _actions.ToArray();
+                        _actions.Clear();
+                    }
                 }
-            }
 
-            if (actions != null) {
-                foreach (var action in actions) {
-                    action();
+                if (actions != null) {
+                    foreach (var action in actions) {
+                        action();
+                    }
                 }
             }
         }

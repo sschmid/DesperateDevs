@@ -16,7 +16,7 @@ class describe_Dispatcher : nspec {
             didExecute.should_be(1);
         };
 
-        it["won't run on different thread"] = () => {
+        it["won't run immediately on different thread"] = () => {
             var didExecute = 0;
             ThreadPool.QueueUserWorkItem(state => { dispatcher.Queue(() => didExecute += 1); });
             this.Wait();
@@ -40,6 +40,17 @@ class describe_Dispatcher : nspec {
             this.Wait();
             dispatcher.Run();
             didExecute.should_be(2);
+        };
+
+        it["won't run queued action when not on thread"] = () => {
+            var didExecute = 0;
+            ThreadPool.QueueUserWorkItem(state => { dispatcher.Queue(() => didExecute += 1); });
+            this.Wait();
+            ThreadPool.QueueUserWorkItem(state => {
+                dispatcher.Run();
+                didExecute.should_be(0);
+            });
+            this.Wait();
         };
     }
 }
