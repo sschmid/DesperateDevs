@@ -72,12 +72,16 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
             AssetDatabase.Refresh();
         }
 
+        static string _propertiesPath;
+
         [MenuItem(CodeGeneratorMenuItems.generate_server, false, CodeGeneratorMenuItemPriorities.generate_server)]
         public static void GenerateExternal()
         {
             Debug.Log("Connecting...");
 
-            var config = GetPreferences().CreateAndConfigure<CodeGeneratorConfig>();
+            var preferences = GetPreferences();
+            _propertiesPath = preferences.propertiesPath;
+            var config = preferences.CreateAndConfigure<CodeGeneratorConfig>();
             var client = new TcpClientSocket();
             client.OnConnected += onConnected;
             client.OnReceived += onReceive;
@@ -89,8 +93,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
         {
             Debug.Log("Connected");
             Debug.Log("Generating...");
-            var propertiesPath = EditorPrefs.GetString(CodeGeneratorPreferencesDrawer.PROPERTIES_PATH_KEY, "Jenny.properties");
-            client.Send(Encoding.UTF8.GetBytes("gen " + propertiesPath));
+            client.Send(Encoding.UTF8.GetBytes("gen " + _propertiesPath));
         }
 
         static void onReceive(AbstractTcpSocket socket, Socket client, byte[] bytes)
