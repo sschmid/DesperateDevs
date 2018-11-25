@@ -10,11 +10,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
         [MenuItem(CodeGeneratorMenuItems.preferences, false, CodeGeneratorMenuItemPriorities.preferences)]
         public static void OpenPreferences()
         {
-            var window = EditorLayout.GetWindow<CodeGeneratorPreferencesWindow>(
-                "Jenny",
-                new Vector2(415f, 600)
-            );
-
+            var window = GetWindow<CodeGeneratorPreferencesWindow>(true, "Jenny");
+            window.minSize = new Vector2(415f, 366f);
             window.Initialize(
                 EditorPrefs.GetString(CodeGeneratorPreferencesDrawer.PROPERTIES_PATH_KEY, "Jenny.properties"),
                 Environment.UserName + ".userproperties",
