@@ -4,7 +4,6 @@ namespace DesperateDevs.Unity.Editor {
 
     public abstract class AbstractPreferencesDrawer : IPreferencesDrawer {
 
-        public abstract int priority { get; }
         public abstract string title { get; }
 
         protected bool _drawContent = true;

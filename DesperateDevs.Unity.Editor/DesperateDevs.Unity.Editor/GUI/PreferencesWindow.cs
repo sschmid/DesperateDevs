@@ -11,7 +11,7 @@ namespace DesperateDevs.Unity.Editor
     {
         string _propertiesPath;
         string _userPropertiesPath;
-        string[] _preferencesDrawerName;
+        string[] _preferencesDrawerNames;
 
         Preferences _preferences;
         IPreferencesDrawer[] _preferencesDrawers;
@@ -19,11 +19,11 @@ namespace DesperateDevs.Unity.Editor
 
         Exception _configException;
 
-        public void Initialize(string propertiesPath, string userPropertiesPath, params string[] preferencesDrawerName)
+        public void Initialize(string propertiesPath, string userPropertiesPath, params string[] preferencesDrawerNames)
         {
             _propertiesPath = propertiesPath;
             _userPropertiesPath = userPropertiesPath;
-            _preferencesDrawerName = preferencesDrawerName;
+            _preferencesDrawerNames = preferencesDrawerNames;
         }
 
         void initialize()
@@ -32,16 +32,20 @@ namespace DesperateDevs.Unity.Editor
             {
                 _preferences = new Preferences(_propertiesPath, _userPropertiesPath);
 
-                _preferencesDrawers = AppDomain.CurrentDomain
-                    .GetInstancesOf<IPreferencesDrawer>()
-                    .Where(drawer => _preferencesDrawerName.Contains(drawer.GetType().FullName))
-                    .OrderBy(drawer => drawer.priority)
+                var availableDrawers = AppDomain.CurrentDomain
+                    .GetNonAbstractTypes<IPreferencesDrawer>();
+
+                _preferencesDrawers = _preferencesDrawerNames
+                    .Select(drawerName => availableDrawers.SingleOrDefault(type => type.FullName == drawerName))
+                    .Where(type => type != null)
+                    .Select(type => (IPreferencesDrawer)Activator.CreateInstance(type))
                     .ToArray();
 
                 foreach (var drawer in _preferencesDrawers)
                 {
                     drawer.Initialize(_preferences);
                 }
+                _preferences.Save();
             }
             catch (Exception ex)
             {

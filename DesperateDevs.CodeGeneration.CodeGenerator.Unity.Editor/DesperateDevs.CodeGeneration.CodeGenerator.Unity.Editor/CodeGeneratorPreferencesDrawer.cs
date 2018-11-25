@@ -12,7 +12,6 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
 {
     public class CodeGeneratorPreferencesDrawer : AbstractPreferencesDrawer
     {
-        public override int priority { get { return 0; } }
         public override string title { get { return "Jenny"; } }
 
         string[] _availablePreProcessorTypes;

@@ -33,7 +33,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 
             watch.Stop();
 
-            _logger.Info("Generating done (" + files.Length + " files in " + (watch.ElapsedMilliseconds / 1000) + " seconds)");
+            _logger.Info("Generated " + files.Length + " files in " + (watch.ElapsedMilliseconds / 1000f).ToString("0.0") + " seconds");
         }
     }
 }
