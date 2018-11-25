@@ -1,39 +1,16 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using DesperateDevs.Logging;
+﻿using System.IO;
 
 namespace DesperateDevs.Serialization {
 
     public class Preferences {
 
-        public const string DEFAULT_PATH = "Jenny.properties";
-
-        public static Preferences sharedInstance {
-            get {
-                if (_sharedInstance == null) {
-                    _sharedInstance = new Preferences((string)null , null);
-                }
-
-                _sharedInstance.Reload();
-                return _sharedInstance;
-            }
-            set { _sharedInstance = value; } }
-
-        static Preferences _sharedInstance;
-
         public string propertiesPath { get { return _propertiesPath; } }
         public string userPropertiesPath { get { return _userPropertiesPath; } }
-
-        public bool propertiesExist { get { return File.Exists(_propertiesPath); } }
-        public bool userPropertiesExist { get { return File.Exists(_userPropertiesPath); } }
 
         public string[] keys { get { return getMergedProperties().keys; } }
 
         public Properties properties { get { return _properties; } }
         public Properties userProperties { get { return _userProperties; } }
-
-        static readonly Logger _logger = fabl.GetLogger(typeof(Preferences).FullName);
 
         readonly string _propertiesPath;
         readonly string _userPropertiesPath;
@@ -44,14 +21,8 @@ namespace DesperateDevs.Serialization {
         bool _isDoubleQuoteMode;
 
         public Preferences(string propertiesPath, string userPropertiesPath) {
-            _propertiesPath = propertiesPath
-                              ?? findFilePath("*.properties")
-                              ?? DEFAULT_PATH;
-
-            _userPropertiesPath = userPropertiesPath
-                                  ?? findFilePath("*.userproperties")
-                                  ?? Environment.UserName + ".userproperties";
-
+            _propertiesPath = propertiesPath;
+            _userPropertiesPath = userPropertiesPath;
             Reload();
         }
 
@@ -98,28 +69,6 @@ namespace DesperateDevs.Serialization {
 
         public override string ToString() {
             return getMergedProperties().ToString();
-        }
-
-        public static string[] FindAll() {
-            return Directory.GetFiles(Directory.GetCurrentDirectory(), "*.properties", SearchOption.TopDirectoryOnly);
-        }
-
-        public static string[] FindAll(string searchPattern) {
-            return Directory.GetFiles(Directory.GetCurrentDirectory(), searchPattern, SearchOption.TopDirectoryOnly);
-        }
-
-        static string findFilePath(string searchPattern) {
-            var files = FindAll(searchPattern);
-            var file = files.FirstOrDefault();
-            if (files.Length > 1) {
-                _logger.Warn(
-                    "Found multiple files matching " + searchPattern + ":\n" +
-                    string.Join("\n", files.Select(Path.GetFileName).ToArray()) + "\n" +
-                    "Using " + file
-                );
-            }
-
-            return file;
         }
 
         static Properties loadProperties(string path) {

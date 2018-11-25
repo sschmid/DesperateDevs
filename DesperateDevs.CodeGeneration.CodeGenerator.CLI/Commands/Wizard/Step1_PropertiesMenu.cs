@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using DesperateDevs.CLI.Utils;
-using DesperateDevs.Serialization;
 using DesperateDevs.Serialization.CLI.Utils;
 using DesperateDevs.Utils;
 
@@ -17,7 +16,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
             foreach (var p in properties)
                 AddMenuEntry(new SelectPropertiesMenuEntry(this, p.MakePathRelativeTo(Directory.GetCurrentDirectory())));
 
-            if (!properties.Any(p => p.EndsWith(Preferences.DEFAULT_PATH)))
+            if (!properties.Any(p => p.EndsWith(AbstractPreferencesCommand.defaultPropertiesPath)))
                 AddMenuEntry(new CreateDefaultPropertiesMenuEntry(progam, this));
 
             AddMenuEntry(new CreateCustomPropertiesMenuEntry(progam, this));
@@ -66,8 +65,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
             base("Create new Jenny.properties", null, false, () =>
             {
                 var command = new NewConfigCommand();
-                command.Run(progam, new[] { command.trigger, "-s", Preferences.DEFAULT_PATH });
-                menu.properties = Preferences.DEFAULT_PATH;
+                command.Run(progam, new[] { command.trigger, "-s", AbstractPreferencesCommand.defaultPropertiesPath });
+                menu.properties = AbstractPreferencesCommand.defaultPropertiesPath;
                 menu.Stop();
             })
         {

@@ -25,8 +25,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                                 "  End, e                     - Select last\n" +
                                 "  Enter, Space               - Run selected menu entry";
 
-            const string examples = "Jenny automatically detects *.properties and *.userproperties.\n" +
-                                    "If you have multiple property files in one folder, please specify the desired file(s) along with the command.\n\n" +
+            const string examples = "Jenny automatically uses Jenny.properties and <userName>.userproperties\n" +
+                                    "when no properties files are specified along with the command.\n\n" +
                                     "EXAMPLE\n" +
                                     "  jenny new Jenny.properties\n" +
                                     "  jenny auto-import -s\n" +
@@ -34,8 +34,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                                     "  jenny edit\n" +
                                     "  jenny fix\n" +
                                     "  jenny gen\n" +
-                                    "  jenny gen MyOther.properties\n" +
-                                    "  jenny gen MyOther.properties username.userproperties";
+                                    "  jenny gen Other.properties\n" +
+                                    "  jenny gen Other.properties Other.userproperties";
 
             Console.WriteLine("usage:\n" + commandList + "\n" + args + "\n\n" + menu + "\n\n" + examples);
         }

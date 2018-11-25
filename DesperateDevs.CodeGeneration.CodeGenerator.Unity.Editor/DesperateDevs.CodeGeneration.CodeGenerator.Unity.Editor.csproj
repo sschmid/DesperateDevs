@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor\CodeGeneratorMenuItems.cs" />
     <Compile Include="DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor\CodeGeneratorPreferencesDrawer.cs" />
+    <Compile Include="DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor\CodeGeneratorPreferencesWindow.cs" />
     <Compile Include="DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor\UnityCodeGenerator.cs" />
   </ItemGroup>
   <ItemGroup>

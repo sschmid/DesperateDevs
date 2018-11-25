@@ -7,6 +7,9 @@ namespace DesperateDevs.Serialization.CLI.Utils
 {
     public abstract class AbstractPreferencesCommand : AbstractCommand
     {
+        public static string defaultPropertiesPath;
+        public static string defaultUserPropertiesPath;
+
         protected readonly Logger _logger;
         protected Preferences _preferences;
 
@@ -19,23 +22,13 @@ namespace DesperateDevs.Serialization.CLI.Utils
         {
             try
             {
-                var propertiesPath = args.GetPropertiesPath();
-                if (propertiesPath == null)
-                {
-                    var allPreferences = Preferences.FindAll();
-                    if (allPreferences.Length == 0)
-                    {
-                        _logger.Warn("Couldn't find any *.properties files!");
-                        _logger.Info("Use 'new Preferences.properties' to create an new file.");
-                        return;
-                    }
-                }
-                else if (!File.Exists(propertiesPath))
+                var propertiesPath = args.GetPropertiesPath() ?? defaultPropertiesPath;
+                if (!File.Exists(propertiesPath))
                 {
                     throw new Exception("The file " + propertiesPath + " does not exist.");
                 }
 
-                var userPropertiesPath = args.GetUserPropertiesPath();
+                var userPropertiesPath = args.GetUserPropertiesPath() ?? defaultUserPropertiesPath;
                 if (userPropertiesPath != null && !File.Exists(userPropertiesPath))
                 {
                     throw new Exception("The file " + userPropertiesPath + " does not exist.");

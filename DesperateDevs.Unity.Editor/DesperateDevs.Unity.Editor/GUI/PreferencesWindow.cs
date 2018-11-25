@@ -1,18 +1,17 @@
 using System;
-using System.IO;
 using System.Linq;
 using DesperateDevs.Serialization;
 using DesperateDevs.Utils;
 using UnityEditor;
 using UnityEngine;
 
-namespace DesperateDevs.Unity.Editor {
-
-    public class PreferencesWindow : EditorWindow {
-
-        public const string PREFERENCES_KEY = "DesperateDevs.Unity.Editor.PreferencesWindow.Preferences.Path";
-
-        public string preferencesName;
+namespace DesperateDevs.Unity.Editor
+{
+    public class PreferencesWindow : EditorWindow
+    {
+        string _preferencesId;
+        string _propertiesPath;
+        string _userPropertiesPath;
 
         Preferences _preferences;
         IPreferencesDrawer[] _preferencesDrawers;
@@ -20,21 +19,20 @@ namespace DesperateDevs.Unity.Editor {
 
         Exception _configException;
 
-        void initialize() {
-            try {
-                var path = EditorPrefs.GetString(PREFERENCES_KEY, string.Empty);
-                if (path != string.Empty && File.Exists(path)) {
-                    Preferences.sharedInstance = new Preferences(path, null);
-                }
-            } catch (Exception) {
-                // ignored
-            }
+        public void Initialize(string preferencesId, string propertiesPath, string userPropertiesPath)
+        {
+            _preferencesId = preferencesId;
+            _propertiesPath = propertiesPath;
+            _userPropertiesPath = userPropertiesPath;
+        }
 
-            try {
-                _preferences = Preferences.sharedInstance;
-                EditorPrefs.SetString(PREFERENCES_KEY, Path.GetFileName(Preferences.sharedInstance.propertiesPath));
+        void initialize()
+        {
+            try
+            {
+                _preferences = new Preferences(_propertiesPath, _userPropertiesPath);
 
-                var config = new PreferencesConfig(preferencesName);
+                var config = new PreferencesConfig(_preferencesId);
                 _preferences.properties.AddProperties(config.defaultProperties, false);
                 config.Configure(_preferences);
 
@@ -43,7 +41,8 @@ namespace DesperateDevs.Unity.Editor {
                     .OrderBy(drawer => drawer.priority)
                     .ToArray();
 
-                if (config.preferenceDrawers.Length == 0) {
+                if (config.preferenceDrawers.Length == 0)
+                {
                     config.preferenceDrawers = allPreferencesDrawers
                         .Select(drawer => drawer.GetType().FullName)
                         .ToArray();
@@ -55,19 +54,24 @@ namespace DesperateDevs.Unity.Editor {
                     .Where(drawer => enabledPreferenceDrawers.Contains(drawer.GetType().FullName))
                     .ToArray();
 
-                foreach (var drawer in _preferencesDrawers) {
+                foreach (var drawer in _preferencesDrawers)
+                {
                     drawer.Initialize(_preferences);
                 }
 
                 _preferences.Save();
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 _preferencesDrawers = new IPreferencesDrawer[0];
                 _configException = ex;
             }
         }
 
-        void OnGUI() {
-            if (_preferencesDrawers == null) {
+        void OnGUI()
+        {
+            if (_preferencesDrawers == null)
+            {
                 initialize();
             }
 
@@ -78,47 +82,66 @@ namespace DesperateDevs.Unity.Editor {
             }
             EditorGUILayout.EndScrollView();
 
-            if (GUI.changed) {
+            if (GUI.changed)
+            {
                 _preferences.Save();
             }
         }
 
-        void drawHeader() {
-            foreach (var drawer in _preferencesDrawers) {
-                try {
+        void drawHeader()
+        {
+            foreach (var drawer in _preferencesDrawers)
+            {
+                try
+                {
                     drawer.DrawHeader(_preferences);
-                } catch (Exception ex) {
+                }
+                catch (Exception ex)
+                {
                     drawException(ex);
                 }
             }
         }
 
-        void drawContent() {
-            if (_configException == null) {
-                for (int i = 0; i < _preferencesDrawers.Length; i++) {
-                    try {
+        void drawContent()
+        {
+            if (_configException == null)
+            {
+                for (int i = 0; i < _preferencesDrawers.Length; i++)
+                {
+                    try
+                    {
                         _preferencesDrawers[i].DrawContent(_preferences);
-                    } catch (Exception ex) {
+                    }
+                    catch (Exception ex)
+                    {
                         drawException(ex);
                     }
 
-                    if (i < _preferencesDrawers.Length - 1) {
+                    if (i < _preferencesDrawers.Length - 1)
+                    {
                         EditorGUILayout.Space();
                     }
                 }
-            } else {
+            }
+            else
+            {
                 drawException(_configException);
             }
         }
 
-        static void drawException(Exception exception) {
+        static void drawException(Exception exception)
+        {
             var style = new GUIStyle(GUI.skin.label);
             style.wordWrap = true;
             style.normal.textColor = Color.red;
 
-            if (Event.current.alt) {
+            if (Event.current.alt)
+            {
                 EditorGUILayout.LabelField(exception.ToString(), style);
-            } else {
+            }
+            else
+            {
                 EditorGUILayout.LabelField(exception.Message, style);
             }
 

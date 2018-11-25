@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using DesperateDevs.CLI.Utils;
 using DesperateDevs.Logging;
 using DesperateDevs.Serialization;
@@ -39,7 +40,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
             const string indent = "→ ";
 
             // Step 1: Properties
-            var allPreferenes = Preferences.FindAll();
+            var allPreferenes = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.properties", SearchOption.TopDirectoryOnly);
             var propertiesMenu = new Step1_PropertiesMenu(_program, title, CLIHelper.consoleColors, allPreferenes);
             propertiesMenu.indent = indent;
             propertiesMenu.Start();

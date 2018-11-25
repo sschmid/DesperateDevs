@@ -4,15 +4,17 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace DesperateDevs.Unity.Editor {
-
-    public static partial class EditorLayout {
-
-        public static bool ObjectFieldButton(string label, string buttonText) {
+namespace DesperateDevs.Unity.Editor
+{
+    public static partial class EditorLayout
+    {
+        public static bool ObjectFieldButton(string label, string buttonText)
+        {
             var clicked = false;
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField(label, GUILayout.Width(146));
-            if (buttonText.Length > 24) {
+            if (buttonText.Length > 24)
+            {
                 buttonText = "..." + buttonText.Substring(buttonText.Length - 24);
             }
             clicked = GUILayout.Button(buttonText, EditorStyles.objectField);
@@ -21,10 +23,13 @@ namespace DesperateDevs.Unity.Editor {
             return clicked;
         }
 
-        public static string ObjectFieldOpenFolderPanel(string label, string buttonText, string defaultPath) {
-            if (ObjectFieldButton(label, buttonText)) {
+        public static string ObjectFieldOpenFolderPanel(string label, string buttonText, string defaultPath)
+        {
+            if (ObjectFieldButton(label, buttonText))
+            {
                 var path = defaultPath ?? "Assets/";
-                if (!Directory.Exists(path)) {
+                if (!Directory.Exists(path))
+                {
                     path = "Assets/";
                 }
                 path = EditorUtility.OpenFolderPanel(label, path, string.Empty);
@@ -34,42 +39,51 @@ namespace DesperateDevs.Unity.Editor {
             return null;
         }
 
-        public static string ObjectFieldOpenFilePanel(string label, string buttonText, string defaultPath) {
-            if (ObjectFieldButton(label, buttonText)) {
+        public static string ObjectFieldOpenFilePanel(string label, string buttonText, string defaultPath, string extension)
+        {
+            if (ObjectFieldButton(label, buttonText))
+            {
                 var path = defaultPath ?? "Assets/";
-                if (!File.Exists(path)) {
+                if (!File.Exists(path))
+                {
                     path = "Assets/";
                 }
-                path = EditorUtility.OpenFilePanel(label, path, "dll");
+                path = EditorUtility.OpenFilePanel(label, path, extension);
                 return path.Replace(Directory.GetCurrentDirectory() + "/", string.Empty);
             }
 
             return null;
         }
 
-        public static bool MiniButton(string c) {
+        public static bool MiniButton(string c)
+        {
             return miniButton(c, EditorStyles.miniButton);
         }
 
-        public static bool MiniButtonLeft(string c) {
+        public static bool MiniButtonLeft(string c)
+        {
             return miniButton(c, EditorStyles.miniButtonLeft);
         }
 
-        public static bool MiniButtonMid(string c) {
+        public static bool MiniButtonMid(string c)
+        {
             return miniButton(c, EditorStyles.miniButtonMid);
         }
 
-        public static bool MiniButtonRight(string c) {
+        public static bool MiniButtonRight(string c)
+        {
             return miniButton(c, EditorStyles.miniButtonRight);
         }
 
-        static bool miniButton(string c, GUIStyle style) {
+        static bool miniButton(string c, GUIStyle style)
+        {
             var options = c.Length == 1
                 ? new[] { GUILayout.Width(19) }
                 : new GUILayoutOption[0];
 
             var clicked = GUILayout.Button(c, style, options);
-            if (clicked) {
+            if (clicked)
+            {
                 GUI.FocusControl(null);
             }
             return clicked;
@@ -77,11 +91,13 @@ namespace DesperateDevs.Unity.Editor {
 
         const int DEFAULT_FOLDOUT_MARGIN = 11;
 
-        public static bool Foldout(bool foldout, string content, int leftMargin = DEFAULT_FOLDOUT_MARGIN) {
+        public static bool Foldout(bool foldout, string content, int leftMargin = DEFAULT_FOLDOUT_MARGIN)
+        {
             return Foldout(foldout, content, EditorStyles.foldout, leftMargin);
         }
 
-        public static bool Foldout(bool foldout, string content, GUIStyle style, int leftMargin = DEFAULT_FOLDOUT_MARGIN) {
+        public static bool Foldout(bool foldout, string content, GUIStyle style, int leftMargin = DEFAULT_FOLDOUT_MARGIN)
+        {
             EditorGUILayout.BeginHorizontal();
             GUILayout.Space(leftMargin);
             foldout = EditorGUILayout.Foldout(foldout, content, style);
@@ -89,11 +105,13 @@ namespace DesperateDevs.Unity.Editor {
             return foldout;
         }
 
-        public static string SearchTextField(string searchString) {
+        public static string SearchTextField(string searchString)
+        {
             var guiChanged = GUI.changed;
             GUILayout.BeginHorizontal();
             searchString = GUILayout.TextField(searchString, GUI.skin.FindStyle("ToolbarSeachTextField"));
-            if (GUILayout.Button(string.Empty, GUI.skin.FindStyle("ToolbarSeachCancelButton"))) {
+            if (GUILayout.Button(string.Empty, GUI.skin.FindStyle("ToolbarSeachCancelButton")))
+            {
                 searchString = string.Empty;
             }
             GUILayout.EndHorizontal();
@@ -102,7 +120,8 @@ namespace DesperateDevs.Unity.Editor {
             return searchString;
         }
 
-        public static bool MatchesSearchString(string str, string search) {
+        public static bool MatchesSearchString(string str, string search)
+        {
             var searches = search.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             return searches.Length == 0 || searches.Any(str.Contains);
         }
