@@ -43,7 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CLIConfig.cs" />
     <Compile Include="Commands\AutoImportCommand.cs" />
     <Compile Include="Commands\ClientCommand.cs" />
     <Compile Include="Commands\CommandGroups.cs" />

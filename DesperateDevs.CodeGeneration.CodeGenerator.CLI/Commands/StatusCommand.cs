@@ -5,61 +5,65 @@ using DesperateDevs.Serialization;
 using DesperateDevs.Serialization.CLI.Utils;
 using DesperateDevs.Utils;
 
-namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
-
-    public class StatusCommand : AbstractPreferencesCommand {
-
+namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
+{
+    public class StatusCommand : AbstractPreferencesCommand
+    {
         public override string trigger => "status";
         public override string description => "List available and unavailable plugins";
         public override string group => CommandGroups.PLUGINS;
         public override string example => "status";
 
-        public StatusCommand() : base(typeof(StatusCommand).FullName) {
+        public StatusCommand() : base(typeof(StatusCommand).FullName)
+        {
         }
 
-        protected override void run() {
+        protected override void run()
+        {
             var config = _preferences.CreateAndConfigure<CodeGeneratorConfig>();
-            var cliConfig = _preferences.CreateAndConfigure<CLIConfig>();
 
             _logger.Debug(_preferences.ToString());
 
             ICodeGenerationPlugin[] instances = null;
             Dictionary<string, string> defaultProperties = null;
 
-            try {
+            try
+            {
                 instances = CodeGeneratorUtil.LoadFromPlugins(_preferences);
                 defaultProperties = CodeGeneratorUtil.GetDefaultProperties(instances, config);
-            } catch (Exception) {
+            }
+            catch (Exception)
+            {
                 printKeyStatus(
-                    config.defaultProperties.Merge(cliConfig.defaultProperties).Keys.ToArray(),
-                    cliConfig,
+                    config.defaultProperties.Keys.ToArray(),
                     _preferences);
                 throw;
             }
 
             var requiredKeys = config.defaultProperties
-                .Merge(cliConfig.defaultProperties)
                 .Merge(defaultProperties).Keys.ToArray();
 
-            printKeyStatus(requiredKeys, cliConfig, _preferences);
+            printKeyStatus(requiredKeys, _preferences);
             printPluginStatus(instances, config);
             printCollisions(config);
         }
 
-        void printKeyStatus(string[] requiredKeys, CLIConfig cliConfig, Preferences preferences) {
-            var unusedKeys = preferences.GetUnusedKeys(requiredKeys)
-                .Where(key => !cliConfig.ignoreUnusedKeys.Contains(key));
-
-            foreach (var key in unusedKeys) {
+        void printKeyStatus(string[] requiredKeys, Preferences preferences)
+        {
+            var unusedKeys = preferences.GetUnusedKeys(requiredKeys);
+            foreach (var key in unusedKeys)
+            {
                 _logger.Info("ℹ️️  Unused key: " + key);
             }
 
-            foreach (var key in preferences.GetMissingKeys(requiredKeys)) {
+            foreach (var key in preferences.GetMissingKeys(requiredKeys))
+            {
                 _logger.Warn("⚠️  Missing key: " + key);
             }
         }
 
-        void printPluginStatus(ICodeGenerationPlugin[] instances, CodeGeneratorConfig config) {
+        void printPluginStatus(ICodeGenerationPlugin[] instances, CodeGeneratorConfig config)
+        {
             printUnavailable(CodeGeneratorUtil.GetUnavailableNamesOf<IPreProcessor>(instances, config.preProcessors));
             printUnavailable(CodeGeneratorUtil.GetUnavailableNamesOf<IDataProvider>(instances, config.dataProviders));
             printUnavailable(CodeGeneratorUtil.GetUnavailableNamesOf<ICodeGenerator>(instances, config.codeGenerators));
@@ -71,26 +75,32 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
             printAvailable(CodeGeneratorUtil.GetAvailableNamesOf<IPostProcessor>(instances, config.postProcessors));
         }
 
-        void printUnavailable(string[] names) {
-            foreach (var name in names) {
+        void printUnavailable(string[] names)
+        {
+            foreach (var name in names)
+            {
                 _logger.Warn("⚠️  Unavailable: " + name);
             }
         }
 
-        void printAvailable(string[] names) {
-            foreach (var name in names) {
+        void printAvailable(string[] names)
+        {
+            foreach (var name in names)
+            {
                 _logger.Info("ℹ️  Available: " + name);
             }
         }
 
-        void printCollisions(CodeGeneratorConfig config) {
+        void printCollisions(CodeGeneratorConfig config)
+        {
             printDuplicates(config.preProcessors);
             printDuplicates(config.dataProviders);
             printDuplicates(config.codeGenerators);
             printDuplicates(config.postProcessors);
         }
 
-        void printDuplicates(string[] names) {
+        void printDuplicates(string[] names)
+        {
             var shortNames = names
                 .Select(name => name.ShortTypeName())
                 .ToArray();
@@ -99,7 +109,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI {
                 .Where(name => shortNames.Count(n => n == name.ShortTypeName()) > 1)
                 .OrderBy(name => name.ShortTypeName());
 
-            foreach (var duplicate in duplicates) {
+            foreach (var duplicate in duplicates)
+            {
                 _logger.Warn("⚠️  Potential collision detected: " + duplicate.ShortTypeName() + " -> " + duplicate);
             }
         }

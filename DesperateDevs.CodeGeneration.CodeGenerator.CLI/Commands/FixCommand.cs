@@ -27,10 +27,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
             silent = _rawArgs.IsSilent();
 
             var config = _preferences.CreateAndConfigure<CodeGeneratorConfig>();
-            var cliConfig = _preferences.CreateAndConfigure<CLIConfig>();
-
             forceAddMissingKeys(config.defaultProperties, _preferences);
-            forceAddMissingKeys(cliConfig.defaultProperties, _preferences);
 
             var instances = CodeGeneratorUtil.LoadFromPlugins(_preferences);
             // A test to check if all types can be resolved and instantiated.
@@ -41,7 +38,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 
             var askedRemoveKeys = new HashSet<string>();
             var askedAddKeys = new HashSet<string>();
-            while (fix(askedRemoveKeys, askedAddKeys, instances, config, cliConfig, _preferences))
+            while (fix(askedRemoveKeys, askedAddKeys, instances, config, _preferences))
             {
             }
 
@@ -130,7 +127,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
             }
         }
 
-        bool fix(HashSet<string> askedRemoveKeys, HashSet<string> askedAddKeys, ICodeGenerationPlugin[] instances, CodeGeneratorConfig config, CLIConfig cliConfig, Preferences preferences)
+        bool fix(HashSet<string> askedRemoveKeys, HashSet<string> askedAddKeys, ICodeGenerationPlugin[] instances, CodeGeneratorConfig config, Preferences preferences)
         {
             var changed = fixPlugins(askedRemoveKeys, askedAddKeys, instances, config, preferences);
             changed |= fixCollisions(askedAddKeys, config, preferences);
@@ -138,12 +135,11 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
             forceAddMissingKeys(CodeGeneratorUtil.GetDefaultProperties(instances, config), preferences);
 
             var requiredKeys = config.defaultProperties
-                .Merge(cliConfig.defaultProperties)
                 .Merge(CodeGeneratorUtil.GetDefaultProperties(instances, config))
                 .Keys
                 .ToArray();
 
-            removeUnusedKeys(askedRemoveKeys, requiredKeys, cliConfig, preferences);
+            removeUnusedKeys(askedRemoveKeys, requiredKeys, preferences);
 
             return changed;
         }
@@ -419,24 +415,20 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
             return chars;
         }
 
-        static void removeUnusedKeys(HashSet<string> askedRemoveKeys, string[] requiredKeys, CLIConfig cliConfig, Preferences preferences)
+        static void removeUnusedKeys(HashSet<string> askedRemoveKeys, string[] requiredKeys, Preferences preferences)
         {
-            var unusedKeys = preferences.GetUnusedKeys(requiredKeys)
-                .Where(key => !cliConfig.ignoreUnusedKeys.Contains(key));
-
+            var unusedKeys = preferences.GetUnusedKeys(requiredKeys);
             foreach (var key in unusedKeys)
             {
                 if (!askedRemoveKeys.Contains(key))
                 {
                     if (silent)
                     {
-                        preferences.AddValue(key, cliConfig.ignoreUnusedKeys,
-                            values => cliConfig.ignoreUnusedKeys = values);
+                        preferences.RemoveKey(key);
                     }
                     else
                     {
-                        preferences.AskRemoveOrIgnoreKey("Remove unused key", key, cliConfig.ignoreUnusedKeys,
-                            values => cliConfig.ignoreUnusedKeys = values);
+                        preferences.AskRemoveKey("Remove unused key", key);
                     }
                     askedRemoveKeys.Add(key);
                 }
