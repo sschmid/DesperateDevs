@@ -9,9 +9,9 @@ namespace DesperateDevs.Unity.Editor
 {
     public class PreferencesWindow : EditorWindow
     {
-        string _preferencesId;
         string _propertiesPath;
         string _userPropertiesPath;
+        string[] _preferencesDrawerName;
 
         Preferences _preferences;
         IPreferencesDrawer[] _preferencesDrawers;
@@ -19,11 +19,11 @@ namespace DesperateDevs.Unity.Editor
 
         Exception _configException;
 
-        public void Initialize(string preferencesId, string propertiesPath, string userPropertiesPath)
+        public void Initialize(string propertiesPath, string userPropertiesPath, params string[] preferencesDrawerName)
         {
-            _preferencesId = preferencesId;
             _propertiesPath = propertiesPath;
             _userPropertiesPath = userPropertiesPath;
+            _preferencesDrawerName = preferencesDrawerName;
         }
 
         void initialize()
@@ -32,34 +32,16 @@ namespace DesperateDevs.Unity.Editor
             {
                 _preferences = new Preferences(_propertiesPath, _userPropertiesPath);
 
-                var config = new PreferencesConfig(_preferencesId);
-                _preferences.properties.AddProperties(config.defaultProperties, false);
-                config.Configure(_preferences);
-
-                var allPreferencesDrawers = AppDomain.CurrentDomain
+                _preferencesDrawers = AppDomain.CurrentDomain
                     .GetInstancesOf<IPreferencesDrawer>()
+                    .Where(drawer => _preferencesDrawerName.Contains(drawer.GetType().FullName))
                     .OrderBy(drawer => drawer.priority)
-                    .ToArray();
-
-                if (config.preferenceDrawers.Length == 0)
-                {
-                    config.preferenceDrawers = allPreferencesDrawers
-                        .Select(drawer => drawer.GetType().FullName)
-                        .ToArray();
-                }
-
-                var enabledPreferenceDrawers = config.preferenceDrawers;
-
-                _preferencesDrawers = allPreferencesDrawers
-                    .Where(drawer => enabledPreferenceDrawers.Contains(drawer.GetType().FullName))
                     .ToArray();
 
                 foreach (var drawer in _preferencesDrawers)
                 {
                     drawer.Initialize(_preferences);
                 }
-
-                _preferences.Save();
             }
             catch (Exception ex)
             {

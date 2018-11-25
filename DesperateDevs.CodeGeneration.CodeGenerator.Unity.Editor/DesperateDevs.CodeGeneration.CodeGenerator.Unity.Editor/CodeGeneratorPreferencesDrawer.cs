@@ -12,7 +12,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
 {
     public class CodeGeneratorPreferencesDrawer : AbstractPreferencesDrawer
     {
-        public override int priority { get { return 10; } }
+        public override int priority { get { return 0; } }
         public override string title { get { return "Jenny"; } }
 
         string[] _availablePreProcessorTypes;
@@ -87,8 +87,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
             if (!string.IsNullOrEmpty(path))
             {
                 EditorPrefs.SetString(PROPERTIES_PATH_KEY, path);
-                var window = EditorWindow.focusedWindow;
-                window.Close();
+                EditorWindow.focusedWindow.Close();
                 CodeGeneratorPreferencesWindow.OpenPreferences();
             }
 

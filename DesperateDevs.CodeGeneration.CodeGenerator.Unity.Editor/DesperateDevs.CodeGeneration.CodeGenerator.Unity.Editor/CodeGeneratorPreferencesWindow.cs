@@ -13,7 +13,11 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
         {
             var propertiesPath = EditorPrefs.GetString(CodeGeneratorPreferencesDrawer.PROPERTIES_PATH_KEY, "Jenny.properties");
             var window = EditorLayout.GetWindow<PreferencesWindow>("Jenny", new Vector2(415f, 600));
-            window.Initialize("Jenny", propertiesPath, Environment.UserName + ".userproperties");
+            window.Initialize(
+                propertiesPath,
+                Environment.UserName + ".userproperties",
+                typeof(CodeGeneratorPreferencesDrawer).FullName
+            );
             window.Show();
         }
     }
