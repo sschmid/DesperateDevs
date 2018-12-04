@@ -4,10 +4,10 @@ BUILD_SRC=Build/src
 
 desperatedevs::collect_jenny() {
   log_func
-  local jenny="${BUILD_SRC}/Jenny"
-  local codegenerator="${jenny}/Jenny"
-  local plugins="${codegenerator}/Plugins/DesperateDevs"
-  utils::clean_dir "${jenny}" "${codegenerator}" "${plugins}"
+  local jenny_dir="${BUILD_SRC}/Jenny"
+  local codegenerator_dir="${jenny_dir}/Jenny"
+  local plugins_dir="${codegenerator_dir}/Plugins/DesperateDevs"
+  utils::clean_dir "${jenny_dir}" "${codegenerator_dir}" "${plugins_dir}"
 
   local projects=(
     "DesperateDevs.CodeGeneration.CodeGenerator.CLI"
@@ -19,14 +19,14 @@ desperatedevs::collect_jenny() {
     "DesperateDevs.CodeGeneration.Unity.Plugins.dll"
   )
 
-  for p in "${projects[@]}"; do utils::sync "${p}/bin/Release/" "${codegenerator}"; done
-  for f in "${to_plugins[@]}"; do mv "${codegenerator}/${f}" "${plugins}"; done
+  for p in "${projects[@]}"; do utils::sync "${p}/bin/Release/" "${codegenerator_dir}"; done
+  for f in "${to_plugins[@]}"; do mv "${codegenerator_dir}/${f}" "${plugins_dir}"; done
 
-  mv "${codegenerator}/DesperateDevs.CodeGeneration.CodeGenerator.CLI.exe" "${codegenerator}/Jenny.exe"
-  cp "DesperateDevs.CodeGeneration.CodeGenerator.CLI/Jenny-Server" "${jenny}"
-  cp "DesperateDevs.CodeGeneration.CodeGenerator.CLI/Jenny-Server.bat" "${jenny}"
-  cp "DesperateDevs.CodeGeneration.CodeGenerator.CLI/Jenny-Auto-Import" "${jenny}"
-  cp "DesperateDevs.CodeGeneration.CodeGenerator.CLI/Jenny-Auto-Import.bat" "${jenny}"
+  mv "${codegenerator_dir}/DesperateDevs.CodeGeneration.CodeGenerator.CLI.exe" "${codegenerator_dir}/Jenny.exe"
+  cp "DesperateDevs.CodeGeneration.CodeGenerator.CLI/Jenny-Server" "${jenny_dir}"
+  cp "DesperateDevs.CodeGeneration.CodeGenerator.CLI/Jenny-Server.bat" "${jenny_dir}"
+  cp "DesperateDevs.CodeGeneration.CodeGenerator.CLI/Jenny-Auto-Import" "${jenny_dir}"
+  cp "DesperateDevs.CodeGeneration.CodeGenerator.CLI/Jenny-Auto-Import.bat" "${jenny_dir}"
 }
 
 desperatedevs::collect_jenny_unity() {
@@ -67,10 +67,11 @@ desperatedevs::collect_jenny_unity() {
 
 desperatedevs::collect_desperatedevs_unity() {
   log_func
-  local desperatedevs="${BUILD_SRC}/DesperateDevs"
-  local editor="${desperatedevs}/Editor"
-  local plugins="${editor}/Plugins/DesperateDevs"
-  utils::clean_dir "${desperatedevs}" "${editor}" "${plugins}"
+  local desperatedevs_dir="${BUILD_SRC}/DesperateDevs"
+  local editor_dir="${desperatedevs_dir}/Editor"
+  local images_dir="${editor_dir}/Images"
+  local plugins_dir="${editor_dir}/Plugins/DesperateDevs"
+  utils::clean_dir "${desperatedevs_dir}" "${editor_dir}" "${images_dir}" "${plugins_dir}"
 
   local projects=(
     # all
@@ -102,14 +103,18 @@ desperatedevs::collect_desperatedevs_unity() {
     "DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor.dll"
     "DesperateDevs.Unity.Editor.dll"
   )
+  local images=(
+    "DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor/DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor/Images/"
+  )
   local to_plugins=(
     "DesperateDevs.CodeGeneration.Plugins.dll"
     "DesperateDevs.CodeGeneration.Unity.Plugins.dll"
   )
 
-  for p in "${projects[@]}"; do utils::sync "${p}/bin/Release/" "${desperatedevs}"; done
-  for f in "${to_editor[@]}"; do mv "${desperatedevs}/${f}" "${editor}"; done
-  for f in "${to_plugins[@]}"; do mv "${desperatedevs}/${f}" "${plugins}"; done
+  for p in "${projects[@]}"; do utils::sync "${p}/bin/Release/" "${desperatedevs_dir}"; done
+  for f in "${to_editor[@]}"; do mv "${desperatedevs_dir}/${f}" "${editor_dir}"; done
+  for f in "${images[@]}"; do utils::sync "${f}" "${images_dir}"; done
+  for f in "${to_plugins[@]}"; do mv "${desperatedevs_dir}/${f}" "${plugins_dir}"; done
 }
 
 desperatedevs::collect() {
