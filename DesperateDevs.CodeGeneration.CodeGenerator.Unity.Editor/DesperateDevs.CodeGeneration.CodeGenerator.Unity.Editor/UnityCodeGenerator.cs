@@ -16,8 +16,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
 
         public static Preferences GetPreferences()
         {
-            var propertiesPath = EditorPrefs.GetString(CodeGeneratorPreferencesDrawer.PROPERTIES_PATH_KEY, "Jenny.properties");
-            return new Preferences(propertiesPath, Environment.UserName + ".userproperties");
+            var propertiesPath = EditorPrefs.GetString(CodeGeneratorPreferencesDrawer.PROPERTIES_PATH_KEY, CodeGenerator.defaultPropertiesPath);
+            return new Preferences(propertiesPath, Preferences.defaultUserPropertiesPath);
         }
 
         [MenuItem(CodeGeneratorMenuItems.generate, false, CodeGeneratorMenuItemPriorities.generate)]

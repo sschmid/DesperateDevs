@@ -3,6 +3,7 @@ using System.IO;
 using DesperateDevs.CLI.Utils;
 using DesperateDevs.Logging;
 using DesperateDevs.Serialization;
+using DesperateDevs.Serialization.CLI.Utils;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 {
@@ -45,7 +46,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
             propertiesMenu.indent = indent;
             propertiesMenu.Start();
 
-            var preferences = new Preferences(propertiesMenu.properties, null);
+            var preferences = new Preferences(propertiesMenu.properties, Preferences.defaultUserPropertiesPath);
 
             // Step 2: Plugins
             var pluginsMenu = new Step2_PluginsMenu(_program, title, CLIHelper.consoleColors, preferences, _rawArgs.IsVerbose());

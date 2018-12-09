@@ -7,9 +7,6 @@ namespace DesperateDevs.Serialization.CLI.Utils
 {
     public abstract class AbstractPreferencesCommand : AbstractCommand
     {
-        public static string defaultPropertiesPath;
-        public static string defaultUserPropertiesPath;
-
         protected readonly Logger _logger;
         protected Preferences _preferences;
 
@@ -22,13 +19,13 @@ namespace DesperateDevs.Serialization.CLI.Utils
         {
             try
             {
-                var propertiesPath = args.GetPropertiesPath() ?? defaultPropertiesPath;
+                var propertiesPath = args.GetPropertiesPath();
                 if (!File.Exists(propertiesPath))
                 {
                     throw new Exception("The file " + propertiesPath + " does not exist.");
                 }
 
-                var userPropertiesPath = args.GetUserPropertiesPath() ?? defaultUserPropertiesPath;
+                var userPropertiesPath = args.GetUserPropertiesPath();
                 if (userPropertiesPath != null && !File.Exists(userPropertiesPath))
                 {
                     throw new Exception("The file " + userPropertiesPath + " does not exist.");

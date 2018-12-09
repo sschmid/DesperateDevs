@@ -10,6 +10,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
 
     public class CodeGenerator {
 
+        public static string defaultPropertiesPath { get { return "Jenny.properties"; } }
+
         public event GeneratorProgress OnProgress;
 
         readonly IPreProcessor[] _preProcessors;

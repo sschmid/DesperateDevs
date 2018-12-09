@@ -1,8 +1,11 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace DesperateDevs.Serialization {
 
     public class Preferences {
+
+        public static string defaultUserPropertiesPath { get { return Environment.UserName + ".userproperties"; } }
 
         public string propertiesPath { get { return _propertiesPath; } }
         public string userPropertiesPath { get { return _userPropertiesPath; } }
@@ -22,7 +25,7 @@ namespace DesperateDevs.Serialization {
 
         public Preferences(string propertiesPath, string userPropertiesPath) {
             _propertiesPath = propertiesPath;
-            _userPropertiesPath = userPropertiesPath;
+            _userPropertiesPath = userPropertiesPath ?? defaultUserPropertiesPath;
             Reload();
         }
 

@@ -25,17 +25,17 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                                 "  End, e                     - Select last\n" +
                                 "  Enter, Space               - Run selected menu entry";
 
-            const string examples = "Jenny automatically uses Jenny.properties and <userName>.userproperties\n" +
-                                    "when no properties files are specified along with the command.\n\n" +
-                                    "EXAMPLE\n" +
-                                    "  jenny new Jenny.properties\n" +
-                                    "  jenny auto-import -s\n" +
-                                    "  jenny doctor\n" +
-                                    "  jenny edit\n" +
-                                    "  jenny fix\n" +
-                                    "  jenny gen\n" +
-                                    "  jenny gen Other.properties\n" +
-                                    "  jenny gen Other.properties Other.userproperties";
+            var examples = "Jenny automatically uses " + CodeGenerator.defaultPropertiesPath + " and <userName>.userproperties\n" +
+                           "when no properties files are specified along with the command.\n\n" +
+                           "EXAMPLE\n" +
+                           "  jenny new Jenny.properties\n" +
+                           "  jenny auto-import -s\n" +
+                           "  jenny doctor\n" +
+                           "  jenny edit\n" +
+                           "  jenny fix\n" +
+                           "  jenny gen\n" +
+                           "  jenny gen Other.properties\n" +
+                           "  jenny gen Other.properties Other.userproperties";
 
             Console.WriteLine("usage:\n" + commandList + "\n" + args + "\n\n" + menu + "\n\n" + examples);
         }
