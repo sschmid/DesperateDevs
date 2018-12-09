@@ -11,7 +11,7 @@ namespace DesperateDevs.CodeGeneration.Plugins {
         public override Dictionary<string, string> defaultProperties {
             get {
                 return new Dictionary<string, string> {
-                    { TARGET_DIRECTORY_KEY, "Assets/Sources" }
+                    { TARGET_DIRECTORY_KEY, "Assets" }
                 };
             }
         }
