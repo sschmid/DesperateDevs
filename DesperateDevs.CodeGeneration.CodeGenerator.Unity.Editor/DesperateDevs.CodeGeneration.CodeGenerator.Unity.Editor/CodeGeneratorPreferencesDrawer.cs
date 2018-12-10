@@ -36,7 +36,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
 
         public override void Initialize(Preferences preferences)
         {
-            _headerTexture = EditorLayout.LoadTexture("l:JennyHeader");
+            _headerTexture = EditorLayout.LoadTexture("l:Jenny-Header");
             _codeGeneratorConfig = preferences.CreateAndConfigure<CodeGeneratorConfig>();
             preferences.properties.AddProperties(_codeGeneratorConfig.defaultProperties, false);
 
