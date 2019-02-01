@@ -143,7 +143,7 @@ desperatedevs::sync() {
 
 desperatedevs::pack() {
   log_func
-  dotnet::rebuild
+  msbuild::rebuild
   nspec::run
   desperatedevs::collect
 }

@@ -14,6 +14,7 @@ namespace DesperateDevs.Roslyn {
 
         public ProjectParser(string projectPath) {
             _logger.Debug("Opening " + projectPath);
+
             using (var workspace = MSBuildWorkspace.Create()) {
                 _project = workspace.OpenProjectAsync(projectPath).Result;
                 _logger.Debug("Opened " + _project.Name);

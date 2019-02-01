@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 PROJECT="DesperateDevs"
-PLUGINS=(dotnet nspec utils)
+PLUGINS=(msbuild nspec utils)
 RESOURCES=.bee
 
 source "${RESOURCES}"/desperatedevs.sh
 
-# dotnet
-DOTNET_SOLUTION="${PROJECT}.sln"
+# msbuild
+MSBUILD_SOLUTION="${PROJECT}.sln"
 
 # nspec => dotnet
 NSPEC_TESTS_PROJECT=Tests/Tests.csproj
