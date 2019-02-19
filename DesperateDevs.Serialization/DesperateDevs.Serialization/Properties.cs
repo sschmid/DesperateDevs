@@ -15,6 +15,16 @@ namespace DesperateDevs.Serialization {
 
         const string placeholderPattern = @"\${(.+?)}";
 
+        public bool doubleQuoteMode {
+            get { return _isDoubleQuoteMode; }
+            set {
+                _isDoubleQuoteMode = value;
+                foreach (var key in _dict.Keys.ToArray()) {
+                    this[key] = this[key];
+                }
+            }
+        }
+
         bool _isDoubleQuoteMode;
 
         public string this[string key] {
@@ -71,14 +81,6 @@ namespace DesperateDevs.Serialization {
 
         public void RemoveProperty(string key) {
             _dict.Remove(key);
-        }
-
-        public void EnableDoubleQuoteMode() {
-            _isDoubleQuoteMode = true;
-
-            foreach (var key in _dict.Keys.ToArray()) {
-                this[key] = this[key];
-            }
         }
 
         public Dictionary<string, string> ToDictionary() {

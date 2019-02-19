@@ -43,7 +43,7 @@ class describe_Preferences : nspec {
             };
 
             xit["supports double quote mode"] = () => {
-                preferences.EnableDoubleQuoteMode();
+                preferences.doubleQuoteMode = true;
                 preferences["key2"] = "value2";
                 preferences["key2"].should_be("\"value2\"");
             };
