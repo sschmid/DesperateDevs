@@ -9,6 +9,8 @@ namespace DesperateDevs.Unity.Editor
 {
     public class PreferencesWindow : EditorWindow
     {
+        public Preferences preferences { get { return _preferences; } }
+
         string _propertiesPath;
         string _userPropertiesPath;
         string[] _preferencesDrawerNames;
