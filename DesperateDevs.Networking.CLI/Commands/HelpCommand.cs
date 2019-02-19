@@ -29,8 +29,8 @@ namespace DesperateDevs.Networking.CLI
                        "[-s]".PadRight(pad) + "   - silent (minimal output)";
 
             const string examples = "EXAMPLE\n" +
-                                    "  pezy listen 1234\n" +
-                                    "  pezy connect localhost 1234";
+                                    "  tcpezy listen 1234\n" +
+                                    "  tcpezy connect localhost 1234";
 
             Console.WriteLine(header + "\nusage:\n" + commandList + "\n" + args + "\n\n" + examples);
         }

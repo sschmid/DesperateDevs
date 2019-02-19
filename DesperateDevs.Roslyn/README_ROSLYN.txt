@@ -4,5 +4,8 @@ Install packages:
 Microsoft.Net.Compilers
 Microsoft.CodeAnalysis
 
+Fix, after update:
+Microsoft.CodeAnalysis.Workspaces.MSBuild
+
 Copy Mono Hosted MSBuild into bin/Release
 https://github.com/Microsoft/msbuild/releases/tag/mono-hosted-msbuild-v0.03
