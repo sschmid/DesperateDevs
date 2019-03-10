@@ -3,6 +3,7 @@ https://github.com/dotnet/roslyn
 Install packages:
 Microsoft.Net.Compilers
 Microsoft.CodeAnalysis
+  - Microsoft.CodeAnalysis.CSharp.Workspaces (use this instead)
 
 Fix, after update:
 Microsoft.CodeAnalysis.Workspaces.MSBuild
