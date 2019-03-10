@@ -106,6 +106,7 @@ namespace DesperateDevs.CLI.Utils
             catch (Exception ex)
             {
                 _logger.Error(args.IsVerbose() ? ex.ToString() : ex.Message);
+                _logger.Info("Use -v to enable verbose logging");
             }
         }
 
