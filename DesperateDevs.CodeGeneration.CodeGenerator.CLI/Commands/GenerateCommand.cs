@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using DesperateDevs.Serialization.CLI.Utils;
 
@@ -33,7 +34,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 
             watch.Stop();
 
-            _logger.Info("Generated " + files.Length + " files in " + (watch.ElapsedMilliseconds / 1000f).ToString("0.0") + " seconds");
+            _logger.Info("[" + DateTime.Now.ToLongTimeString() + "]" + " Generated " + files.Length + " files in " + (watch.ElapsedMilliseconds / 1000f).ToString("0.0") + " seconds");
         }
     }
 }
