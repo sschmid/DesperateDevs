@@ -20,12 +20,12 @@ namespace DesperateDevs.CodeGeneration {
             const string placeholderFormat = @"${{{0}}}";
 
             var upperKey = string.Format(placeholderFormat, key.UppercaseFirst());
-            var lowerrKey = string.Format(placeholderFormat, key.LowercaseFirst());
+            var lowerKey = string.Format(placeholderFormat, key.LowercaseFirst());
             var upperValue = value.UppercaseFirst();
             var lowerValue = value.LowercaseFirst();
 
             template = template.Replace(upperKey, upperValue);
-            template = template.Replace(lowerrKey, lowerValue);
+            template = template.Replace(lowerKey, lowerValue);
 
             return template;
         }
