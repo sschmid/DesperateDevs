@@ -22,7 +22,7 @@ class check_namespaces : nspec {
         };
 
         const string namespacePattern = @"(?:^namespace)\s.*\b";
-        string expectedNamespacePattern = string.Format(@"[^\{0}]*", Path.DirectorySeparatorChar);
+        var expectedNamespacePattern = $@"[^\{Path.DirectorySeparatorChar}]*";
 
         var each = new Each<string, string, string>();
 

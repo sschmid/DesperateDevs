@@ -4,4 +4,8 @@
     <TargetFramework>net472</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TestDependencyBase\TestDependencyBase.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,44 +1,15 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{81F4D3DE-825A-419A-97DC-F8E6BDBC8E12}</ProjectGuid>
-    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DesperateDevs.CodeGeneration.Unity.Plugins</RootNamespace>
-    <AssemblyName>DesperateDevs.CodeGeneration.Unity.Plugins</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <LangVersion>4</LangVersion>
+    <TargetFramework>net472</TargetFramework>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>
-    </DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\DesperateDevs.CodeGeneration.CodeGenerator\DesperateDevs.CodeGeneration.CodeGenerator.csproj" />
+    <ProjectReference Include="..\DesperateDevs.Serialization\DesperateDevs.Serialization.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="UnityEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\Libraries\UnityEditor.dll</HintPath>
     </Reference>
@@ -46,36 +17,5 @@
       <HintPath>..\Libraries\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="DesperateDevs.CodeGeneration.Unity.Plugins\PostProcessors\DebugLogDoctor.cs" />
-    <Compile Include="DesperateDevs.CodeGeneration.Unity.Plugins\PostProcessors\DebugLogPostProcessor.cs" />
-    <Compile Include="DesperateDevs.CodeGeneration.Unity.Plugins\PreProcessors\WarnIfCompilationErrorsDoctor.cs" />
-    <Compile Include="DesperateDevs.CodeGeneration.Unity.Plugins\PreProcessors\WarnIfCompilationErrorsPreProcessor.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DesperateDevs.CodeGeneration.CodeGenerator\DesperateDevs.CodeGeneration.CodeGenerator.csproj">
-      <Project>{7AFE3A5A-6CB5-4738-972A-458A16BC19AC}</Project>
-      <Name>DesperateDevs.CodeGeneration.CodeGenerator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DesperateDevs.CodeGeneration\DesperateDevs.CodeGeneration.csproj">
-      <Project>{43857640-7F48-49C7-89C9-B06305B82076}</Project>
-      <Name>DesperateDevs.CodeGeneration</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DesperateDevs.Serialization\DesperateDevs.Serialization.csproj">
-      <Project>{3F7A0EC0-ECFE-4DA5-A02F-C716AD8F0817}</Project>
-      <Name>DesperateDevs.Serialization</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DesperateDevs.Utils\DesperateDevs.Utils.csproj">
-      <Project>{F81E2E63-8F15-43D9-85C0-57237ED42250}</Project>
-      <Name>DesperateDevs.Utils</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

@@ -143,7 +143,9 @@ desperatedevs::sync() {
 
 desperatedevs::pack() {
   log_func
-  msbuild::rebuild
-  nspec::run
+  msbuild /t:Clean /p:Configuration=Release /v:m
+  msbuild -t:restore
+  msbuild /p:Configuration=Release /v:m
+  mono Tests/bin/Release/Tests.exe
   desperatedevs::collect
 }

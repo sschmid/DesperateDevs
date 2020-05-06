@@ -8,7 +8,7 @@ class describe_CodeGeneratorUtil : nspec {
     void when_autoImport() {
 
         var projectRoot = TestExtensions.GetProjectRoot();
-        const string searchPaths = "Tests/Fixtures/CodeGeneratorUtil";
+        const string searchPaths = "CodeGeneratorUtil";
 
         CodeGeneratorConfig config = null;
 

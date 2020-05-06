@@ -1,78 +1,14 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{64AE0FE5-CD14-4797-9566-93065CDB1A98}</ProjectGuid>
-    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFramework>net472</TargetFramework>
     <OutputType>Exe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DesperateDevs.Networking.CLI</RootNamespace>
-    <AssemblyName>DesperateDevs.Networking.CLI</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <LangVersion>6</LangVersion>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>
-    </DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\DesperateDevs.CLI.Utils\DesperateDevs.CLI.Utils.csproj" />
+    <ProjectReference Include="..\DesperateDevs.Logging\DesperateDevs.Logging.csproj" />
+    <ProjectReference Include="..\DesperateDevs.Networking\DesperateDevs.Networking.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Commands\AbstractSocketCommand.cs" />
-    <Compile Include="Commands\ConnectCommand.cs" />
-    <Compile Include="Commands\HelpCommand.cs" />
-    <Compile Include="Commands\ListenCommand.cs" />
-    <Compile Include="Program.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DesperateDevs.CLI.Utils\DesperateDevs.CLI.Utils.csproj">
-      <Project>{C62F56CD-83AA-428B-B75B-6EE5654CF56D}</Project>
-      <Name>DesperateDevs.CLI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DesperateDevs.Logging\DesperateDevs.Logging.csproj">
-      <Project>{219375E3-8AA6-4A75-8F9A-297D23E34D8C}</Project>
-      <Name>DesperateDevs.Logging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DesperateDevs.Networking\DesperateDevs.Networking.csproj">
-      <Project>{925D6640-CB5A-4833-85FE-63332651880A}</Project>
-      <Name>DesperateDevs.Networking</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DesperateDevs.Utils\DesperateDevs.Utils.csproj">
-      <Project>{f81e2e63-8f15-43d9-85c0-57237ed42250}</Project>
-      <Name>DesperateDevs.Utils</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

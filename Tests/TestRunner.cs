@@ -4,11 +4,14 @@ using NSpec;
 using NSpec.Domain;
 using NSpec.Domain.Formatters;
 
-namespace Tests {
-
-    class TestRunner {
-
-        public static void Main(string[] args) {
+namespace Tests
+{
+    class TestRunner
+    {
+        public static void Main(string[] args)
+        {
+            TestExtensions.ProjectName = "DesperateDevs";
+            Shouldly.ShouldlyConfiguration.DisableSourceInErrors();
             var tagOrClassName = string.Join(",", args);
             var types = typeof(TestRunner).Assembly.GetTypes();
             var finder = new SpecFinder(types, string.Empty);

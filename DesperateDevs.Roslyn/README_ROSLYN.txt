@@ -5,7 +5,7 @@ Microsoft.Net.Compilers
 Microsoft.CodeAnalysis
   - Microsoft.CodeAnalysis.CSharp.Workspaces (use this instead)
 
-Fix, after update:
+Fix, after roslyn update:
 Microsoft.CodeAnalysis.Workspaces.MSBuild
 
 Copy Mono Hosted MSBuild into bin/Release

@@ -1,81 +1,13 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C62F56CD-83AA-428B-B75B-6EE5654CF56D}</ProjectGuid>
-    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DesperateDevs.CLI.Utils</RootNamespace>
-    <AssemblyName>DesperateDevs.CLI.Utils</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <LangVersion>6</LangVersion>
+    <TargetFramework>net472</TargetFramework>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>
-    </DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\DesperateDevs.Logging.Formatters\DesperateDevs.Logging.Formatters.csproj" />
+    <ProjectReference Include="..\DesperateDevs.Logging\DesperateDevs.Logging.csproj" />
+    <ProjectReference Include="..\DesperateDevs.Utils\DesperateDevs.Utils.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="DesperateDevs.CLI.Utils\AbstractCommand.cs" />
-    <Compile Include="DesperateDevs.CLI.Utils\CLIProgram.cs" />
-    <Compile Include="DesperateDevs.CLI.Utils\ArgsExtension.cs" />
-    <Compile Include="DesperateDevs.CLI.Utils\CLIHelper.cs" />
-    <Compile Include="DesperateDevs.CLI.Utils\ICommand.cs" />
-    <Compile Include="DesperateDevs.CLI.Utils\Menu\IMenuEntry.cs" />
-    <Compile Include="DesperateDevs.CLI.Utils\Menu\CLIMenu.cs" />
-    <Compile Include="DesperateDevs.CLI.Utils\Menu\MenuEntries\ExitMenuEntry.cs" />
-    <Compile Include="DesperateDevs.CLI.Utils\Menu\MenuEntries\MenuEntry.cs" />
-    <Compile Include="DesperateDevs.CLI.Utils\Menu\MenuEntries\SelectableMenuEntry.cs" />
-    <Compile Include="DesperateDevs.CLI.Utils\Menu\MenuEntries\StopMenuEntry.cs" />
-    <Compile Include="DesperateDevs.CLI.Utils\Menu\MenuSelection.cs" />
-    <Compile Include="DesperateDevs.CLI.Utils\Spinner.cs" />
-    <Compile Include="DesperateDevs.CLI.Utils\SpinnerStyles.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DesperateDevs.Logging.Formatters\DesperateDevs.Logging.Formatters.csproj">
-      <Project>{2135cbae-a0e3-4715-8969-246dce3e7538}</Project>
-      <Name>DesperateDevs.Logging.Formatters</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DesperateDevs.Logging\DesperateDevs.Logging.csproj">
-      <Project>{219375E3-8AA6-4A75-8F9A-297D23E34D8C}</Project>
-      <Name>DesperateDevs.Logging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DesperateDevs.Utils\DesperateDevs.Utils.csproj">
-      <Project>{F81E2E63-8F15-43D9-85C0-57237ED42250}</Project>
-      <Name>DesperateDevs.Utils</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

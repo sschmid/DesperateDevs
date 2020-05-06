@@ -31,19 +31,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneratio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Serialization", "DesperateDevs.Serialization\DesperateDevs.Serialization.csproj", "{3F7A0EC0-ECFE-4DA5-A02F-C716AD8F0817}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDependencyBase", "Tests\Fixtures\TestDependencyBase\TestDependencyBase.csproj", "{28BC9316-3F92-4582-B406-AA0A59F21B78}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDependencyBase", "TestDependencyBase\TestDependencyBase.csproj", "{28BC9316-3F92-4582-B406-AA0A59F21B78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDependency", "Tests\Fixtures\TestDependency\TestDependency.csproj", "{808F26D9-78F6-45EE-9849-646419B796F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDependency", "TestDependency\TestDependency.csproj", "{808F26D9-78F6-45EE-9849-646419B796F0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fixtures", "Fixtures", "{FF9FB1B0-6DD7-4081-9641-190F96CFC67C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFixtures", "Tests\Fixtures\TestFixtures\TestFixtures.csproj", "{101F0979-50F9-41EA-8D22-87AE185B8489}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFixtures", "TestFixtures\TestFixtures.csproj", "{101F0979-50F9-41EA-8D22-87AE185B8489}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneration.CodeGenerator.CLI", "DesperateDevs.CodeGeneration.CodeGenerator.CLI\DesperateDevs.CodeGeneration.CodeGenerator.CLI.csproj", "{1756FF43-3283-47DB-B8DA-B59C8B1BD323}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneration.Plugins", "DesperateDevs.CodeGeneration.Plugins\DesperateDevs.CodeGeneration.Plugins.csproj", "{A2006188-6384-4439-9AA4-9E007CBF83D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUpdateCSProjPostProcessor", "Tests\Fixtures\TestUpdateCSProjPostProcessor\TestUpdateCSProjPostProcessor.csproj", "{DF2FD08A-2E44-40BE-8A30-CD9D4F6DB65C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUpdateCSProjPostProcessor", "TestUpdateCSProjPostProcessor\TestUpdateCSProjPostProcessor.csproj", "{DF2FD08A-2E44-40BE-8A30-CD9D4F6DB65C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unity", "Unity", "{45E87FEC-14D7-45B3-ADC6-BB0A1DDC1E29}"
 EndProject
@@ -79,7 +79,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Threading.Pro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Unity", "DesperateDevs.Unity\DesperateDevs.Unity.csproj", "{1C26CEE8-3C1F-4F32-B57D-C7EE80CFDF2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CLITester", "Tests\Fixtures\CLITester\CLITester.csproj", "{75E12D2B-BE13-4382-94FC-119FA06CEB6B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CLITester", "CLITester\CLITester.csproj", "{75E12D2B-BE13-4382-94FC-119FA06CEB6B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

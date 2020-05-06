@@ -27,8 +27,8 @@ Assembly-CSharp*.csproj
 Build
 **/Assets/Libraries
 **/Assets/Libraries.meta
-Tests/Unity/CodeGenerator/Jenny
-Tests/Unity/CodeGenerator/Jenny-Auto-Import
-Tests/Unity/CodeGenerator/Jenny-Auto-Import.bat
-Tests/Unity/CodeGenerator/Jenny-Server
-Tests/Unity/CodeGenerator/Jenny-Server.bat
+Unity/CodeGenerator/Jenny
+Unity/CodeGenerator/Jenny-Auto-Import
+Unity/CodeGenerator/Jenny-Auto-Import.bat
+Unity/CodeGenerator/Jenny-Server
+Unity/CodeGenerator/Jenny-Server.bat
