@@ -2,6 +2,7 @@
 using System.Text;
 using DesperateDevs.Networking;
 using NSpec;
+using Shouldly;
 
 class describe_TcpClientSocket : nspec {
 
@@ -21,7 +22,7 @@ class describe_TcpClientSocket : nspec {
             it["doesn't conntect to closed port"] = () => {
                 client.Connect(ipAddress, port);
                 this.Wait(2000);
-                client.isConnected.should_be_false();
+                client.isConnected.ShouldBeFalse();
             };
 
             context["when open port"] = () => {
@@ -51,8 +52,8 @@ class describe_TcpClientSocket : nspec {
                     client.Connect(ipAddress, port);
                     this.Wait();
 
-                    connected.should_be(1);
-                    eventClient.should_be_same(client);
+                    connected.ShouldBe(1);
+                    eventClient.ShouldBeSameAs(client);
                 };
 
                 context["when connected"] = () => {
@@ -63,13 +64,13 @@ class describe_TcpClientSocket : nspec {
                     };
 
                     it["is conntected"] = () => {
-                        client.isConnected.should_be_true();
+                        client.isConnected.ShouldBeTrue();
                     };
 
                     it["disconnects"] = () => {
                         client.Disconnect();
                         this.Wait();
-                        client.isConnected.should_be_false();
+                        client.isConnected.ShouldBeFalse();
                     };
 
                     it["triggers OnDisconnected"] = () => {
@@ -79,14 +80,14 @@ class describe_TcpClientSocket : nspec {
                         };
                         client.Disconnect();
                         this.Wait();
-                        client.isConnected.should_be_false();
-                        eventSocket.should_be_same(client);
+                        client.isConnected.ShouldBeFalse();
+                        eventSocket.ShouldBeSameAs(client);
                     };
 
                     it["disconnteced by remote"] = () => {
                         server.Disconnect();
                         this.Wait();
-                        client.isConnected.should_be_false();
+                        client.isConnected.ShouldBeFalse();
                     };
 
                     it["triggers OnDisconnected when disconnteced by remote"] = () => {
@@ -96,8 +97,8 @@ class describe_TcpClientSocket : nspec {
                         };
                         server.Disconnect();
                         this.Wait();
-                        client.isConnected.should_be_false();
-                        eventSocket.should_be_same(client);
+                        client.isConnected.ShouldBeFalse();
+                        eventSocket.ShouldBeSameAs(client);
                     };
 
                     it["receives message"] = () => {
@@ -115,8 +116,8 @@ class describe_TcpClientSocket : nspec {
 
                         this.Wait();
 
-                        eventClient.should_be_same(client);
-                        eventBuffer.should_be(buffer);
+                        eventClient.ShouldBeSameAs(client);
+                        eventBuffer.ShouldBe(buffer);
                     };
 
                     it["sends a message"] = () => {
@@ -130,7 +131,7 @@ class describe_TcpClientSocket : nspec {
                         client.Send(buffer);
                         this.Wait();
 
-                        eventBytes.should_be(buffer);
+                        eventBytes.ShouldBe(buffer);
                     };
                 };
             };

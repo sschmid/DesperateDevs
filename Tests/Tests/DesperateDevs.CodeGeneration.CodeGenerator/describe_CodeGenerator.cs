@@ -3,6 +3,7 @@ using System.Linq;
 using DesperateDevs.CodeGeneration;
 using DesperateDevs.CodeGeneration.CodeGenerator;
 using NSpec;
+using Shouldly;
 
 class describe_CodeGenerator : nspec {
 
@@ -21,16 +22,16 @@ class describe_CodeGenerator : nspec {
 
                 var files = generator.Generate();
 
-                preStr.Count.should_be(1);
-                preStr[0].should_be("Pre1");
+                preStr.Count.ShouldBe(1);
+                preStr[0].ShouldBe("Pre1");
 
-                files.Length.should_be(2);
+                files.Length.ShouldBe(2);
 
-                files[0].fileName.should_be("Test1File0-Processed1");
-                files[0].fileContent.should_be("data1");
+                files[0].fileName.ShouldBe("Test1File0-Processed1");
+                files[0].fileContent.ShouldBe("data1");
 
-                files[1].fileName.should_be("Test1File1-Processed1");
-                files[1].fileContent.should_be("data2");
+                files[1].fileName.ShouldBe("Test1File1-Processed1");
+                files[1].fileContent.ShouldBe("data2");
             };
 
             it["uses returned CodeGenFiles"] = () => {
@@ -43,9 +44,9 @@ class describe_CodeGenerator : nspec {
 
                 var files = generator.Generate();
 
-                files.Length.should_be(1);
+                files.Length.ShouldBe(1);
 
-                files[0].fileName.should_be("Test1File0-Processed1");
+                files[0].fileName.ShouldBe("Test1File0-Processed1");
             };
         };
 
@@ -62,13 +63,13 @@ class describe_CodeGenerator : nspec {
 
                 var files = generator.DryRun();
 
-                preStr.Count.should_be(1);
-                preStr[0].should_be("Pre1");
+                preStr.Count.ShouldBe(1);
+                preStr[0].ShouldBe("Pre1");
 
-                files.Length.should_be(2);
+                files.Length.ShouldBe(2);
 
-                files[0].fileName.should_be("Test1File0-Processed1");
-                files[1].fileName.should_be("Test1File1-Processed1");
+                files[0].fileName.ShouldBe("Test1File0-Processed1");
+                files[1].fileName.ShouldBe("Test1File1-Processed1");
             };
         };
 
@@ -85,9 +86,9 @@ class describe_CodeGenerator : nspec {
 
                 var files = generator.Generate();
 
-                preStr.Count.should_be(2);
-                preStr[0].should_be("Pre1");
-                preStr[1].should_be("Pre2");
+                preStr.Count.ShouldBe(2);
+                preStr[0].ShouldBe("Pre1");
+                preStr[1].ShouldBe("Pre2");
             };
 
             it["runs data provider based on priority"] = () => {
@@ -100,19 +101,19 @@ class describe_CodeGenerator : nspec {
 
                 var files = generator.Generate();
 
-                files.Length.should_be(4);
+                files.Length.ShouldBe(4);
 
-                files[0].fileName.should_be("Test1File0-Processed1");
-                files[0].fileContent.should_be("data1");
+                files[0].fileName.ShouldBe("Test1File0-Processed1");
+                files[0].fileContent.ShouldBe("data1");
 
-                files[1].fileName.should_be("Test1File1-Processed1");
-                files[1].fileContent.should_be("data2");
+                files[1].fileName.ShouldBe("Test1File1-Processed1");
+                files[1].fileContent.ShouldBe("data2");
 
-                files[2].fileName.should_be("Test1File2-Processed1");
-                files[2].fileContent.should_be("data3");
+                files[2].fileName.ShouldBe("Test1File2-Processed1");
+                files[2].fileContent.ShouldBe("data3");
 
-                files[3].fileName.should_be("Test1File3-Processed1");
-                files[3].fileContent.should_be("data4");
+                files[3].fileName.ShouldBe("Test1File3-Processed1");
+                files[3].fileContent.ShouldBe("data4");
             };
 
             it["runs code generators based on priority"] = () => {
@@ -125,12 +126,12 @@ class describe_CodeGenerator : nspec {
 
                 var files = generator.Generate();
 
-                files.Length.should_be(4);
+                files.Length.ShouldBe(4);
 
-                files[0].fileName.should_be("Test1File0-Processed1");
-                files[1].fileName.should_be("Test1File1-Processed1");
-                files[2].fileName.should_be("Test2File0-Processed1");
-                files[3].fileName.should_be("Test2File1-Processed1");
+                files[0].fileName.ShouldBe("Test1File0-Processed1");
+                files[1].fileName.ShouldBe("Test1File1-Processed1");
+                files[2].fileName.ShouldBe("Test2File0-Processed1");
+                files[3].fileName.ShouldBe("Test2File1-Processed1");
             };
 
             it["runs post processors based on priority"] = () => {
@@ -143,10 +144,10 @@ class describe_CodeGenerator : nspec {
 
                 var files = generator.Generate();
 
-                files.Length.should_be(2);
+                files.Length.ShouldBe(2);
 
-                files[0].fileName.should_be("Test1File0-Processed1-Processed2");
-                files[1].fileName.should_be("Test1File1-Processed1-Processed2");
+                files[0].fileName.ShouldBe("Test1File0-Processed1-Processed2");
+                files[1].fileName.ShouldBe("Test1File1-Processed1-Processed2");
             };
         };
 
@@ -164,7 +165,7 @@ class describe_CodeGenerator : nspec {
 
                 var files = generator.Generate();
 
-                files.Length.should_be(0);
+                files.Length.ShouldBe(0);
             };
 
             it["cancels dry run"] = () => {
@@ -179,7 +180,7 @@ class describe_CodeGenerator : nspec {
 
                 var files = generator.DryRun();
 
-                files.Length.should_be(0);
+                files.Length.ShouldBe(0);
             };
 
             it["can generate again after cancel"] = () => {
@@ -199,7 +200,7 @@ class describe_CodeGenerator : nspec {
 
                 var files = generator.Generate();
 
-                files.Length.should_be(2);
+                files.Length.ShouldBe(2);
             };
 
             it["can do dry run after cancel"] = () => {
@@ -219,7 +220,7 @@ class describe_CodeGenerator : nspec {
 
                 var files = generator.DryRun();
 
-                files.Length.should_be(2);
+                files.Length.ShouldBe(2);
             };
         };
 
@@ -234,8 +235,8 @@ class describe_CodeGenerator : nspec {
                 );
 
                 var files = generator.Generate();
-                files.Length.should_be(2);
-                files[0].fileContent.should_be(files[1].fileContent);
+                files.Length.ShouldBe(2);
+                files[0].fileContent.ShouldBe(files[1].fileContent);
             };
 
             it["resets cache before each new run"] = () => {
@@ -248,7 +249,7 @@ class describe_CodeGenerator : nspec {
 
                 var result1 = generator.Generate()[0].fileContent;
                 var result2 = generator.Generate()[0].fileContent;
-                result1.should_not_be(result2);
+                result1.ShouldNotBe(result2);
             };
         };
     }

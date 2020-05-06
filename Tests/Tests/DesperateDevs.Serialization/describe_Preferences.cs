@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using DesperateDevs.Serialization;
 using NSpec;
+using Shouldly;
 
 class describe_Preferences : nspec {
 
@@ -15,13 +16,13 @@ class describe_Preferences : nspec {
             };
 
             it["sets properties"] = () => {
-                preferences.properties.count.should_be(1);
-                preferences.properties.HasKey("key").should_be_true();
-                preferences.userProperties.count.should_be(0);
+                preferences.properties.count.ShouldBe(1);
+                preferences.properties.HasKey("key").ShouldBeTrue();
+                preferences.userProperties.count.ShouldBe(0);
             };
 
             it["gets value for key"] = () => {
-                preferences["key"].should_be("value");
+                preferences["key"].ShouldBe("value");
             };
 
             it["throws"] = expect<KeyNotFoundException>(() => {
@@ -29,23 +30,23 @@ class describe_Preferences : nspec {
             });
 
             it["has key"] = () => {
-                preferences.HasKey("key").should_be_true();
+                preferences.HasKey("key").ShouldBeTrue();
             };
 
             it["sets key"] = () => {
                 preferences["key2"] = "value2";
-                preferences["key2"].should_be("value2");
-                preferences.HasKey("key2").should_be_true();
+                preferences["key2"].ShouldBe("value2");
+                preferences.HasKey("key2").ShouldBeTrue();
             };
 
             it["can ToString"] = () => {
-                preferences.ToString().should_be("key = value\n");
+                preferences.ToString().ShouldBe("key = value\n");
             };
 
             xit["supports double quote mode"] = () => {
                 preferences.doubleQuoteMode = true;
                 preferences["key2"] = "value2";
-                preferences["key2"].should_be("\"value2\"");
+                preferences["key2"].ShouldBe("\"value2\"");
             };
         };
 
@@ -58,46 +59,46 @@ class describe_Preferences : nspec {
             };
 
             it["has key"] = () => {
-                preferences.HasKey("userName").should_be_true();
+                preferences.HasKey("userName").ShouldBeTrue();
             };
 
             it["resolves placeholder from user properties"] = () => {
-                preferences["key"].should_be("Max");
+                preferences["key"].ShouldBe("Max");
             };
 
             it["doesn't overwrite value when not different"] = () => {
                 preferences["key"] = "Max";
-                preferences.properties.ToString().Contains("Max").should_be_false();
+                preferences.properties.ToString().Contains("Max").ShouldBeFalse();
             };
 
             it["overwrites value when different"] = () => {
                 preferences["key"] = "Jack";
-                preferences.properties.ToString().Contains("Jack").should_be_true();
+                preferences.properties.ToString().Contains("Jack").ShouldBeTrue();
             };
 
             it["user properties overwrite default properties"] = () => {
                 preferences = new TestPreferences(
                     "key = ${userName}",
                     "key = Overwrite");
-                preferences["key"].should_be("Overwrite");
+                preferences["key"].ShouldBe("Overwrite");
             };
 
             it["resets only properties"] = () => {
                 preferences["newKey"] = "newValue";
                 preferences.Reset();
-                preferences.HasKey("newKey").should_be_false();
-                preferences.HasKey("userName").should_be_true();
+                preferences.HasKey("newKey").ShouldBeFalse();
+                preferences.HasKey("userName").ShouldBeTrue();
             };
 
             it["resets properties and user"] = () => {
                 preferences["newKey"] = "newValue";
                 preferences.Reset(true);
-                preferences.HasKey("newKey").should_be_false();
-                preferences.HasKey("userName").should_be_false();
+                preferences.HasKey("newKey").ShouldBeFalse();
+                preferences.HasKey("userName").ShouldBeFalse();
             };
 
             it["can ToString"] = () => {
-                preferences.ToString().should_be("key = ${userName}\nuserName = Max\n");
+                preferences.ToString().ShouldBe("key = ${userName}\nuserName = Max\n");
             };
         };
     }

@@ -1,5 +1,6 @@
 using DesperateDevs.Utils;
 using NSpec;
+using Shouldly;
 
 class describe_ObjectPool : nspec {
 
@@ -17,27 +18,27 @@ class describe_ObjectPool : nspec {
         };
 
         it["gets new instance from pool"] = () => {
-            objectPool.Get().value.should_be(value);
+            objectPool.Get().value.ShouldBe(value);
         };
 
         it["gets pooled instance"] = () => {
             var obj = new TestClassWithField();
             objectPool.Push(obj);
-            objectPool.Get().should_be_same(obj);
+            objectPool.Get().ShouldBeSameAs(obj);
         };
 
         it["resets pushed instance"] = () => {
             var obj = new TestClassWithField{ value= value };
             objectPool.Push(obj);
-            obj.value.should_be_null();
+            obj.value.ShouldBeNull();
         };
 
         it["doesn't reset when reset method is null"] = () => {
             objectPool = new ObjectPool<TestClassWithField>(() => new TestClassWithField { value = value });
             var obj = new TestClassWithField { value = value };
             objectPool.Push(obj);
-            obj.value.should_be(value);
-            objectPool.Get().should_be_same(obj);
+            obj.value.ShouldBe(value);
+            objectPool.Get().ShouldBeSameAs(obj);
         };
     }
 }

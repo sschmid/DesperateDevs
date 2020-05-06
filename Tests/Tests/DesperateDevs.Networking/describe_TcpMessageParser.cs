@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using DesperateDevs.Networking;
 using NSpec;
+using Shouldly;
 
 class describe_TcpMessageParser : nspec {
 
@@ -17,7 +18,7 @@ class describe_TcpMessageParser : nspec {
             var bytes = Encoding.UTF8.GetBytes(message);
             var wrapped = TcpMessageParser.WrapMessage(bytes);
             var unwrapped = TcpMessageParser.UnwrapMessage(wrapped);
-            Encoding.UTF8.GetString(unwrapped).should_be(message);
+            Encoding.UTF8.GetString(unwrapped).ShouldBe(message);
         };
 
         it["parses full message"] = () => {
@@ -25,13 +26,13 @@ class describe_TcpMessageParser : nspec {
             var messages = 0;
             parser.OnMessage += (p, b) => {
                 messages += 1;
-                p.should_be_same(parser);
-                Encoding.UTF8.GetString(b).should_be(message);
+                p.ShouldBeSameAs(parser);
+                Encoding.UTF8.GetString(b).ShouldBe(message);
             };
 
             var bytes = TcpMessageParser.WrapMessage(Encoding.UTF8.GetBytes(message));
             parser.Receive(bytes);
-            messages.should_be(1);
+            messages.ShouldBe(1);
         };
 
         it["doesn't parse partial message"] = () => {
@@ -58,7 +59,7 @@ class describe_TcpMessageParser : nspec {
             var messages = 0;
             parser.OnMessage += (p, b) => {
                 messages += 1;
-                Encoding.UTF8.GetString(b).should_be(message);
+                Encoding.UTF8.GetString(b).ShouldBe(message);
             };
 
             var lengthPrefix = BitConverter.GetBytes(message.Length);
@@ -73,7 +74,7 @@ class describe_TcpMessageParser : nspec {
             parser.Receive(prefixedMessage);
             parser.Receive(partialBytes2);
 
-            messages.should_be(1);
+            messages.ShouldBe(1);
         };
 
         it["can read multiple messages"] = () => {
@@ -84,9 +85,9 @@ class describe_TcpMessageParser : nspec {
                 messages += 1;
 
                 if (messages == 1) {
-                    Encoding.UTF8.GetString(b).should_be(message1);
+                    Encoding.UTF8.GetString(b).ShouldBe(message1);
                 } else if (messages == 2) {
-                    Encoding.UTF8.GetString(b).should_be(message2);
+                    Encoding.UTF8.GetString(b).ShouldBe(message2);
                 }
             };
 
@@ -94,7 +95,7 @@ class describe_TcpMessageParser : nspec {
             var bytes2 = TcpMessageParser.WrapMessage(Encoding.UTF8.GetBytes(message2));
 
             parser.Receive(bytes1.Concat(bytes2).ToArray());
-            messages.should_be(2);
+            messages.ShouldBe(2);
         };
     }
 }

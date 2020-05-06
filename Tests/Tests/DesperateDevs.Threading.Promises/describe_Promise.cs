@@ -1,6 +1,7 @@
 ﻿using NSpec;
 using System;
 using DesperateDevs.Threading.Promises;
+using Shouldly;
 
 class describe_Promise : nspec {
 
@@ -41,58 +42,58 @@ class describe_Promise : nspec {
                 };
             };
 
-            it["is unfulfilled"] = () => promise.state.should_be(PromiseState.Unfulfilled);
-            it["has progressed 0%"] = () => promise.progress.should_be(0f);
-            it["has no result"] = () => promise.result.should_be_null();
-            it["has no error"] = () => promise.error.should_be_null();
+            it["is unfulfilled"] = () => promise.state.ShouldBe(PromiseState.Unfulfilled);
+            it["has progressed 0%"] = () => promise.progress.ShouldBe(0f);
+            it["has no result"] = () => promise.result.ShouldBeNull();
+            it["has no error"] = () => promise.error.ShouldBeNull();
 
             context["await"] = () => {
 
                 it["blocks until finished"] = () => {
                     promise.Await();
-                    promise.state.should_be(PromiseState.Fulfilled);
+                    promise.state.ShouldBe(PromiseState.Fulfilled);
                 };
 
                 it["does nothing when promise already finished"] = () => {
                     promise.Await();
                     promise.Await();
-                    true.should_be_true();
+                    true.ShouldBeTrue();
                 };
 
-                it["returns promise"] = () => promise.Await().result.should_be("42");
+                it["returns promise"] = () => promise.Await().result.ShouldBe("42");
             };
 
             context["events"] = () => {
 
-                it["doesn't call OnFulfilled"] = () => fulfilledCalled.should_be_false();
-                it["doesn't call OnFail"] = () => failedCalled.should_be_false();
-                it["doesn't call OnProgress"] = () => progressCalled.should_be_false();
+                it["doesn't call OnFulfilled"] = () => fulfilledCalled.ShouldBeFalse();
+                it["doesn't call OnFail"] = () => failedCalled.ShouldBeFalse();
+                it["doesn't call OnProgress"] = () => progressCalled.ShouldBeFalse();
             };
 
             context["when action finished"] = () => {
 
                 before = () => promise.Await();
 
-                it["is fulfilled"] = () => promise.state.should_be(PromiseState.Fulfilled);
-                it["has progressed 100%"] = () => promise.progress.should_be(1f);
-                it["has result"] = () => promise.result.should_be("42");
-                it["has no error"] = () => promise.error.should_be_null();
+                it["is fulfilled"] = () => promise.state.ShouldBe(PromiseState.Fulfilled);
+                it["has progressed 100%"] = () => promise.progress.ShouldBe(1f);
+                it["has result"] = () => promise.result.ShouldBe("42");
+                it["has no error"] = () => promise.error.ShouldBeNull();
 
                 context["events"] = () => {
 
-                    it["calls OnFulfilled"] = () => eventResult.should_be("42");
+                    it["calls OnFulfilled"] = () => eventResult.ShouldBe("42");
                     it["calls OnFulfilled when adding callback"] = () => {
                         string lateResult = null;
                         promise.OnFulfilled += result => lateResult = result;
-                        lateResult.should_be("42");
+                        lateResult.ShouldBe("42");
                     };
-                    it["doesn't call OnFailed"] = () => failedCalled.should_be_false();
+                    it["doesn't call OnFailed"] = () => failedCalled.ShouldBeFalse();
                     it["doesn't call OnFailed when adding callback"] = () => {
                         var called = false;
                         promise.OnFailed += error => called = true;
-                        called.should_be_false();
+                        called.ShouldBeFalse();
                     };
-                    it["calls OnProgress"] = () => eventProgress.should_be(1f);
+                    it["calls OnProgress"] = () => eventProgress.ShouldBe(1f);
                 };
             };
         };
@@ -116,26 +117,26 @@ class describe_Promise : nspec {
                 promise.Await();
             };
 
-            it["failed"] = () => promise.state.should_be(PromiseState.Failed);
-            it["has progressed 0%"] = () => promise.progress.should_be(0f);
-            it["has no result"] = () => promise.result.should_be_null();
-            it["has error"] = () => promise.error.Message.should_be("error 42");
+            it["failed"] = () => promise.state.ShouldBe(PromiseState.Failed);
+            it["has progressed 0%"] = () => promise.progress.ShouldBe(0f);
+            it["has no result"] = () => promise.result.ShouldBeNull();
+            it["has error"] = () => promise.error.Message.ShouldBe("error 42");
 
             context["events"] = () => {
 
-                it["doesn't call OnFulfilled"] = () => fulfilledCalled.should_be_false();
+                it["doesn't call OnFulfilled"] = () => fulfilledCalled.ShouldBeFalse();
                 it["doesn't call OnFulfilled when adding callback"] = () => {
                     var called = false;
                     promise.OnFulfilled += result => called = true;
-                    called.should_be_false();
+                    called.ShouldBeFalse();
                 };
-                it["calls OnFailed"] = () => eventError.Message.should_be("error 42");
+                it["calls OnFailed"] = () => eventError.Message.ShouldBe("error 42");
                 it["calls OnFailed when adding callback"] = () => {
                     Exception lateError = null;
                     promise.OnFailed += error => lateError = error;
-                    lateError.Message.should_be("error 42");
+                    lateError.Message.ShouldBe("error 42");
                 };
-                it["doesn't call OnProgress"] = () => progressCalled.should_be_false();
+                it["doesn't call OnProgress"] = () => progressCalled.ShouldBeFalse();
             };
         };
 
@@ -159,9 +160,9 @@ class describe_Promise : nspec {
                 deferred.Progress(0.9f);
                 deferred.Progress(1f);
 
-                eventProgress.should_be(1f);
-                deferred.promise.progress.should_be(1f);
-                progressEventCalled.should_be(4);
+                eventProgress.ShouldBe(1f);
+                deferred.promise.progress.ShouldBe(1f);
+                progressEventCalled.ShouldBe(4);
             };
 
             it["doesn't call OnProgressed when setting equal progress"] = () => {
@@ -170,23 +171,23 @@ class describe_Promise : nspec {
                 deferred.Progress(0.3f);
                 deferred.Progress(0.6f);
 
-                eventProgress.should_be(0.6f);
-                deferred.promise.progress.should_be(0.6f);
-                progressEventCalled.should_be(2);
+                eventProgress.ShouldBe(0.6f);
+                deferred.promise.progress.ShouldBe(0.6f);
+                progressEventCalled.ShouldBe(2);
             };
 
             it["doesn't call OnProgressed when adding callback when progress is less than 100%"] = () => {
                 deferred.Progress(0.3f);
                 var called = false;
                 deferred.OnProgressed += progress => called = true;
-                called.should_be_false();
+                called.ShouldBeFalse();
             };
 
             it["calls OnProgressed when adding callback when progress is 100%"] = () => {
                 deferred.Progress(1f);
                 var called = false;
                 deferred.OnProgressed += progress => called = true;
-                called.should_be_true();
+                called.ShouldBeTrue();
             };
         };
 
@@ -221,28 +222,28 @@ class describe_Promise : nspec {
                     promise = PromisesTestHelper.PromiseWithResult("42", delay);
                     wrapped = promise.Wrap<object>();
                     wrapped.Await();
-                    wrapped.state.should_be(PromiseState.Fulfilled);
+                    wrapped.state.ShouldBe(PromiseState.Fulfilled);
                 };
 
                 it["forwards fail"] = () => {
                     promise = PromisesTestHelper.PromiseWithError<string>("error 42", delay);
                     wrapped = promise.Wrap<object>();
                     wrapped.Await();
-                    wrapped.state.should_be(PromiseState.Failed);
+                    wrapped.state.ShouldBe(PromiseState.Failed);
                 };
 
                 it["forwards progress"] = () => {
                     var deferred = new Deferred<string>();
                     wrapped = deferred.Wrap<object>();
                     deferred.Progress(0.5f);
-                    wrapped.progress.should_be(0.5f);
+                    wrapped.progress.ShouldBe(0.5f);
                 };
 
                 it["has initial progress"] = () => {
                     var deferred = new Deferred<string>();
                     deferred.Progress(0.5f);
                     wrapped = deferred.Wrap<object>();
-                    wrapped.progress.should_be(0.5f);
+                    wrapped.progress.ShouldBe(0.5f);
                 };
             };
         };
@@ -252,19 +253,19 @@ class describe_Promise : nspec {
             it["returns description of unfulfilled promise"] = () => {
                 var deferred = new Deferred<string>();
                 deferred.Progress(0.1234567890f);
-                deferred.promise.ToString().should_be("[Promise<String>: state = Unfulfilled, progress = 0.123]");
+                deferred.promise.ToString().ShouldBe("[Promise<String>: state = Unfulfilled, progress = 0.123]");
             };
 
             it["returns description of fulfilled promise"] = () => {
                 promise = PromisesTestHelper.PromiseWithResult("42");
                 promise.Await();
-                promise.ToString().should_be("[Promise<String>: state = Fulfilled, result = 42]");
+                promise.ToString().ShouldBe("[Promise<String>: state = Fulfilled, result = 42]");
             };
 
             it["returns description of failed promise"] = () => {
                 promise = PromisesTestHelper.PromiseWithError<string>("error 42");
                 promise.Await();
-                promise.ToString().should_be("[Promise<String>: state = Failed, progress = 0, error = error 42]");
+                promise.ToString().ShouldBe("[Promise<String>: state = Failed, progress = 0, error = error 42]");
             };
         };
     }

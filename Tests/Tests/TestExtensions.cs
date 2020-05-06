@@ -3,11 +3,12 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using NSpec;
+using Shouldly;
 
 public static class TestExtensions {
 
     public static void Fail(this nspec spec) {
-        "but did".should_be("should not happen");
+        "but did".ShouldBe("should not happen");
     }
 
     public static void Wait(this nspec spec, int ms = 50) {

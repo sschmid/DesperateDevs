@@ -1,5 +1,6 @@
 ﻿using DesperateDevs.Analytics;
 using NSpec;
+using Shouldly;
 
 class describe_Tracker : nspec {
 
@@ -15,26 +16,26 @@ class describe_Tracker : nspec {
 
         it["creates tracking call without args"] = () => {
             tracker.Track(trackingData);
-            tracker.call.should_be("host/endPoint.php");
+            tracker.call.ShouldBe("host/endPoint.php");
         };
 
         it["creates tracking call with 1 arg"] = () => {
             trackingData.Add("key", "value");
             tracker.Track(trackingData);
-            tracker.call.should_be("host/endPoint.php?key=value");
+            tracker.call.ShouldBe("host/endPoint.php?key=value");
         };
 
         it["escapes args"] = () => {
             trackingData.Add("key", "value1 value2");
             tracker.Track(trackingData);
-            tracker.call.should_be("host/endPoint.php?key=value1%20value2");
+            tracker.call.ShouldBe("host/endPoint.php?key=value1%20value2");
         };
 
         it["creates tracking call with multiple args"] = () => {
             trackingData.Add("key", "value");
             trackingData.Add("key2", "value2");
             tracker.Track(trackingData);
-            tracker.call.should_be("host/endPoint.php?key=value&key2=value2");
+            tracker.call.ShouldBe("host/endPoint.php?key=value&key2=value2");
         };
     }
 }

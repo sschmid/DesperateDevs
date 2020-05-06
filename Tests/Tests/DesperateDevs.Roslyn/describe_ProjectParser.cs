@@ -2,6 +2,7 @@
 using DesperateDevs.Roslyn;
 using DesperateDevs.Utils;
 using NSpec;
+using Shouldly;
 
 class describe_ProjectParser : nspec {
 
@@ -21,7 +22,7 @@ class describe_ProjectParser : nspec {
             it["gets all types"] = () => {
                 var types = parser.GetTypes();
                 var hasComponent = types.Any(c => c.ToCompilableString() == typeof(TestClass).ToCompilableString());
-                hasComponent.should_be_true();
+                hasComponent.ShouldBeTrue();
             };
         };
     }

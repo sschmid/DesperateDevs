@@ -1,6 +1,7 @@
 ﻿using NSpec;
 using System.Collections.Generic;
 using DesperateDevs.Threading.Promises;
+using Shouldly;
 
 class describe_Collect : nspec {
 
@@ -24,19 +25,19 @@ class describe_Collect : nspec {
                 promise.Await();
             };
 
-            it["is fulfilled"] = () => promise.state.should_be(PromiseState.Fulfilled);
-            it["has progressed 100%"] = () => promise.progress.should_be(1f);
-            it["has result"] = () => promise.result.should_not_be_null();
-            it["has no error"] = () => promise.error.should_be_null();
+            it["is fulfilled"] = () => promise.state.ShouldBe(PromiseState.Fulfilled);
+            it["has progressed 100%"] = () => promise.progress.ShouldBe(1f);
+            it["has result"] = () => promise.result.ShouldNotBeNull();
+            it["has no error"] = () => promise.error.ShouldBeNull();
             it["has results at correct index"] = () => {
-                (promise.result[0]).should_be_null();
-                (promise.result[1]).should_be("42");
+                (promise.result[0]).ShouldBeNull();
+                (promise.result[1]).ShouldBe("42");
             };
 
             it["calls progress"] = () => {
-                eventProgresses.Count.should_be(2);
-                eventProgresses[0].should_be(0.5f);
-                eventProgresses[1].should_be(1f);
+                eventProgresses.Count.ShouldBe(2);
+                eventProgresses[0].ShouldBe(0.5f);
+                eventProgresses[1].ShouldBe(1f);
             };
 
             it["has initial progress"] = () => {
@@ -44,7 +45,7 @@ class describe_Collect : nspec {
                 deferred.Progress(0.5f);
                 p2 = PromisesTestHelper.PromiseWithResult<object>("42", delay);
                 var collect = Promise.Collect(deferred, p2);
-                collect.progress.should_be(0.25f);
+                collect.progress.ShouldBe(0.25f);
                 deferred.Fulfill(null);
                 collect.Await();
             };
@@ -62,9 +63,9 @@ class describe_Collect : nspec {
             };
 
             it["progresses"] = () => {
-                eventProgresses.Count.should_be(2);
-                eventProgresses[0].should_be(0.5f);
-                eventProgresses[1].should_be(1f);
+                eventProgresses.Count.ShouldBe(2);
+                eventProgresses[0].ShouldBe(0.5f);
+                eventProgresses[1].ShouldBe(1f);
             };
         };
     }

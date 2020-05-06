@@ -1,5 +1,6 @@
 ﻿using DesperateDevs.Analytics;
 using NSpec;
+using Shouldly;
 
 class describe_TrackingData : nspec {
 
@@ -14,11 +15,11 @@ class describe_TrackingData : nspec {
 
         it["creates empty tracking data"] = () => {
             data = new TrackingData();
-            data.Count.should_be(0);
+            data.Count.ShouldBe(0);
         };
 
         it["contains added object"] = () => {
-            data["key"].should_be("value");
+            data["key"].ShouldBe("value");
         };
     }
 }

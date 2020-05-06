@@ -2,6 +2,7 @@
 using System;
 using System.Threading;
 using DesperateDevs.Threading.Promises;
+using Shouldly;
 
 class describe_Rescue : nspec {
 
@@ -19,22 +20,22 @@ class describe_Rescue : nspec {
             promise = PromisesTestHelper.PromiseWithError<string>("error 42", delay).Rescue(error => "rescue");
             promise.OnFulfilled += result => eventResult = result;
             promise.Await();
-            promise.state.should_be(PromiseState.Fulfilled);
-            promise.progress.should_be(1f);
-            promise.result.should_be("rescue");
-            promise.error.should_be_null();
-            eventResult.should_be("rescue");
+            promise.state.ShouldBe(PromiseState.Fulfilled);
+            promise.progress.ShouldBe(1f);
+            promise.result.ShouldBe("rescue");
+            promise.error.ShouldBeNull();
+            eventResult.ShouldBe("rescue");
         };
 
         it["rescues already failed promise"] = () => {
             promise = PromisesTestHelper.PromiseWithError<string>("error 42").Rescue(error => "rescue");
             promise.OnFulfilled += result => eventResult = result;
             promise.Await();
-            promise.state.should_be(PromiseState.Fulfilled);
-            promise.progress.should_be(1f);
-            promise.result.should_be("rescue");
-            promise.error.should_be_null();
-            eventResult.should_be("rescue");
+            promise.state.ShouldBe(PromiseState.Fulfilled);
+            promise.progress.ShouldBe(1f);
+            promise.result.ShouldBe("rescue");
+            promise.error.ShouldBeNull();
+            eventResult.ShouldBe("rescue");
         };
 
         it["fulfills when no error"] = () => {
@@ -42,11 +43,11 @@ class describe_Rescue : nspec {
             promise.OnFulfilled += result => eventResult = result;
             promise.Await();
             Thread.SpinWait(0);
-            promise.state.should_be(PromiseState.Fulfilled);
-            promise.progress.should_be(1f);
-            promise.result.should_be("42");
-            promise.error.should_be_null();
-            eventResult.should_be("42");
+            promise.state.ShouldBe(PromiseState.Fulfilled);
+            promise.progress.ShouldBe(1f);
+            promise.result.ShouldBe("42");
+            promise.error.ShouldBeNull();
+            eventResult.ShouldBe("42");
         };
 
         context["progress"] = () => {
@@ -72,13 +73,13 @@ class describe_Rescue : nspec {
                 deferred.Progress(0.6f);
                 deferred.Fulfill("42");
 
-                eventProgress.should_be(1f);
-                promise.progress.should_be(1f);
-                progressCalled.should_be(3);
+                eventProgress.ShouldBe(1f);
+                promise.progress.ShouldBe(1f);
+                progressCalled.ShouldBe(3);
             };
 
             it["has initial progress"] = () => {
-                promise.progress.should_be(0.1f);
+                promise.progress.ShouldBe(0.1f);
                 deferred.Fulfill("42");
             };
         };
@@ -101,11 +102,11 @@ class describe_Rescue : nspec {
             int eventCalled = 0;
             var expectedProgresses = new[] { 0.25f, 0.5f, 0.75f, 1f };
             promise.OnProgressed += progress => {
-                progress.should_be(expectedProgresses[eventCalled]);
+                progress.ShouldBe(expectedProgresses[eventCalled]);
                 eventCalled++;
             };
             promise.Await();
-            eventCalled.should_be(expectedProgresses.Length);
+            eventCalled.ShouldBe(expectedProgresses.Length);
         };
     }
 }

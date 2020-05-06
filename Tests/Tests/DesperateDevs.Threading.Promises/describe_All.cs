@@ -1,6 +1,7 @@
 ﻿using NSpec;
 using System.Collections.Generic;
 using DesperateDevs.Threading.Promises;
+using Shouldly;
 
 class describe_All : nspec {
 
@@ -24,19 +25,19 @@ class describe_All : nspec {
                 promise.Await();
             };
 
-            it["is fulfilled"] = () => promise.state.should_be(PromiseState.Fulfilled);
-            it["has progressed 100%"] = () => promise.progress.should_be(1f);
-            it["has result"] = () => promise.result.should_not_be_null();
-            it["has no error"] = () => promise.error.should_be_null();
+            it["is fulfilled"] = () => promise.state.ShouldBe(PromiseState.Fulfilled);
+            it["has progressed 100%"] = () => promise.progress.ShouldBe(1f);
+            it["has result"] = () => promise.result.ShouldNotBeNull();
+            it["has no error"] = () => promise.error.ShouldBeNull();
             it["has results at correct index"] = () => {
-                (promise.result[0]).should_be(42);
-                (promise.result[1]).should_be("42");
+                (promise.result[0]).ShouldBe(42);
+                (promise.result[1]).ShouldBe("42");
             };
 
             it["calls progress"] = () => {
-                eventProgresses.Count.should_be(2);
-                eventProgresses[0].should_be(0.5f);
-                eventProgresses[1].should_be(1f);
+                eventProgresses.Count.ShouldBe(2);
+                eventProgresses[0].ShouldBe(0.5f);
+                eventProgresses[1].ShouldBe(1f);
             };
 
             it["has initial progress"] = () => {
@@ -44,7 +45,7 @@ class describe_All : nspec {
                 deferred.Progress(0.5f);
                 p2 = PromisesTestHelper.PromiseWithResult<object>("42", 2 * delay);
                 promise = Promise.All(deferred, p2);
-                promise.progress.should_be(0.25f);
+                promise.progress.ShouldBe(0.25f);
                 deferred.Fulfill(null);
                 promise.Await();
             };
@@ -61,13 +62,13 @@ class describe_All : nspec {
                 promise.Await();
             };
 
-            it["failed"] = () => promise.state.should_be(PromiseState.Failed);
-            it["has progressed 50%"] = () => promise.progress.should_be(0.5f);
-            it["has no result"] = () => promise.result.should_be_null();
-            it["has error"] = () => promise.error.Message.should_be("error 42");
+            it["failed"] = () => promise.state.ShouldBe(PromiseState.Failed);
+            it["has progressed 50%"] = () => promise.progress.ShouldBe(0.5f);
+            it["has no result"] = () => promise.result.ShouldBeNull();
+            it["has error"] = () => promise.error.Message.ShouldBe("error 42");
             it["calls progress"] = () => {
-                eventProgresses.Count.should_be(1);
-                eventProgresses[0].should_be(0.5f);
+                eventProgresses.Count.ShouldBe(1);
+                eventProgresses[0].ShouldBe(0.5f);
             };
         };
     }

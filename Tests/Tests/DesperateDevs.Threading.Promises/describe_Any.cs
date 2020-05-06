@@ -1,6 +1,7 @@
 ﻿using NSpec;
 using System.Collections.Generic;
 using DesperateDevs.Threading.Promises;
+using Shouldly;
 
 class describe_Any : nspec {
 
@@ -29,15 +30,15 @@ class describe_Any : nspec {
                 promise.Await();
             };
 
-            it["is fulfilled"] = () => promise.state.should_be(PromiseState.Fulfilled);
-            it["first promise to be complete is fulfilled"] = () => p2.state.should_be(PromiseState.Fulfilled);
-            it["has result of first complete promise"] = () => promise.result.should_be("42");
+            it["is fulfilled"] = () => promise.state.ShouldBe(PromiseState.Fulfilled);
+            it["first promise to be complete is fulfilled"] = () => p2.state.ShouldBe(PromiseState.Fulfilled);
+            it["has result of first complete promise"] = () => promise.result.ShouldBe("42");
 
             context["progress"] = () => {
 
                 it["calculates progress of promise with highest progress"] = () => {
-                    eventProgresses.Count.should_be(1);
-                    eventProgresses[0].should_be(1f);
+                    eventProgresses.Count.ShouldBe(1);
+                    eventProgresses[0].ShouldBe(1f);
                 };
 
                 it["has initial max progress"] = () => {
@@ -45,7 +46,7 @@ class describe_Any : nspec {
                     deferred.Progress(0.5f);
                     var p = PromisesTestHelper.PromiseWithResult<object>("42", delay * 2);
                     var any = Promise.Any(deferred, p);
-                    any.progress.should_be(0.5f);
+                    any.progress.ShouldBe(0.5f);
                     deferred.Fulfill(null);
                     any.Await();
                 };
@@ -62,9 +63,9 @@ class describe_Any : nspec {
                 promise.Await();
             };
 
-            it["fails"] = () => promise.state.should_be(PromiseState.Failed);
-            it["has no result"] = () => promise.result.should_be_null();
-            it["has error"] = () => promise.error.should_not_be_null();
+            it["fails"] = () => promise.state.ShouldBe(PromiseState.Failed);
+            it["has no result"] = () => promise.result.ShouldBeNull();
+            it["has error"] = () => promise.error.ShouldNotBeNull();
         };
     }
 }

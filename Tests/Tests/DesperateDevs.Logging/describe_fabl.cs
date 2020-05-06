@@ -1,5 +1,6 @@
 ﻿using DesperateDevs.Logging;
 using NSpec;
+using Shouldly;
 
 class describe_fabl : nspec {
 
@@ -13,36 +14,36 @@ class describe_fabl : nspec {
 
         it["creates a new logger"] = () => {
             var logger = fabl.GetLogger("MyLogger");
-            logger.should_not_be_null();
-            logger.GetType().should_be_same(typeof(Logger));
-            logger.name.should_be("MyLogger");
-            logger.logLevel.should_be(LogLevel.On);
+            logger.ShouldNotBeNull();
+            logger.GetType().ShouldBeSameAs(typeof(Logger));
+            logger.name.ShouldBe("MyLogger");
+            logger.logLevel.ShouldBe(LogLevel.On);
         };
 
         it["returns same logger when name is equal"] = () => {
             var logger1 = fabl.GetLogger("MyLogger");
             var logger2 = fabl.GetLogger("MyLogger");
-            logger1.should_be_same(logger2);
+            logger1.ShouldBeSameAs(logger2);
         };
 
         it["clears created loggers"] = () => {
             var logger1 = fabl.GetLogger("MyLogger");
             fabl.ResetLoggers();
             var logger2 = fabl.GetLogger("MyLogger");
-            logger1.should_not_be_same(logger2);
+            logger1.ShouldNotBeSameAs(logger2);
         };
 
         it["creates a new logger with globalLogLevel"] = () => {
             fabl.globalLogLevel = LogLevel.Error;
             var logger = fabl.GetLogger("MyLogger");
-            logger.logLevel.should_be(LogLevel.Error);
+            logger.logLevel.ShouldBe(LogLevel.Error);
         };
 
         it["sets global logLevel on created logger"] = () => {
             var logger = fabl.GetLogger("MyLogger");
-            logger.logLevel.should_be(LogLevel.On);
+            logger.logLevel.ShouldBe(LogLevel.On);
             fabl.globalLogLevel = LogLevel.Error;
-            logger.logLevel.should_be(LogLevel.Error);
+            logger.logLevel.ShouldBe(LogLevel.Error);
         };
 
         it["creates new logger with global appender"] = () => {
@@ -63,10 +64,10 @@ class describe_fabl : nspec {
             var logger = fabl.GetLogger("MyLogger");
             logger.Info("hi");
 
-            appenderLogLevel.should_be(LogLevel.Info);
-            appenderMessage.should_be("hi");
-            appenderLogLevel2.should_be(LogLevel.Info);
-            appenderMessage2.should_be("hi");
+            appenderLogLevel.ShouldBe(LogLevel.Info);
+            appenderMessage.ShouldBe("hi");
+            appenderLogLevel2.ShouldBe(LogLevel.Info);
+            appenderMessage2.ShouldBe("hi");
         };
 
         it["adds appender on created logger"] = () => {
@@ -74,7 +75,7 @@ class describe_fabl : nspec {
             var didLog = false;
             fabl.AddAppender((log, logLevel, message) => didLog = true);
             logger.Info("hi");
-            didLog.should_be_true();
+            didLog.ShouldBeTrue();
         };
 
         it["removes appender on created logger"] = () => {
@@ -84,7 +85,7 @@ class describe_fabl : nspec {
             var logger = fabl.GetLogger("MyLogger");
             fabl.RemoveAppender(appender);
             logger.Info("hi");
-            didLog.should_be_false();
+            didLog.ShouldBeFalse();
         };
 
         it["clears global appenders"] = () => {
@@ -97,8 +98,8 @@ class describe_fabl : nspec {
             fabl.ResetAppenders();
             var logger = fabl.GetLogger("MyLogger");
             logger.Info("hi");
-            appenderLogLevel.should_be(LogLevel.Off);
-            appenderMessage.should_be(string.Empty);
+            appenderLogLevel.ShouldBe(LogLevel.Off);
+            appenderMessage.ShouldBe(string.Empty);
         };
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using DesperateDevs.CodeGeneration.CodeGenerator;
 using NSpec;
+using Shouldly;
 
 class describe_CodeGeneratorUtil : nspec {
 
@@ -23,9 +24,9 @@ class describe_CodeGeneratorUtil : nspec {
                                                  searchPaths + Path.DirectorySeparatorChar
                                                  + "/TestPlugins");
 
-            config.searchPaths.Length.should_be(2);
-            config.searchPaths[0].should_be(searchPaths + "/TestPlugins/One");
-            config.searchPaths[1].should_be(searchPaths + "/TestPlugins/Two");
+            config.searchPaths.Length.ShouldBe(2);
+            config.searchPaths[0].ShouldBe(searchPaths + "/TestPlugins/One");
+            config.searchPaths[1].ShouldBe(searchPaths + "/TestPlugins/Two");
         };
 
         it["updates searchPaths when path contains spaces"] = () => {
@@ -33,9 +34,9 @@ class describe_CodeGeneratorUtil : nspec {
                                                  searchPaths + Path.DirectorySeparatorChar +
                                                  "/Test Plugins");
 
-            config.searchPaths.Length.should_be(2);
-            config.searchPaths[0].should_be(searchPaths + "/Test Plugins/One");
-            config.searchPaths[1].should_be(searchPaths + "/Test Plugins/Two");
+            config.searchPaths.Length.ShouldBe(2);
+            config.searchPaths[0].ShouldBe(searchPaths + "/Test Plugins/One");
+            config.searchPaths[1].ShouldBe(searchPaths + "/Test Plugins/Two");
         };
     }
 }

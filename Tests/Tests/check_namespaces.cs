@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using NSpec;
+using Shouldly;
 
 class check_namespaces : nspec {
 
@@ -16,8 +17,8 @@ class check_namespaces : nspec {
         System.Console.WriteLine("sourceFiles: " + sourceFiles.Count);
 
         it["processes roughly the correct number of files"] = () => {
-            sourceFiles.Count.should_be_greater_than(80);
-            sourceFiles.Count.should_be_less_than(150);
+            sourceFiles.Count.ShouldBeGreaterThan(80);
+            sourceFiles.Count.ShouldBeLessThan(150);
         };
 
         const string namespacePattern = @"(?:^namespace)\s.*\b";
@@ -43,7 +44,7 @@ class check_namespaces : nspec {
         }
 
         each.Do((fileName, given, expected) =>
-            it["{0} namespace is {2}".With(fileName, given, expected)] = () => given.should_be(expected)
+            it["{0} namespace is {2}".With(fileName, given, expected)] = () => given.ShouldBe(expected)
         );
     }
 }

@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using DesperateDevs.Networking;
 using NSpec;
+using Shouldly;
 
 class describe_TcpServerSocket : nspec {
 
@@ -34,7 +35,7 @@ class describe_TcpServerSocket : nspec {
             it["new server socket doesn't have connected clients"] = () => {
                 server.Listen(port);
                 this.Wait();
-                server.count.should_be(0);
+                server.count.ShouldBe(0);
             };
 
             it["can send without having connected clients"] = () => {
@@ -66,7 +67,7 @@ class describe_TcpServerSocket : nspec {
                         client1.Connect(ipAddress, port);
                         this.Wait();
 
-                        server.count.should_be(1);
+                        server.count.ShouldBe(1);
                     };
 
                     it["triggers OnClientConnected"] = () => {
@@ -80,8 +81,8 @@ class describe_TcpServerSocket : nspec {
                         client1.Connect(ipAddress, port);
                         this.Wait();
 
-                        connected.should_be(1);
-                        eventServer.should_be_same(server);
+                        connected.ShouldBe(1);
+                        eventServer.ShouldBeSameAs(server);
                     };
 
                     it["gets client by endPoint"] = () => {
@@ -97,7 +98,7 @@ class describe_TcpServerSocket : nspec {
                         var key = new IPEndPoint(IPAddress.Parse(rep.Address.ToString()), rep.Port);
 
                         var client = server.GetClientWithRemoteEndPoint(key);
-                        client.should_be_same(eventClient);
+                        client.ShouldBeSameAs(eventClient);
                     };
                 };
 
@@ -118,7 +119,7 @@ class describe_TcpServerSocket : nspec {
                         it["removes disconnected client"] = () => {
                             disconnectClient(client1);
                             this.Wait();
-                            server.count.should_be(0);
+                            server.count.ShouldBe(0);
                         };
 
                         it["triggers OnClientDisconnected"] = () => {
@@ -133,14 +134,14 @@ class describe_TcpServerSocket : nspec {
                             disconnectClient(client1);
                             this.Wait();
 
-                            disconnected.should_be(1);
-                            eventServer.should_be_same(server);
+                            disconnected.ShouldBe(1);
+                            eventServer.ShouldBeSameAs(server);
                         };
 
                         it["server disconnects and removes clients"] = () => {
                             server.Disconnect();
                             this.Wait();
-                            server.count.should_be(0);
+                            server.count.ShouldBe(0);
                         };
 
                         it["disconnects specified client"] = () => {
@@ -149,12 +150,12 @@ class describe_TcpServerSocket : nspec {
                             this.Wait();
 
                             var client = server.GetClientWithRemoteEndPoint(rep1);
-                            client.Connected.should_be_true();
+                            client.Connected.ShouldBeTrue();
 
                             server.DisconnectClient(rep1);
                             this.Wait();
 
-                            client.Connected.should_be_false();
+                            client.Connected.ShouldBeFalse();
                         };
                     };
 
@@ -178,8 +179,8 @@ class describe_TcpServerSocket : nspec {
                             client1.Send(buffer, 0, buffer.Length, SocketFlags.None);
                             this.Wait();
 
-                            eventServer.should_be_same(server);
-                            eventBytes.should_be(buffer);
+                            eventServer.ShouldBeSameAs(server);
+                            eventBytes.ShouldBe(buffer);
                         };
 
                         it["sends message to client"] = () => {
@@ -191,7 +192,7 @@ class describe_TcpServerSocket : nspec {
                             server.Send(buffer);
                             this.Wait();
 
-                            eventMsg.should_be(message);
+                            eventMsg.ShouldBe(message);
                         };
 
                         it["receives multiple client messages"] = () => {
@@ -209,8 +210,8 @@ class describe_TcpServerSocket : nspec {
                             client1.Send(buffer2, 0, buffer2.Length, SocketFlags.None);
                             this.Wait();
 
-                            eventBytes[0].should_be(buffer1);
-                            eventBytes[1].should_be(buffer2);
+                            eventBytes[0].ShouldBe(buffer1);
+                            eventBytes[1].ShouldBe(buffer2);
                         };
 
                         context["when another client is connected"] = () => {
@@ -234,7 +235,7 @@ class describe_TcpServerSocket : nspec {
                             };
 
                             it["accepts multiple client connection"] = () => {
-                                server.count.should_be(2);
+                                server.count.ShouldBe(2);
                             };
 
                             it["sends message to all connected clients"] = () => {
@@ -248,8 +249,8 @@ class describe_TcpServerSocket : nspec {
                                 server.Send(buffer);
                                 this.Wait();
 
-                                eventMsg1.should_be(message);
-                                eventMsg2.should_be(message);
+                                eventMsg1.ShouldBe(message);
+                                eventMsg2.ShouldBe(message);
                             };
 
                             it["sends message to specified client"] = () => {
@@ -263,8 +264,8 @@ class describe_TcpServerSocket : nspec {
                                 server.SendTo(buffer, rep2);
                                 this.Wait();
 
-                                eventMsg1.should_be_null();
-                                eventMsg2.should_be(message);
+                                eventMsg1.ShouldBeNull();
+                                eventMsg2.ShouldBe(message);
                             };
                         };
                     };

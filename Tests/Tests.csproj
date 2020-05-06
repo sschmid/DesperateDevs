@@ -65,11 +65,13 @@
       <HintPath>..\packages\Microsoft.CodeAnalysis.Workspaces.Common.2.10.0\lib\net46\Microsoft.CodeAnalysis.Workspaces.Desktop.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NSpec, Version=1.0.7.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\Libraries\NSpec.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="NSpecRunner, Version=1.0.7.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\Libraries\NSpecRunner.dll</HintPath>
+    <Reference Include="NSpec, Version=3.1.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\NSpec.3.1.0\lib\net451\NSpec.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">
       <HintPath>..\Libraries\nunit.framework.dll</HintPath>
@@ -179,6 +181,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DebuggerShim.cs" />
     <Compile Include="TestRunner.cs" />
     <Compile Include="Tests\check_namespaces.cs" />
     <Compile Include="Tests\DesperateDevs.Analytics\describe_Tracker.cs" />

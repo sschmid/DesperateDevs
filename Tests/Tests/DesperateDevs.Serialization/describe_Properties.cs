@@ -1,18 +1,19 @@
 ﻿using System.Collections.Generic;
 using DesperateDevs.Serialization;
 using NSpec;
+using Shouldly;
 
 class describe_Properties : nspec {
 
     void assertProperties(string input, string expectedOutput, Dictionary<string, string> expectedProperties, Properties properties = null) {
         var p = properties ?? new Properties(input);
         var expectedCount = expectedProperties != null ? expectedProperties.Count : 0;
-        p.count.should_be(expectedCount);
-        p.ToString().should_be(expectedOutput);
+        p.count.ShouldBe(expectedCount);
+        p.ToString().ShouldBe(expectedOutput);
         if (expectedProperties != null) {
             foreach (var kv in expectedProperties) {
-                p.HasKey(kv.Key).should_be_true();
-                p[kv.Key].should_be(kv.Value);
+                p.HasKey(kv.Key).ShouldBeTrue();
+                p[kv.Key].ShouldBe(kv.Value);
             }
         }
     }
@@ -20,12 +21,12 @@ class describe_Properties : nspec {
     void assertProperties(Dictionary<string, string> input, string expectedOutput, Dictionary<string, string> expectedProperties) {
         var p = new Properties(input);
         var expectedCount = expectedProperties != null ? expectedProperties.Count : 0;
-        p.count.should_be(expectedCount);
-        p.ToString().should_be(expectedOutput);
+        p.count.ShouldBe(expectedCount);
+        p.ToString().ShouldBe(expectedOutput);
         if (expectedProperties != null) {
             foreach (var kv in expectedProperties) {
-                p.HasKey(kv.Key).should_be_true();
-                p[kv.Key].should_be(kv.Value);
+                p.HasKey(kv.Key).ShouldBeTrue();
+                p[kv.Key].ShouldBe(kv.Value);
             }
         }
     }
@@ -51,8 +52,8 @@ class describe_Properties : nspec {
                     exception = ex;
                 }
 
-                exception.should_not_be_null();
-                exception.key.should_be("some.key.2");
+                exception.ShouldNotBeNull();
+                exception.key.ShouldBe("some.key.2");
             };
         };
 
@@ -228,10 +229,10 @@ class describe_Properties : nspec {
                     "some.key.3=some value 3" + "\n";
 
                 var keys = new Properties(input).keys;
-                keys.Length.should_be(3);
-                keys.should_contain("some.key.1");
-                keys.should_contain("some.key.2");
-                keys.should_contain("some.key.3");
+                keys.Length.ShouldBe(3);
+                keys.ShouldContain("some.key.1");
+                keys.ShouldContain("some.key.2");
+                keys.ShouldContain("some.key.3");
             };
 
             it["has all values"] = () => {
@@ -241,10 +242,10 @@ class describe_Properties : nspec {
                     "some.key.3=some value 3" + "\n";
 
                 var values = new Properties(input).values;
-                values.Length.should_be(3);
-                values.should_contain("some value 1");
-                values.should_contain("some value 2");
-                values.should_contain("some value 3");
+                values.Length.ShouldBe(3);
+                values.ShouldContain("some value 1");
+                values.ShouldContain("some value 2");
+                values.ShouldContain("some value 3");
             };
 
             it["gets a dictionary"] = () => {
@@ -254,10 +255,10 @@ class describe_Properties : nspec {
                     "some.key.3=some value 3" + "\n";
 
                 var dict = new Properties(input).ToDictionary();
-                dict.Count.should_be(3);
-                dict.ContainsKey("some.key.1").should_be_true();
-                dict.ContainsKey("some.key.2").should_be_true();
-                dict.ContainsKey("some.key.3").should_be_true();
+                dict.Count.ShouldBe(3);
+                dict.ContainsKey("some.key.1").ShouldBeTrue();
+                dict.ContainsKey("some.key.2").ShouldBeTrue();
+                dict.ContainsKey("some.key.3").ShouldBeTrue();
             };
 
             it["gets a dictionary copy"] = () => {
@@ -267,7 +268,7 @@ class describe_Properties : nspec {
                     "some.key.3=some value 3" + "\n";
 
                 var properties = new Properties(input);
-                properties.ToDictionary().should_not_be_same(properties.ToDictionary());
+                properties.ToDictionary().ShouldNotBeSameAs(properties.ToDictionary());
             };
         };
 
@@ -318,22 +319,22 @@ class describe_Properties : nspec {
 
             it["set new property"] = () => {
                 p["key"] = "value";
-                p["key"].should_be("value");
+                p["key"].ShouldBe("value");
             };
 
             it["trims key"] = () => {
                 p[" key "] = "value";
-                p["key"].should_be("value");
+                p["key"].ShouldBe("value");
             };
 
             it["trims start of value"] = () => {
                 p["key"] = " value";
-                p["key"].should_be("value");
+                p["key"].ShouldBe("value");
             };
 
             it["removes trailing whitespace of value"] = () => {
                 p["key"] = "value";
-                p["key"].should_be("value");
+                p["key"].ShouldBe("value");
             };
 
             it["adds properties from dictionary"] = () => {
@@ -344,9 +345,9 @@ class describe_Properties : nspec {
 
                 p.AddProperties(dict, true);
 
-                p.count.should_be(dict.Count);
-                p["key1"].should_be("value1");
-                p["key2"].should_be("value2");
+                p.count.ShouldBe(dict.Count);
+                p["key1"].ShouldBe("value1");
+                p["key2"].ShouldBe("value2");
             };
 
             it["overwrites existing properties from dictionary"] = () => {
@@ -358,9 +359,9 @@ class describe_Properties : nspec {
                 p["key1"] = "existingKey";
                 p.AddProperties(dict, true);
 
-                p.count.should_be(dict.Count);
-                p["key1"].should_be("value1");
-                p["key2"].should_be("value2");
+                p.count.ShouldBe(dict.Count);
+                p["key1"].ShouldBe("value1");
+                p["key2"].ShouldBe("value2");
             };
 
             it["only adds missing properties from dictionary"] = () => {
@@ -372,9 +373,9 @@ class describe_Properties : nspec {
                 p["key1"] = "existingKey";
                 p.AddProperties(dict, false);
 
-                p.count.should_be(dict.Count);
-                p["key1"].should_be("existingKey");
-                p["key2"].should_be("value2");
+                p.count.ShouldBe(dict.Count);
+                p["key1"].ShouldBe("existingKey");
+                p["key2"].ShouldBe("value2");
             };
         };
 
@@ -389,7 +390,7 @@ class describe_Properties : nspec {
 
             it["set new property"] = () => {
                 p.RemoveProperty("key");
-                p.HasKey("key").should_be_false();
+                p.HasKey("key").ShouldBeFalse();
             };
         };
 
@@ -488,7 +489,7 @@ class describe_Properties : nspec {
 @"key = value1, value2, value3
 key2 = value4");
 
-                properties.ToMinifiedString().should_be(
+                properties.ToMinifiedString().ShouldBe(
 @"key=value1, value2, value3
 key2=value4
 ");
@@ -501,21 +502,21 @@ key2=value4
                 var properties = new Properties(string.Empty);
                 properties.doubleQuoteMode = true;
                 properties["key"] = "value";
-                properties["key"].should_be("\"value\"");
+                properties["key"].ShouldBe("\"value\"");
             };
 
             it["doesn't surround added values with double quotes when already double quoted"] = () => {
                 var properties = new Properties(string.Empty);
                 properties.doubleQuoteMode = true;
                 properties["key"] = "\"value\"";
-                properties["key"].should_be("\"value\"");
+                properties["key"].ShouldBe("\"value\"");
             };
 
             it["surrounds existing values with double quotes"] = () => {
                 var properties = new Properties(string.Empty);
                 properties["key"] = "value";
                 properties.doubleQuoteMode = true;
-                properties["key"].should_be("\"value\"");
+                properties["key"].ShouldBe("\"value\"");
             };
 
             it["surrounds other properties values with double quotes"] = () => {
@@ -523,24 +524,24 @@ key2=value4
                     { "key", "value" }
                 });
                 properties.doubleQuoteMode = true;
-                properties["key"].should_be("\"value\"");
+                properties["key"].ShouldBe("\"value\"");
             };
 
             it["removes double quotes when reading values"] = () => {
                 var properties = new Properties(string.Empty);
                 properties["key"] = "\"value\"";
-                properties["key"].should_be("\"value\"");
+                properties["key"].ShouldBe("\"value\"");
                 properties.doubleQuoteMode = true;
-                properties["key"].should_be("value");
+                properties["key"].ShouldBe("value");
             };
 
             it["disables double quotes mode"] = () => {
                 var properties = new Properties(string.Empty);
                 properties["key"] = "\"value\"";
-                properties["key"].should_be("\"value\"");
+                properties["key"].ShouldBe("\"value\"");
                 properties.doubleQuoteMode = true;
                 properties.doubleQuoteMode = false;
-                properties["key"].should_be("\"value\"");
+                properties["key"].ShouldBe("\"value\"");
             };
         };
     }
@@ -570,8 +571,8 @@ key2=value4
             var p = new Properties(input);
             p["key1"] = "newValue1";
 
-            input["key1"].should_be("value1");
-            p["key1"].should_be("newValue1");
+            input["key1"].ShouldBe("value1");
+            p["key1"].ShouldBe("newValue1");
         };
 
         context["placeholder"] = () => {

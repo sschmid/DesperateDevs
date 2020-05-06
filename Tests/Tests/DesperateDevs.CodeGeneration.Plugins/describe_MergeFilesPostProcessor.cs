@@ -1,6 +1,7 @@
 ﻿using DesperateDevs.CodeGeneration;
 using DesperateDevs.CodeGeneration.Plugins;
 using NSpec;
+using Shouldly;
 
 class describe_MergeFilesPostProcessor : nspec {
 
@@ -16,12 +17,12 @@ class describe_MergeFilesPostProcessor : nspec {
             var postprocessor = new MergeFilesPostProcessor();
             files =  postprocessor.PostProcess(files);
 
-            files.Length.should_be(2);
-            files[0].fileName.should_be("file1");
-            files[1].fileName.should_be("file3");
+            files.Length.ShouldBe(2);
+            files[0].fileName.ShouldBe("file1");
+            files[1].fileName.ShouldBe("file3");
 
-            files[0].fileContent.should_be("content1\ncontent2");
-            files[0].generatorName.should_be("gen1, gen2");
+            files[0].fileContent.ShouldBe("content1\ncontent2");
+            files[0].generatorName.ShouldBe("gen1, gen2");
         };
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using DesperateDevs.Logging;
 using NSpec;
+using Shouldly;
 
 class describe_Logger : nspec {
 
@@ -21,7 +22,7 @@ class describe_Logger : nspec {
             _logger.OnLog += (logger, level, s) => didLog += 1;
             _logger.Reset();
             _logger.Info("Test");
-            didLog.should_be(0);
+            didLog.ShouldBe(0);
         };
     }
 
@@ -66,16 +67,16 @@ class describe_Logger : nspec {
 
         logMethod(message);
 
-        didLog.should_be(shouldLog);
+        didLog.ShouldBe(shouldLog);
 
         if (shouldLog) {
-            eventLogger.should_be_same(_logger);
-            eventMessage.should_be(message);
-            eventLogLevel.should_be(logLvl);
+            eventLogger.ShouldBeSameAs(_logger);
+            eventMessage.ShouldBe(message);
+            eventLogLevel.ShouldBe(logLvl);
         } else {
-            eventMessage.should_be_null();
-            eventLogLevel.should_be(LogLevel.Off);
-            eventLogger.should_be_null();
+            eventMessage.ShouldBeNull();
+            eventLogLevel.ShouldBe(LogLevel.Off);
+            eventLogger.ShouldBeNull();
         }
     }
 }

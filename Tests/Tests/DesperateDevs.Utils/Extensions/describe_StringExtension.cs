@@ -1,5 +1,6 @@
 ﻿using DesperateDevs.Utils;
 using NSpec;
+using Shouldly;
 
 class describe_StringExtension : nspec {
 
@@ -7,47 +8,47 @@ class describe_StringExtension : nspec {
 
         it["UppercaseFirst"] = () => {
             const string str = "hi";
-            str.UppercaseFirst().should_be("Hi");
+            str.UppercaseFirst().ShouldBe("Hi");
         };
 
         it["UppercaseFirst handles empty string"] = () => {
             const string str = "";
-            str.UppercaseFirst().should_be("");
+            str.UppercaseFirst().ShouldBe("");
         };
 
         it["LowercaseFirst"] = () => {
             const string str = "Hi";
-            str.LowercaseFirst().should_be("hi");
+            str.LowercaseFirst().ShouldBe("hi");
         };
 
         it["LowercaseFirst"] = () => {
             const string str = "";
-            str.LowercaseFirst().should_be("");
+            str.LowercaseFirst().ShouldBe("");
         };
 
         it["ToUnixLineEndings"] = () => {
             const string str = "1\r\n2\r3\n";
-            str.ToUnixLineEndings().should_be("1\n2\n3\n");
+            str.ToUnixLineEndings().ShouldBe("1\n2\n3\n");
         };
 
         it["ToUnixPath"] = () => {
             const string str = "a/b\\c\\d/e";
-            str.ToUnixPath().should_be("a/b/c/d/e");
+            str.ToUnixPath().ShouldBe("a/b/c/d/e");
         };
 
         it["ToCSV"] = () => {
             var strings = new[] { "1", "2", "3" };
-            strings.ToCSV().should_be("1, 2, 3");
+            strings.ToCSV().ShouldBe("1, 2, 3");
         };
 
         it["ArrayFromCSV"] = () => {
             const string str = "1,2, 3";
-            str.ArrayFromCSV().should_be(new[] { "1", "2", "3" });
+            str.ArrayFromCSV().ShouldBe(new[] { "1", "2", "3" });
         };
 
         it["ToSpacedCamelCase"] = () => {
             const string str = "ThisIsATest";
-            str.ToSpacedCamelCase().should_be("This Is A Test");
+            str.ToSpacedCamelCase().ShouldBe("This Is A Test");
         };
     }
 }
