@@ -143,9 +143,20 @@ desperatedevs::sync() {
 
 desperatedevs::pack() {
   log_func
+  desperatedevs::rebuild
+  desperatedevs::run_tests
+  desperatedevs::collect
+}
+
+desperatedevs::rebuild() {
+  log_func
   msbuild /t:Clean /p:Configuration=Release /v:m
   msbuild -t:restore
   msbuild /p:Configuration=Release /v:m
-  mono Tests/bin/Release/Tests.exe
-  desperatedevs::collect
+}
+
+desperatedevs::run_tests() {
+  log_func
+  msbuild /p:Configuration=Release /v:m Tests/Tests.csproj
+  mono Tests/bin/Release/Tests.exe "$@"
 }
