@@ -20,12 +20,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.5.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="3.5.0" />
-    <PackageReference Include="Microsoft.Net.Compilers" Version="3.5.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="3.7.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.7.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.7.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="3.7.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="3.7.0" />
     <PackageReference Include="NSpec" Version="3.1.0" />
     <PackageReference Include="Shouldly" Version="3.0.2" />
-    <PackageReference Include="SQLitePCLRaw.core" Version="2.0.3" />
+    <PackageReference Include="SQLitePCLRaw.core" Version="2.0.4" />
   </ItemGroup>
 
 </Project>
