@@ -144,7 +144,7 @@ desperatedevs::sync() {
 desperatedevs::pack() {
   log_func
   desperatedevs::rebuild
-  # desperatedevs::run_tests
+  desperatedevs::run_tests
   desperatedevs::collect
 }
 
