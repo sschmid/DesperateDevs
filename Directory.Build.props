@@ -1,0 +1,29 @@
+<Project>
+
+  <PropertyGroup>
+    <DefaultTargetFramework>netstandard2.0</DefaultTargetFramework>
+    <DefaultNetTargetFramework>net48</DefaultNetTargetFramework>
+    <LangVersion>9</LangVersion>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <UnityPath>\Applications\Unity\Hub\Editor\2020.3.17f1\Unity.app\Contents\Managed</UnityPath>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Tests">
+    <DefaultTestTargetFramework>net5.0</DefaultTestTargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup Label="Tests">
+    <PackageReference Update="xunit.runner.visualstudio">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Update="coverlet.collector">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>
