@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>$(DefaultTargetFramework)</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\DesperateDevs.CodeGeneration\src\DesperateDevs.CodeGeneration.csproj" />
+    <ProjectReference Include="..\..\DesperateDevs.Serialization\src\DesperateDevs.Serialization.csproj" />
+  </ItemGroup>
+
+</Project>

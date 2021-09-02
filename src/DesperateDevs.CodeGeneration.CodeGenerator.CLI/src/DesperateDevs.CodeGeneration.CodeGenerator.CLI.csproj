@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>$(DefaultTargetFramework)</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\DesperateDevs.CLI.Utils\src\DesperateDevs.CLI.Utils.csproj" />
+    <ProjectReference Include="..\..\DesperateDevs.CodeGeneration.CodeGenerator\src\DesperateDevs.CodeGeneration.CodeGenerator.csproj" />
+    <ProjectReference Include="..\..\DesperateDevs.Networking\src\DesperateDevs.Networking.csproj" />
+    <ProjectReference Include="..\..\DesperateDevs.Serialization.CLI.Utils\src\DesperateDevs.Serialization.CLI.Utils.csproj" />
+  </ItemGroup>
+
+</Project>

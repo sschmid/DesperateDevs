@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>$(DefaultTargetFramework)</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\DesperateDevs.CLI.Utils\src\DesperateDevs.CLI.Utils.csproj" />
+    <ProjectReference Include="..\..\DesperateDevs.Networking\src\DesperateDevs.Networking.csproj" />
+  </ItemGroup>
+
+</Project>
