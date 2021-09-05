@@ -1,0 +1,58 @@
+<Project>
+
+  <!-- Set default Unity folder paths -->
+  <Choose>
+    <When Condition="$([MSBuild]::IsOsPlatform(Windows))">
+      <PropertyGroup>
+        <OSInstallRoot Condition="'$(OSInstallRoot)'==''">C:\Program Files</OSInstallRoot>
+        <UnityManagedPath Condition="'$(UnityManagedPath)'==''">Editor\Data\Managed</UnityManagedPath>
+        <UnityExtensionsPath Condition="'$(UnityExtensionsPath)'==''">Editor\Data\UnityExtensions\Unity</UnityExtensionsPath>
+      </PropertyGroup>
+    </When>
+    <When Condition="$([MSBuild]::IsOsPlatform(OSX))">
+      <PropertyGroup>
+        <OSInstallRoot Condition="'$(OSInstallRoot)'==''">/Applications</OSInstallRoot>
+        <UnityManagedPath Condition="'$(UnityManagedPath)'==''">Unity.app\Contents\Managed</UnityManagedPath>
+        <UnityExtensionsPath Condition="'$(UnityExtensionsPath)'==''">Unity.app\Contents\UnityExtensions\Unity</UnityExtensionsPath>
+      </PropertyGroup>
+    </When>
+    <When Condition="$([MSBuild]::IsOsPlatform(Linux))">
+      <PropertyGroup>
+        <OSInstallRoot Condition="'$(OSInstallRoot)'==''">$([System.Environment]::GetFolderPath('System.Environment+SpecialFolder.UserProfile'))</OSInstallRoot>
+        <UnityManagedPath Condition="'$(UnityManagedPath)'==''">Editor\Data\Managed</UnityManagedPath>
+        <UnityExtensionsPath Condition="'$(UnityExtensionsPath)'==''">Editor\Data\UnityExtensions\Unity</UnityExtensionsPath>
+      </PropertyGroup>
+    </When>
+  </Choose>
+  <PropertyGroup>
+    <UnityInstallRoot Condition="'$(UnityInstallRoot)'==''">$(OSInstallRoot)\Unity\Hub\Editor</UnityInstallRoot>
+    <UnityModulesPath Condition="'$(UnityModulesPath)'==''">$(UnityManagedPath)\UnityEngine</UnityModulesPath>
+    <UnityPlaybackEnginesPath Condition="'$(UnityPlaybackEnginesPath)'==''">Editor\Data\PlaybackEngines</UnityPlaybackEnginesPath>
+    <UnityAndroidPlayerPath Condition="'$(UnityAndroidPlayerPath)'==''">$(UnityPlaybackEnginesPath)\AndroidPlayer</UnityAndroidPlayerPath>
+    <UnityiOSSupportPath Condition="'$(UnityiOSSupportPath)'==''">$(UnityPlaybackEnginesPath)\iOSSupport</UnityiOSSupportPath>
+    <UnityBuiltInPackagesPath Condition="'$(UnityBuiltInPackagesPath)'==''">Editor\Data\Resources\PackageManager\BuiltInPackages</UnityBuiltInPackagesPath>
+
+    <UnityPackageCachePath Condition="'$(UnityPackageCachePath)'==''">Library\PackageCache</UnityPackageCachePath>
+    <UnityScriptAssembliesPath Condition="'$(UnityScriptAssembliesPath)'==''">Library\ScriptAssemblies</UnityScriptAssembliesPath>
+  </PropertyGroup>
+
+  <!-- Set relative paths of specific Unity assemblies -->
+  <PropertyGroup>
+    <UnityEnginePath Condition="'$(UnityEnginePath)'==''">$(UnityManagedPath)\UnityEngine.dll</UnityEnginePath>
+    <UnityEditorPath Condition="'$(UnityEditorPath)'==''">$(UnityManagedPath)\UnityEditor.dll</UnityEditorPath>
+    <UnityEngineUIPath Condition="'$(UnityEngineUIPath)'==''">$(UnityExtensionsPath)\GUISystem\UnityEngine.UI.dll</UnityEngineUIPath>
+    <UnityEngineTestRunnerPath Condition="'$(UnityEngineTestRunnerPath)'==''">$(UnityExtensionsPath)\TestRunner\UnityEngine.TestRunner.dll</UnityEngineTestRunnerPath>
+  </PropertyGroup>
+
+  <!-- Set relative paths of specific PackageCache assemblies -->
+  <PropertyGroup>
+    <NewtonsoftJsonPath Condition="'$(NewtonsoftJsonPath)'==''">$(UnityPackageCachePath)\com.unity.nuget.newtonsoft-json*\Runtime\Newtonsoft.Json.dll</NewtonsoftJsonPath>
+    <NunitPath Condition="'$(NunitPath)'==''">$(UnityPackageCachePath)\com.unity.ext.nunit*\net35\unity-custom\nunit.framework.dll</NunitPath>
+    <MoqPath Condition="'$(MoqPath)'==''">$(UnityPackageCachePath)\nuget.moq*\Moq.dll</MoqPath>
+    <UnityAnalyticsStandardEventsPath Condition="'$(UnityAnalyticsStandardEventsPath)'==''">$(UnityPackageCachePath)\com.unity.analytics*\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll</UnityAnalyticsStandardEventsPath>
+    <UnityEditorAndroidExtensionsPath Condition="'$(UnityEditorAndroidExtensionsPath)'==''">$(UnityAndroidPlayerPath)\UnityEditor.Android.Extensions.dll</UnityEditorAndroidExtensionsPath>
+    <UnityEditoriOSExtensionsCommonPath Condition="'$(UnityEditoriOSExtensionsCommonPath)'==''">$(UnityiOSSupportPath)\UnityEditor.iOS.Extensions.Common.dll</UnityEditoriOSExtensionsCommonPath>
+    <UnityEditoriOSExtensionsXcodePath Condition="'$(UnityEditoriOSExtensionsXcodePath)'==''">$(UnityiOSSupportPath)\UnityEditor.iOS.Extensions.Xcode.dll</UnityEditoriOSExtensionsXcodePath>
+  </PropertyGroup>
+
+</Project>

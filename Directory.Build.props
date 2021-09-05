@@ -7,8 +7,11 @@
     <Deterministic>true</Deterministic>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <UnityPath>\Applications\Unity\Hub\Editor\2020.3.17f1\Unity.app\Contents\Managed</UnityPath>
+  <Import Project="Unity3D.props" />
+  <PropertyGroup Label="Unity3D">
+    <UnityVersion>2020.3.17f1</UnityVersion>
+    <UnityEditor>$(UnityInstallRoot)\$(UnityVersion)\$(UnityEditorPath)</UnityEditor>
+    <UnityEngine>$(UnityInstallRoot)\$(UnityVersion)\$(UnityEnginePath)</UnityEngine>
   </PropertyGroup>
 
   <PropertyGroup Label="Tests">
