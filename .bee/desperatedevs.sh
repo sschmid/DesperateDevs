@@ -2,6 +2,11 @@
 
 BUILD_SRC=Build/src
 
+desperatedevs::clear() {
+  find . -type d -name obj -exec rm -rf {} +
+  find . -type d -name bin -exec rm -rf {} +
+}
+
 desperatedevs::collect_jenny() {
   log_func
   local jenny_dir="${BUILD_SRC}/Jenny"

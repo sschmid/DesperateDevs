@@ -25,27 +25,26 @@ namespace DesperateDevs.Analytics.Tests
         [Fact]
         public void CreatesTrackingCallWithArg()
         {
-            _trackingData.Add("key",
-                "value");
+            _trackingData.Add("testKey", "testValue");
             _tracker.Track(_trackingData);
-            _tracker.Call.Should().Be("host/endPoint.php?key=value");
+            _tracker.Call.Should().Be("host/endPoint.php?testKey=testValue");
         }
 
         [Fact]
         public void EscapesArg()
         {
-            _trackingData.Add("key", "value1 value2");
+            _trackingData.Add("testKey", "testValue1 testValue2");
             _tracker.Track(_trackingData);
-            _tracker.Call.Should().Be("host/endPoint.php?key=value1%20value2");
+            _tracker.Call.Should().Be("host/endPoint.php?testKey=testValue1%20testValue2");
         }
 
         [Fact]
         public void CreatesTrackingCallWithMultipleArgs()
         {
-            _trackingData.Add("key1", "value1");
-            _trackingData.Add("key2", "value2");
+            _trackingData.Add("testKey1", "testValue1");
+            _trackingData.Add("testKey2", "testValue2");
             _tracker.Track(_trackingData);
-            _tracker.Call.Should().Be("host/endPoint.php?key1=value1&key2=value2");
+            _tracker.Call.Should().Be("host/endPoint.php?testKey1=testValue1&testKey2=testValue2");
         }
     }
 }
