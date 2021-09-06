@@ -28,6 +28,7 @@ namespace DesperateDevs.CLI.Utils {
             return args.Any(arg => arg == parameter);
         }
 
+        // TODO rename to WithoutCommand
         public static string[] WithoutTrigger(this string[] args) {
             return args.Skip(1).ToArray();
         }
