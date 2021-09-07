@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\DesperateDevs.CodeGeneration\src\DesperateDevs.CodeGeneration.csproj" />
-    <ProjectReference Include="..\..\DesperateDevs\tests\DesperateDevs.Tests.csproj" />
+    <ProjectReference Include="..\..\DesperateDevs.Tests\tests\DesperateDevs.Tests.csproj" />
     <ProjectReference Include="..\src\DesperateDevs.CodeGeneration.Plugins.csproj" />
   </ItemGroup>
 
