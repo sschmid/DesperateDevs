@@ -10,8 +10,8 @@ namespace DesperateDevs.Tests
 {
     public class NamespaceTests
     {
-        static readonly string ProjectRoot = TestExtensions.GetProjectRoot();
-        static readonly Dictionary<string, string> SourceFiles = TestExtensions.ReadSourceFiles(ProjectRoot);
+        static readonly string ProjectRoot = TestHelper.GetProjectRoot();
+        static readonly Dictionary<string, string> SourceFiles = TestHelper.ReadSourceFiles(ProjectRoot);
 
         readonly ITestOutputHelper _output;
 

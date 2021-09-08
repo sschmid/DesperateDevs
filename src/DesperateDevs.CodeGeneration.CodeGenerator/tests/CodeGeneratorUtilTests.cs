@@ -7,7 +7,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Tests
 {
     public class CodeGeneratorUtilTests
     {
-        static readonly string ProjectRoot = TestExtensions.GetProjectRoot();
+        static readonly string ProjectRoot = TestHelper.GetProjectRoot();
 
         static readonly string SearchPaths = Path.Combine(
             "src", "DesperateDevs.CodeGeneration.CodeGenerator", "tests", "Fixtures"

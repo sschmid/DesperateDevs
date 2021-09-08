@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace DesperateDevs.Tests
 {
-    public static class TestExtensions
+    public static class TestHelper
     {
         public const string ProjectName = "DesperateDevs";
 

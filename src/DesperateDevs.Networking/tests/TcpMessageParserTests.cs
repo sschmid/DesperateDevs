@@ -1,45 +1,49 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
-using DesperateDevs.Networking;
-using NSpec;
-using Shouldly;
+using FluentAssertions;
+using Xunit;
 
-class describe_TcpMessageParser : nspec {
+namespace DesperateDevs.Networking.Tests
+{
+    public class TcpMessageParserTests
+    {
+        readonly TcpMessageParser _parser = new();
 
-    void when_parsing() {
-
-        TcpMessageParser parser = null;
-
-        before = () => { parser = new TcpMessageParser(); };
-
-        it["wraps and unwraps message"] = () => {
+        [Fact]
+        public void WrapsAndUnwrapsMessage()
+        {
             const string message = "123456";
             var bytes = Encoding.UTF8.GetBytes(message);
             var wrapped = TcpMessageParser.WrapMessage(bytes);
             var unwrapped = TcpMessageParser.UnwrapMessage(wrapped);
-            Encoding.UTF8.GetString(unwrapped).ShouldBe(message);
-        };
+            Encoding.UTF8.GetString(unwrapped).Should().Be(message);
+        }
 
-        it["parses full message"] = () => {
+        [Fact]
+        public void ParsesFullMessage()
+        {
             const string message = "123456";
             var messages = 0;
-            parser.OnMessage += (p, b) => {
+            _parser.OnMessage += (p, b) =>
+            {
                 messages += 1;
-                p.ShouldBeSameAs(parser);
-                Encoding.UTF8.GetString(b).ShouldBe(message);
+                p.Should().BeSameAs(_parser);
+                Encoding.UTF8.GetString(b).Should().Be(message);
             };
 
             var bytes = TcpMessageParser.WrapMessage(Encoding.UTF8.GetBytes(message));
-            parser.Receive(bytes);
-            messages.ShouldBe(1);
-        };
+            _parser.Receive(bytes);
+            messages.Should().Be(1);
+        }
 
-        it["doesn't parse partial message"] = () => {
+        [Fact]
+        public void DoesNotParsePartialMessage()
+        {
             const string message = "123456";
             const string partialMessage = "123";
 
-            parser.OnMessage += (p, b) => this.Fail();
+            _parser.OnMessage += (p, b) => throw new Exception("parser.OnMessage");
 
             var lengthPrefix = BitConverter.GetBytes(message.Length);
             var prefixedMessage = new byte[lengthPrefix.Length + partialMessage.Length];
@@ -48,18 +52,21 @@ class describe_TcpMessageParser : nspec {
             var partialBytes = Encoding.UTF8.GetBytes(partialMessage);
             Array.Copy(partialBytes, 0, prefixedMessage, lengthPrefix.Length, partialBytes.Length);
 
-            parser.Receive(prefixedMessage);
-        };
+            _parser.Receive(prefixedMessage);
+        }
 
-        it["completes partial message"] = () => {
+        [Fact]
+        public void CompletesPartialMessage()
+        {
             const string message = "123456";
             const string partialMessage1 = "123";
             const string partialMessage2 = "456";
 
             var messages = 0;
-            parser.OnMessage += (p, b) => {
+            _parser.OnMessage += (p, b) =>
+            {
                 messages += 1;
-                Encoding.UTF8.GetString(b).ShouldBe(message);
+                Encoding.UTF8.GetString(b).Should().Be(message);
             };
 
             var lengthPrefix = BitConverter.GetBytes(message.Length);
@@ -71,31 +78,37 @@ class describe_TcpMessageParser : nspec {
 
             var partialBytes2 = Encoding.UTF8.GetBytes(partialMessage2);
 
-            parser.Receive(prefixedMessage);
-            parser.Receive(partialBytes2);
+            _parser.Receive(prefixedMessage);
+            _parser.Receive(partialBytes2);
 
-            messages.ShouldBe(1);
-        };
+            messages.Should().Be(1);
+        }
 
-        it["can read multiple messages"] = () => {
+        [Fact]
+        public void ReadsMultipleMessages()
+        {
             const string message1 = "123456";
             const string message2 = "abcdef";
             var messages = 0;
-            parser.OnMessage += (p, b) => {
+            _parser.OnMessage += (p, b) =>
+            {
                 messages += 1;
 
-                if (messages == 1) {
-                    Encoding.UTF8.GetString(b).ShouldBe(message1);
-                } else if (messages == 2) {
-                    Encoding.UTF8.GetString(b).ShouldBe(message2);
+                if (messages == 1)
+                {
+                    Encoding.UTF8.GetString(b).Should().Be(message1);
+                }
+                else if (messages == 2)
+                {
+                    Encoding.UTF8.GetString(b).Should().Be(message2);
                 }
             };
 
             var bytes1 = TcpMessageParser.WrapMessage(Encoding.UTF8.GetBytes(message1));
             var bytes2 = TcpMessageParser.WrapMessage(Encoding.UTF8.GetBytes(message2));
 
-            parser.Receive(bytes1.Concat(bytes2).ToArray());
-            messages.ShouldBe(2);
-        };
+            _parser.Receive(bytes1.Concat(bytes2).ToArray());
+            messages.Should().Be(2);
+        }
     }
 }
