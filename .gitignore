@@ -7,7 +7,8 @@ obj
 bin
 *.userprefs
 *.user
-test-results
+TestResults
+coverage
 
 # IDEs
 packages

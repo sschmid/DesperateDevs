@@ -2,6 +2,15 @@
 
 BUILD_SRC=Build/src
 
+desperatedevs::cover() {
+  rm -rf coverage
+  find src -type d -name TestResults -exec rm -rf {} +
+  dotnet test --collect:"XPlat Code Coverage" || true
+  reportgenerator "-Title:Desperate Devs" "-reports:src/**/coverage.cobertura.xml" "-targetDir:coverage"
+  find src -type d -name TestResults -exec rm -rf {} +
+  open coverage/index.html
+}
+
 desperatedevs::clear() {
   find . -type d -name obj -exec rm -rf {} +
   find . -type d -name bin -exec rm -rf {} +
