@@ -25,7 +25,7 @@
   </PropertyGroup>
 
   <PropertyGroup Label="Tests">
-    <DefaultTestTargetFramework>net5.0</DefaultTestTargetFramework>
+    <DefaultTestTargetFramework>net48</DefaultTestTargetFramework>
   </PropertyGroup>
 
   <ItemGroup Label="Tests">

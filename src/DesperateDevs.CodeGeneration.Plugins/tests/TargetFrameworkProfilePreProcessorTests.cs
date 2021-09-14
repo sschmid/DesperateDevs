@@ -1,4 +1,4 @@
-﻿using DesperateDevs.Tests;
+﻿using DesperateDevs.Serialization.Tests.Fixtures;
 using Xunit;
 
 namespace DesperateDevs.CodeGeneration.Plugins.Tests

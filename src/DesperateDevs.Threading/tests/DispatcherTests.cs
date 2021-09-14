@@ -1,5 +1,4 @@
 ﻿using System.Threading;
-using DesperateDevs.Tests;
 using FluentAssertions;
 using Xunit;
 
@@ -23,7 +22,7 @@ namespace DesperateDevs.Threading.Tests
         {
             var didExecute = 0;
             ThreadPool.QueueUserWorkItem(state => { _dispatcher.Queue(() => didExecute += 1); });
-            TestHelper.Wait();
+            Wait();
             didExecute.Should().Be(0);
         }
 
@@ -32,7 +31,7 @@ namespace DesperateDevs.Threading.Tests
         {
             var didExecute = 0;
             ThreadPool.QueueUserWorkItem(state => { _dispatcher.Queue(() => didExecute += 1); });
-            TestHelper.Wait();
+            Wait();
             _dispatcher.Run();
             didExecute.Should().Be(1);
         }
@@ -46,7 +45,7 @@ namespace DesperateDevs.Threading.Tests
                 _dispatcher.Queue(() => didExecute += 1);
                 _dispatcher.Queue(() => didExecute += 1);
             });
-            TestHelper.Wait();
+            Wait();
             _dispatcher.Run();
             didExecute.Should().Be(2);
         }
@@ -56,13 +55,15 @@ namespace DesperateDevs.Threading.Tests
         {
             var didExecute = 0;
             ThreadPool.QueueUserWorkItem(state => { _dispatcher.Queue(() => didExecute += 1); });
-            TestHelper.Wait();
+            Wait();
             ThreadPool.QueueUserWorkItem(state =>
             {
                 _dispatcher.Run();
                 didExecute.Should().Be(0);
             });
-            TestHelper.Wait();
+            Wait();
         }
+
+        static void Wait() => Thread.Sleep(50);
     }
 }

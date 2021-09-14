@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using DesperateDevs.Tests;
+using DesperateDevs.Serialization.Tests.Fixtures;
 using FluentAssertions;
 using Xunit;
 

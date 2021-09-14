@@ -1,6 +1,4 @@
-﻿using DesperateDevs.Serialization;
-
-namespace DesperateDevs.Tests
+namespace DesperateDevs.Serialization.Tests.Fixtures
 {
     public class TestPreferences : Preferences
     {

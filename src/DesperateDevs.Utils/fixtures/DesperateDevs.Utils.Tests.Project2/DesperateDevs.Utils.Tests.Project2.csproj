@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>$(DefaultTargetFramework)</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DesperateDevs.Utils.Tests.Project1\DesperateDevs.Utils.Tests.Project1.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\DesperateDevs.Tests\tests\DesperateDevs.Tests.csproj" />
+    <ProjectReference Include="..\..\DesperateDevs.Serialization\tests\DesperateDevs.Serialization.Tests.csproj" />
     <ProjectReference Include="..\src\DesperateDevs.CodeGeneration.CodeGenerator.csproj" />
   </ItemGroup>
 
