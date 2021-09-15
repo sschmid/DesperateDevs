@@ -1,0 +1,17 @@
+<Project>
+
+  <PropertyGroup>
+    <PackageId>$(AssemblyName)</PackageId>
+    <Title>$(PackageId)</Title>
+    <Description>$(PackageId)</Description>
+    <PackageVersion>0.1.0</PackageVersion>
+    <Authors>Simon Schmid</Authors>
+    <Copyright>Simon Schmid</Copyright>
+    <PackageProjectUrl>https://github.com/sschmid/DesperateDevs</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/sschmid/DesperateDevs</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>DesperateDevs, Desperate, Devs</PackageTags>
+  </PropertyGroup>
+
+</Project>
