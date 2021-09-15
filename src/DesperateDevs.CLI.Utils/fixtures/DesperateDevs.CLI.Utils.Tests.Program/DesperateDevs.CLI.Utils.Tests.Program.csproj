@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>$(DefaultNetTargetFramework)</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\DesperateDevs.Utils\src\DesperateDevs.Utils.csproj" />
+    <ProjectReference Include="..\..\src\DesperateDevs.CLI.Utils.csproj" />
+  </ItemGroup>
+
+</Project>
