@@ -22,17 +22,21 @@ DEDE_UNITY_DEPENDENCIES=(
   DesperateDevs.Utils
 )
 
+DEDE_UNITY_DIRS=(
+  DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor/src/Images
+)
+
+dede::clean() {
+  find . -type d -name obj -exec rm -rf {} +
+  find . -type d -name bin -exec rm -rf {} +
+}
+
 dede::coverage() {
   rm -rf coverage
   find src -type d -name TestResults -exec rm -rf {} +
   dotnet test --collect:"XPlat Code Coverage" || true
   reportgenerator "-Title:${BEE_PROJECT}" "-reports:src/**/coverage.cobertura.xml" "-targetDir:coverage"
   find src -type d -name TestResults -exec rm -rf {} +
-}
-
-dede::clean() {
-  find . -type d -name obj -exec rm -rf {} +
-  find . -type d -name bin -exec rm -rf {} +
 }
 
 dede::restore_unity() {
@@ -56,10 +60,10 @@ _symlink_unity_src() {
 }
 
 _symlink_unity_dependencies() {
+  local source_files assets_dir target_dir
   for unity_version in "${DEDE_UNITY_VERSIONS[@]}"; do
     _clean_dir "src/DesperateDevs.Tests/unity/${unity_version}/Assets/DesperateDevs"
   done
-  local source_files assets_dir
   for dep in "${DEDE_UNITY_DEPENDENCIES[@]}"; do
     mapfile -t source_files < <(find "src/${dep}/src" -name "*.cs" -not -path "*src/obj*")
     for f in "${source_files[@]}"; do
@@ -70,6 +74,18 @@ _symlink_unity_dependencies() {
           ln -s "../../../../../../../${f}" "${f##*/}"
         popd > /dev/null || exit 1
       done
+    done
+  done
+  for dir in "${DEDE_UNITY_DIRS[@]}"; do
+    for unity_version in "${DEDE_UNITY_VERSIONS[@]}"; do
+      assets_dir="src/DesperateDevs.Tests/unity/${unity_version}/Assets"
+      pushd "${assets_dir}/DesperateDevs" > /dev/null || exit 1
+        target_dir="$(dirname "${dir}")"
+        mkdir -p "${target_dir}"
+        pushd "${target_dir}" > /dev/null || exit 1
+          ln -s "../../../../../../../${dir}" "$(basename "${dir}")"
+        popd > /dev/null || exit 1
+      popd > /dev/null || exit 1
     done
   done
 }
