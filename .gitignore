@@ -19,17 +19,10 @@ packages
 **/Assets/Plugins/Editor/JetBrains.meta
 
 # Unity
-Library
-Temp
+**/unity/*/Library
+**/unity/*/Temp
+**/unity/*/Logs
+**/unity/*/UserSettings
+**/unity/*/*.sln
 *.unitypackage
 Assembly-CSharp*.csproj
-
-# Custom
-Build
-**/Assets/Libraries
-**/Assets/Libraries.meta
-Unity/CodeGenerator/Jenny
-Unity/CodeGenerator/Jenny-Auto-Import
-Unity/CodeGenerator/Jenny-Auto-Import.bat
-Unity/CodeGenerator/Jenny-Server
-Unity/CodeGenerator/Jenny-Server.bat
