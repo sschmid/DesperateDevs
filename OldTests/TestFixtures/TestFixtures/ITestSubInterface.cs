@@ -1,2 +1,0 @@
-﻿public interface ITestSubInterface : ITestInterface {
-}
