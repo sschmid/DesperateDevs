@@ -1,0 +1,1 @@
+../../../../../../../src/DesperateDevs.Utils/src/Reflection/AssemblyResolverStatic.cs

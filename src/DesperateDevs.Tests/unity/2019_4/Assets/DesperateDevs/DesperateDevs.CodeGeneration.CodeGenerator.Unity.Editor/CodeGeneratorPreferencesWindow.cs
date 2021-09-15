@@ -1,0 +1,1 @@
+../../../../../../../src/DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor/src/CodeGeneratorPreferencesWindow.cs

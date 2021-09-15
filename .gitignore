@@ -19,6 +19,7 @@ packages
 **/Assets/Plugins/Editor/JetBrains.meta
 
 # Unity
+!**/unity/*/Packages
 **/unity/*/Library
 **/unity/*/Temp
 **/unity/*/Logs
@@ -26,3 +27,6 @@ packages
 **/unity/*/*.sln
 *.unitypackage
 Assembly-CSharp*.csproj
+
+# Jenny
+*.userproperties

@@ -1,0 +1,1 @@
+../../../../../../../src/DesperateDevs.Utils/src/Extensions/AppDomainExtension.cs

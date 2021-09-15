@@ -1,0 +1,1 @@
+../../../../../../../src/DesperateDevs.Analytics/src/TrackingData/TrackingData.cs

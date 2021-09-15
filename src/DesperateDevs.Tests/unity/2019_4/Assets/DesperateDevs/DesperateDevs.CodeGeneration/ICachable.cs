@@ -1,0 +1,1 @@
+../../../../../../../src/DesperateDevs.CodeGeneration/src/Interfaces/ICachable.cs

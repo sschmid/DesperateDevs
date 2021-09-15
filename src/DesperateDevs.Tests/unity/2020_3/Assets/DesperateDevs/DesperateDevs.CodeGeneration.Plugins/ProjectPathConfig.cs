@@ -1,0 +1,1 @@
+../../../../../../../src/DesperateDevs.CodeGeneration.Plugins/src/Configs/ProjectPathConfig.cs

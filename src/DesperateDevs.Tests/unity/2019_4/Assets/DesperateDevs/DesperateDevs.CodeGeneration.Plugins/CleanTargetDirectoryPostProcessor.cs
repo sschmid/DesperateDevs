@@ -1,0 +1,1 @@
+../../../../../../../src/DesperateDevs.CodeGeneration.Plugins/src/PostProcessors/CleanTargetDirectoryPostProcessor.cs

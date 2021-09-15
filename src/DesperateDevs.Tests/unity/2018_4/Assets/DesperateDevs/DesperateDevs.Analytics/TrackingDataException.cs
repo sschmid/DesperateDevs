@@ -1,0 +1,1 @@
+../../../../../../../src/DesperateDevs.Analytics/src/TrackingDataException.cs

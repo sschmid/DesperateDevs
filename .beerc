@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+BEE_PROJECT="DesperateDevs"
+BEE_VERSION=0.39.1
+
+DEDE_UNITY_VERSIONS=(2018_4 2019_4 2020_3)
+DEDE_UNITY_DEPENDENCIES=(
+  DesperateDevs.Analytics
+  DesperateDevs.CodeGeneration
+  DesperateDevs.CodeGeneration.CodeGenerator
+  DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
+  DesperateDevs.CodeGeneration.Plugins
+  DesperateDevs.CodeGeneration.Unity.Plugins
+  DesperateDevs.Logging
+  DesperateDevs.Networking
+  DesperateDevs.Serialization
+  DesperateDevs.Unity.Editor
+  DesperateDevs.Utils
+)
+
+dede::coverage() {
+  rm -rf coverage
+  find src -type d -name TestResults -exec rm -rf {} +
+  dotnet test --collect:"XPlat Code Coverage" || true
+  reportgenerator "-Title:${BEE_PROJECT}" "-reports:src/**/coverage.cobertura.xml" "-targetDir:coverage"
+  find src -type d -name TestResults -exec rm -rf {} +
+}
+
+dede::clean() {
+  find . -type d -name obj -exec rm -rf {} +
+  find . -type d -name bin -exec rm -rf {} +
+}
+
+dede::restore_unity() {
+  _symlink_unity_src
+  _symlink_unity_dependencies
+}
+
+_symlink_unity_src() {
+  local source_files assets_dir
+  mapfile -t source_files < <(find src/DesperateDevs.Tests/unity/src -type f -name "*.cs")
+  for unity_version in "${DEDE_UNITY_VERSIONS[@]}"; do
+    assets_dir="src/DesperateDevs.Tests/unity/${unity_version}/Assets"
+    _clean_dir "${assets_dir}" "${assets_dir}/src"
+    pushd "${assets_dir}/src" > /dev/null || exit 1
+      for f in "${source_files[@]}"; do
+        ln -s "../../../src/${f##*/}" "${f##*/}"
+      done
+      ln -sf "../src/Jenny.properties" "../../Jenny.properties"
+    popd > /dev/null || exit 1
+  done
+}
+
+_symlink_unity_dependencies() {
+  for unity_version in "${DEDE_UNITY_VERSIONS[@]}"; do
+    _clean_dir "src/DesperateDevs.Tests/unity/${unity_version}/Assets/DesperateDevs"
+  done
+  local source_files assets_dir
+  for dep in "${DEDE_UNITY_DEPENDENCIES[@]}"; do
+    mapfile -t source_files < <(find "src/${dep}/src" -name "*.cs" -not -path "*src/obj*")
+    for f in "${source_files[@]}"; do
+      for unity_version in "${DEDE_UNITY_VERSIONS[@]}"; do
+        assets_dir="src/DesperateDevs.Tests/unity/${unity_version}/Assets"
+        mkdir -p "${assets_dir}/DesperateDevs/${dep}"
+        pushd "${assets_dir}/DesperateDevs/${dep}" > /dev/null || exit 1
+          ln -s "../../../../../../../${f}" "${f##*/}"
+        popd > /dev/null || exit 1
+      done
+    done
+  done
+}
+
+_clean_dir() {
+  rm -rf "$@"
+  mkdir -p "$@"
+}
+
+_sync() {
+  rsync -ahriI \
+    --include-from "${BEE_RESOURCES}/rsync/rsync_include.txt" \
+    --exclude-from "${BEE_RESOURCES}/rsync/rsync_exclude.txt" \
+    "$@"
+}
