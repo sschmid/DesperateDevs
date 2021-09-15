@@ -2,7 +2,12 @@
 BEE_PROJECT="DesperateDevs"
 BEE_VERSION=0.39.1
 
-DEDE_UNITY_VERSIONS=(2018_4 2019_4 2020_3)
+DEDE_UNITY_VERSIONS=(
+  2018_4
+  2019_4
+  2020_3
+)
+
 DEDE_UNITY_DEPENDENCIES=(
   DesperateDevs.Analytics
   DesperateDevs.CodeGeneration
@@ -72,11 +77,4 @@ _symlink_unity_dependencies() {
 _clean_dir() {
   rm -rf "$@"
   mkdir -p "$@"
-}
-
-_sync() {
-  rsync -ahriI \
-    --include-from "${BEE_RESOURCES}/rsync/rsync_include.txt" \
-    --exclude-from "${BEE_RESOURCES}/rsync/rsync_exclude.txt" \
-    "$@"
 }
