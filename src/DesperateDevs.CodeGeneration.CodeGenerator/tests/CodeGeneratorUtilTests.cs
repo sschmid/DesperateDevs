@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using DesperateDevs.Serialization.Tests.Fixtures;
+using DesperateDevs.Tests;
 using FluentAssertions;
 using Xunit;
 
@@ -7,7 +8,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Tests
 {
     public class CodeGeneratorUtilTests
     {
-        static readonly string ProjectRoot = GetProjectRoot();
+        static readonly string ProjectRoot = TestHelper.GetProjectRoot();
 
         static readonly string SearchPaths = Path.Combine(
             "src", "DesperateDevs.CodeGeneration.CodeGenerator", "tests", "Fixtures"
@@ -39,13 +40,6 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Tests
             _config.searchPaths.Length.Should().Be(2);
             _config.searchPaths[0].Should().Be(SearchPaths + "/Test Plugins/One");
             _config.searchPaths[1].Should().Be(SearchPaths + "/Test Plugins/Two");
-        }
-
-        static string GetProjectRoot()
-        {
-            var current = new DirectoryInfo(Directory.GetCurrentDirectory());
-            while (current.Name != "DesperateDevs") current = current.Parent;
-            return Path.Combine(current.FullName, "src");
         }
     }
 }

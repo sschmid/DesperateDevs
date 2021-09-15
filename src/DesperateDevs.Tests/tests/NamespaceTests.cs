@@ -10,7 +10,7 @@ namespace DesperateDevs.Tests
 {
     public class NamespaceTests
     {
-        static readonly string ProjectRoot = GetProjectRoot();
+        static readonly string ProjectRoot = TestHelper.GetProjectRoot();
         static readonly Dictionary<string, string> SourceFiles = ReadSourceFiles(ProjectRoot);
 
         readonly ITestOutputHelper _output;
@@ -71,17 +71,10 @@ namespace DesperateDevs.Tests
             }
         }
 
-        static string GetProjectRoot()
-        {
-            var current = new DirectoryInfo(Directory.GetCurrentDirectory());
-            while (current.Name != "DesperateDevs") current = current.Parent;
-            return Path.Combine(current.FullName, "src");
-        }
-
         static Dictionary<string, string> ReadSourceFiles(string projectRoot) => Directory
             .GetFiles(projectRoot, "*.cs", SearchOption.AllDirectories)
             .Where(p => RemoveProjectRoot(p, projectRoot).StartsWith("DesperateDevs"))
-            .Where(p => new[] {"obj", "fixtures"}
+            .Where(p => new[] {"obj", "fixtures", Path.Combine("tests", "bin")}
                 .All(ignore => !p.Contains(Path.DirectorySeparatorChar + ignore + Path.DirectorySeparatorChar)))
             .ToDictionary(p => p, File.ReadAllText);
 

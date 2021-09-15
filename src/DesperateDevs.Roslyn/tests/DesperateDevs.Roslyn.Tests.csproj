@@ -15,10 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\DesperateDevs.Tests\tests\DesperateDevs.Tests.csproj" />
-    <ProjectReference Include="..\fixtures\DesperateDevs.Utils.Tests.Project1\DesperateDevs.Utils.Tests.Project1.csproj" />
-    <ProjectReference Include="..\fixtures\DesperateDevs.Utils.Tests.Project2\DesperateDevs.Utils.Tests.Project2.csproj" />
-    <ProjectReference Include="..\src\DesperateDevs.Utils.csproj" />
+    <ProjectReference Include="..\src\DesperateDevs.Roslyn.csproj" />
   </ItemGroup>
-  
+
 </Project>
-  

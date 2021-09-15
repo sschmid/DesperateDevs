@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using DesperateDevs.Tests;
 using FluentAssertions;
 using Xunit;
 
@@ -8,7 +9,7 @@ namespace DesperateDevs.Utils.Tests
 {
     public class AssemblyResolverTests
     {
-        static readonly string ProjectRoot = GetProjectRoot();
+        static readonly string ProjectRoot = TestHelper.GetProjectRoot();
 
         const string Project1AssemblyName = "DesperateDevs.Utils.Tests.Project1";
         const string Project2AssemblyName = "DesperateDevs.Utils.Tests.Project2";
@@ -16,8 +17,8 @@ namespace DesperateDevs.Utils.Tests
         const string Project2AssemblyFile = Project2AssemblyName + ".dll";
         const string Project1ClassType = "DesperateDevs.Utils.Tests.Project1.TestClass";
         const string Project2ClassType = "DesperateDevs.Utils.Tests.Project2.TestClass";
-        static readonly string Project1BasePath = Path.Combine(ProjectRoot, "DesperateDevs.Utils", "fixtures", "DesperateDevs.Utils.Tests.Project1", "bin", "Release", "net48");
-        static readonly string Project2BasePath = Path.Combine(ProjectRoot, "DesperateDevs.Utils", "fixtures", "DesperateDevs.Utils.Tests.Project2", "bin", "Release", "net48");
+        static readonly string Project1BasePath = Path.Combine(ProjectRoot, "DesperateDevs.Utils", "fixtures", "DesperateDevs.Utils.Tests.Project1", "bin", "Release", "net472");
+        static readonly string Project2BasePath = Path.Combine(ProjectRoot, "DesperateDevs.Utils", "fixtures", "DesperateDevs.Utils.Tests.Project2", "bin", "Release", "net472");
 
         AssemblyResolver Project1ResolverReflection { get; } = new(true, Project1BasePath);
 
@@ -182,13 +183,6 @@ namespace DesperateDevs.Utils.Tests
             var types = Project1Resolver.GetTypes();
             Activator.CreateInstance(types[0]);
             types.Length.Should().Be(1);
-        }
-
-        static string GetProjectRoot()
-        {
-            var current = new DirectoryInfo(Directory.GetCurrentDirectory());
-            while (current.Name != "DesperateDevs") current = current.Parent;
-            return Path.Combine(current.FullName, "src");
         }
     }
 }
