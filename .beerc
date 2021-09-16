@@ -31,6 +31,11 @@ dede::clean() {
   find . -type d -name bin -exec rm -rf {} +
 }
 
+dede::rebuild() {
+  dede::clean
+  dotnet build -c Release
+}
+
 dede::coverage() {
   rm -rf coverage
   find src -type d -name TestResults -exec rm -rf {} +
