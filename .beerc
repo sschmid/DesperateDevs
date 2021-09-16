@@ -2,6 +2,8 @@
 BEE_PROJECT="DesperateDevs"
 BEE_VERSION=0.39.1
 
+[[ -f ~/.bee/user.bash ]] && source ~/.bee/user.bash
+
 DEDE_UNITY_VERSIONS=(
   2018_4
   2019_4
@@ -47,6 +49,15 @@ dede::coverage() {
 dede::restore_unity() {
   _symlink_unity_src
   _symlink_unity_dependencies
+}
+
+dede::publish() {
+  dede::clean
+  dotnet pack -c Release
+  dotnet nuget push "**/*.nupkg" \
+      --api-key "${NUGET_API_KEY}" \
+      --skip-duplicate \
+      --source https://api.nuget.org/v3/index.json
 }
 
 _symlink_unity_src() {

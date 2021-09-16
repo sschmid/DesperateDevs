@@ -7,6 +7,10 @@
     <Deterministic>true</Deterministic>
   </PropertyGroup>
 
+  <ItemGroup Label="NuGet">
+    <None Include="..\..\..\icon.png" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+
   <PropertyGroup Label="Docker">
     <DefaultItemExcludes>$(DefaultItemExcludes);$(MSBuildProjectDirectory)/obj/**/*</DefaultItemExcludes>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(MSBuildProjectDirectory)/bin/**/*</DefaultItemExcludes>
