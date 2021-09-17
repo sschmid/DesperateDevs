@@ -1,7 +1,6 @@
 <Project>
 
   <PropertyGroup Label="NuGet">
-    <PackageVersion>0.1.0</PackageVersion>
     <Authors>Simon Schmid</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>icon.png</PackageIcon>
