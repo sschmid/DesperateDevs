@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>$(DefaultTestTargetFramework)</TargetFramework>
     <IsPackable>false</IsPackable>
+    <IsPublishable>false</IsPublishable>
   </PropertyGroup>
 
   <ItemGroup>

@@ -33,6 +33,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <IsPackable>false</IsPackable>
+    <IsPublishable>false</IsPublishable>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

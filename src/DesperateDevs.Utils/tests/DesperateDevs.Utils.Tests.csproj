@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>$(DefaultTestTargetFramework)</TargetFramework>
     <IsPackable>false</IsPackable>
+    <IsPublishable>false</IsPublishable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,6 +20,5 @@
     <ProjectReference Include="..\fixtures\DesperateDevs.Utils.Tests.Project2\DesperateDevs.Utils.Tests.Project2.csproj" />
     <ProjectReference Include="..\src\DesperateDevs.Utils.csproj" />
   </ItemGroup>
-  
+
 </Project>
-  
