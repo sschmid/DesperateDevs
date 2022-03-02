@@ -23,7 +23,7 @@
 
   <Import Project="Unity3D.props" />
   <PropertyGroup Label="Unity3D">
-    <UnityVersion>2020.3.17f1</UnityVersion>
+    <UnityVersion>2020.3.25f1</UnityVersion>
     <UnityEditor>$(UnityInstallRoot)\$(UnityVersion)\$(UnityEditorPath)</UnityEditor>
     <UnityEngine>$(UnityInstallRoot)\$(UnityVersion)\$(UnityEnginePath)</UnityEngine>
   </PropertyGroup>
