@@ -2,6 +2,6 @@
 {
     public class TestClass
     {
-        public DesperateDevs.Utils.Tests.Project1.TestClass Value = new();
+        public DesperateDevs.Utils.Tests.Project1.TestClass Value = new DesperateDevs.Utils.Tests.Project1.TestClass();
     }
 }

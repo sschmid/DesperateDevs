@@ -12,8 +12,8 @@ namespace DesperateDevs.Analytics.Tests
 
     public class TrackerTests
     {
-        readonly TestTracker _tracker = new();
-        readonly TrackingData _trackingData = new();
+        readonly TestTracker _tracker = new TestTracker();
+        readonly TrackingData _trackingData = new TrackingData();
 
         [Fact]
         public void CreatesTrackingCallWithoutArgs()

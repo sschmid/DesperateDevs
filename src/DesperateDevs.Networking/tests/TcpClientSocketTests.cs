@@ -12,9 +12,9 @@ namespace DesperateDevs.Networking.Tests
         const int Port = 4321;
 
         readonly IPAddress _ipAddress = IPAddress.Loopback;
-        readonly TcpServerSocket _server = new();
+        readonly TcpServerSocket _server = new TcpServerSocket();
 
-        TcpClientSocket NewClient => new();
+        TcpClientSocket NewClient => new TcpClientSocket();
 
         TcpClientSocket ConnectedClient
         {

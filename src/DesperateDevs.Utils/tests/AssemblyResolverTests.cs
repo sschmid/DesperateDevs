@@ -20,7 +20,7 @@ namespace DesperateDevs.Utils.Tests
         static readonly string Project1BasePath = Path.Combine(ProjectRoot, "DesperateDevs.Utils", "fixtures", "DesperateDevs.Utils.Tests.Project1", "bin", "Release", "net472");
         static readonly string Project2BasePath = Path.Combine(ProjectRoot, "DesperateDevs.Utils", "fixtures", "DesperateDevs.Utils.Tests.Project2", "bin", "Release", "net472");
 
-        AssemblyResolver Project1ResolverReflection { get; } = new(true, Project1BasePath);
+        AssemblyResolver Project1ResolverReflection { get; } = new AssemblyResolver(true, Project1BasePath);
 
         AssemblyResolver Project1Resolver
         {

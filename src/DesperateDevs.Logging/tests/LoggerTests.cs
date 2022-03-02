@@ -41,11 +41,11 @@ namespace DesperateDevs.Logging.Tests
                 var eventLogLevel = LogLevel.Off;
                 string eventMessage = null;
                 Logger eventLogger = null;
-                _logger.OnLog += (logger, logLevel, msg) =>
+                _logger.OnLog += (logger, level, msg) =>
                 {
                     didLog = true;
                     eventLogger = logger;
-                    eventLogLevel = logLevel;
+                    eventLogLevel = level;
                     eventMessage = msg;
                 };
 

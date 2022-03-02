@@ -7,8 +7,8 @@ namespace DesperateDevs.Serialization.Tests
 {
     public class PreferencesTests
     {
-        TestPreferences Preferences => _preferences ??= new TestPreferences("key = value");
-        TestPreferences UserPreferences => _preferences ??= new TestPreferences("key = ${userName}", "userName = Max");
+        TestPreferences Preferences => _preferences ?? (_preferences = new TestPreferences("key = value"));
+        TestPreferences UserPreferences => _preferences ?? (_preferences = new TestPreferences("key = ${userName}", "userName = Max"));
         TestPreferences _preferences;
 
         [Fact]

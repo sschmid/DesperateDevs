@@ -8,7 +8,7 @@ namespace DesperateDevs.Networking.Tests
 {
     public class TcpMessageParserTests
     {
-        readonly TcpMessageParser _parser = new();
+        readonly TcpMessageParser _parser = new TcpMessageParser();
 
         [Fact]
         public void WrapsAndUnwrapsMessage()

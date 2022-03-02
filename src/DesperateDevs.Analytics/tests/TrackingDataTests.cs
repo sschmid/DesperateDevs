@@ -5,7 +5,7 @@ namespace DesperateDevs.Analytics.Tests
 {
     public class TrackingDataTests
     {
-        readonly TrackingData _trackingData = new();
+        readonly TrackingData _trackingData = new TrackingData();
 
         [Fact]
         public void CreatesEmptyTrackingData()

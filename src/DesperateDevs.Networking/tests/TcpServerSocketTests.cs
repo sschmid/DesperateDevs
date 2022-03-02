@@ -13,7 +13,7 @@ namespace DesperateDevs.Networking.Tests
     {
         const int Port = 1234;
         readonly IPAddress _ipAddress = IPAddress.Loopback;
-        readonly TcpServerSocket _server = new();
+        readonly TcpServerSocket _server = new TcpServerSocket();
 
         Socket _client1;
         Socket _client2;

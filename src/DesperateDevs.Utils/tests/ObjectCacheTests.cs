@@ -5,7 +5,7 @@ namespace DesperateDevs.Utils.Tests
 {
     public class ObjectCacheTests
     {
-        readonly ObjectCache _cache = new();
+        readonly ObjectCache _cache = new ObjectCache();
 
         [Fact]
         public void CreatesNewObjectPoolWhenRequested()
