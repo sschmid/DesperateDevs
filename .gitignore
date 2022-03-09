@@ -30,3 +30,7 @@ Assembly-CSharp*.csproj
 
 # Jenny
 *.userproperties
+
+# Project
+.unitypath
+build

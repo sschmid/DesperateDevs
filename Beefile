@@ -1,0 +1,36 @@
+BEE_PROJECT=DesperateDevs
+BEE_VERSION=1.0.0
+BEE_PLUGINS_PATHS=("${BEE_RESOURCES}/plugins")
+BEE_PLUGINS=(desperatedevs)
+
+[[ -f ~/.bee/desperatedevs.bash ]] && source ~/.bee/desperatedevs.bash
+
+DEDE_UNITY_VERSIONS=(
+  2018_4
+  2019_4
+  2020_3
+)
+
+# DEDE_UNITY_DEPENDENCIES are copied to all Unity test projects
+DEDE_UNITY_DEPENDENCIES=(
+  DesperateDevs.Analytics
+  DesperateDevs.CodeGeneration
+  DesperateDevs.CodeGeneration.CodeGenerator
+  DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
+  DesperateDevs.CodeGeneration.Plugins
+  DesperateDevs.CodeGeneration.Unity.Plugins
+  DesperateDevs.Logging
+  DesperateDevs.Networking
+  DesperateDevs.Serialization
+  DesperateDevs.Unity
+  DesperateDevs.Unity.Editor
+  DesperateDevs.Utils
+)
+
+# DEDE_UNITY_DIRS are copied to all Unity test projects
+DEDE_UNITY_DIRS=(
+  DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor/src/Images
+)
+
+DEDE_RSYNC_INCLUDE="${BEE_RESOURCES}/desperatedevs/rsync_include.txt"
+DEDE_RSYNC_EXCLUDE="${BEE_RESOURCES}/desperatedevs/rsync_exclude.txt"
