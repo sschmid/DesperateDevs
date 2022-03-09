@@ -192,7 +192,7 @@ _symlink_unity_src() {
   local source_files project_dir file
   mapfile -t source_files < <(find src/DesperateDevs.Tests/unity/src -type f -name "*.cs")
   for unity_version in "${DEDE_UNITY_VERSIONS[@]}"; do
-    project_dir="src/DesperateDevs.Tests/unity/${unity_version}"
+    project_dir="src/DesperateDevs.Tests/unity/DesperateDevs-${unity_version}"
     bee::log_echo "Restore src: ${project_dir}"
     _clean_dir "${project_dir}/Assets/src"
     pushd "${project_dir}" > /dev/null || exit 1
@@ -210,7 +210,7 @@ _symlink_unity_src() {
 _symlink_unity_dependencies() {
   local source_files project_dir target_dir file
   for unity_version in "${DEDE_UNITY_VERSIONS[@]}"; do
-    project_dir="src/DesperateDevs.Tests/unity/${unity_version}"
+    project_dir="src/DesperateDevs.Tests/unity/DesperateDevs-${unity_version}"
     bee::log_echo "Restore DesperateDevs: ${project_dir}"
     _clean_dir "${project_dir}/Assets/DesperateDevs"
     for dep in "${DEDE_UNITY_DEPENDENCIES[@]}"; do
