@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk
+FROM mcr.microsoft.com/dotnet/sdk AS base
 RUN apt-get update && apt-get install -y --no-install-recommends \
   apt-transport-https \
   ca-certificates \
@@ -14,9 +14,12 @@ RUN apt-get update && apt-get install -y --fix-missing \
   && rm -rf /var/lib/apt/lists/*
 RUN dotnet tool install -g dotnet-reportgenerator-globaltool \
   && echo 'PATH="$HOME/.dotnet/tools:$PATH"' >> ~/.bashrc
+
+FROM base AS bee
+RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/sschmid/bee/main/install)" \
+  && echo "complete -C bee bee" >> ~/.bashrc \
+  && bee bee::run pull
 WORKDIR /app
 COPY Beefile .
 COPY .bee .bee
-RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/sschmid/bee/main/install)" \
-  && echo "complete -C bee bee" >> ~/.bashrc \
-  && bee bee::run install
+RUN bee bee::run install

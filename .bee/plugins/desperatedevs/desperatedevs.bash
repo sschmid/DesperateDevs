@@ -22,7 +22,7 @@ EOF
     cp -r "$(cat .unitypath)/Managed" "$(pwd)/build/"
   fi
 
-  DOCKER_BUILDKIT=1 docker build -t desperatedevs .
+  DOCKER_BUILDKIT=1 docker build --target bee -t desperatedevs .
   docker run -it -v "$(pwd)":/app -w /app desperatedevs "$@"
 }
 
