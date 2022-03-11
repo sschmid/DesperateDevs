@@ -101,7 +101,6 @@ desperatedevs::collect_jenny_unity() {
     DesperateDevs.CodeGeneration.Unity.Plugins
   )
   local to_editor=(
-    DesperateDevs.Analytics
     DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
     DesperateDevs.CodeGeneration.CodeGenerator
     DesperateDevs.CodeGeneration
@@ -142,7 +141,6 @@ desperatedevs::collect_desperatedevs_unity() {
     DesperateDevs.Utils
 
     # editor
-    DesperateDevs.Analytics
     DesperateDevs.CodeGeneration
     DesperateDevs.CodeGeneration.CodeGenerator
     DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
@@ -153,7 +151,6 @@ desperatedevs::collect_desperatedevs_unity() {
     DesperateDevs.CodeGeneration.Unity.Plugins
   )
   local to_editor=(
-    DesperateDevs.Analytics
     DesperateDevs.CodeGeneration
     DesperateDevs.CodeGeneration.CodeGenerator
     DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor

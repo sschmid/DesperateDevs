@@ -1,1 +1,0 @@
-../../../../../../../src/DesperateDevs.Analytics/src/Hooks/ITrackingHook.cs
