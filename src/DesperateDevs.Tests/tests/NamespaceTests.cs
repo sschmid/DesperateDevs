@@ -20,7 +20,7 @@ namespace DesperateDevs.Tests
         [Fact]
         public void RoughlyProcessesTheCorrectNumberOfFiles()
         {
-            SourceFiles.Count.Should().BeGreaterThan(160);
+            SourceFiles.Count.Should().BeGreaterThan(150);
             SourceFiles.Count.Should().BeLessThan(180);
         }
 
