@@ -13,6 +13,7 @@ DEDE_UNITY_VERSIONS=(
 
 # DEDE_UNITY_DEPENDENCIES are copied to all Unity test projects
 DEDE_UNITY_DEPENDENCIES=(
+  DesperateDevs
   DesperateDevs.CodeGeneration
   DesperateDevs.CodeGeneration.CodeGenerator
   DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
@@ -23,7 +24,6 @@ DEDE_UNITY_DEPENDENCIES=(
   DesperateDevs.Serialization
   DesperateDevs.Unity
   DesperateDevs.Unity.Editor
-  DesperateDevs.Utils
 )
 
 # DEDE_UNITY_DIRS are copied to all Unity test projects

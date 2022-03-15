@@ -131,6 +131,7 @@ desperatedevs::collect_desperatedevs_unity() {
 
   local projects=(
     # all
+    DesperateDevs
     DesperateDevs.Logging
     DesperateDevs.Logging.Appenders
     DesperateDevs.Logging.Formatters
@@ -138,7 +139,6 @@ desperatedevs::collect_desperatedevs_unity() {
     DesperateDevs.Serialization
     DesperateDevs.Threading
     DesperateDevs.Unity
-    DesperateDevs.Utils
 
     # editor
     DesperateDevs.CodeGeneration

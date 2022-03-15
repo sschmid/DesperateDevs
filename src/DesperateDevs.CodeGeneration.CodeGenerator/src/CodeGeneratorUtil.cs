@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using DesperateDevs.Logging;
 using DesperateDevs.Serialization;
-using DesperateDevs.Utils;
+using DesperateDevs;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator
 {

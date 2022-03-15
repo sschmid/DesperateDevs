@@ -1,6 +1,4 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Tests", "src\DesperateDevs.Tests\tests\DesperateDevs.Tests.csproj", "{B7C2667F-E5E5-4278-BBC3-5A5F21E7D9D0}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.CLI.Utils", "DesperateDevs.CLI.Utils", "{C69CDE77-3860-4BC8-9ABD-A7F5C2416ECD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CLI.Utils", "src\DesperateDevs.CLI.Utils\src\DesperateDevs.CLI.Utils.csproj", "{8867EE00-6581-4EE0-AC50-F1946D3B852B}"
@@ -99,15 +97,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Unity", "Desp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Unity", "src\DesperateDevs.Unity\src\DesperateDevs.Unity.csproj", "{8C153439-05B7-4446-BF7F-437775B9521B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Utils", "DesperateDevs.Utils", "{1B55844B-7723-456A-8BF8-A2E9B5F0BE96}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs", "DesperateDevs", "{1B55844B-7723-456A-8BF8-A2E9B5F0BE96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Utils", "src\DesperateDevs.Utils\src\DesperateDevs.Utils.csproj", "{723C23A2-3F14-448E-85EA-F4A8D7081F04}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs", "src\DesperateDevs\src\DesperateDevs.csproj", "{723C23A2-3F14-448E-85EA-F4A8D7081F04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Utils.Tests", "src\DesperateDevs.Utils\tests\DesperateDevs.Utils.Tests.csproj", "{15D39FB6-5102-4405-B969-3FEE2F03A26A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Tests", "src\DesperateDevs\tests\DesperateDevs.Tests.csproj", "{15D39FB6-5102-4405-B969-3FEE2F03A26A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Utils.Tests.Project1", "src\DesperateDevs.Utils\fixtures\DesperateDevs.Utils.Tests.Project1\DesperateDevs.Utils.Tests.Project1.csproj", "{8BFDF954-F135-48FF-AFC0-6E41B5B68573}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Tests.Project1", "src\DesperateDevs\fixtures\DesperateDevs.Tests.Project1\DesperateDevs.Tests.Project1.csproj", "{8BFDF954-F135-48FF-AFC0-6E41B5B68573}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Utils.Tests.Project2", "src\DesperateDevs.Utils\fixtures\DesperateDevs.Utils.Tests.Project2\DesperateDevs.Utils.Tests.Project2.csproj", "{61D2E6FF-E421-44EA-9C67-F67ADDD9B249}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Tests.Project2", "src\DesperateDevs\fixtures\DesperateDevs.Tests.Project2\DesperateDevs.Tests.Project2.csproj", "{61D2E6FF-E421-44EA-9C67-F67ADDD9B249}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -115,10 +113,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B7C2667F-E5E5-4278-BBC3-5A5F21E7D9D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B7C2667F-E5E5-4278-BBC3-5A5F21E7D9D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B7C2667F-E5E5-4278-BBC3-5A5F21E7D9D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B7C2667F-E5E5-4278-BBC3-5A5F21E7D9D0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8867EE00-6581-4EE0-AC50-F1946D3B852B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8867EE00-6581-4EE0-AC50-F1946D3B852B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8867EE00-6581-4EE0-AC50-F1946D3B852B}.Release|Any CPU.ActiveCfg = Release|Any CPU

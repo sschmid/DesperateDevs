@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using DesperateDevs.Logging;
 using DesperateDevs.Logging.Formatters;
-using DesperateDevs.Utils;
+using DesperateDevs;
 
 namespace DesperateDevs.CLI.Utils
 {

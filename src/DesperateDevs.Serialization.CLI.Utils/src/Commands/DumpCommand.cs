@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using DesperateDevs.Utils;
+using DesperateDevs;
 
 namespace DesperateDevs.Serialization.CLI.Utils
 {

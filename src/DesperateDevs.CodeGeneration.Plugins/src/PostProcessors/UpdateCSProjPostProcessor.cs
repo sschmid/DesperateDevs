@@ -3,7 +3,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Linq;
 using DesperateDevs.Serialization;
-using DesperateDevs.Utils;
+using DesperateDevs;
 
 namespace DesperateDevs.CodeGeneration.Plugins {
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DesperateDevs.CodeGeneration.CodeGenerator;
 using DesperateDevs.Serialization;
-using DesperateDevs.Utils;
+using DesperateDevs;
 
 namespace DesperateDevs.CodeGeneration.Unity.Plugins {
 

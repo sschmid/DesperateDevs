@@ -1,4 +1,4 @@
-﻿using DesperateDevs.Utils;
+﻿using DesperateDevs;
 
 namespace DesperateDevs.CodeGeneration {
 

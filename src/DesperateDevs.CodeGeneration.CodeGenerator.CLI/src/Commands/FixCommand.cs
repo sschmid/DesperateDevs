@@ -5,7 +5,7 @@ using System.Linq;
 using DesperateDevs.CLI.Utils;
 using DesperateDevs.Serialization;
 using DesperateDevs.Serialization.CLI.Utils;
-using DesperateDevs.Utils;
+using DesperateDevs;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 {

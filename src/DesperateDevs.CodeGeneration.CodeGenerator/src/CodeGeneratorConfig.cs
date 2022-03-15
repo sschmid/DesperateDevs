@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using DesperateDevs.Serialization;
-using DesperateDevs.Utils;
+using DesperateDevs;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator {
 
