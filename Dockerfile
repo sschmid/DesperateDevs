@@ -9,8 +9,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   && apt-get update && apt-get upgrade -y \
   && rm -rf /var/lib/apt/lists/*
 RUN apt-get update && apt-get install -y --fix-missing \
+  jq \
   mono-complete \
   nuget \
+  tree \
   && rm -rf /var/lib/apt/lists/*
 RUN dotnet tool install -g dotnet-reportgenerator-globaltool \
   && echo 'PATH="$HOME/.dotnet/tools:$PATH"' >> ~/.bashrc
