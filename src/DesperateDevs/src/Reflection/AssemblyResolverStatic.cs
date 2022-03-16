@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace DesperateDevs {
+namespace DesperateDevs.Reflection {
 
     public partial class AssemblyResolver {
 

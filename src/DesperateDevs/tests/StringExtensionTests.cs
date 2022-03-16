@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using DesperateDevs.Extensions;
+using FluentAssertions;
 using Xunit;
 
 namespace DesperateDevs.Tests

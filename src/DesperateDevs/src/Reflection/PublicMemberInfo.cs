@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace DesperateDevs {
+namespace DesperateDevs.Reflection {
 
     public class PublicMemberInfo {
 

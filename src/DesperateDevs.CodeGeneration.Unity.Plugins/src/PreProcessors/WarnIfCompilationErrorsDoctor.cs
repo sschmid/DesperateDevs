@@ -4,6 +4,7 @@ using System.Linq;
 using DesperateDevs.CodeGeneration.CodeGenerator;
 using DesperateDevs.Serialization;
 using DesperateDevs;
+using DesperateDevs.Extensions;
 
 namespace DesperateDevs.CodeGeneration.Unity.Plugins {
 

@@ -4,6 +4,8 @@ using System.Linq;
 using DesperateDevs.Logging;
 using DesperateDevs.Logging.Formatters;
 using DesperateDevs;
+using DesperateDevs.Extensions;
+using DesperateDevs.Reflection;
 
 namespace DesperateDevs.CLI.Utils
 {

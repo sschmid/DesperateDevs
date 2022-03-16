@@ -1,3 +1,4 @@
+using DesperateDevs.Caching;
 using FluentAssertions;
 using Xunit;
 

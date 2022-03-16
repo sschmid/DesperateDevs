@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using DesperateDevs.Extensions;
 using DesperateDevs.Logging;
 
-namespace DesperateDevs {
+namespace DesperateDevs.Reflection {
 
     public partial class AssemblyResolver {
 

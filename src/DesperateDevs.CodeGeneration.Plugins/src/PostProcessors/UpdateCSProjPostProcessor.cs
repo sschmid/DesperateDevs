@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Linq;
 using DesperateDevs.Serialization;
 using DesperateDevs;
+using DesperateDevs.Extensions;
 
 namespace DesperateDevs.CodeGeneration.Plugins {
 

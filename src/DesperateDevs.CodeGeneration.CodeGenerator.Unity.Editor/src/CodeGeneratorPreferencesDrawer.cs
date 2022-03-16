@@ -5,6 +5,7 @@ using System.Linq;
 using DesperateDevs.Serialization;
 using DesperateDevs.Unity.Editor;
 using DesperateDevs;
+using DesperateDevs.Extensions;
 using UnityEditor;
 using UnityEngine;
 

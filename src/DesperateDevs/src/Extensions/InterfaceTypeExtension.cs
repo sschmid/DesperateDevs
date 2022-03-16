@@ -1,6 +1,6 @@
 using System;
 
-namespace DesperateDevs {
+namespace DesperateDevs.Extensions {
 
     public static class InterfaceTypeExtension {
 

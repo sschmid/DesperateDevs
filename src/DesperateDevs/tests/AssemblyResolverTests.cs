@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using DesperateDevs.Extensions;
+using DesperateDevs.Reflection;
 using DesperateDevs.Tests;
 using FluentAssertions;
 using Xunit;

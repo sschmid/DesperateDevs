@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DesperateDevs.Extensions;
 using FluentAssertions;
 using Xunit;
 

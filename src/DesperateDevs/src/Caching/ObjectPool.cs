@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace DesperateDevs
+namespace DesperateDevs.Caching
 {
     public class ObjectPool<T>
     {

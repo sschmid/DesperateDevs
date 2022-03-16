@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace DesperateDevs {
+namespace DesperateDevs.Reflection {
 
     public class AttributeInfo {
 
