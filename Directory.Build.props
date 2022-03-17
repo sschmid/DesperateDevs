@@ -3,8 +3,8 @@
   <PropertyGroup>
     <DefaultTargetFramework>netstandard2.0</DefaultTargetFramework>
     <DefaultNetTargetFramework>net472</DefaultNetTargetFramework>
+    <DefaultTestTargetFramework>net472</DefaultTestTargetFramework>
     <LangVersion>7.3</LangVersion>
-    <OutDir>bin/$(Configuration)</OutDir>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
 
@@ -34,18 +34,14 @@
     <UnityEngine>$(MSBuildStartupDirectory)/build/Managed/UnityEngine.dll</UnityEngine>
   </PropertyGroup>
 
-  <PropertyGroup Label="Tests">
-    <DefaultTestTargetFramework>net472</DefaultTestTargetFramework>
-  </PropertyGroup>
-
   <ItemGroup Label="Tests">
     <PackageReference Update="xunit.runner.visualstudio">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Update="coverlet.collector">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
 
