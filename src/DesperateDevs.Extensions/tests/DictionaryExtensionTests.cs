@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using DesperateDevs.Extensions;
 using FluentAssertions;
 using Xunit;
 
-namespace DesperateDevs.Tests
+namespace DesperateDevs.Extensions.Tests
 {
     public class DictionaryExtensionTests
     {

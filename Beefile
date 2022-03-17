@@ -19,6 +19,7 @@ DEDE_UNITY_DEPENDENCIES=(
   DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
   DesperateDevs.CodeGeneration.Plugins
   DesperateDevs.CodeGeneration.Unity.Plugins
+  DesperateDevs.Extensions
   DesperateDevs.Logging
   DesperateDevs.Networking
   DesperateDevs.Serialization

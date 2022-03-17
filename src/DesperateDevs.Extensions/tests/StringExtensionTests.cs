@@ -1,8 +1,7 @@
-﻿using DesperateDevs.Extensions;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Xunit;
 
-namespace DesperateDevs.Tests
+namespace DesperateDevs.Extensions.Tests
 {
     public class StringExtensionTests
     {
