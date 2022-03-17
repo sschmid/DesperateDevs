@@ -131,7 +131,7 @@ desperatedevs::collect_desperatedevs_unity() {
 
   local projects=(
     # all
-    DesperateDevs
+    DesperateDevs.Caching
     DesperateDevs.Logging
     DesperateDevs.Logging.Appenders
     DesperateDevs.Logging.Formatters

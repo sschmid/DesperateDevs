@@ -1,8 +1,7 @@
-using DesperateDevs.Caching;
 using FluentAssertions;
 using Xunit;
 
-namespace DesperateDevs.Tests
+namespace DesperateDevs.Caching.Tests
 {
     public class ObjectPoolTests
     {

@@ -13,7 +13,7 @@ DEDE_UNITY_VERSIONS=(
 
 # DEDE_UNITY_DEPENDENCIES are copied to all Unity test projects
 DEDE_UNITY_DEPENDENCIES=(
-  DesperateDevs
+  DesperateDevs.Caching
   DesperateDevs.CodeGeneration
   DesperateDevs.CodeGeneration.CodeGenerator
   DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor

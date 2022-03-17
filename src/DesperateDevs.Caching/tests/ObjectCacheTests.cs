@@ -1,8 +1,7 @@
-using DesperateDevs.Caching;
 using FluentAssertions;
 using Xunit;
 
-namespace DesperateDevs.Tests
+namespace DesperateDevs.Caching.Tests
 {
     public class ObjectCacheTests
     {
@@ -11,35 +10,35 @@ namespace DesperateDevs.Tests
         [Fact]
         public void CreatesNewObjectPoolWhenRequested()
         {
-            _cache.GetObjectPool<EmptyTestClass>().Should().NotBeNull();
+            _cache.GetObjectPool<object>().Should().NotBeNull();
         }
 
         [Fact]
         public void ReturnsSameObjectPoolAlreadyCreated()
         {
-            _cache.GetObjectPool<EmptyTestClass>().Should().BeSameAs(_cache.GetObjectPool<EmptyTestClass>());
+            _cache.GetObjectPool<object>().Should().BeSameAs(_cache.GetObjectPool<object>());
         }
 
         [Fact]
         public void ReturnsNewInstance()
         {
-            _cache.Get<EmptyTestClass>().Should().NotBeNull();
+            _cache.Get<object>().Should().NotBeNull();
         }
 
         [Fact]
         public void ReturnsPooledInstance()
         {
-            var obj = _cache.Get<EmptyTestClass>();
+            var obj = _cache.Get<object>();
             _cache.Push(obj);
-            _cache.Get<EmptyTestClass>().Should().BeSameAs(obj);
+            _cache.Get<object>().Should().BeSameAs(obj);
         }
 
         [Fact]
         public void ReturnsCustomPushedInstance()
         {
-            var obj = new EmptyTestClass();
+            var obj = new object();
             _cache.Push(obj);
-            _cache.Get<EmptyTestClass>().Should().BeSameAs(obj);
+            _cache.Get<object>().Should().BeSameAs(obj);
         }
 
         [Fact]
@@ -64,10 +63,10 @@ namespace DesperateDevs.Tests
         [Fact]
         public void Resets()
         {
-            var obj = _cache.Get<EmptyTestClass>();
+            var obj = _cache.Get<object>();
             _cache.Push(obj);
             _cache.Reset();
-            _cache.Get<EmptyTestClass>().Should().NotBeSameAs(obj);
+            _cache.Get<object>().Should().NotBeSameAs(obj);
         }
     }
 }
