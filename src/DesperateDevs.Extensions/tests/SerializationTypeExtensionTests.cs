@@ -32,17 +32,17 @@ namespace DesperateDevs.Extensions.Tests
         [InlineData(typeof(int[][]), "int[][]")]
         // generics
         [InlineData(typeof(List<int>), "System.Collections.Generic.List<int>")]
-        [InlineData(typeof(HashSet<TestClass>), "System.Collections.Generic.HashSet<DesperateDevs.Tests.TestClass>")]
-        [InlineData(typeof(Dictionary<string, TestClass>), "System.Collections.Generic.Dictionary<string, DesperateDevs.Tests.TestClass>")]
+        [InlineData(typeof(HashSet<TestClass>), "System.Collections.Generic.HashSet<DesperateDevs.Extensions.Tests.TestClass>")]
+        [InlineData(typeof(Dictionary<string, TestClass>), "System.Collections.Generic.Dictionary<string, DesperateDevs.Extensions.Tests.TestClass>")]
         // enum
-        [InlineData(typeof(TestEnum), "DesperateDevs.Tests.TestEnum")]
-        [InlineData(typeof(TestNestedEnumClass.NestedEnum), "DesperateDevs.Tests.TestNestedEnumClass.NestedEnum")]
+        [InlineData(typeof(TestEnum), "DesperateDevs.Extensions.Tests.TestEnum")]
+        [InlineData(typeof(TestNestedEnumClass.NestedEnum), "DesperateDevs.Extensions.Tests.TestNestedEnumClass.NestedEnum")]
         // custom types
-        [InlineData(typeof(TestClass), "DesperateDevs.Tests.TestClass")]
-        [InlineData(typeof(TestNestedClass.TestInnerClass), "DesperateDevs.Tests.TestNestedClass.TestInnerClass")]
+        [InlineData(typeof(TestClass), "DesperateDevs.Extensions.Tests.TestClass")]
+        [InlineData(typeof(TestNestedClass.TestInnerClass), "DesperateDevs.Extensions.Tests.TestNestedClass.TestInnerClass")]
         // mixed
         [InlineData(typeof(List<int>[,]), "System.Collections.Generic.List<int>[,]")]
-        [InlineData(typeof(Dictionary<List<TestNestedEnumClass.NestedEnum>[,], TestClass>[]), "System.Collections.Generic.Dictionary<System.Collections.Generic.List<DesperateDevs.Tests.TestNestedEnumClass.NestedEnum>[,], DesperateDevs.Tests.TestClass>[]")]
+        [InlineData(typeof(Dictionary<List<TestNestedEnumClass.NestedEnum>[,], TestClass>[]), "System.Collections.Generic.Dictionary<System.Collections.Generic.List<DesperateDevs.Extensions.Tests.TestNestedEnumClass.NestedEnum>[,], DesperateDevs.Extensions.Tests.TestClass>[]")]
         public void ToCompilableString(Type type, string typeName)
         {
             type.ToCompilableString().Should().Be(typeName);
@@ -73,17 +73,17 @@ namespace DesperateDevs.Extensions.Tests
         [InlineData("int[][]", typeof(int[][]))]
         // generics
         [InlineData("System.Collections.Generic.List<int>", typeof(List<int>))]
-        // [InlineData("System.Collections.Generic.HashSet<DesperateDevs.Tests.TestClass>", typeof(HashSet<TestClass>))]
-        // [InlineData("System.Collections.Generic.Dictionary<string, DesperateDevs.Tests.TestClass>", typeof(Dictionary<string, TestClass>))]
+        // [InlineData("System.Collections.Generic.HashSet<DesperateDevs.Extensions.Tests.TestClass>", typeof(HashSet<TestClass>))]
+        // [InlineData("System.Collections.Generic.Dictionary<string, DesperateDevs.Extensions.Tests.TestClass>", typeof(Dictionary<string, TestClass>))]
         // enum
-        [InlineData("DesperateDevs.Tests.TestEnum", typeof(TestEnum))]
-        [InlineData("DesperateDevs.Tests.TestNestedEnumClass+NestedEnum", typeof(TestNestedEnumClass.NestedEnum))]
+        [InlineData("DesperateDevs.Extensions.Tests.TestEnum", typeof(TestEnum))]
+        [InlineData("DesperateDevs.Extensions.Tests.TestNestedEnumClass+NestedEnum", typeof(TestNestedEnumClass.NestedEnum))]
         // custom types
-        [InlineData("DesperateDevs.Tests.TestClass", typeof(TestClass))]
-        [InlineData("DesperateDevs.Tests.TestNestedClass+TestInnerClass", typeof(TestNestedClass.TestInnerClass))]
+        [InlineData("DesperateDevs.Extensions.Tests.TestClass", typeof(TestClass))]
+        [InlineData("DesperateDevs.Extensions.Tests.TestNestedClass+TestInnerClass", typeof(TestNestedClass.TestInnerClass))]
         // mixed
         [InlineData("System.Collections.Generic.List<int>[,]", typeof(List<int>[,]))]
-        // [InlineData("System.Collections.Generic.Dictionary<System.Collections.Generic.List<DesperateDevs.Tests.TestNestedEnumClass+NestedEnum>[,], DesperateDevs.Tests.TestClass>[]", typeof(Dictionary<List<TestNestedEnumClass.NestedEnum>[,], TestClass>[]))]
+        // [InlineData("System.Collections.Generic.Dictionary<System.Collections.Generic.List<DesperateDevs.Extensions.Tests.TestNestedEnumClass+NestedEnum>[,], DesperateDevs.Extensions.Tests.TestClass>[]", typeof(Dictionary<List<TestNestedEnumClass.NestedEnum>[,], TestClass>[]))]
 //
         public void ToType(string typeName, Type type)
         {

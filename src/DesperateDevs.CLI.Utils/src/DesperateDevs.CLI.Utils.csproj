@@ -8,7 +8,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\DesperateDevs.Logging.Formatters\src\DesperateDevs.Logging.Formatters.csproj" />
     <ProjectReference Include="..\..\DesperateDevs.Logging\src\DesperateDevs.Logging.csproj" />
-    <ProjectReference Include="..\..\DesperateDevs\src\DesperateDevs.csproj" />
+    <ProjectReference Include="..\..\DesperateDevs.Reflection\src\DesperateDevs.Reflection.csproj" />
   </ItemGroup>
 
 </Project>

@@ -18,7 +18,6 @@
   <ItemGroup>
     <ProjectReference Include="..\fixtures\DesperateDevs.Tests.Project1\DesperateDevs.Tests.Project1.csproj" />
     <ProjectReference Include="..\fixtures\DesperateDevs.Tests.Project2\DesperateDevs.Tests.Project2.csproj" />
-    <ProjectReference Include="..\src\DesperateDevs.csproj" />
   </ItemGroup>
 
 </Project>

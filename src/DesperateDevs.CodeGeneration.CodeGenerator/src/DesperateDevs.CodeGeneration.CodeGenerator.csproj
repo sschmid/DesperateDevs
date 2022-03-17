@@ -7,6 +7,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\DesperateDevs.CodeGeneration\src\DesperateDevs.CodeGeneration.csproj" />
+    <ProjectReference Include="..\..\DesperateDevs.Logging\src\DesperateDevs.Logging.csproj" />
+    <ProjectReference Include="..\..\DesperateDevs.Reflection\src\DesperateDevs.Reflection.csproj" />
     <ProjectReference Include="..\..\DesperateDevs.Serialization\src\DesperateDevs.Serialization.csproj" />
   </ItemGroup>
 
