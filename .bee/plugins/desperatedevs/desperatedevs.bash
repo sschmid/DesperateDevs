@@ -1,5 +1,15 @@
 : "${BUILD_SRC:=build/src}"
 
+desperatedevs::comp() {
+  if ((!$# || $# == 1 && COMP_PARTIAL)); then
+    bee::comp_plugin desperatedevs
+  elif (($# == 1 || $# == 2 && COMP_PARTIAL)); then
+    case "$1" in
+      new) echo "DesperateDevs."; return ;;
+    esac
+  fi
+}
+
 desperatedevs::docker() {
   if [[ ! -f .unitypath ]]; then
     cat << EOF
@@ -24,6 +34,46 @@ EOF
 
   DOCKER_BUILDKIT=1 docker build --target bee -t desperatedevs .
   docker run -it -v "$(pwd)":/app -w /app desperatedevs "$@"
+}
+
+desperatedevs::new() {
+  local name="$1"
+  dotnet new classlib -n "${name}" -o "src/${name}/src"
+  cat << 'EOF' > "src/${name}/src/${name}.csproj"
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>$(DefaultTargetFramework)</TargetFramework>
+    <PackageVersion>0.1.0</PackageVersion>
+  </PropertyGroup>
+
+</Project>
+EOF
+  dotnet sln add -s "${name}" "src/${name}/src/${name}.csproj"
+
+  local test_name="${name}.Tests"
+  dotnet new xunit -n "${test_name}" -o "src/${name}/tests"
+  cat << 'EOF' > "src/${name}/tests/${test_name}.csproj"
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>$(DefaultTestTargetFramework)</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <IsPublishable>false</IsPublishable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="6.5.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+    <PackageReference Include="Microsoft.TestPlatform.ObjectModel" Version="17.1.0" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
+    <PackageReference Include="coverlet.collector" Version="3.1.2" />
+  </ItemGroup>
+
+</Project>
+EOF
+  dotnet sln add -s "${name}" "src/${name}/tests/${test_name}.csproj"
 }
 
 desperatedevs::clean() {
