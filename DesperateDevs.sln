@@ -1,13 +1,5 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 #
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs", "DesperateDevs", "{1B55844B-7723-456A-8BF8-A2E9B5F0BE96}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Tests", "src\DesperateDevs\tests\DesperateDevs.Tests.csproj", "{15D39FB6-5102-4405-B969-3FEE2F03A26A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Tests.Project1", "src\DesperateDevs\fixtures\DesperateDevs.Tests.Project1\DesperateDevs.Tests.Project1.csproj", "{8BFDF954-F135-48FF-AFC0-6E41B5B68573}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Tests.Project2", "src\DesperateDevs\fixtures\DesperateDevs.Tests.Project2\DesperateDevs.Tests.Project2.csproj", "{61D2E6FF-E421-44EA-9C67-F67ADDD9B249}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Caching", "DesperateDevs.Caching", "{8BA88C37-B258-4DD6-941F-4913FB7F96C2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Caching", "src\DesperateDevs.Caching\src\DesperateDevs.Caching.csproj", "{0E668B24-A62C-4AE3-A725-27A05238A403}"
@@ -109,6 +101,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Serialization", "src\DesperateDevs.Serialization\src\DesperateDevs.Serialization.csproj", "{36AC311F-34FF-4BF0-B144-AA50A2A19EB3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Serialization.Tests", "src\DesperateDevs.Serialization\tests\DesperateDevs.Serialization.Tests.csproj", "{ADD0A13F-9D8E-4907-BBA1-0E4E89A7481C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Tests", "DesperateDevs.Tests", "{1B55844B-7723-456A-8BF8-A2E9B5F0BE96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Tests", "src\DesperateDevs.Tests\tests\DesperateDevs.Tests.csproj", "{15D39FB6-5102-4405-B969-3FEE2F03A26A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Tests.Project1", "src\DesperateDevs.Tests\fixtures\DesperateDevs.Tests.Project1\DesperateDevs.Tests.Project1.csproj", "{8BFDF954-F135-48FF-AFC0-6E41B5B68573}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Tests.Project2", "src\DesperateDevs.Tests\fixtures\DesperateDevs.Tests.Project2\DesperateDevs.Tests.Project2.csproj", "{61D2E6FF-E421-44EA-9C67-F67ADDD9B249}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Threading", "DesperateDevs.Threading", "{BFF493EC-5867-42F0-AC3A-C0701B92B552}"
 EndProject
