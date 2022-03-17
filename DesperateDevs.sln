@@ -2,8 +2,6 @@
 #
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs", "DesperateDevs", "{1B55844B-7723-456A-8BF8-A2E9B5F0BE96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs", "src\DesperateDevs\src\DesperateDevs.csproj", "{723C23A2-3F14-448E-85EA-F4A8D7081F04}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Tests", "src\DesperateDevs\tests\DesperateDevs.Tests.csproj", "{15D39FB6-5102-4405-B969-3FEE2F03A26A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Tests.Project1", "src\DesperateDevs\fixtures\DesperateDevs.Tests.Project1\DesperateDevs.Tests.Project1.csproj", "{8BFDF954-F135-48FF-AFC0-6E41B5B68573}"
@@ -132,10 +130,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{723C23A2-3F14-448E-85EA-F4A8D7081F04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{723C23A2-3F14-448E-85EA-F4A8D7081F04}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{723C23A2-3F14-448E-85EA-F4A8D7081F04}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{723C23A2-3F14-448E-85EA-F4A8D7081F04}.Release|Any CPU.Build.0 = Release|Any CPU
 		{15D39FB6-5102-4405-B969-3FEE2F03A26A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{15D39FB6-5102-4405-B969-3FEE2F03A26A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15D39FB6-5102-4405-B969-3FEE2F03A26A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -294,7 +288,6 @@ Global
 		{8C153439-05B7-4446-BF7F-437775B9521B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{723C23A2-3F14-448E-85EA-F4A8D7081F04} = {1B55844B-7723-456A-8BF8-A2E9B5F0BE96}
 		{15D39FB6-5102-4405-B969-3FEE2F03A26A} = {1B55844B-7723-456A-8BF8-A2E9B5F0BE96}
 		{8BFDF954-F135-48FF-AFC0-6E41B5B68573} = {1B55844B-7723-456A-8BF8-A2E9B5F0BE96}
 		{61D2E6FF-E421-44EA-9C67-F67ADDD9B249} = {1B55844B-7723-456A-8BF8-A2E9B5F0BE96}

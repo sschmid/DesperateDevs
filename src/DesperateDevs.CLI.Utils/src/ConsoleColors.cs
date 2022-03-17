@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using DesperateDevs.Logging;
 
-namespace DesperateDevs
+namespace DesperateDevs.CLI.Utils
 {
     public class ConsoleColors
     {

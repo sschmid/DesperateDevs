@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using DesperateDevs;
 
 namespace DesperateDevs.CLI.Utils
 {

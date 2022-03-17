@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using DesperateDevs.CLI.Utils;
-using DesperateDevs;
 
 namespace DesperateDevs.CLI.Utils.Tests.Program
 {

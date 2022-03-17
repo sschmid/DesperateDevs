@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using DesperateDevs.Logging;
 using DesperateDevs.Serialization;
-using DesperateDevs;
 using DesperateDevs.Extensions;
 using DesperateDevs.Reflection;
 
