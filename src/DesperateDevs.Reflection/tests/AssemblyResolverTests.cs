@@ -2,12 +2,11 @@
 using System.IO;
 using System.Linq;
 using DesperateDevs.Extensions;
-using DesperateDevs.Reflection;
 using DesperateDevs.Tests;
 using FluentAssertions;
 using Xunit;
 
-namespace DesperateDevs.Tests
+namespace DesperateDevs.Reflection.Tests
 {
     public class AssemblyResolverTests
     {

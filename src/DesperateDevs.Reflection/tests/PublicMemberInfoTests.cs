@@ -1,9 +1,8 @@
 using System;
-using DesperateDevs.Reflection;
 using FluentAssertions;
 using Xunit;
 
-namespace DesperateDevs.Tests
+namespace DesperateDevs.Reflection.Tests
 {
     public class PublicMemberInfoTests
     {

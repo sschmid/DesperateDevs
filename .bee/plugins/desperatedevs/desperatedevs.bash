@@ -137,6 +137,7 @@ desperatedevs::collect_desperatedevs_unity() {
     DesperateDevs.Logging.Appenders
     DesperateDevs.Logging.Formatters
     DesperateDevs.Networking
+    DesperateDevs.Reflection
     DesperateDevs.Serialization
     DesperateDevs.Threading
     DesperateDevs.Unity
