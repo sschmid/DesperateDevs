@@ -12,14 +12,14 @@ namespace DesperateDevs.Reflection.Tests
     {
         static readonly string ProjectRoot = TestHelper.GetProjectRoot();
 
-        const string Project1AssemblyName = "DesperateDevs.Tests.Project1";
-        const string Project2AssemblyName = "DesperateDevs.Tests.Project2";
+        const string Project1AssemblyName = "DesperateDevs.Reflection.Tests.Project1";
+        const string Project2AssemblyName = "DesperateDevs.Reflection.Tests.Project2";
         const string Project1AssemblyFile = Project1AssemblyName + ".dll";
         const string Project2AssemblyFile = Project2AssemblyName + ".dll";
-        const string Project1ClassType = "DesperateDevs.Tests.Project1.TestClass";
-        const string Project2ClassType = "DesperateDevs.Tests.Project2.TestClass";
-        static readonly string Project1BasePath = Path.Combine(ProjectRoot, "DesperateDevs.Tests", "fixtures", "DesperateDevs.Tests.Project1", "bin", "Release");
-        static readonly string Project2BasePath = Path.Combine(ProjectRoot, "DesperateDevs.Tests", "fixtures", "DesperateDevs.Tests.Project2", "bin", "Release");
+        const string Project1ClassType = "DesperateDevs.Reflection.Tests.Project1.TestClass";
+        const string Project2ClassType = "DesperateDevs.Reflection.Tests.Project2.TestClass";
+        static readonly string Project1BasePath = Path.Combine(ProjectRoot, "DesperateDevs.Tests", "fixtures", "DesperateDevs.Reflection.Tests.Project1", "bin", "Release");
+        static readonly string Project2BasePath = Path.Combine(ProjectRoot, "DesperateDevs.Tests", "fixtures", "DesperateDevs.Reflection.Tests.Project2", "bin", "Release");
 
         AssemblyResolver Project1ResolverReflection { get; } = new AssemblyResolver(true, Project1BasePath);
 

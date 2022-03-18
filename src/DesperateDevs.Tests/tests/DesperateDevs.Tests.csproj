@@ -15,9 +15,4 @@
     <PackageReference Include="coverlet.collector" Version="3.1.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\fixtures\DesperateDevs.Tests.Project1\DesperateDevs.Tests.Project1.csproj" />
-    <ProjectReference Include="..\fixtures\DesperateDevs.Tests.Project2\DesperateDevs.Tests.Project2.csproj" />
-  </ItemGroup>
-
 </Project>

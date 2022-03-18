@@ -1,4 +1,4 @@
-﻿namespace DesperateDevs.Tests.Project2
+﻿namespace DesperateDevs.Reflection.Tests.Project2
 {
     public class TestClass
     {
