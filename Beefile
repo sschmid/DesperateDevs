@@ -11,8 +11,7 @@ DEDE_UNITY_VERSIONS=(
   2020_3
 )
 
-# DEDE_UNITY_DEPENDENCIES are copied to all Unity test projects
-DEDE_UNITY_DEPENDENCIES=(
+DESPERATE_DEVS_RESTORE_UNITY=(
   DesperateDevs.Caching
   DesperateDevs.CodeGeneration
   DesperateDevs.CodeGeneration.CodeGenerator
@@ -28,8 +27,7 @@ DEDE_UNITY_DEPENDENCIES=(
   DesperateDevs.Unity.Editor
 )
 
-# DEDE_UNITY_DIRS are copied to all Unity test projects
-DEDE_UNITY_DIRS=(
+DESPERATE_DEVS_DIRS=(
   DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor/src/Images
 )
 

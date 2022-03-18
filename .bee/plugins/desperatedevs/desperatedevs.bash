@@ -97,7 +97,7 @@ desperatedevs::coverage() {
 
 desperatedevs::restore_unity() {
   _symlink_unity_src
-  _symlink_unity_dependencies
+  _symlink_desperate_devs_unity
 }
 
 desperatedevs::publish() {
@@ -256,13 +256,13 @@ _symlink_unity_src() {
   done
 }
 
-_symlink_unity_dependencies() {
+_symlink_desperate_devs_unity() {
   local source_files project_dir target_dir file
   for unity_version in "${DEDE_UNITY_VERSIONS[@]}"; do
     project_dir="src/DesperateDevs.Tests/unity/DesperateDevs-${unity_version}"
     bee::log_echo "Restore DesperateDevs: ${project_dir}"
     _clean_dir "${project_dir}/Assets/DesperateDevs"
-    for dep in "${DEDE_UNITY_DEPENDENCIES[@]}"; do
+    for dep in "${DESPERATE_DEVS_RESTORE_UNITY[@]}"; do
       mapfile -t source_files < <(find "src/${dep}/src" -type f -name "*.cs" -not -path "*src/obj*")
       bee::log_echo "Restore ${dep}: ${project_dir}"
       mkdir -p "${project_dir}/Assets/DesperateDevs/${dep}"
@@ -275,7 +275,7 @@ _symlink_unity_dependencies() {
       popd > /dev/null || exit 1
     done
     pushd "${project_dir}/Assets/DesperateDevs" > /dev/null || exit 1
-      for dir in "${DEDE_UNITY_DIRS[@]}"; do
+      for dir in "${DESPERATE_DEVS_DIRS[@]}"; do
         bee::log_echo "Restore ${dir}: ${project_dir}"
         target_dir="$(dirname "${dir}")"
         mkdir -p "${target_dir}"
