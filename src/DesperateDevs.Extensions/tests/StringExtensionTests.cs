@@ -27,7 +27,7 @@ namespace DesperateDevs.Extensions.Tests
         public void ToCsv() => new[] {"1", "2", "3"}.ToCSV().Should().Be("1, 2, 3");
 
         [Fact]
-        public void ArrayFromCsv() => "1,2, 3".ArrayFromCSV().Should().BeEquivalentTo("1", "2", "3");
+        public void FromCsv() => "1,2, 3".FromCSV().Should().BeEquivalentTo("1", "2", "3");
 
         [Fact]
         public void ToSpacedCamelCase() => "ThisIsATest".ToSpacedCamelCase().Should().Be("This Is A Test");

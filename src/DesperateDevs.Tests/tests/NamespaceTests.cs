@@ -30,11 +30,14 @@ namespace DesperateDevs.Tests
             var shortPath = RemoveProjectRoot(ns.Path, ProjectRoot);
             var isTest = shortPath.Contains(Path.DirectorySeparatorChar + "tests" + Path.DirectorySeparatorChar) &&
                          !shortPath.Contains("DesperateDevs.Tests");
-
+            var isBenchmark = shortPath.Contains(Path.DirectorySeparatorChar + "benchmarks" + Path.DirectorySeparatorChar);
             var isFixture = shortPath.Contains(Path.DirectorySeparatorChar + "Fixtures" + Path.DirectorySeparatorChar);
 
             if (isTest)
                 ns.Expected += ".Tests";
+
+            if (isBenchmark)
+                ns.Expected += ".Benchmarks";
 
             if (isFixture)
                 ns.Expected += ".Fixtures";

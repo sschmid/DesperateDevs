@@ -22,7 +22,7 @@ namespace DesperateDevs.Serialization.CLI.Utils
             const string lastIndent = "\n└── ";
             foreach (var key in _preferences.keys)
             {
-                var values = _preferences[key].ArrayFromCSV();
+                var values = _preferences[key].FromCSV();
 
                 string valueString;
                 if (values.Length > 1)

@@ -36,7 +36,7 @@ namespace DesperateDevs.Serialization.CLI.Utils
             {
                 _preferences.RemoveValue(
                     value,
-                    _preferences[key].ArrayFromCSV(),
+                    _preferences[key].FromCSV(),
                     values => _preferences[key] = values.ToCSV());
             }
             else

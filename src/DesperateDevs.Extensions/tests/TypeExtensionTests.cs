@@ -5,8 +5,32 @@ using Xunit;
 
 namespace DesperateDevs.Extensions.Tests
 {
-    public class SerializationTypeExtensionTests
+    public class TypeExtensionTests
     {
+        [Fact]
+        public void ReturnsFalseIfTypeDoesNotOmplementInterface()
+        {
+            typeof(object).ImplementsInterface<ITestInterface>().Should().BeFalse();
+        }
+
+        [Fact]
+        public void ReturnsFalseIfTypeIsSame()
+        {
+            typeof(ITestInterface).ImplementsInterface<ITestInterface>().Should().BeFalse();
+        }
+
+        [Fact]
+        public void ReturnFalseIfTypeIsInterface()
+        {
+            typeof(ITestSubInterface).ImplementsInterface<ITestInterface>().Should().BeFalse();
+        }
+
+        [Fact]
+        public void ReturnsTrueIfTypeImplementsInterface()
+        {
+            typeof(TestInterfaceClass).ImplementsInterface<ITestInterface>().Should().BeTrue();
+        }
+
         [Theory]
         // built-in types, https://msdn.microsoft.com/en-us/library/ya5y69ds.aspx
         [InlineData(typeof(bool), "bool")]
@@ -114,6 +138,12 @@ namespace DesperateDevs.Extensions.Tests
             "Namespace.Module.MyClass".RemoveDots().Should().Be("NamespaceModuleMyClass");
         }
     }
+
+    public interface ITestInterface { }
+
+    public interface ITestSubInterface : ITestInterface { }
+
+    public class TestInterfaceClass : ITestInterface { }
 
     public class TestClass { }
 

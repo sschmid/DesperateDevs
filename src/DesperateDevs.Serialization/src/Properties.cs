@@ -166,7 +166,7 @@ namespace DesperateDevs.Serialization {
         public override string ToString() {
             return _dict.Aggregate(string.Empty, (properties, kv) => {
                 var contentValues = escapedSpecialCharacters(kv.Value)
-                    .ArrayFromCSV()
+                    .FromCSV()
                     .Select(value => value.PadLeft(kv.Key.Length + 3 + value.Length))
                     .ToArray();
 

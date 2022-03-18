@@ -33,32 +33,32 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
         }
 
         public string[] searchPaths {
-            get { return _preferences[SEARCH_PATHS_KEY].ArrayFromCSV(); }
+            get { return _preferences[SEARCH_PATHS_KEY].FromCSV(); }
             set { _preferences[SEARCH_PATHS_KEY] = value.ToCSV(); }
         }
 
         public string[] plugins {
-            get { return _preferences[PLUGINS_PATHS_KEY].ArrayFromCSV(); }
+            get { return _preferences[PLUGINS_PATHS_KEY].FromCSV(); }
             set { _preferences[PLUGINS_PATHS_KEY] = value.ToCSV(); }
         }
 
         public string[] preProcessors {
-            get { return _preferences[PRE_PROCESSORS_KEY].ArrayFromCSV(); }
+            get { return _preferences[PRE_PROCESSORS_KEY].FromCSV(); }
             set { _preferences[PRE_PROCESSORS_KEY] = value.ToCSV(); }
         }
 
         public string[] dataProviders {
-            get { return _preferences[DATA_PROVIDERS_KEY].ArrayFromCSV(); }
+            get { return _preferences[DATA_PROVIDERS_KEY].FromCSV(); }
             set { _preferences[DATA_PROVIDERS_KEY] = value.ToCSV(); }
         }
 
         public string[] codeGenerators {
-            get { return _preferences[CODE_GENERATORS_KEY].ArrayFromCSV(); }
+            get { return _preferences[CODE_GENERATORS_KEY].FromCSV(); }
             set { _preferences[CODE_GENERATORS_KEY] = value.ToCSV(); }
         }
 
         public string[] postProcessors {
-            get { return _preferences[POST_PROCESSORS_KEY].ArrayFromCSV(); }
+            get { return _preferences[POST_PROCESSORS_KEY].FromCSV(); }
             set { _preferences[POST_PROCESSORS_KEY] = value.ToCSV(); }
         }
 
