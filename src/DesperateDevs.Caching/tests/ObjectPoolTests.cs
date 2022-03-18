@@ -13,7 +13,7 @@ namespace DesperateDevs.Caching.Tests
         {
             _objectPool = new ObjectPool<TestClassWithField>(
                 () => new TestClassWithField {Value = Value},
-                c => { c.Value = null; }
+                o => { o.Value = null; }
             );
         }
 
@@ -51,14 +51,19 @@ namespace DesperateDevs.Caching.Tests
         [Fact]
         public void DrainsPool()
         {
-            var obj = new TestClassWithField();
-            _objectPool.Push(obj);
+            var obj1 = new TestClassWithField();
+            var obj2 = new TestClassWithField();
+            _objectPool.Push(obj1);
+            _objectPool.Push(obj2);
 
             var objects = _objectPool.Drain();
-            objects.Length.Should().Be(1);
-            objects[0].Should().BeSameAs(obj);
+            objects.Length.Should().Be(2);
+            objects.Should().Contain(obj1);
+            objects.Should().Contain(obj2);
 
-            _objectPool.Get().Should().NotBeSameAs(obj);
+            var obj = _objectPool.Get();
+            obj.Should().NotBeSameAs(obj1);
+            obj.Should().NotBeSameAs(obj2);
         }
     }
 
