@@ -5,7 +5,7 @@ desperatedevs::comp() {
     bee::comp_plugin desperatedevs
   elif (($# == 1 || $# == 2 && COMP_PARTIAL)); then
     case "$1" in
-      new) echo "DesperateDevs."; return ;;
+      new|new_benchmark) echo "DesperateDevs."; return ;;
     esac
   fi
 }
@@ -37,9 +37,9 @@ EOF
 }
 
 desperatedevs::new() {
-  local name="$1"
-  dotnet new classlib -n "${name}" -o "src/${name}/src"
-  cat << 'EOF' > "src/${name}/src/${name}.csproj"
+  local name="$1" path="src/${name}/src"
+  dotnet new classlib -n "${name}" -o "${path}"
+  cat << 'EOF' > "${path}/${name}.csproj"
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
@@ -49,11 +49,11 @@ desperatedevs::new() {
 
 </Project>
 EOF
-  dotnet sln add -s "${name}" "src/${name}/src/${name}.csproj"
+  dotnet sln add -s "${name}" "${path}/${name}.csproj"
 
-  local test_name="${name}.Tests"
-  dotnet new xunit -n "${test_name}" -o "src/${name}/tests"
-  cat << 'EOF' > "src/${name}/tests/${test_name}.csproj"
+  local test_name="${name}.Tests" path="src/${name}/tests"
+  dotnet new xunit -n "${test_name}" -o "${path}"
+  cat << 'EOF' > "${path}/${test_name}.csproj"
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
@@ -73,7 +73,29 @@ EOF
 
 </Project>
 EOF
-  dotnet sln add -s "${name}" "src/${name}/tests/${test_name}.csproj"
+  dotnet sln add -s "${name}" "${path}/${test_name}.csproj"
+}
+
+desperatedevs::new_benchmark() {
+  local name="$1"
+  local benchmark_name="${name}.Benchmarks" path="src/${name}/benchmarks"
+  dotnet new console -n "${benchmark_name}" -o "${path}"
+  cat << 'EOF' > "${path}/${benchmark_name}.csproj"
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>$(DefaultNetTargetFramework)</TargetFramework>
+    <PackageVersion>0.1.0</PackageVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
+  </ItemGroup>
+
+</Project>
+EOF
+  dotnet sln add -s "${name}" "${path}/${benchmark_name}.csproj"
 }
 
 desperatedevs::clean() {
