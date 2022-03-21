@@ -6,16 +6,13 @@ namespace DesperateDevs.Logging.Appenders
 {
     public abstract class AbstractTcpSocketAppender
     {
-        public AbstractTcpSocket Socket { get; private set; }
-
-        readonly Logger _logger = Sherlog.GetLogger(typeof(AbstractTcpSocketAppender));
-
         readonly List<HistoryEntry> _history = new List<HistoryEntry>();
+        AbstractTcpSocket _socket;
 
         public void Connect(IPAddress ip, int port)
         {
             var client = new TcpClientSocket();
-            Socket = client;
+            _socket = client;
             client.OnConnected += sender => OnConnected();
             client.Connect(ip, port);
         }
@@ -23,29 +20,29 @@ namespace DesperateDevs.Logging.Appenders
         public void Listen(int port)
         {
             var server = new TcpServerSocket();
-            Socket = server;
+            _socket = server;
             server.OnClientConnected += (sender, client) => OnConnected();
             server.Listen(port);
         }
 
-        public void Disconnect() => Socket.Disconnect();
+        public void Disconnect() => _socket.Disconnect();
 
         public void Send(Logger logger, LogLevel logLevel, string message)
         {
             if (IsSocketReady())
-                Socket.Send(SerializeMessage(logger, logLevel, message));
+                _socket.Send(SerializeMessage(logger, logLevel, message));
             else
                 _history.Add(new HistoryEntry(logger, logLevel, message));
         }
 
         bool IsSocketReady()
         {
-            if (Socket != null)
+            if (_socket != null)
             {
-                if (Socket is TcpServerSocket server)
+                if (_socket is TcpServerSocket server)
                     return server.count > 0;
 
-                if (Socket is TcpClientSocket client)
+                if (_socket is TcpClientSocket client)
                     return client.isConnected;
             }
 
