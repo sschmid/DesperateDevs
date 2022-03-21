@@ -6,14 +6,13 @@ namespace DesperateDevs.Logging.Tests
 {
     public class LoggerTests
     {
-        const string message = "hi";
-        const string loggerName = "MyLogger";
+        const string Message = "test message";
 
         readonly Logger _logger;
 
         public LoggerTests()
         {
-            _logger = new Logger("MyLogger");
+            _logger = new Logger("TestLogger");
         }
 
         [Theory]
@@ -27,7 +26,7 @@ namespace DesperateDevs.Logging.Tests
         [InlineData(LogLevel.Off, false, false, false, false, false, false)]
         public void LogLevels(LogLevel logLevel, bool trace, bool debug, bool info, bool warn, bool error, bool fatal)
         {
-            _logger.logLevel = logLevel;
+            _logger.LogLevel = logLevel;
             AssertLogLevel(_logger.Trace, LogLevel.Trace, trace);
             AssertLogLevel(_logger.Debug, LogLevel.Debug, debug);
             AssertLogLevel(_logger.Info, LogLevel.Info, info);
@@ -49,14 +48,14 @@ namespace DesperateDevs.Logging.Tests
                     eventMessage = msg;
                 };
 
-                logMethod(message);
+                logMethod(Message);
 
                 didLog.Should().Be(shouldLog);
 
                 if (shouldLog)
                 {
                     eventLogger.Should().BeSameAs(_logger);
-                    eventMessage.Should().Be(message);
+                    eventMessage.Should().Be(Message);
                     eventLogLevel.Should().Be(logLvl);
                 }
                 else
@@ -87,7 +86,7 @@ namespace DesperateDevs.Logging.Tests
             var didLog = 0;
             _logger.OnLog += (logger, level, s) => didLog += 1;
             _logger.Reset();
-            _logger.Info("Test");
+            _logger.Info("test message");
             didLog.Should().Be(0);
         }
     }

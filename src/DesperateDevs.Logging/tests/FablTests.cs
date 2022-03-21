@@ -9,51 +9,51 @@ namespace DesperateDevs.Logging.Tests
         {
             fabl.ResetLoggers();
             fabl.ResetAppenders();
-            fabl.globalLogLevel = LogLevel.On;
+            fabl.GlobalLogLevel = LogLevel.On;
         }
 
         [Fact]
         public void CreatesNewLogger()
         {
-            var logger = fabl.GetLogger("MyLogger");
+            var logger = fabl.GetLogger("TestLogger");
             logger.Should().NotBeNull();
             logger.GetType().Should().BeSameAs(typeof(Logger));
-            logger.name.Should().Be("MyLogger");
-            logger.logLevel.Should().Be(LogLevel.On);
+            logger.Name.Should().Be("TestLogger");
+            logger.LogLevel.Should().Be(LogLevel.On);
         }
 
         [Fact]
         public void ReturnsSameLoggerWhenNameIsEqual()
         {
-            var logger1 = fabl.GetLogger("MyLogger");
-            var logger2 = fabl.GetLogger("MyLogger");
+            var logger1 = fabl.GetLogger("TestLogger");
+            var logger2 = fabl.GetLogger("TestLogger");
             logger1.Should().BeSameAs(logger2);
         }
 
         [Fact]
         public void ClearsCreatedLoggers()
         {
-            var logger1 = fabl.GetLogger("MyLogger");
+            var logger1 = fabl.GetLogger("TestLogger");
             fabl.ResetLoggers();
-            var logger2 = fabl.GetLogger("MyLogger");
+            var logger2 = fabl.GetLogger("TestLogger");
             logger1.Should().NotBeSameAs(logger2);
         }
 
         [Fact]
         public void CreatesNewLoggerWithGlobalLogLevel()
         {
-            fabl.globalLogLevel = LogLevel.Error;
-            var logger = fabl.GetLogger("MyLogger");
-            logger.logLevel.Should().Be(LogLevel.Error);
+            fabl.GlobalLogLevel = LogLevel.Error;
+            var logger = fabl.GetLogger("TestLogger");
+            logger.LogLevel.Should().Be(LogLevel.Error);
         }
 
         [Fact]
         public void SetsGlobalLogLevelOnCreatedLogger()
         {
-            var logger = fabl.GetLogger("MyLogger");
-            logger.logLevel.Should().Be(LogLevel.On);
-            fabl.globalLogLevel = LogLevel.Error;
-            logger.logLevel.Should().Be(LogLevel.Error);
+            var logger = fabl.GetLogger("TestLogger");
+            logger.LogLevel.Should().Be(LogLevel.On);
+            fabl.GlobalLogLevel = LogLevel.Error;
+            logger.LogLevel.Should().Be(LogLevel.Error);
         }
 
         [Fact]
@@ -75,22 +75,22 @@ namespace DesperateDevs.Logging.Tests
                 appenderMessage2 = message;
             });
 
-            var logger = fabl.GetLogger("MyLogger");
-            logger.Info("hi");
+            var logger = fabl.GetLogger("TestLogger");
+            logger.Info("test message");
 
             appenderLogLevel.Should().Be(LogLevel.Info);
-            appenderMessage.Should().Be("hi");
+            appenderMessage.Should().Be("test message");
             appenderLogLevel2.Should().Be(LogLevel.Info);
-            appenderMessage2.Should().Be("hi");
+            appenderMessage2.Should().Be("test message");
         }
 
         [Fact]
         public void AddsAppenderOnCreatedLogger()
         {
-            var logger = fabl.GetLogger("MyLogger");
+            var logger = fabl.GetLogger("TestLogger");
             var didLog = false;
             fabl.AddAppender((log, logLevel, message) => didLog = true);
-            logger.Info("hi");
+            logger.Info("test message");
             didLog.Should().BeTrue();
         }
 
@@ -100,9 +100,9 @@ namespace DesperateDevs.Logging.Tests
             var didLog = false;
             LogDelegate appender = (log, logLevel, message) => didLog = true;
             fabl.AddAppender(appender);
-            var logger = fabl.GetLogger("MyLogger");
+            var logger = fabl.GetLogger("TestLogger");
             fabl.RemoveAppender(appender);
-            logger.Info("hi");
+            logger.Info("test message");
             didLog.Should().BeFalse();
         }
 
@@ -117,8 +117,8 @@ namespace DesperateDevs.Logging.Tests
                 appenderMessage = message;
             });
             fabl.ResetAppenders();
-            var logger = fabl.GetLogger("MyLogger");
-            logger.Info("hi");
+            var logger = fabl.GetLogger("TestLogger");
+            logger.Info("test message");
             appenderLogLevel.Should().Be(LogLevel.Off);
             appenderMessage.Should().Be(string.Empty);
         }

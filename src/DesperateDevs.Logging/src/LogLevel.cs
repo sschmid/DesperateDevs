@@ -1,6 +1,7 @@
-namespace DesperateDevs.Logging {
-
-    public enum LogLevel {
+namespace DesperateDevs.Logging
+{
+    public enum LogLevel
+    {
         On,
         Trace,
         Debug,

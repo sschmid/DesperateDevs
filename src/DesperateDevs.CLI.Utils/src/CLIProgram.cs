@@ -115,21 +115,21 @@ namespace DesperateDevs.CLI.Utils
         {
             if (args.IsSilent())
             {
-                fabl.globalLogLevel = LogLevel.Error;
+                fabl.GlobalLogLevel = LogLevel.Error;
             }
             else if (args.IsVerbose())
             {
-                fabl.globalLogLevel = LogLevel.Debug;
+                fabl.GlobalLogLevel = LogLevel.Debug;
             }
             else
             {
-                fabl.globalLogLevel = LogLevel.Info;
+                fabl.GlobalLogLevel = LogLevel.Info;
             }
 
             LogFormatter formatter;
             if (args.IsDebug())
             {
-                formatter = new DefaultLogMessageFormatter().FormatMessage;
+                formatter = new LogMessageFormatter().FormatMessage;
             }
             else
             {
