@@ -14,7 +14,7 @@ namespace DesperateDevs.Serialization.CLI.Utils
 
         protected AbstractPreferencesCommand(string loggerName)
         {
-            _logger = fabl.GetLogger(loggerName);
+            _logger = Sherlog.GetLogger(loggerName);
         }
 
         public override void Run(CLIProgram program, string[] args)

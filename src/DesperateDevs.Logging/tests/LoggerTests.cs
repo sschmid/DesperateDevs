@@ -77,7 +77,7 @@ namespace DesperateDevs.Logging.Tests
         public void AssertThrowsWhenConditionIsFalse()
         {
             _logger.Invoking(logger => logger.Assert(false, "fail"))
-                .Should().Throw<FablAssertException>();
+                .Should().Throw<SherlogAssertException>();
         }
 
         [Fact]

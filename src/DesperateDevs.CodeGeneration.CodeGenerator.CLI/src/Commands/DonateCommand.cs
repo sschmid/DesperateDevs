@@ -36,7 +36,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                     @@
 ";
 
-            fabl.GetLogger(typeof(DonateCommand)).Error(heart);
+            Sherlog.GetLogger(typeof(DonateCommand)).Error(heart);
 
             System.Diagnostics.Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BTMLSDQULZ852");
         }

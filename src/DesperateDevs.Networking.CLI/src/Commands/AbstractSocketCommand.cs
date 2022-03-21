@@ -14,7 +14,7 @@ namespace DesperateDevs.Networking.CLI {
         TcpMessageParser _tcpMessageParser;
 
         protected AbstractSocketCommand(string loggerName) {
-            _logger = fabl.GetLogger(loggerName);
+            _logger = Sherlog.GetLogger(loggerName);
         }
 
         protected void start() {

@@ -6,7 +6,7 @@ namespace DesperateDevs.Serialization.CLI.Utils
 {
     public static class PreferencesExtension
     {
-        static readonly Logger _logger = fabl.GetLogger(typeof(PreferencesExtension));
+        static readonly Logger _logger = Sherlog.GetLogger(typeof(PreferencesExtension));
 
         public static string[] GetUnusedKeys(this Preferences preferences, string[] requiredKeys)
         {

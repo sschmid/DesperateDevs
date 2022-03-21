@@ -53,9 +53,9 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                     throw new Exception("Server is already running!");
                 }
                 var command = _program.GetCommand(args.WithoutDefaultParameter()[0]);
-                fabl.AddAppender(onLog);
+                Sherlog.AddAppender(onLog);
                 command.Run(_program, args);
-                fabl.RemoveAppender(onLog);
+                Sherlog.RemoveAppender(onLog);
                 var logBufferString = getLogBufferString();
                 var sendBytes = logBufferString.Length == 0
                     ? new byte[] { 0 }

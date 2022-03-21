@@ -10,7 +10,7 @@ namespace DesperateDevs.Reflection {
 
     public partial class AssemblyResolver {
 
-        readonly Logger _logger = fabl.GetLogger(typeof(AssemblyResolver).Name);
+        readonly Logger _logger = Sherlog.GetLogger(typeof(AssemblyResolver).Name);
 
         public Assembly[] assemblies { get { return _assemblies.ToArray(); } }
 

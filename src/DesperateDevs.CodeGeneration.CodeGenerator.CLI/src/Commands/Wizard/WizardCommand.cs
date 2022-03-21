@@ -14,7 +14,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
         public override string group { get { return null; } }
         public override string example { get { return "wiz"; } }
 
-        readonly Logger _logger = fabl.GetLogger(typeof(WizardCommand));
+        readonly Logger _logger = Sherlog.GetLogger(typeof(WizardCommand));
 
         protected override void run()
         {

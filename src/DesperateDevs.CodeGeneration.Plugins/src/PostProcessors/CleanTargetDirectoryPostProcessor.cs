@@ -13,7 +13,7 @@ namespace DesperateDevs.CodeGeneration.Plugins {
 
         public Dictionary<string, string> defaultProperties { get { return _targetDirectoryConfig.defaultProperties; } }
 
-        readonly Logger _logger = fabl.GetLogger(typeof(CleanTargetDirectoryPostProcessor));
+        readonly Logger _logger = Sherlog.GetLogger(typeof(CleanTargetDirectoryPostProcessor));
 
         readonly TargetDirectoryConfig _targetDirectoryConfig = new TargetDirectoryConfig();
 

@@ -26,7 +26,7 @@ namespace DesperateDevs.Networking {
         protected readonly Socket _socket;
 
         protected AbstractTcpSocket(string loggerName) {
-            _logger = fabl.GetLogger(loggerName);
+            _logger = Sherlog.GetLogger(loggerName);
             _socket = new Socket(
                 AddressFamily.InterNetwork,
                 SocketType.Stream,

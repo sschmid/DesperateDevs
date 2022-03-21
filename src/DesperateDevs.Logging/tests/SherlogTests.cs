@@ -3,19 +3,19 @@ using Xunit;
 
 namespace DesperateDevs.Logging.Tests
 {
-    public class FablTests
+    public class SherlogTests
     {
-        public FablTests()
+        public SherlogTests()
         {
-            fabl.ResetLoggers();
-            fabl.ResetAppenders();
-            fabl.GlobalLogLevel = LogLevel.On;
+            Sherlog.ResetLoggers();
+            Sherlog.ResetAppenders();
+            Sherlog.GlobalLogLevel = LogLevel.On;
         }
 
         [Fact]
         public void CreatesNewLogger()
         {
-            var logger = fabl.GetLogger("TestLogger");
+            var logger = Sherlog.GetLogger("TestLogger");
             logger.Should().NotBeNull();
             logger.GetType().Should().BeSameAs(typeof(Logger));
             logger.Name.Should().Be("TestLogger");
@@ -25,34 +25,34 @@ namespace DesperateDevs.Logging.Tests
         [Fact]
         public void ReturnsSameLoggerWhenNameIsEqual()
         {
-            var logger1 = fabl.GetLogger("TestLogger");
-            var logger2 = fabl.GetLogger("TestLogger");
+            var logger1 = Sherlog.GetLogger("TestLogger");
+            var logger2 = Sherlog.GetLogger("TestLogger");
             logger1.Should().BeSameAs(logger2);
         }
 
         [Fact]
         public void ClearsCreatedLoggers()
         {
-            var logger1 = fabl.GetLogger("TestLogger");
-            fabl.ResetLoggers();
-            var logger2 = fabl.GetLogger("TestLogger");
+            var logger1 = Sherlog.GetLogger("TestLogger");
+            Sherlog.ResetLoggers();
+            var logger2 = Sherlog.GetLogger("TestLogger");
             logger1.Should().NotBeSameAs(logger2);
         }
 
         [Fact]
         public void CreatesNewLoggerWithGlobalLogLevel()
         {
-            fabl.GlobalLogLevel = LogLevel.Error;
-            var logger = fabl.GetLogger("TestLogger");
+            Sherlog.GlobalLogLevel = LogLevel.Error;
+            var logger = Sherlog.GetLogger("TestLogger");
             logger.LogLevel.Should().Be(LogLevel.Error);
         }
 
         [Fact]
         public void SetsGlobalLogLevelOnCreatedLogger()
         {
-            var logger = fabl.GetLogger("TestLogger");
+            var logger = Sherlog.GetLogger("TestLogger");
             logger.LogLevel.Should().Be(LogLevel.On);
-            fabl.GlobalLogLevel = LogLevel.Error;
+            Sherlog.GlobalLogLevel = LogLevel.Error;
             logger.LogLevel.Should().Be(LogLevel.Error);
         }
 
@@ -61,7 +61,7 @@ namespace DesperateDevs.Logging.Tests
         {
             var appenderLogLevel = LogLevel.Off;
             var appenderMessage = string.Empty;
-            fabl.AddAppender((log, logLevel, message) =>
+            Sherlog.AddAppender((log, logLevel, message) =>
             {
                 appenderLogLevel = logLevel;
                 appenderMessage = message;
@@ -69,13 +69,13 @@ namespace DesperateDevs.Logging.Tests
 
             var appenderLogLevel2 = LogLevel.Off;
             var appenderMessage2 = string.Empty;
-            fabl.AddAppender((log, logLevel, message) =>
+            Sherlog.AddAppender((log, logLevel, message) =>
             {
                 appenderLogLevel2 = logLevel;
                 appenderMessage2 = message;
             });
 
-            var logger = fabl.GetLogger("TestLogger");
+            var logger = Sherlog.GetLogger("TestLogger");
             logger.Info("test message");
 
             appenderLogLevel.Should().Be(LogLevel.Info);
@@ -87,9 +87,9 @@ namespace DesperateDevs.Logging.Tests
         [Fact]
         public void AddsAppenderOnCreatedLogger()
         {
-            var logger = fabl.GetLogger("TestLogger");
+            var logger = Sherlog.GetLogger("TestLogger");
             var didLog = false;
-            fabl.AddAppender((log, logLevel, message) => didLog = true);
+            Sherlog.AddAppender((log, logLevel, message) => didLog = true);
             logger.Info("test message");
             didLog.Should().BeTrue();
         }
@@ -99,9 +99,9 @@ namespace DesperateDevs.Logging.Tests
         {
             var didLog = false;
             LogDelegate appender = (log, logLevel, message) => didLog = true;
-            fabl.AddAppender(appender);
-            var logger = fabl.GetLogger("TestLogger");
-            fabl.RemoveAppender(appender);
+            Sherlog.AddAppender(appender);
+            var logger = Sherlog.GetLogger("TestLogger");
+            Sherlog.RemoveAppender(appender);
             logger.Info("test message");
             didLog.Should().BeFalse();
         }
@@ -111,13 +111,13 @@ namespace DesperateDevs.Logging.Tests
         {
             var appenderLogLevel = LogLevel.Off;
             var appenderMessage = string.Empty;
-            fabl.AddAppender((log, logLevel, message) =>
+            Sherlog.AddAppender((log, logLevel, message) =>
             {
                 appenderLogLevel = logLevel;
                 appenderMessage = message;
             });
-            fabl.ResetAppenders();
-            var logger = fabl.GetLogger("TestLogger");
+            Sherlog.ResetAppenders();
+            var logger = Sherlog.GetLogger("TestLogger");
             logger.Info("test message");
             appenderLogLevel.Should().Be(LogLevel.Off);
             appenderMessage.Should().Be(string.Empty);

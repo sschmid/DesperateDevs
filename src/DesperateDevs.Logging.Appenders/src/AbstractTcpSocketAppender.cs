@@ -8,7 +8,7 @@ namespace DesperateDevs.Logging.Appenders
     {
         public AbstractTcpSocket Socket { get; private set; }
 
-        readonly Logger _logger = fabl.GetLogger(typeof(AbstractTcpSocketAppender));
+        readonly Logger _logger = Sherlog.GetLogger(typeof(AbstractTcpSocketAppender));
 
         readonly List<HistoryEntry> _history = new List<HistoryEntry>();
 

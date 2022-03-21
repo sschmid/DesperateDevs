@@ -22,7 +22,7 @@ namespace DesperateDevs.Logging
         public void Assert(bool condition, string message)
         {
             if (!condition)
-                throw new FablAssertException(message);
+                throw new SherlogAssertException(message);
         }
 
         void Log(LogLevel logLvl, string message)
@@ -34,8 +34,8 @@ namespace DesperateDevs.Logging
         public void Reset() => OnLog = null;
     }
 
-    public class FablAssertException : Exception
+    public class SherlogAssertException : Exception
     {
-        public FablAssertException(string message) : base(message) { }
+        public SherlogAssertException(string message) : base(message) { }
     }
 }

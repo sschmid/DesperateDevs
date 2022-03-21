@@ -17,7 +17,7 @@ namespace DesperateDevs.CLI.Utils
 
         public CLIProgram(string applicationName, Type defaultCommand, string[] args, ConsoleColors consoleColors = null)
         {
-            _logger = fabl.GetLogger(applicationName);
+            _logger = Sherlog.GetLogger(applicationName);
             _defaultCommand = defaultCommand;
             _args = args;
             CLIHelper.consoleColors = consoleColors ?? new ConsoleColors();
@@ -115,15 +115,15 @@ namespace DesperateDevs.CLI.Utils
         {
             if (args.IsSilent())
             {
-                fabl.GlobalLogLevel = LogLevel.Error;
+                Sherlog.GlobalLogLevel = LogLevel.Error;
             }
             else if (args.IsVerbose())
             {
-                fabl.GlobalLogLevel = LogLevel.Debug;
+                Sherlog.GlobalLogLevel = LogLevel.Debug;
             }
             else
             {
-                fabl.GlobalLogLevel = LogLevel.Info;
+                Sherlog.GlobalLogLevel = LogLevel.Info;
             }
 
             LogFormatter formatter;
@@ -136,8 +136,8 @@ namespace DesperateDevs.CLI.Utils
                 formatter = (logger, level, message) => message;
             }
 
-            fabl.ResetAppenders();
-            fabl.AddAppender((logger, logLevel, message) =>
+            Sherlog.ResetAppenders();
+            Sherlog.AddAppender((logger, logLevel, message) =>
             {
                 message = formatter(logger, logLevel, message);
                 if (consoleColors.logLevelColors.ContainsKey(logLevel))

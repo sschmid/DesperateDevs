@@ -11,7 +11,7 @@ namespace DesperateDevs.Serialization.CLI.Utils
         public override string group => CommandGroups.PROPERTIES;
         public override string example => "new [file] [userFile] [-f]";
 
-        readonly Logger _logger = fabl.GetLogger(typeof(NewConfigCommand));
+        readonly Logger _logger = Sherlog.GetLogger(typeof(NewConfigCommand));
 
         protected override void run()
         {

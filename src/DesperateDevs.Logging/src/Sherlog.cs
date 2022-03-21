@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DesperateDevs.Logging
 {
-    public static class fabl
+    public static class Sherlog
     {
         public static LogLevel GlobalLogLevel
         {
@@ -19,7 +19,7 @@ namespace DesperateDevs.Logging
         static LogLevel _globalLogLevel;
         static LogDelegate _appenders;
         static readonly Dictionary<string, Logger> _loggers = new Dictionary<string, Logger>();
-        static readonly Logger _logger = GetLogger("fabl");
+        static readonly Logger _logger = GetLogger("Sherlog");
 
         public static void Trace(string message) => _logger.Trace(message);
         public static void Debug(string message) => _logger.Debug(message);
