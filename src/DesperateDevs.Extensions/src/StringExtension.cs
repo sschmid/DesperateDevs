@@ -20,14 +20,18 @@ namespace DesperateDevs.Extensions
 
         public static string ToUnixPath(this string str) => str.Replace("\\", "/");
 
-        public static string ToCSV(this IEnumerable<string> values) =>
-            string.Join(", ", values
-                .Where(value => !string.IsNullOrEmpty(value))
-                .Select(value => value.Trim())
-            );
+        public static string ToCSV(this IEnumerable<string> values, bool minified, bool removeEmptyEntries) =>
+            string.Join(minified ? "," : ", ", removeEmptyEntries
+                ? values
+                    .Where(value => !string.IsNullOrEmpty(value))
+                    .Select(value => value.Trim())
+                : values
+                    .Select(value => value.Trim()));
 
-        public static IEnumerable<string> FromCSV(this string values) => values
-            .Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries)
+        public static IEnumerable<string> FromCSV(this string values, bool removeEmptyEntries) => values
+            .Split(new[] {','}, removeEmptyEntries
+                ? StringSplitOptions.RemoveEmptyEntries
+                : StringSplitOptions.None)
             .Select(value => value.Trim());
 
         public static string ToSpacedCamelCase(this string text)

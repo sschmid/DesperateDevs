@@ -24,10 +24,22 @@ namespace DesperateDevs.Extensions.Tests
         public void ToUnixPath() => "a/b\\c\\d/e".ToUnixPath().Should().Be("a/b/c/d/e");
 
         [Fact]
-        public void ToCsv() => new[] {"1", "2", "3"}.ToCSV().Should().Be("1, 2, 3");
+        public void ToCsv() => new[] {"1", " 2", "", "3 "}.ToCSV(false, false).Should().Be("1, 2, , 3");
 
         [Fact]
-        public void FromCsv() => "1,2, 3".FromCSV().Should().BeEquivalentTo("1", "2", "3");
+        public void ToCsvMinified() => new[] {"1", " 2", "", "3 "}.ToCSV(true, false).Should().Be("1,2,,3");
+
+        [Fact]
+        public void ToCsvRemoveEmptyEntries() => new[] {"1", " 2", "", "3 "}.ToCSV(false, true).Should().Be("1, 2, 3");
+
+        [Fact]
+        public void ToCsvMinifiedRemoveEmptyEntries() => new[] {"1", " 2", "", "3 "}.ToCSV(true, true).Should().Be("1,2,3");
+
+        [Fact]
+        public void FromCsv() => "1,2 ,, 3".FromCSV(false).Should().BeEquivalentTo("1", "2", "", "3");
+
+        [Fact]
+        public void FromCsvRemoveEmptyEntries() => "1,2 ,, 3".FromCSV(true).Should().BeEquivalentTo("1", "2", "3");
 
         [Fact]
         public void ToSpacedCamelCase() => "ThisIsATest".ToSpacedCamelCase().Should().Be("This Is A Test");

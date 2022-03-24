@@ -84,7 +84,7 @@ namespace DesperateDevs.Serialization
             foreach (var kvp in _dict)
             {
                 var values = EscapedSpecialCharacters(kvp.Value)
-                    .FromCSV()
+                    .FromCSV(false)
                     .Select(entry => entry.PadLeft(kvp.Key.Length + 3 + entry.Length));
 
                 var value = string.Join(", \\\n", values).TrimStart();
