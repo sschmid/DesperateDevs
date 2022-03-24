@@ -35,12 +35,12 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
             catch (Exception)
             {
                 printKeyStatus(
-                    config.defaultProperties.Keys.ToArray(),
+                    config.DefaultProperties.Keys.ToArray(),
                     _preferences);
                 throw;
             }
 
-            var requiredKeys = config.defaultProperties
+            var requiredKeys = config.DefaultProperties
                 .Merge(defaultProperties).Keys.ToArray();
 
             printKeyStatus(requiredKeys, _preferences);

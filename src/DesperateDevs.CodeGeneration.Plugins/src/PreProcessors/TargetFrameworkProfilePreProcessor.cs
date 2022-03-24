@@ -11,7 +11,7 @@ namespace DesperateDevs.CodeGeneration.Plugins {
         public int priority { get { return 0; } }
         public bool runInDryMode { get { return true; } }
 
-        public Dictionary<string, string> defaultProperties { get { return _projectPathConfig.defaultProperties; } }
+        public Dictionary<string, string> DefaultProperties { get { return _projectPathConfig.DefaultProperties; } }
 
         readonly ProjectPathConfig _projectPathConfig = new ProjectPathConfig();
 

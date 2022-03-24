@@ -1,195 +1,143 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using DesperateDevs.Extensions;
 
-namespace DesperateDevs.Serialization {
+namespace DesperateDevs.Serialization
+{
+    public class Properties
+    {
+        const string VariablePattern = @"\${(.+?)}";
 
-    public class Properties {
+        public IEnumerable<string> Keys => _dict.Keys;
+        public IEnumerable<string> Values => _dict.Values;
+        public int Count => _dict.Count;
 
-        public string[] keys { get { return _dict.Keys.ToArray(); } }
-        public string[] values { get { return _dict.Values.ToArray(); } }
-
-        public int count { get { return _dict.Count; } }
-
-        const string placeholderPattern = @"\${(.+?)}";
-
-        public bool doubleQuoteMode {
-            get { return _isDoubleQuoteMode; }
-            set {
-                _isDoubleQuoteMode = value;
-                foreach (var key in _dict.Keys.ToArray()) {
-                    this[key] = this[key];
-                }
-            }
-        }
-
-        bool _isDoubleQuoteMode;
-
-        public string this[string key] {
-            get {
-                var value = Regex.Replace(
-                    _dict[key],
-                    placeholderPattern,
-                    match => {
-                        var matchValue = match.Groups[1].Value;
-                        return _dict.ContainsKey(matchValue)
-                            ? _dict[matchValue]
-                            : "${" + matchValue + "}";
-                    });
-
-                return _isDoubleQuoteMode
-                    ? removeDoubleQuotes(value)
-                    : value;
-            }
-            set {
-                var unescaped = unescapedSpecialCharacters(value.Trim());
-                _dict[key.Trim()] = _isDoubleQuoteMode
-                    ? addDoubleQuotes(unescaped)
-                    : unescaped;
-            }
+        public string this[string key]
+        {
+            get => Regex.Replace(_dict[key], VariablePattern,
+                match => _dict.TryGetValue(match.Groups[1].Value, out var reference)
+                    ? reference
+                    : match.Value);
+            set => _dict[key] = UnescapedSpecialCharacters(value);
         }
 
         readonly Dictionary<string, string> _dict;
+        readonly bool _doubleQuotedValues;
 
-        public Properties() : this(string.Empty) {
-        }
+        public Properties(bool doubleQuotedValues = false) : this(string.Empty, doubleQuotedValues) { }
 
-        public Properties(string properties) {
+        public Properties(string properties, bool doubleQuotedValues = false)
+        {
             properties = properties.ToUnixLineEndings();
+            _doubleQuotedValues = doubleQuotedValues;
             _dict = new Dictionary<string, string>();
-            var lines = getLinesWithProperties(properties);
-            addProperties(mergeMultilineValues(lines));
+            var lines = GetLinesWithProperties(properties);
+            AddProperties(MergeMultilineValues(lines));
         }
 
-        public Properties(Dictionary<string, string> properties) {
-            _dict = new Dictionary<string, string>(properties);
-        }
+        void AddProperties(IEnumerable<string> lines)
+        {
+            var delimiter = new[] {'='};
+            foreach (var line in lines)
+            {
+                var property = line.Split(delimiter, 2);
+                if (property.Length != 2)
+                    throw new InvalidPropertyException(property[0]);
 
-        public bool HasKey(string key) {
-            return _dict.ContainsKey(key);
-        }
-
-        public void AddProperties(Dictionary<string, string> properties, bool overwriteExisting) {
-            foreach (var kv in properties) {
-                if (overwriteExisting || !HasKey(kv.Key)) {
-                    this[kv.Key] = kv.Value;
-                }
+                var value = property[1].Trim();
+                this[property[0].TrimEnd()] = _doubleQuotedValues
+                    ? value.Substring(1, value.Length - 2)
+                    : value;
             }
         }
 
-        public void RemoveProperty(string key) {
-            _dict.Remove(key);
+        public void AddProperties(Dictionary<string, string> properties, bool overwriteExisting)
+        {
+            foreach (var kvp in properties)
+                if (overwriteExisting || !HasKey(kvp.Key))
+                    this[kvp.Key] = kvp.Value;
         }
 
-        public Dictionary<string, string> ToDictionary() {
-            return new Dictionary<string, string>(_dict);
-        }
+        public void RemoveProperty(string key) => _dict.Remove(key);
+        public bool HasKey(string key) => _dict.ContainsKey(key);
 
-        void addProperties(string[] lines) {
-            var keyValueDelimiter = new[] { '=' };
-            var properties = lines.Select(
-                line => line.Split(keyValueDelimiter, 2)
-            );
-            foreach (var property in properties) {
-                if (property.Length != 2) {
-                    throw new InvalidKeyPropertiesException(property[0]);
-                }
+        public Dictionary<string, string> ToDictionary() => new Dictionary<string, string>(_dict);
 
-                this[property[0]] = property[1];
+        public string ToMinifiedString()
+        {
+            var sb = new StringBuilder();
+            foreach (var kvp in _dict)
+            {
+                var value = EscapedSpecialCharacters(kvp.Value);
+                sb.AppendLine(kvp.Key + "=" + (_doubleQuotedValues ? $"\"{value}\"" : value));
             }
+
+            return sb.ToString();
         }
 
-        static string[] getLinesWithProperties(string properties) {
-            var delimiter = new[] { '\n' };
-            return properties
-                .Split(delimiter, StringSplitOptions.RemoveEmptyEntries)
-                .Select(line => line.TrimStart(' '))
-                .Where(line => !line.StartsWith("#", StringComparison.Ordinal))
-                .ToArray();
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            foreach (var kvp in _dict)
+            {
+                var values = EscapedSpecialCharacters(kvp.Value)
+                    .FromCSV()
+                    .Select(entry => entry.PadLeft(kvp.Key.Length + 3 + entry.Length));
+
+                var value = string.Join(", \\\n", values).TrimStart();
+                sb.AppendLine(kvp.Key + " = " + (_doubleQuotedValues ? $"\"{value}\"" : value));
+            }
+
+            return sb.ToString();
         }
 
-        static string[] mergeMultilineValues(string[] lines) {
+        static IEnumerable<string> GetLinesWithProperties(string properties) => properties
+            .Split(new[] {'\n'}, StringSplitOptions.RemoveEmptyEntries)
+            .Select(line => line.TrimStart(' '))
+            .Where(line => !line.StartsWith("#", StringComparison.Ordinal));
+
+        static IEnumerable<string> MergeMultilineValues(IEnumerable<string> lines)
+        {
             var currentProperty = string.Empty;
-            return lines.Aggregate(new List<string>(), (acc, line) => {
+            var values = new List<string>();
+            foreach (var line in lines)
+            {
                 currentProperty += line;
-                if (currentProperty.EndsWith("\\", StringComparison.Ordinal)) {
+                if (currentProperty.EndsWith("\\", StringComparison.Ordinal))
+                {
                     currentProperty = currentProperty.Substring(
                         0, currentProperty.Length - 1
                     );
-                } else {
-                    acc.Add(currentProperty);
+                }
+                else
+                {
+                    values.Add(currentProperty);
                     currentProperty = string.Empty;
                 }
-
-                return acc;
-            }).ToArray();
-        }
-
-        static string escapedSpecialCharacters(string str) {
-            return str
-                .Replace("\n", "\\n")
-                .Replace("\t", "\\t");
-        }
-
-        static string unescapedSpecialCharacters(string str) {
-            return str
-                .Replace("\\n", "\n")
-                .Replace("\\t", "\t");
-        }
-
-        static string addDoubleQuotes(string str) {
-            return isInDoubleQuotes(str)
-                ? str
-                : "\"" + str + "\"";
-        }
-
-        static string removeDoubleQuotes(string str) {
-            return isInDoubleQuotes(str)
-                ? str.Substring(1, str.Length - 2)
-                : str;
-        }
-
-        static bool isInDoubleQuotes(string str) {
-            return str.StartsWith("\"") && str.EndsWith("\"");
-        }
-
-        static string propertyPair(string key, string value, bool minified) {
-            if (minified) {
-                return key + "=" + value;
             }
 
-            return key + " = " + value;
+            return values;
         }
 
-        public override string ToString() {
-            return _dict.Aggregate(string.Empty, (properties, kv) => {
-                var contentValues = escapedSpecialCharacters(kv.Value)
-                    .FromCSV()
-                    .Select(value => value.PadLeft(kv.Key.Length + 3 + value.Length))
-                    .ToArray();
+        static string EscapedSpecialCharacters(string str) => str
+            .Replace("\n", "\\n")
+            .Replace("\t", "\\t");
 
-                var content = string.Join(", \\\n", contentValues).TrimStart();
-
-                return properties + propertyPair(kv.Key, content, false) + (contentValues.Length > 1 ? "\n\n" : "\n");
-            });
-        }
-
-        public string ToMinifiedString() {
-            return _dict.Aggregate(string.Empty, (properties, kv) => {
-                var content = escapedSpecialCharacters(kv.Value);
-                return properties + propertyPair(kv.Key, content, true) + "\n";
-            });
-        }
+        static string UnescapedSpecialCharacters(string str) => str
+            .Replace("\\n", "\n")
+            .Replace("\\t", "\t");
     }
 
-    public class InvalidKeyPropertiesException : Exception {
+    public class InvalidPropertyException : Exception
+    {
+        public readonly string Key;
 
-        public readonly string key;
-
-        public InvalidKeyPropertiesException(string key) : base("Invalid key: " + key) {
-            this.key = key;
+        public InvalidPropertyException(string key) : base("Invalid property: " + key)
+        {
+            Key = key;
         }
     }
 }

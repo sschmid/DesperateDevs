@@ -14,7 +14,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
             window.minSize = new Vector2(415f, 366f);
             window.Initialize(
                 EditorPrefs.GetString(CodeGeneratorPreferencesDrawer.PROPERTIES_PATH_KEY, CodeGenerator.defaultPropertiesPath),
-                Preferences.defaultUserPropertiesPath,
+                Preferences.DefaultUserPropertiesPath,
                 "DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor.CodeGeneratorPreferencesDrawer"
             );
 

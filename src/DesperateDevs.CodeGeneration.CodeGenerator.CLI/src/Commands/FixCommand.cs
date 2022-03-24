@@ -27,7 +27,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
             silent = _rawArgs.IsSilent();
 
             var config = _preferences.CreateAndConfigure<CodeGeneratorConfig>();
-            forceAddMissingKeys(config.defaultProperties, _preferences);
+            forceAddMissingKeys(config.DefaultProperties, _preferences);
 
             var instances = CodeGeneratorUtil.LoadFromPlugins(_preferences);
             // A test to check if all types can be resolved and instantiated.
@@ -134,7 +134,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 
             forceAddMissingKeys(CodeGeneratorUtil.GetDefaultProperties(instances, config), preferences);
 
-            var requiredKeys = config.defaultProperties
+            var requiredKeys = config.DefaultProperties
                 .Merge(CodeGeneratorUtil.GetDefaultProperties(instances, config))
                 .Keys
                 .ToArray();

@@ -108,7 +108,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator
                     .Concat(GetEnabledInstancesOf<IDataProvider>(instances, config.dataProviders).OfType<IConfigurable>())
                     .Concat(GetEnabledInstancesOf<ICodeGenerator>(instances, config.codeGenerators).OfType<IConfigurable>())
                     .Concat(GetEnabledInstancesOf<IPostProcessor>(instances, config.postProcessors).OfType<IConfigurable>())
-                    .Select(instance => instance.defaultProperties)
+                    .Select(instance => instance.DefaultProperties)
                     .ToArray());
         }
 

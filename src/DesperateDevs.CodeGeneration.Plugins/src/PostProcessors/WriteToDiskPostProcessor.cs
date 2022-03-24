@@ -10,7 +10,7 @@ namespace DesperateDevs.CodeGeneration.Plugins {
         public int priority { get { return 100; } }
         public bool runInDryMode { get { return false; } }
 
-        public Dictionary<string, string> defaultProperties { get { return _targetDirectoryConfig.defaultProperties; } }
+        public Dictionary<string, string> DefaultProperties { get { return _targetDirectoryConfig.DefaultProperties; } }
 
         readonly TargetDirectoryConfig _targetDirectoryConfig = new TargetDirectoryConfig();
 

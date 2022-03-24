@@ -13,7 +13,7 @@ namespace DesperateDevs.CodeGeneration.Unity.Plugins {
         public int priority { get { return 0; } }
         public bool runInDryMode { get { return true; } }
 
-        public Dictionary<string, string> defaultProperties { get { return new Dictionary<string, string>(); } }
+        public Dictionary<string, string> DefaultProperties { get { return new Dictionary<string, string>(); } }
 
         readonly CodeGeneratorConfig _codeGeneratorConfig = new CodeGeneratorConfig();
 

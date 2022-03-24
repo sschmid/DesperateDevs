@@ -26,11 +26,11 @@ namespace DesperateDevs.Serialization.CLI.Utils
             var preferences = new Preferences(properties, userProperties);
             preferences.Reset(true);
             var defaultProperties = CLIUtil.GetDefaultProperties();
-            preferences.properties.AddProperties(defaultProperties, true);
+            preferences.Properties.AddProperties(defaultProperties, true);
             preferences.Save();
 
-            _logger.Info("Created " + preferences.propertiesPath);
-            _logger.Info("Created " + preferences.userPropertiesPath);
+            _logger.Info("Created " + preferences.PropertiesPath);
+            _logger.Info("Created " + preferences.UserPropertiesPath);
             _logger.Debug(preferences.ToString());
 
             if (!_rawArgs.IsSilent())

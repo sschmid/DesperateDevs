@@ -17,7 +17,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
         public static Preferences GetPreferences()
         {
             var propertiesPath = EditorPrefs.GetString(CodeGeneratorPreferencesDrawer.PROPERTIES_PATH_KEY, CodeGenerator.defaultPropertiesPath);
-            return new Preferences(propertiesPath, Preferences.defaultUserPropertiesPath);
+            return new Preferences(propertiesPath, Preferences.DefaultUserPropertiesPath);
         }
 
         [MenuItem(CodeGeneratorMenuItems.generate, false, CodeGeneratorMenuItemPriorities.generate)]
@@ -80,7 +80,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
             Debug.Log("Connecting...");
 
             var preferences = GetPreferences();
-            _propertiesPath = preferences.propertiesPath;
+            _propertiesPath = preferences.PropertiesPath;
             var config = preferences.CreateAndConfigure<CodeGeneratorConfig>();
             var client = new TcpClientSocket();
             client.OnConnected += onConnected;

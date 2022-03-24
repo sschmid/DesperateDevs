@@ -10,7 +10,7 @@ namespace DesperateDevs.Serialization.CLI.Utils
 
         public static string[] GetUnusedKeys(this Preferences preferences, string[] requiredKeys)
         {
-            return preferences.keys
+            return preferences.Keys
                 .Where(key => !requiredKeys.Contains(key))
                 .ToArray();
         }
@@ -74,7 +74,7 @@ namespace DesperateDevs.Serialization.CLI.Utils
 
         public static void RemoveKey(this Preferences preferences, string key)
         {
-            preferences.properties.RemoveProperty(key);
+            preferences.Properties.RemoveProperty(key);
             preferences.Save();
             _logger.Warn("Removed: " + key);
         }

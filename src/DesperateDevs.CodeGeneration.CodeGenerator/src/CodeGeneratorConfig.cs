@@ -17,7 +17,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
         public const string PORT_KEY = "Jenny.Server.Port";
         public const string HOST_KEY = "Jenny.Client.Host";
 
-        public override Dictionary<string, string> defaultProperties {
+        public override Dictionary<string, string> DefaultProperties {
             get {
                 return new Dictionary<string, string> {
                     { SEARCH_PATHS_KEY, string.Empty },

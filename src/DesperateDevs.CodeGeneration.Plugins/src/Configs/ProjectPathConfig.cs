@@ -7,7 +7,7 @@ namespace DesperateDevs.CodeGeneration.Plugins {
 
         const string PROJECT_PATH_KEY = "DesperateDevs.CodeGeneration.Plugins.ProjectPath";
 
-        public override Dictionary<string, string> defaultProperties {
+        public override Dictionary<string, string> DefaultProperties {
             get {
                 return new Dictionary<string, string> {
                     { PROJECT_PATH_KEY, "Assembly-CSharp.csproj" }

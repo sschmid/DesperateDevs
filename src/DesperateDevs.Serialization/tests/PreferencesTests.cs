@@ -9,14 +9,15 @@ namespace DesperateDevs.Serialization.Tests
     {
         TestPreferences Preferences => _preferences ?? (_preferences = new TestPreferences("key = value"));
         TestPreferences UserPreferences => _preferences ?? (_preferences = new TestPreferences("key = ${userName}", "userName = Max"));
+        TestPreferences DoubleQuotedPreferences => _preferences ?? (_preferences = new TestPreferences("key = \"value\"", null, true));
         TestPreferences _preferences;
 
         [Fact]
         public void SetsProperties()
         {
-            Preferences.properties.count.Should().Be(1);
-            Preferences.properties.HasKey("key").Should().BeTrue();
-            Preferences.userProperties.count.Should().Be(0);
+            Preferences.Properties.Count.Should().Be(1);
+            Preferences.Properties.HasKey("key").Should().BeTrue();
+            Preferences.UserProperties.Count.Should().Be(0);
         }
 
         [Fact]
@@ -28,7 +29,7 @@ namespace DesperateDevs.Serialization.Tests
         [Fact]
         public void ThrowsWhenGettingMissingKey()
         {
-            Preferences.Invoking(p => p["unknown"])
+            FluentActions.Invoking(() => Preferences["unknown"])
                 .Should().Throw<KeyNotFoundException>();
         }
 
@@ -52,14 +53,6 @@ namespace DesperateDevs.Serialization.Tests
             Preferences.ToString().Should().Be("key = value\n");
         }
 
-        [Fact(Skip = "TODO")]
-        public void SupportsDoubleQuoteMode()
-        {
-            Preferences.doubleQuoteMode = true;
-            Preferences["key2"] = "value2";
-            Preferences["key2"].Should().Be("\"value2\"");
-        }
-
         [Fact]
         public void HasUserKey()
         {
@@ -76,23 +69,24 @@ namespace DesperateDevs.Serialization.Tests
         public void DoesNotOverwriteValueWhenNotDifferent()
         {
             UserPreferences["key"] = "Max";
-            UserPreferences.properties.ToString().Contains("Max").Should().BeFalse();
+            UserPreferences.Properties.Values.Should().NotContain("Max");
         }
 
         [Fact]
         public void OverwritesValueWhenDifferent()
         {
             UserPreferences["key"] = "Jack";
-            UserPreferences.properties.ToString().Contains("Jack").Should().BeTrue();
+            UserPreferences.Properties.Values.Should().Contain("Jack");
+            UserPreferences.UserProperties.Values.Should().NotContain("Jack");
         }
 
         [Fact]
         public void UserPropertiesOverwriteDefaultProperties()
         {
-            var p = new TestPreferences(
+            new TestPreferences(
                 "key = ${userName}",
-                "key = Overwrite");
-            p["key"].Should().Be("Overwrite");
+                "key = Overwrite"
+            )["key"].Should().Be("Overwrite");
         }
 
         [Fact]
@@ -117,6 +111,22 @@ namespace DesperateDevs.Serialization.Tests
         public void CanToStringWithUserProperties()
         {
             UserPreferences.ToString().Should().Be("key = ${userName}\nuserName = Max\n");
+        }
+
+        [Fact]
+        public void ReadsValuesFromDoubleQuotedValues()
+        {
+            DoubleQuotedPreferences["key"].Should().Be("value");
+            DoubleQuotedPreferences.ToString().Should().Be("key = \"value\"\n");
+        }
+
+        [Fact]
+        public void ResetsDoubleQuotedProperties()
+        {
+            DoubleQuotedPreferences.Reset(true);
+            DoubleQuotedPreferences["key2"] = "value2";
+            DoubleQuotedPreferences["key2"].Should().Be("value2");
+            DoubleQuotedPreferences.ToString().Should().Be("key2 = \"value2\"\n");
         }
     }
 }

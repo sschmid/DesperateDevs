@@ -17,7 +17,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 
         protected override void run()
         {
-            _logger.Info("Generating using " + _preferences.propertiesPath);
+            _logger.Info("Generating using " + _preferences.PropertiesPath);
 
             var watch = new Stopwatch();
             watch.Start();

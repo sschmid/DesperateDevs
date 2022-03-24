@@ -38,7 +38,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
         {
             _headerTexture = EditorLayout.LoadTexture("l:Jenny-Header");
             _codeGeneratorConfig = preferences.CreateAndConfigure<CodeGeneratorConfig>();
-            preferences.properties.AddProperties(_codeGeneratorConfig.defaultProperties, false);
+            preferences.Properties.AddProperties(_codeGeneratorConfig.DefaultProperties, false);
 
             _instances = CodeGeneratorUtil.LoadFromPlugins(preferences);
 
@@ -47,7 +47,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
             setTypesAndNames<ICodeGenerator>(_instances, out _availableGeneratorTypes, out _availableGeneratorNames);
             setTypesAndNames<IPostProcessor>(_instances, out _availablePostProcessorTypes, out _availablePostProcessorNames);
 
-            preferences.properties.AddProperties(CodeGeneratorUtil.GetDefaultProperties(_instances, _codeGeneratorConfig), false);
+            preferences.Properties.AddProperties(CodeGeneratorUtil.GetDefaultProperties(_instances, _codeGeneratorConfig), false);
 
             _useExternalCodeGenerator = EditorPrefs.GetBool(USE_EXTERNAL_CODE_GENERATOR);
             _doDryRun = EditorPrefs.GetBool(UnityCodeGenerator.DRY_RUN, true);
@@ -56,7 +56,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
         public override void DrawHeader(Preferences preferences)
         {
             var rect = EditorLayout.DrawTexture(_headerTexture);
-            var propertiesPath = Path.GetFileName(preferences.propertiesPath);
+            var propertiesPath = Path.GetFileName(preferences.PropertiesPath);
 
             var buttonWidth = 60 + propertiesPath.Length * 5;
             const int buttonHeight = 15;
@@ -71,7 +71,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
             if (GUI.Button(buttonRect, "Edit " + propertiesPath, EditorStyles.miniButton))
             {
                 EditorWindow.focusedWindow.Close();
-                System.Diagnostics.Process.Start(preferences.propertiesPath);
+                System.Diagnostics.Process.Start(preferences.PropertiesPath);
             }
         }
 
@@ -79,8 +79,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
         {
             var path = EditorLayout.ObjectFieldOpenFilePanel(
                 "Properties",
-                preferences.propertiesPath,
-                preferences.propertiesPath,
+                preferences.PropertiesPath,
+                preferences.PropertiesPath,
                 "properties"
             );
             if (!string.IsNullOrEmpty(path))
@@ -113,7 +113,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
 
         void autoImport(Preferences preferences)
         {
-            var propertiesPath = Path.GetFileName(preferences.propertiesPath);
+            var propertiesPath = Path.GetFileName(preferences.PropertiesPath);
             if (EditorUtility.DisplayDialog("Jenny - Auto Import",
                 "Auto Import will automatically find and set all plugins for you. " +
                 "It will search in folders and sub folders specified in " + propertiesPath +
@@ -143,7 +143,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
         void drawConfigurables(Preferences preferences)
         {
             var defaultProperties = CodeGeneratorUtil.GetDefaultProperties(_instances, _codeGeneratorConfig);
-            preferences.properties.AddProperties(defaultProperties, false);
+            preferences.Properties.AddProperties(defaultProperties, false);
 
             if (defaultProperties.Count != 0)
             {

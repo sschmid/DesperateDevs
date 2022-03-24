@@ -20,7 +20,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Tests
         {
             _config = new CodeGeneratorConfig();
             var preferences = new TestPreferences(string.Empty);
-            preferences.properties.AddProperties(_config.defaultProperties, true);
+            preferences.Properties.AddProperties(_config.DefaultProperties, true);
             _config.Configure(preferences);
         }
 

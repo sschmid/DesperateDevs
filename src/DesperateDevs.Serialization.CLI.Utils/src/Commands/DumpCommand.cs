@@ -20,7 +20,7 @@ namespace DesperateDevs.Serialization.CLI.Utils
 
             const string indent = "\n├── ";
             const string lastIndent = "\n└── ";
-            foreach (var key in _preferences.keys)
+            foreach (var key in _preferences.Keys)
             {
                 var values = _preferences[key].FromCSV();
 

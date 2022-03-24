@@ -15,13 +15,13 @@ namespace DesperateDevs.Serialization.CLI.Utils
 
         protected override void run()
         {
-            _logger.Debug("Opening " + _preferences.userPropertiesPath);
-            System.Diagnostics.Process.Start(_preferences.userPropertiesPath);
+            _logger.Debug("Opening " + _preferences.UserPropertiesPath);
+            System.Diagnostics.Process.Start(_preferences.UserPropertiesPath);
 
             Thread.Sleep(100);
 
-            _logger.Debug("Opening " + _preferences.propertiesPath);
-            System.Diagnostics.Process.Start(_preferences.propertiesPath);
+            _logger.Debug("Opening " + _preferences.PropertiesPath);
+            System.Diagnostics.Process.Start(_preferences.PropertiesPath);
         }
     }
 }

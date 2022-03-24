@@ -46,7 +46,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
             propertiesMenu.indent = indent;
             propertiesMenu.Start();
 
-            var preferences = new Preferences(propertiesMenu.properties, Preferences.defaultUserPropertiesPath);
+            var preferences = new Preferences(propertiesMenu.properties, Preferences.DefaultUserPropertiesPath);
 
             // Step 2: Plugins
             var pluginsMenu = new Step2_PluginsMenu(_program, title, CLIHelper.consoleColors, preferences, _rawArgs.IsVerbose());
@@ -58,12 +58,12 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                 : string.Empty;
 
             var fixCommand = new FixCommand();
-            fixCommand.Run(_program, new[] { fixCommand.trigger, preferences.propertiesPath, fixArgs });
+            fixCommand.Run(_program, new[] { fixCommand.trigger, preferences.PropertiesPath, fixArgs });
 
             Console.Clear();
 
             var doctorCommand = new DoctorCommand();
-            doctorCommand.Run(_program, new[] { doctorCommand.trigger, preferences.propertiesPath });
+            doctorCommand.Run(_program, new[] { doctorCommand.trigger, preferences.PropertiesPath });
         }
     }
 }

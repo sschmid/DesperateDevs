@@ -35,7 +35,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
             }
             else
             {
-                AddMenuEntry(new EditMenuEntry(progam, this, preferences.propertiesPath));
+                AddMenuEntry(new EditMenuEntry(progam, this, preferences.PropertiesPath));
             }
 
             foreach (var plugin in allPlugins)

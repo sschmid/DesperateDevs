@@ -13,10 +13,10 @@ namespace DesperateDevs.CodeGeneration.Plugins {
         public int priority { get { return 96; } }
         public bool runInDryMode { get { return false; } }
 
-        public Dictionary<string, string> defaultProperties {
+        public Dictionary<string, string> DefaultProperties {
             get {
-                return _projectPathConfig.defaultProperties
-                    .Merge(_targetDirectoryConfig.defaultProperties);
+                return _projectPathConfig.DefaultProperties
+                    .Merge(_targetDirectoryConfig.DefaultProperties);
             }
         }
 

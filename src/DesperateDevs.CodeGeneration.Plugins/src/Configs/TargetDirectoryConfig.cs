@@ -8,7 +8,7 @@ namespace DesperateDevs.CodeGeneration.Plugins {
 
         const string TARGET_DIRECTORY_KEY = "DesperateDevs.CodeGeneration.Plugins.TargetDirectory";
 
-        public override Dictionary<string, string> defaultProperties {
+        public override Dictionary<string, string> DefaultProperties {
             get {
                 return new Dictionary<string, string> {
                     { TARGET_DIRECTORY_KEY, "Assets" }
