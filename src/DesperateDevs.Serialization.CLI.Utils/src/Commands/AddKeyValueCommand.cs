@@ -1,4 +1,5 @@
-﻿using DesperateDevs.Extensions;
+﻿using System.Linq;
+using DesperateDevs.Extensions;
 
 namespace DesperateDevs.Serialization.CLI.Utils
 {
@@ -9,9 +10,7 @@ namespace DesperateDevs.Serialization.CLI.Utils
         public override string group => CommandGroups.PROPERTIES;
         public override string example => "add [key] [value]";
 
-        public AddKeyValueCommand() : base(typeof(AddKeyValueCommand).FullName)
-        {
-        }
+        public AddKeyValueCommand() : base(typeof(AddKeyValueCommand).FullName) { }
 
         protected override void run()
         {
@@ -32,8 +31,8 @@ namespace DesperateDevs.Serialization.CLI.Utils
             {
                 _preferences.AddValue(
                     value,
-                    _preferences[key].FromCSV(),
-                    values => _preferences[key] = values.ToCSV());
+                    _preferences[key].FromCSV(true).ToArray(),
+                    values => _preferences[key] = values.ToCSV(false, true));
             }
             else
             {

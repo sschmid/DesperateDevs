@@ -33,7 +33,7 @@ namespace DesperateDevs.Serialization.CLI.Utils
                 _preferences.AddValue(
                     value,
                     new string[0],
-                    values => _preferences[key] = values.ToCSV());
+                    values => _preferences[key] = values.ToCSV(false, true));
             }
             else
             {

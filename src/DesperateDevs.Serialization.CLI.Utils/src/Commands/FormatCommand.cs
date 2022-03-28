@@ -15,8 +15,7 @@ namespace DesperateDevs.Serialization.CLI.Utils
 
         protected override void run()
         {
-            _preferences.Minified = _args.HasParameter("-mini");
-            _preferences.Save();
+            _preferences.Save(_args.HasParameter("-mini"));
         }
     }
 }

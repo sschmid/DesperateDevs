@@ -110,7 +110,7 @@ namespace DesperateDevs.Reflection {
         }
 
         public Type[] GetTypes() {
-            return _assemblies.ToArray().GetAllTypes();
+            return _assemblies.GetAllTypes().ToArray();
         }
     }
 }

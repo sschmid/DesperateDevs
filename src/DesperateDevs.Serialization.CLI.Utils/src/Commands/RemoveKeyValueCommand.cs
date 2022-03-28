@@ -1,4 +1,5 @@
-﻿using DesperateDevs.Extensions;
+﻿using System.Linq;
+using DesperateDevs.Extensions;
 
 namespace DesperateDevs.Serialization.CLI.Utils
 {
@@ -36,8 +37,8 @@ namespace DesperateDevs.Serialization.CLI.Utils
             {
                 _preferences.RemoveValue(
                     value,
-                    _preferences[key].FromCSV(),
-                    values => _preferences[key] = values.ToCSV());
+                    _preferences[key].FromCSV(true).ToArray(),
+                    values => _preferences[key] = values.ToCSV(false, true));
             }
             else
             {
