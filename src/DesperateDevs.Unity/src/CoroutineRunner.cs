@@ -2,37 +2,33 @@
 using System.Collections;
 using UnityEngine;
 
-namespace DesperateDevs.Unity {
-
-    public class CoroutineRunner : MonoBehaviour {
-
-        static CoroutineRunner _coroutineRunner;
-
-        static CoroutineRunner runner {
-            get {
-                if (_coroutineRunner == null) {
-                    _coroutineRunner = new GameObject("Coroutine Runner").AddComponent<CoroutineRunner>();
-                    DontDestroyOnLoad(_coroutineRunner);
+namespace DesperateDevs.Unity
+{
+    public class CoroutineRunner : MonoBehaviour
+    {
+        static CoroutineRunner Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new GameObject(nameof(CoroutineRunner)).AddComponent<CoroutineRunner>();
+                    DontDestroyOnLoad(_instance);
                 }
 
-                return _coroutineRunner;
+                return _instance;
             }
         }
 
-        public static Coroutine Run<T>(IEnumerator enumerator, Action<T> onComplete = null) {
-            return runner.StartCoroutine(enumerator, onComplete);
-        }
+        static CoroutineRunner _instance;
 
-        public static void CancelCoroutine(Coroutine coroutine) {
-            runner.StopCoroutine(coroutine);
-        }
+        public static Coroutine Run(IEnumerator enumerator) => Instance.StartCoroutine(enumerator);
 
-        public Coroutine StartCoroutine<T>(IEnumerator enumerator, Action<T> onComplete = null) {
-            return StartCoroutine(new CoroutineWithData<T>().Wrap(enumerator, onComplete));
-        }
+        public static Coroutine Run<T>(IEnumerator enumerator, Action<T> onComplete) =>
+            Instance.StartCoroutine(new CoroutineWithResult<T>().Wrap(enumerator, onComplete));
 
-        void OnDestroy() {
-            _coroutineRunner = null;
-        }
+        public static void CancelCoroutine(Coroutine coroutine) => Instance.StopCoroutine(coroutine);
+
+        void OnDestroy() => _instance = null;
     }
 }
