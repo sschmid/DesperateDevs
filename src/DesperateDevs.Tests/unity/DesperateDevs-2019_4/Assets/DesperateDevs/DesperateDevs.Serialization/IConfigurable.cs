@@ -1,1 +1,0 @@
-../../../../../../../src/DesperateDevs.Serialization/src/IConfigurable.cs

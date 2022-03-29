@@ -1,1 +1,0 @@
-../../../../../../../src/DesperateDevs.CodeGeneration/src/Interfaces/IPostProcessor.cs

@@ -1,1 +1,0 @@
-../../../../../../../src/DesperateDevs.CodeGeneration.Unity.Plugins/src/PreProcessors/WarnIfCompilationErrorsDoctor.cs
