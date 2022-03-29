@@ -39,3 +39,6 @@ build
 src/DesperateDevs.Tests/unity/DesperateDevs-*/Assets/DesperateDevs.*
 src/DesperateDevs.Tests/unity/DesperateDevs-*/Assets/Samples*
 src/DesperateDevs.Tests/unity/DesperateDevs-*/Jenny.properties
+src/DesperateDevs.Tests/unity/DesperateDevs-*/CodeStyle.DotSettings
+src/DesperateDevs.Tests/unity/DesperateDevs-*/*.sln.DotSettings
+src/DesperateDevs.Tests/unity/DesperateDevs-*/PatternsAndTemplates.DotSettings

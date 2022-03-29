@@ -118,8 +118,24 @@ desperatedevs::coverage() {
 }
 
 desperatedevs::restore_unity() {
-  _sync_unity_samples
-  _sync_desperate_devs_unity
+  for project in "${DEDE_UNITY_PROJECTS[@]}"; do
+    bee::log_echo "Restore Samples: ${project}"
+    _clean_dir "${project}/Assets/Samples"
+    _sync_unity src/DesperateDevs.Tests/unity/Samples "${project}/Assets"
+    mv "${project}/Assets/Samples/Jenny.properties" "${project}/Jenny.properties"
+
+    bee::log_echo "Restore DesperateDevs: ${project}"
+    rm -rf "${project}"/Assets/DesperateDevs.*
+    for dep in "${DESPERATE_DEVS_RESTORE_UNITY[@]}"; do
+      bee::log_echo "Restore ${dep}: ${project}"
+      _sync_unity "src/${dep}/src/" "${project}/Assets/${dep}"
+    done
+
+    bee::log_echo "Restore Dotfiles: ${project}"
+    cp DesperateDevs.sln.DotSettings "${project}/$(basename "${project}").sln.DotSettings"
+    cp CodeStyle.DotSettings "${project}/CodeStyle.DotSettings"
+    cp PatternsAndTemplates.DotSettings "${project}/PatternsAndTemplates.DotSettings"
+  done
 }
 
 desperatedevs::sync_unity_solutions() {
@@ -279,26 +295,6 @@ desperatedevs::collect() {
 _clean_dir() {
   rm -rf "$@"
   mkdir -p "$@"
-}
-
-_sync_unity_samples() {
-  for project in "${DEDE_UNITY_PROJECTS[@]}"; do
-    bee::log_echo "Restore Samples: ${project}"
-    _clean_dir "${project}/Assets/Samples"
-    _sync_unity src/DesperateDevs.Tests/unity/Samples "${project}/Assets"
-    mv "${project}/Assets/Samples/Jenny.properties" "${project}/Jenny.properties"
-  done
-}
-
-_sync_desperate_devs_unity() {
-  for project in "${DEDE_UNITY_PROJECTS[@]}"; do
-    bee::log_echo "Restore DesperateDevs: ${project}"
-    rm -rf "${project}"/Assets/DesperateDevs.*
-    for dep in "${DESPERATE_DEVS_RESTORE_UNITY[@]}"; do
-      bee::log_echo "Restore ${dep}: ${project}"
-      _sync_unity "src/${dep}/src/" "${project}/Assets/${dep}"
-    done
-  done
 }
 
 _sync() {
