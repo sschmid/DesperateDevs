@@ -34,3 +34,8 @@ Assembly-CSharp*.csproj
 # Project
 .unitypath
 build
+
+# Unity test projects
+src/DesperateDevs.Tests/unity/DesperateDevs-*/Assets/DesperateDevs.*
+src/DesperateDevs.Tests/unity/DesperateDevs-*/Assets/Samples*
+src/DesperateDevs.Tests/unity/DesperateDevs-*/Jenny.properties

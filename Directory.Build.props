@@ -5,6 +5,7 @@
     <DefaultNetTargetFramework>net472</DefaultNetTargetFramework>
     <DefaultTestTargetFramework>net472</DefaultTestTargetFramework>
     <LangVersion>7.3</LangVersion>
+    <OutDir>bin/$(Configuration)</OutDir>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
 

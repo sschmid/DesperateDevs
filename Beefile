@@ -26,10 +26,3 @@ DESPERATE_DEVS_RESTORE_UNITY=(
   DesperateDevs.Unity
   DesperateDevs.Unity.Editor
 )
-
-DESPERATE_DEVS_DIRS=(
-  DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor/src/Images
-)
-
-DEDE_RSYNC_INCLUDE="${BEE_RESOURCES}/desperatedevs/rsync_include.txt"
-DEDE_RSYNC_EXCLUDE="${BEE_RESOURCES}/desperatedevs/rsync_exclude.txt"

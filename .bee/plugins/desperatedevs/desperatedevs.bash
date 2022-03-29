@@ -118,8 +118,8 @@ desperatedevs::coverage() {
 }
 
 desperatedevs::restore_unity() {
-  _symlink_unity_src
-  _symlink_desperate_devs_unity
+  _sync_unity_src
+  _sync_desperate_devs_unity
 }
 
 desperatedevs::publish() {
@@ -255,57 +255,45 @@ _clean_dir() {
   mkdir -p "$@"
 }
 
-_sync() {
-  rsync -ahriI --include-from "${DEDE_RSYNC_INCLUDE}" --exclude-from "${DEDE_RSYNC_EXCLUDE}" "$@"
-}
-
-_symlink_unity_src() {
-  local source_files project_dir file
-  mapfile -t source_files < <(find src/DesperateDevs.Tests/unity/src -type f -name "*.cs")
+_sync_unity_src() {
+  local project_dir
   for unity_version in "${DEDE_UNITY_VERSIONS[@]}"; do
     project_dir="src/DesperateDevs.Tests/unity/DesperateDevs-${unity_version}"
     bee::log_echo "Restore src: ${project_dir}"
-    _clean_dir "${project_dir}/Assets/src"
-    pushd "${project_dir}" > /dev/null || exit 1
-      for f in "${source_files[@]}"; do
-        file="${f##*/}"
-        bee::log_echo "  Restoring ${project_dir}/Assets/src/${file}"
-        ln -s "../../../src/${file}" "Assets/src/${file}"
-      done
-      bee::log_echo "  Restoring ${project_dir}/Jenny.properties"
-      ln -sf "../src/Jenny.properties" "Jenny.properties"
-    popd > /dev/null || exit 1
+    _clean_dir "${project_dir}/Assets/Samples"
+    _sync_unity src/DesperateDevs.Tests/unity/Samples "${project_dir}/Assets"
+    mv "${project_dir}/Assets/Samples/Jenny.properties" "${project_dir}/Jenny.properties"
   done
 }
 
-_symlink_desperate_devs_unity() {
-  local source_files project_dir target_dir file
+_sync_desperate_devs_unity() {
+  local project_dir
   for unity_version in "${DEDE_UNITY_VERSIONS[@]}"; do
     project_dir="src/DesperateDevs.Tests/unity/DesperateDevs-${unity_version}"
     bee::log_echo "Restore DesperateDevs: ${project_dir}"
-    _clean_dir "${project_dir}/Assets/DesperateDevs"
+    rm -rf "${project_dir}"/Assets/DesperateDevs.*
     for dep in "${DESPERATE_DEVS_RESTORE_UNITY[@]}"; do
-      mapfile -t source_files < <(find "src/${dep}/src" -type f -name "*.cs" -not -path "*src/obj*")
       bee::log_echo "Restore ${dep}: ${project_dir}"
-      mkdir -p "${project_dir}/Assets/DesperateDevs/${dep}"
-      pushd "${project_dir}/Assets/DesperateDevs/${dep}" > /dev/null || exit 1
-        for f in "${source_files[@]}"; do
-          file="${f##*/}"
-          bee::log_echo "  Restoring ${project_dir}/Assets/DesperateDevs/${dep}/${file}"
-          ln -s "../../../../../../../${f}" "${file}"
-        done
-      popd > /dev/null || exit 1
+      _sync_unity "src/${dep}/src/" "${project_dir}/Assets/${dep}"
     done
-    pushd "${project_dir}/Assets/DesperateDevs" > /dev/null || exit 1
-      for dir in "${DESPERATE_DEVS_DIRS[@]}"; do
-        bee::log_echo "Restore ${dir}: ${project_dir}"
-        target_dir="$(dirname "${dir}")"
-        mkdir -p "${target_dir}"
-        pushd "${target_dir}" > /dev/null || exit 1
-          bee::log_echo "  Restoring ${target_dir}"
-          ln -s "../../../../../../../${dir}" "$(basename "${dir}")"
-        popd > /dev/null || exit 1
-      done
-    popd > /dev/null || exit 1
   done
+}
+
+_sync() {
+  rsync \
+    --archive \
+    --recursive \
+    --prune-empty-dirs \
+    --include-from "${BEE_RESOURCES}/desperatedevs/rsync_include.txt" \
+    --exclude-from "${BEE_RESOURCES}/desperatedevs/rsync_exclude.txt" \
+    "$@"
+}
+
+_sync_unity() {
+  rsync \
+    --archive \
+    --recursive \
+    --prune-empty-dirs \
+    --exclude-from "${BEE_RESOURCES}/desperatedevs/rsync_exclude_unity.txt" \
+    "$@"
 }
