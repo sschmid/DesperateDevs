@@ -118,8 +118,34 @@ desperatedevs::coverage() {
 }
 
 desperatedevs::restore_unity() {
-  _sync_unity_src
+  _sync_unity_samples
   _sync_desperate_devs_unity
+}
+
+desperatedevs::sync_unity_solutions() {
+  local version
+  local -A projects=()
+  for project in "${DEDE_UNITY_PROJECTS[@]}" ; do
+    UNITY_PROJECT_PATH="${project}"
+    version="$(grep "m_EditorVersion:" "${project}/ProjectSettings/ProjectVersion.txt" | awk '{print $2}')"
+    UNITY="${UNITY_PATH}/${version}/${UNITY_APP}"
+    unity::sync_solution &
+    projects["${project}"]=$!
+  done
+
+  for project in "${!projects[@]}"; do
+    if wait ${projects["${project}"]}
+    then projects["${project}"]=1
+    else projects["${project}"]=0
+    fi
+  done
+
+  for project in "${!projects[@]}"; do
+    if ((projects["${project}"]))
+    then bee::log_echo "🟢 ${project}"
+    else bee::log_echo "🔴 ${project}"
+    fi
+  done | LC_ALL=C sort
 }
 
 desperatedevs::publish() {
@@ -255,26 +281,22 @@ _clean_dir() {
   mkdir -p "$@"
 }
 
-_sync_unity_src() {
-  local project_dir
-  for unity_version in "${DEDE_UNITY_VERSIONS[@]}"; do
-    project_dir="src/DesperateDevs.Tests/unity/DesperateDevs-${unity_version}"
-    bee::log_echo "Restore src: ${project_dir}"
-    _clean_dir "${project_dir}/Assets/Samples"
-    _sync_unity src/DesperateDevs.Tests/unity/Samples "${project_dir}/Assets"
-    mv "${project_dir}/Assets/Samples/Jenny.properties" "${project_dir}/Jenny.properties"
+_sync_unity_samples() {
+  for project in "${DEDE_UNITY_PROJECTS[@]}"; do
+    bee::log_echo "Restore Samples: ${project}"
+    _clean_dir "${project}/Assets/Samples"
+    _sync_unity src/DesperateDevs.Tests/unity/Samples "${project}/Assets"
+    mv "${project}/Assets/Samples/Jenny.properties" "${project}/Jenny.properties"
   done
 }
 
 _sync_desperate_devs_unity() {
-  local project_dir
-  for unity_version in "${DEDE_UNITY_VERSIONS[@]}"; do
-    project_dir="src/DesperateDevs.Tests/unity/DesperateDevs-${unity_version}"
-    bee::log_echo "Restore DesperateDevs: ${project_dir}"
-    rm -rf "${project_dir}"/Assets/DesperateDevs.*
+  for project in "${DEDE_UNITY_PROJECTS[@]}"; do
+    bee::log_echo "Restore DesperateDevs: ${project}"
+    rm -rf "${project}"/Assets/DesperateDevs.*
     for dep in "${DESPERATE_DEVS_RESTORE_UNITY[@]}"; do
-      bee::log_echo "Restore ${dep}: ${project_dir}"
-      _sync_unity "src/${dep}/src/" "${project_dir}/Assets/${dep}"
+      bee::log_echo "Restore ${dep}: ${project}"
+      _sync_unity "src/${dep}/src/" "${project}/Assets/${dep}"
     done
   done
 }

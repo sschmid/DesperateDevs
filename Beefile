@@ -5,10 +5,10 @@ BEE_PLUGINS=(desperatedevs)
 
 [[ -f ~/.bee/desperatedevs.bash ]] && source ~/.bee/desperatedevs.bash
 
-DEDE_UNITY_VERSIONS=(
-  2018_4
-  2019_4
-  2020_3
+DEDE_UNITY_PROJECTS=(
+  src/DesperateDevs.Tests/unity/DesperateDevs-2018_4
+  src/DesperateDevs.Tests/unity/DesperateDevs-2019_4
+  src/DesperateDevs.Tests/unity/DesperateDevs-2020_3
 )
 
 DESPERATE_DEVS_RESTORE_UNITY=(
@@ -26,3 +26,6 @@ DESPERATE_DEVS_RESTORE_UNITY=(
   DesperateDevs.Unity
   DesperateDevs.Unity.Editor
 )
+
+UNITY_PATH="/Applications/Unity/Hub/Editor"
+UNITY_APP="Unity.app/Contents/MacOS/Unity"
