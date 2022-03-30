@@ -33,7 +33,7 @@ EOF
   fi
 
   DOCKER_BUILDKIT=1 docker build --target bee -t desperatedevs .
-  docker run -it -v "$(pwd)":/app -w /app desperatedevs "$@"
+  docker run -it -v "$(pwd)":/DesperateDevs -w /DesperateDevs desperatedevs "$@"
 }
 
 desperatedevs::new() {

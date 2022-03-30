@@ -13,15 +13,18 @@ RUN apt-get update && apt-get install -y --fix-missing \
   mono-complete \
   nuget \
   tree \
+  vim \
   && rm -rf /var/lib/apt/lists/*
+COPY .bee/desperatedevs/.bashrc /root/.bashrc
 RUN dotnet tool install -g dotnet-reportgenerator-globaltool \
-  && echo 'PATH="$HOME/.dotnet/tools:$PATH"' >> ~/.bashrc
+  && echo 'PATH="$HOME/.dotnet/tools:$PATH"' >> /root/.bashrc
 
 FROM base AS bee
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/sschmid/bee/main/install)" \
-  && echo "complete -C bee bee" >> ~/.bashrc \
+  && echo "complete -C bee bee" >> /root/.bashrc \
   && bee bee::run pull
-WORKDIR /app
-COPY Beefile .
+WORKDIR /DesperateDevs
+COPY Beefile Beefile
+COPY Beefile.lock Beefile.lock
 COPY .bee .bee
 RUN bee bee::run install
