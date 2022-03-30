@@ -43,5 +43,11 @@ namespace DesperateDevs.Extensions.Tests
 
         [Fact]
         public void ToSpacedCamelCase() => "ThisIsATest".ToSpacedCamelCase().Should().Be("This Is A Test");
+
+        [Fact]
+        public void MakesPathRelativeToParentDirs() => "/home/DesperateDevs/test/file".MakePathRelativeTo("/home/DesperateDevs").Should().Be("test/file");
+
+        [Fact]
+        public void CannotMakePathRelativeToSubDirs() => "/home".MakePathRelativeTo("/home/DesperateDevs").Should().Be("/home");
     }
 }
