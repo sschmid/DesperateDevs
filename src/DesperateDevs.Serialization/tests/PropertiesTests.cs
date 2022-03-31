@@ -465,6 +465,19 @@ key2=value4
         }
 
         [Fact]
+        public void ToDoubleQuotedValueMinifiedString()
+        {
+            var properties = new Properties(
+                @"key = ""value1, value2, value3""
+key2 = ""value4""", true);
+
+            properties.ToMinifiedString().Should().Be(
+                @"key=""value1, value2, value3""
+key2=""value4""
+");
+        }
+
+        [Fact]
         public void CreatesPropertiesFromDoubleQuotedValueInputString()
         {
             AssertProperties(

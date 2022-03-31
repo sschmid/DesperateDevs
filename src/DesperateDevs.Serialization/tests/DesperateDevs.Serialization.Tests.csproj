@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\DesperateDevs.Tests\tests\DesperateDevs.Tests.csproj" />
     <ProjectReference Include="..\src\DesperateDevs.Serialization.csproj" />
   </ItemGroup>
 

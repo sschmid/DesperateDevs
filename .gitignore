@@ -34,6 +34,7 @@ Assembly-CSharp*.csproj
 # Project
 .unitypath
 build
+src/DesperateDevs.Serialization/tests/Fixtures/Temp
 
 # Unity test projects
 src/DesperateDevs.Tests/unity/DesperateDevs-*/Assets/DesperateDevs.*
