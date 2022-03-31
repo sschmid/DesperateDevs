@@ -16,19 +16,20 @@ namespace DesperateDevs.Logging
             }
         }
 
+
+        static readonly Dictionary<string, Logger> Loggers = new Dictionary<string, Logger>();
         static LogLevel _globalLogLevel;
         static LogDelegate _appenders;
-        static readonly Dictionary<string, Logger> Loggers = new Dictionary<string, Logger>();
-        static readonly Logger Logger = GetLogger("Sherlog");
+        static Logger _logger = GetLogger("Sherlog");
 
-        public static void Trace(string message) => Logger.Trace(message);
-        public static void Debug(string message) => Logger.Debug(message);
-        public static void Info(string message) => Logger.Info(message);
-        public static void Warn(string message) => Logger.Warn(message);
-        public static void Error(string message) => Logger.Error(message);
-        public static void Fatal(string message) => Logger.Fatal(message);
+        public static void Trace(string message) => _logger.Trace(message);
+        public static void Debug(string message) => _logger.Debug(message);
+        public static void Info(string message) => _logger.Info(message);
+        public static void Warn(string message) => _logger.Warn(message);
+        public static void Error(string message) => _logger.Error(message);
+        public static void Fatal(string message) => _logger.Fatal(message);
 
-        public static void Assert(bool condition, string message) => Logger.Assert(condition, message);
+        public static void Assert(bool condition, string message) => _logger.Assert(condition, message);
 
         public static void AddAppender(LogDelegate appender)
         {
@@ -61,7 +62,12 @@ namespace DesperateDevs.Logging
             return logger;
         }
 
-        public static void ResetLoggers() => Loggers.Clear();
+        public static void ResetLoggers()
+        {
+            Loggers.Clear();
+            _logger = GetLogger("Sherlog");
+        }
+
         public static void ResetAppenders() => _appenders = null;
     }
 }

@@ -23,10 +23,28 @@ namespace DesperateDevs.Logging.Tests
         }
 
         [Fact]
+        public void CreatesNewLoggerForType()
+        {
+            var logger = Sherlog.GetLogger(typeof(SherlogTests));
+            logger.Should().NotBeNull();
+            logger.GetType().Should().BeSameAs(typeof(Logger));
+            logger.Name.Should().Be("DesperateDevs.Logging.Tests.SherlogTests");
+            logger.LogLevel.Should().Be(LogLevel.On);
+        }
+
+        [Fact]
         public void ReturnsSameLoggerWhenNameIsEqual()
         {
             var logger1 = Sherlog.GetLogger("TestLogger");
             var logger2 = Sherlog.GetLogger("TestLogger");
+            logger1.Should().BeSameAs(logger2);
+        }
+
+        [Fact]
+        public void ReturnsSameLoggerWhenTypeIsEqual()
+        {
+            var logger1 = Sherlog.GetLogger(typeof(SherlogTests));
+            var logger2 = Sherlog.GetLogger(typeof(SherlogTests));
             logger1.Should().BeSameAs(logger2);
         }
 
@@ -121,6 +139,55 @@ namespace DesperateDevs.Logging.Tests
             logger.Info("test message");
             appenderLogLevel.Should().Be(LogLevel.Off);
             appenderMessage.Should().Be(string.Empty);
+        }
+
+        [Fact]
+        public void ForwardsToSherlogLogger()
+        {
+            Logger logger = null;
+            var appenderLogLevel = LogLevel.Off;
+            var appenderMessage = string.Empty;
+            Sherlog.AddAppender((log, logLevel, message) =>
+            {
+                logger = log;
+                appenderLogLevel = logLevel;
+                appenderMessage = message;
+            });
+
+            Sherlog.Trace("trace message");
+            Sherlog.Trace("trace message");
+            logger.Should().BeSameAs(Sherlog.GetLogger("Sherlog"));
+            appenderLogLevel.Should().Be(LogLevel.Trace);
+            appenderMessage.Should().Be("trace message");
+
+            Sherlog.Debug("debug message");
+            logger.Should().BeSameAs(Sherlog.GetLogger("Sherlog"));
+            appenderLogLevel.Should().Be(LogLevel.Debug);
+            appenderMessage.Should().Be("debug message");
+
+            Sherlog.Info("info message");
+            logger.Should().BeSameAs(Sherlog.GetLogger("Sherlog"));
+            appenderLogLevel.Should().Be(LogLevel.Info);
+            appenderMessage.Should().Be("info message");
+
+            Sherlog.Warn("warn message");
+            logger.Should().BeSameAs(Sherlog.GetLogger("Sherlog"));
+            appenderLogLevel.Should().Be(LogLevel.Warn);
+            appenderMessage.Should().Be("warn message");
+
+            Sherlog.Error("error message");
+            logger.Should().BeSameAs(Sherlog.GetLogger("Sherlog"));
+            appenderLogLevel.Should().Be(LogLevel.Error);
+            appenderMessage.Should().Be("error message");
+
+            Sherlog.Fatal("fatal message");
+            logger.Should().BeSameAs(Sherlog.GetLogger("Sherlog"));
+            appenderLogLevel.Should().Be(LogLevel.Fatal);
+            appenderMessage.Should().Be("fatal message");
+
+            FluentActions.Invoking(() => Sherlog.Assert(false, "assert message"))
+                .Should().Throw<SherlogAssertException>()
+                .Which.Message.Should().Be("assert message");
         }
     }
 }
