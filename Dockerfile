@@ -17,6 +17,7 @@ RUN apt-get update && apt-get install -y --fix-missing \
   && rm -rf /var/lib/apt/lists/*
 COPY .bee/desperatedevs/.bashrc /root/.bashrc
 RUN dotnet tool install -g dotnet-reportgenerator-globaltool \
+  && dotnet tool install -g coverlet.console \
   && echo 'PATH="$HOME/.dotnet/tools:$PATH"' >> /root/.bashrc
 
 FROM base AS bee
