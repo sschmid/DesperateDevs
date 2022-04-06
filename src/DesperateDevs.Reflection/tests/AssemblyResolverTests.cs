@@ -18,8 +18,8 @@ namespace DesperateDevs.Reflection.Tests
         const string Project2AssemblyFile = Project2AssemblyName + ".dll";
         const string Project1ClassType = "DesperateDevs.Reflection.Tests.Project1.TestClass";
         const string Project2ClassType = "DesperateDevs.Reflection.Tests.Project2.TestClass";
-        static readonly string Project1BasePath = Path.Combine(ProjectRoot, "DesperateDevs.Tests", "fixtures", "DesperateDevs.Reflection.Tests.Project1", "bin", "Release");
-        static readonly string Project2BasePath = Path.Combine(ProjectRoot, "DesperateDevs.Tests", "fixtures", "DesperateDevs.Reflection.Tests.Project2", "bin", "Release");
+        static readonly string Project1BasePath = Path.Combine(ProjectRoot, "DesperateDevs.Reflection", "fixtures", "DesperateDevs.Reflection.Tests.Project1", "bin", "Release");
+        static readonly string Project2BasePath = Path.Combine(ProjectRoot, "DesperateDevs.Reflection", "fixtures", "DesperateDevs.Reflection.Tests.Project2", "bin", "Release");
 
         AssemblyResolver Project1ResolverReflection { get; } = new AssemblyResolver(true, Project1BasePath);
 

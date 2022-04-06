@@ -1,7 +1,6 @@
 ﻿using BenchmarkDotNet.Running;
-using DesperateDevs.Logging.Benchmarks;
 
-namespace DesperateDevs.Extensions.Benchmarks
+namespace DesperateDevs.Logging.Benchmarks
 {
     class Program
     {

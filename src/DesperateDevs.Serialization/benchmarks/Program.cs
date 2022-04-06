@@ -1,7 +1,6 @@
 ﻿using BenchmarkDotNet.Running;
-using DesperateDevs.Serialization.Benchmarks;
 
-namespace DesperateDevs.Extensions.Benchmarks
+namespace DesperateDevs.Serialization.Benchmarks
 {
     class Program
     {
