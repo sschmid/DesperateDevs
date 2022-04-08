@@ -9,7 +9,7 @@ namespace Samples.DesperateDevs.Unity.Editor.Editor
         [MenuItem("Samples/DesperateDevs.Unity.Editor/Create SampleScriptingDefineSymbolsWindow")]
         public static void CreateWindow()
         {
-            EditorWindow.CreateWindow<SampleScriptingDefineSymbolsWindow>(nameof(SampleScriptingDefineSymbolsWindow));
+            GetWindow<SampleScriptingDefineSymbolsWindow>(nameof(SampleScriptingDefineSymbolsWindow));
         }
 
         ScriptingDefineSymbols _symbols;
