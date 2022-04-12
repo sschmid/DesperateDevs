@@ -5,31 +5,16 @@ namespace DesperateDevs.Net.Cli
 {
     public class ConnectCommand : AbstractSocketCommand
     {
-        public override string Trigger
-        {
-            get { return "connect"; }
-        }
-
-        public override string Description
-        {
-            get { return "Connect to ip on port"; }
-        }
-
-        public override string Group
-        {
-            get { return null; }
-        }
-
-        public override string Example
-        {
-            get { return "connect [ip] [port]"; }
-        }
+        public override string Trigger => "connect";
+        public override string Description => "Connect to ip on port";
+        public override string Group => null;
+        public override string Example => "connect [ip] [port]";
 
         public ConnectCommand() : base(typeof(ConnectCommand).FullName) { }
 
         protected override void Run()
         {
-            IPAddress ip = null;
+            IPAddress ip;
             int port;
 
             try
@@ -47,7 +32,6 @@ namespace DesperateDevs.Net.Cli
             _socket = client;
             client.OnDisconnected += socket => Environment.Exit(0);
             client.Connect(ip, port);
-
             Start();
         }
     }

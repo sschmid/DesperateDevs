@@ -4,25 +4,10 @@ namespace DesperateDevs.Net.Cli
 {
     public class ListenCommand : AbstractSocketCommand
     {
-        public override string Trigger
-        {
-            get { return "listen"; }
-        }
-
-        public override string Description
-        {
-            get { return "Listen on port"; }
-        }
-
-        public override string Group
-        {
-            get { return null; }
-        }
-
-        public override string Example
-        {
-            get { return "listen [port]"; }
-        }
+        public override string Trigger => "listen";
+        public override string Description => "Listen on port";
+        public override string Group => null;
+        public override string Example => "listen [port]";
 
         public ListenCommand() : base(typeof(ListenCommand).FullName) { }
 
@@ -43,7 +28,6 @@ namespace DesperateDevs.Net.Cli
             var server = new TcpServerSocket();
             _socket = server;
             server.Listen(port);
-
             Start();
         }
     }
