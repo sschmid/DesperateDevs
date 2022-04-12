@@ -6,7 +6,7 @@ namespace DesperateDevs.Net.Cli
     {
         public static void Main(string[] args)
         {
-            new CLIProgram("TCPezy", typeof(HelpCommand), args).Run();
+            new CliProgram("TCPezy", typeof(HelpCommand), args).Run();
         }
     }
 }

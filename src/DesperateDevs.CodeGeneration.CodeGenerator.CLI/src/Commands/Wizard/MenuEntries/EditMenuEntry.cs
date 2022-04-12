@@ -5,7 +5,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 {
     public class EditMenuEntry : MenuEntry
     {
-        public EditMenuEntry(CLIProgram progam, CLIMenu menu, string propertiesPath) :
+        public EditMenuEntry(CliProgram progam, CliMenu menu, string propertiesPath) :
             base("Edit " + propertiesPath, null, false, () =>
             {
                 var command = new EditConfigCommand();

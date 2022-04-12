@@ -8,8 +8,8 @@ namespace DesperateDevs.Cli.Utils.Tests.Program
     {
         public static void Main(string[] args)
         {
-            CLIHelper.consoleColors = new ConsoleColors();
-            var menu = new CLIMenu("CLI Tester", CLIHelper.consoleColors);
+            CliHelper.consoleColors = new ConsoleColors();
+            var menu = new CliMenu("CLI Tester", CliHelper.consoleColors);
             menu.AddMenuEntry(new GreetMenuEntry());
             menu.AddMenuEntry(new SubMenuEntry(menu.title));
             menu.AddMenuEntry(new SelectionMenuEntry(menu.title));
@@ -48,7 +48,7 @@ public sealed class SubMenuEntry : IMenuEntry
 
     public Action action => () =>
     {
-        var menu = new CLIMenu(_subtitle, CLIHelper.consoleColors);
+        var menu = new CliMenu(_subtitle, CliHelper.consoleColors);
         menu.AddMenuEntry(new GreetMenuEntry());
         menu.AddMenuEntry(new SubMenuEntry(_subtitle));
         menu.AddMenuEntry(new StopMenuEntry(menu, "Back", true));
@@ -71,7 +71,7 @@ public sealed class SelectionMenuEntry : IMenuEntry
 
     public Action action => () =>
     {
-        var menu = new CLIMenu(_subtitle, CLIHelper.consoleColors);
+        var menu = new CliMenu(_subtitle, CliHelper.consoleColors);
         menu.AddMenuEntry(new SelectableMenuEntry("Desperate", false));
         menu.AddMenuEntry(new SelectableMenuEntry("Devs", false));
         menu.AddMenuEntry(new SelectableMenuEntry("Console", false));

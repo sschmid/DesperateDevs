@@ -7,13 +7,13 @@ using DesperateDevs.Serialization;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 {
-    public class Step2_PluginsMenu : CLIMenu
+    public class Step2_PluginsMenu : CliMenu
     {
         public bool shouldAutoImport;
 
         readonly bool _isVerbose;
 
-        public Step2_PluginsMenu(CLIProgram progam, string title, ConsoleColors colors, Preferences preferences, bool isVerbose) : base(buildTitle(title), colors)
+        public Step2_PluginsMenu(CliProgram progam, string title, ConsoleColors colors, Preferences preferences, bool isVerbose) : base(buildTitle(title), colors)
         {
             _isVerbose = isVerbose;
             Console.WriteLine(title);

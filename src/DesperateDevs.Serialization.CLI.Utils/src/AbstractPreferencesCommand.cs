@@ -17,7 +17,7 @@ namespace DesperateDevs.Serialization.CLI.Utils
             _logger = Sherlog.GetLogger(loggerName);
         }
 
-        public override void Run(CLIProgram program, string[] args)
+        public override void Run(CliProgram program, string[] args)
         {
             try
             {

@@ -7,11 +7,11 @@ using DesperateDevs.Extensions;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 {
-    public class Step1_PropertiesMenu : CLIMenu
+    public class Step1_PropertiesMenu : CliMenu
     {
         public string properties;
 
-        public Step1_PropertiesMenu(CLIProgram progam, string title, ConsoleColors colors, string[] properties) : base(buildTitle(title, properties), colors)
+        public Step1_PropertiesMenu(CliProgram progam, string title, ConsoleColors colors, string[] properties) : base(buildTitle(title, properties), colors)
         {
             foreach (var p in properties)
                 AddMenuEntry(new SelectPropertiesMenuEntry(this, p.MakePathRelativeTo(Directory.GetCurrentDirectory())));
@@ -61,7 +61,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 
     public class CreateDefaultPropertiesMenuEntry : MenuEntry
     {
-        public CreateDefaultPropertiesMenuEntry(CLIProgram progam, Step1_PropertiesMenu menu) :
+        public CreateDefaultPropertiesMenuEntry(CliProgram progam, Step1_PropertiesMenu menu) :
             base("Create new " + CodeGenerator.defaultPropertiesPath, null, false, () =>
             {
                 var command = new NewConfigCommand();
@@ -75,7 +75,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 
     public class CreateCustomPropertiesMenuEntry : MenuEntry
     {
-        public CreateCustomPropertiesMenuEntry(CLIProgram progam, Step1_PropertiesMenu menu) :
+        public CreateCustomPropertiesMenuEntry(CliProgram progam, Step1_PropertiesMenu menu) :
             base("Create a new properties file with a custom name", null, false, () =>
             {
                 Console.WriteLine("Please enter a file name");

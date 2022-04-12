@@ -7,6 +7,6 @@
         string Group { get; }
         string Example { get; }
 
-        void Run(CLIProgram program, string[] args);
+        void Run(CliProgram program, string[] args);
     }
 }

@@ -7,11 +7,11 @@ namespace DesperateDevs.Cli.Utils
         public abstract string Group { get; }
         public abstract string Example { get; }
 
-        protected CLIProgram _program;
+        protected CliProgram _program;
         protected string[] _rawArgs;
         protected string[] _args;
 
-        public virtual void Run(CLIProgram program, string[] args)
+        public virtual void Run(CliProgram program, string[] args)
         {
             _program = program;
             _rawArgs = args;

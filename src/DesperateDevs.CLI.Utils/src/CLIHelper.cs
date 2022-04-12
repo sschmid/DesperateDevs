@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace DesperateDevs.Cli.Utils
 {
-    public static class CLIHelper
+    public static class CliHelper
     {
         public static ConsoleColors consoleColors;
 

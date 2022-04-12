@@ -8,21 +8,21 @@ using DesperateDevs.Reflection;
 
 namespace DesperateDevs.Cli.Utils
 {
-    public class CLIProgram
+    public class CliProgram
     {
         readonly Logger _logger;
         readonly Type _defaultCommand;
         readonly string[] _args;
         readonly ICommand[] _commands;
 
-        public CLIProgram(string applicationName, Type defaultCommand, string[] args, ConsoleColors consoleColors = null)
+        public CliProgram(string applicationName, Type defaultCommand, string[] args, ConsoleColors consoleColors = null)
         {
             _logger = Sherlog.GetLogger(applicationName);
             _defaultCommand = defaultCommand;
             _args = args;
-            CLIHelper.consoleColors = consoleColors ?? new ConsoleColors();
+            CliHelper.consoleColors = consoleColors ?? new ConsoleColors();
             Console.Title = applicationName + string.Join("  ", args);
-            initializeLogging(args, CLIHelper.consoleColors);
+            initializeLogging(args, CliHelper.consoleColors);
             _commands = loadCommands(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory));
         }
 

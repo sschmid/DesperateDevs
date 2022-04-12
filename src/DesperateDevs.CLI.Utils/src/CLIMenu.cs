@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace DesperateDevs.Cli.Utils
 {
-    public class CLIMenu
+    public class CliMenu
     {
         public string title => _title;
         public string indent = string.Empty;
@@ -17,7 +17,7 @@ namespace DesperateDevs.Cli.Utils
         int _longestTitle;
         bool _stopRequested;
 
-        public CLIMenu(string title, ConsoleColors colors)
+        public CliMenu(string title, ConsoleColors colors)
         {
             _title = title;
             _selection = new MenuSelection();
@@ -68,7 +68,7 @@ namespace DesperateDevs.Cli.Utils
 
                 if (i == _selection.index)
                 {
-                    CLIHelper.WriteHighlighted(entry, true, _longestTitle);
+                    CliHelper.WriteHighlighted(entry, true, _longestTitle);
                 }
                 else
                 {
