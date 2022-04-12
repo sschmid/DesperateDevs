@@ -28,9 +28,10 @@ EOF
     read -rp "Path to Unity dlls: " path; echo
     [[ -z "${path}" || ! -d "${path}" ]] && echo "No such directory. Abort." && exit 1
     echo "${path}" > .unitypath
-    mkdir -p build
-    cp -r "$(cat .unitypath)/Managed" "$(pwd)/build/"
   fi
+
+  mkdir -p build
+  cp -r "$(cat .unitypath)/Managed" "$(pwd)/build/"
 
   DOCKER_BUILDKIT=1 docker build --target bee -t desperatedevs .
   docker run -it -v "$(pwd)":/DesperateDevs -w /DesperateDevs desperatedevs "$@"
