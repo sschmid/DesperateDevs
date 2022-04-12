@@ -27,6 +27,7 @@ packages
 **/unity/*/*.sln
 *.unitypackage
 Assembly-CSharp*.csproj
+RiderScriptEditorPersistedState.asset
 
 # Jenny
 *.userproperties

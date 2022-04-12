@@ -9,6 +9,7 @@ DEDE_UNITY_PROJECTS=(
   src/DesperateDevs.Tests/unity/DesperateDevs-2018_4
   src/DesperateDevs.Tests/unity/DesperateDevs-2019_4
   src/DesperateDevs.Tests/unity/DesperateDevs-2020_3
+  src/DesperateDevs.Tests/unity/DesperateDevs-2021_3
 )
 
 DESPERATE_DEVS_RESTORE_UNITY=(
