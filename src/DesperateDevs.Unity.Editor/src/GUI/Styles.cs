@@ -1,14 +1,17 @@
 using UnityEngine;
 
-namespace DesperateDevs.Unity.Editor {
-
-    public static class Styles {
-
+namespace DesperateDevs.Unity.Editor
+{
+    public static class Styles
+    {
         static GUIStyle _sectionHeader;
 
-        public static GUIStyle sectionHeader {
-            get {
-                if (_sectionHeader == null) {
+        public static GUIStyle sectionHeader
+        {
+            get
+            {
+                if (_sectionHeader == null)
+                {
                     _sectionHeader = new GUIStyle("OL Title");
                 }
 
@@ -18,9 +21,12 @@ namespace DesperateDevs.Unity.Editor {
 
         static GUIStyle _sectionContent;
 
-        public static GUIStyle sectionContent {
-            get {
-                if (_sectionContent == null) {
+        public static GUIStyle sectionContent
+        {
+            get
+            {
+                if (_sectionContent == null)
+                {
                     _sectionContent = new GUIStyle("OL Box");
                     _sectionContent.stretchHeight = false;
                 }

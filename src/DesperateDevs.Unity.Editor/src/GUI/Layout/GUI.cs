@@ -17,6 +17,7 @@ namespace DesperateDevs.Unity.Editor
             {
                 buttonText = "..." + buttonText.Substring(buttonText.Length - 24);
             }
+
             clicked = GUILayout.Button(buttonText, EditorStyles.objectField);
             EditorGUILayout.EndHorizontal();
 
@@ -32,6 +33,7 @@ namespace DesperateDevs.Unity.Editor
                 {
                     path = "Assets/";
                 }
+
                 path = EditorUtility.OpenFolderPanel(label, path, string.Empty);
                 return path.Replace(Directory.GetCurrentDirectory() + "/", string.Empty);
             }
@@ -48,6 +50,7 @@ namespace DesperateDevs.Unity.Editor
                 {
                     path = "Assets/";
                 }
+
                 path = EditorUtility.OpenFilePanel(label, path, extension);
                 return path.Replace(Directory.GetCurrentDirectory() + "/", string.Empty);
             }
@@ -78,7 +81,7 @@ namespace DesperateDevs.Unity.Editor
         static bool miniButton(string c, GUIStyle style)
         {
             var options = c.Length == 1
-                ? new[] { GUILayout.Width(19) }
+                ? new[] {GUILayout.Width(19)}
                 : new GUILayoutOption[0];
 
             var clicked = GUILayout.Button(c, style, options);
@@ -86,6 +89,7 @@ namespace DesperateDevs.Unity.Editor
             {
                 GUI.FocusControl(null);
             }
+
             return clicked;
         }
 
@@ -114,6 +118,7 @@ namespace DesperateDevs.Unity.Editor
             {
                 searchString = string.Empty;
             }
+
             GUILayout.EndHorizontal();
             GUI.changed = guiChanged;
 
@@ -122,7 +127,7 @@ namespace DesperateDevs.Unity.Editor
 
         public static bool MatchesSearchString(string str, string search)
         {
-            var searches = search.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var searches = search.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
             return searches.Length == 0 || searches.Any(str.Contains);
         }
     }
