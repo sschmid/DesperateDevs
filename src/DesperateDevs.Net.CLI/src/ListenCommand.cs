@@ -1,23 +1,41 @@
 ﻿using System;
 
-namespace DesperateDevs.Net.Cli {
-
-    public class ListenCommand : AbstractSocketCommand {
-
-        public override string trigger { get { return "listen"; } }
-        public override string description { get { return "Listen on port"; } }
-        public override string group { get { return null; } }
-        public override string example { get { return "listen [port]"; } }
-
-        public ListenCommand() : base(typeof(ListenCommand).FullName) {
+namespace DesperateDevs.Net.Cli
+{
+    public class ListenCommand : AbstractSocketCommand
+    {
+        public override string trigger
+        {
+            get { return "listen"; }
         }
 
-        protected override void run() {
+        public override string description
+        {
+            get { return "Listen on port"; }
+        }
+
+        public override string group
+        {
+            get { return null; }
+        }
+
+        public override string example
+        {
+            get { return "listen [port]"; }
+        }
+
+        public ListenCommand() : base(typeof(ListenCommand).FullName) { }
+
+        protected override void run()
+        {
             int port;
 
-            try {
+            try
+            {
                 port = int.Parse(_args[0]);
-            } catch (Exception) {
+            }
+            catch (Exception)
+            {
                 _logger.Warn("Invalid port");
                 return;
             }

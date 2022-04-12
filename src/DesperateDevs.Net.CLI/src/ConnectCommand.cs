@@ -1,26 +1,44 @@
 ﻿using System;
 using System.Net;
 
-namespace DesperateDevs.Net.Cli {
-
-    public class ConnectCommand : AbstractSocketCommand {
-
-        public override string trigger { get { return "connect"; } }
-        public override string description { get { return "Connect to ip on port"; } }
-        public override string group { get { return null; } }
-        public override string example { get { return "connect [ip] [port]"; } }
-
-        public ConnectCommand() : base(typeof(ConnectCommand).FullName) {
+namespace DesperateDevs.Net.Cli
+{
+    public class ConnectCommand : AbstractSocketCommand
+    {
+        public override string trigger
+        {
+            get { return "connect"; }
         }
 
-        protected override void run() {
+        public override string description
+        {
+            get { return "Connect to ip on port"; }
+        }
+
+        public override string group
+        {
+            get { return null; }
+        }
+
+        public override string example
+        {
+            get { return "connect [ip] [port]"; }
+        }
+
+        public ConnectCommand() : base(typeof(ConnectCommand).FullName) { }
+
+        protected override void run()
+        {
             IPAddress ip = null;
             int port;
 
-            try {
+            try
+            {
                 ip = _args[0].ResolveHost();
                 port = int.Parse(_args[1]);
-            } catch (Exception) {
+            }
+            catch (Exception)
+            {
                 _logger.Warn("Please specify a valid ip and port");
                 return;
             }
