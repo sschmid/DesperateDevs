@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace DesperateDevs.CLI.Utils
+namespace DesperateDevs.Cli.Utils
 {
     public class Spinner
     {

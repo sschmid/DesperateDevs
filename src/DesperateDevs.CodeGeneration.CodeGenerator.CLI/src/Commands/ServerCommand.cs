@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
-using DesperateDevs.CLI.Utils;
+using DesperateDevs.Cli.Utils;
 using DesperateDevs.Logging;
 using DesperateDevs.Net;
 using DesperateDevs.Serialization;

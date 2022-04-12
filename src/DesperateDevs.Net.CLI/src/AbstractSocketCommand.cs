@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Sockets;
 using System.Text;
-using DesperateDevs.CLI.Utils;
+using DesperateDevs.Cli.Utils;
 using DesperateDevs.Logging;
 
 namespace DesperateDevs.Net.Cli

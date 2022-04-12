@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using DesperateDevs.CLI.Utils;
+using DesperateDevs.Cli.Utils;
 using DesperateDevs.Logging;
 using DesperateDevs.Serialization;
 using DesperateDevs.Serialization.CLI.Utils;

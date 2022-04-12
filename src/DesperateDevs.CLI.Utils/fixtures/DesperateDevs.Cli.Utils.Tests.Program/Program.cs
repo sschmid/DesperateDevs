@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading;
-using DesperateDevs.CLI.Utils;
+using DesperateDevs.Cli.Utils;
 
-namespace DesperateDevs.CLI.Utils.Tests.Program
+namespace DesperateDevs.Cli.Utils.Tests.Program
 {
     static class Program
     {

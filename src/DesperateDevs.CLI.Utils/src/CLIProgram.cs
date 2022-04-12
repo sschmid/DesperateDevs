@@ -6,7 +6,7 @@ using DesperateDevs.Logging.Formatters;
 using DesperateDevs.Extensions;
 using DesperateDevs.Reflection;
 
-namespace DesperateDevs.CLI.Utils
+namespace DesperateDevs.Cli.Utils
 {
     public class CLIProgram
     {

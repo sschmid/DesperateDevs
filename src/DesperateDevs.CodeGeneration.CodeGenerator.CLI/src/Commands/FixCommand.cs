@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using DesperateDevs.CLI.Utils;
+using DesperateDevs.Cli.Utils;
 using DesperateDevs.Serialization;
 using DesperateDevs.Serialization.CLI.Utils;
 using DesperateDevs.Extensions;

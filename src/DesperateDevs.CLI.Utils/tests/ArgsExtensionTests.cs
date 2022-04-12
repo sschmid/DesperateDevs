@@ -2,7 +2,7 @@
 using FluentAssertions;
 using Xunit;
 
-namespace DesperateDevs.CLI.Utils.Tests
+namespace DesperateDevs.Cli.Utils.Tests
 {
     public class ArgsExtensionTests
     {

@@ -1,5 +1,5 @@
 ﻿using System;
-using DesperateDevs.CLI.Utils;
+using DesperateDevs.Cli.Utils;
 
 namespace DesperateDevs.Net.Cli
 {

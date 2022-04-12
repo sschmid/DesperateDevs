@@ -1,4 +1,4 @@
-﻿using DesperateDevs.CLI.Utils;
+﻿using DesperateDevs.Cli.Utils;
 
 namespace DesperateDevs.Serialization.CLI.Utils
 {

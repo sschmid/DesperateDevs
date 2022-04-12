@@ -1,4 +1,4 @@
-﻿using DesperateDevs.CLI.Utils;
+﻿using DesperateDevs.Cli.Utils;
 using DesperateDevs.Serialization.CLI.Utils;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI

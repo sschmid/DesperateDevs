@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DesperateDevs.CLI.Utils
+namespace DesperateDevs.Cli.Utils
 {
     public sealed class StopMenuEntry : MenuEntry
     {

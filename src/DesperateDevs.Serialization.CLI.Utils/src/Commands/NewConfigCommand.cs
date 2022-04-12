@@ -1,5 +1,5 @@
 using System.IO;
-using DesperateDevs.CLI.Utils;
+using DesperateDevs.Cli.Utils;
 using DesperateDevs.Logging;
 
 namespace DesperateDevs.Serialization.CLI.Utils

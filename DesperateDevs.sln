@@ -6,13 +6,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Caching", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Caching.Tests", "src\DesperateDevs.Caching\tests\DesperateDevs.Caching.Tests.csproj", "{E3EEF33E-D536-4084-9AD7-C4654E0A3857}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.CLI.Utils", "DesperateDevs.CLI.Utils", "{C69CDE77-3860-4BC8-9ABD-A7F5C2416ECD}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Cli.Utils", "DesperateDevs.Cli.Utils", "{C69CDE77-3860-4BC8-9ABD-A7F5C2416ECD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CLI.Utils", "src\DesperateDevs.CLI.Utils\src\DesperateDevs.CLI.Utils.csproj", "{8867EE00-6581-4EE0-AC50-F1946D3B852B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Cli.Utils", "src\DesperateDevs.Cli.Utils\src\DesperateDevs.Cli.Utils.csproj", "{8867EE00-6581-4EE0-AC50-F1946D3B852B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CLI.Utils.Tests", "src\DesperateDevs.CLI.Utils\tests\DesperateDevs.CLI.Utils.Tests.csproj", "{ACD14402-AAF4-4875-A94C-E4137F037E34}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Cli.Utils.Tests", "src\DesperateDevs.Cli.Utils\tests\DesperateDevs.Cli.Utils.Tests.csproj", "{ACD14402-AAF4-4875-A94C-E4137F037E34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CLI.Utils.Tests.Program", "src\DesperateDevs.CLI.Utils\fixtures\DesperateDevs.CLI.Utils.Tests.Program\DesperateDevs.CLI.Utils.Tests.Program.csproj", "{5169F477-31B7-40C2-B8CE-A5BE9D6318D5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Cli.Utils.Tests.Program", "src\DesperateDevs.Cli.Utils\fixtures\DesperateDevs.Cli.Utils.Tests.Program\DesperateDevs.Cli.Utils.Tests.Program.csproj", "{5169F477-31B7-40C2-B8CE-A5BE9D6318D5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.CodeGeneration.CodeGenerator.CLI", "DesperateDevs.CodeGeneration.CodeGenerator.CLI", "{B6F14DE9-1EC2-435D-8864-020E6BB2D1F5}"
 EndProject
