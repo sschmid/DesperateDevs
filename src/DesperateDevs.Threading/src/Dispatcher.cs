@@ -6,7 +6,7 @@ namespace DesperateDevs.Threading
 {
     public class Dispatcher
     {
-        public bool isOnThread
+        public bool IsOnThread
         {
             get { return _threadId == Thread.CurrentThread.ManagedThreadId; }
         }
@@ -26,7 +26,7 @@ namespace DesperateDevs.Threading
 
         public void Queue(Action action)
         {
-            if (isOnThread)
+            if (IsOnThread)
             {
                 action();
             }
@@ -41,7 +41,7 @@ namespace DesperateDevs.Threading
 
         public void Run()
         {
-            if (isOnThread)
+            if (IsOnThread)
             {
                 Action[] actions = null;
                 lock (_lock)
