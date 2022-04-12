@@ -6,10 +6,7 @@ namespace DesperateDevs.Threading
 {
     public class Dispatcher
     {
-        public bool IsOnThread
-        {
-            get { return _threadId == Thread.CurrentThread.ManagedThreadId; }
-        }
+        public bool IsOnThread => _threadId == Thread.CurrentThread.ManagedThreadId;
 
         readonly int _threadId;
         readonly List<Action> _actions;
@@ -18,10 +15,7 @@ namespace DesperateDevs.Threading
         public Dispatcher(Thread thread)
         {
             _threadId = thread.ManagedThreadId;
-            lock (_lock)
-            {
-                _actions = new List<Action>();
-            }
+            _actions = new List<Action>();
         }
 
         public void Queue(Action action)
@@ -54,12 +48,8 @@ namespace DesperateDevs.Threading
                 }
 
                 if (actions != null)
-                {
                     foreach (var action in actions)
-                    {
                         action();
-                    }
-                }
             }
         }
     }
