@@ -106,6 +106,7 @@ namespace DesperateDevs.Cli.Utils
                         _selection.index += 1;
                         _selection.runAction = false;
                     }
+
                     break;
                 case ConsoleKey.UpArrow:
                 case ConsoleKey.LeftArrow:
@@ -116,6 +117,7 @@ namespace DesperateDevs.Cli.Utils
                         _selection.index -= 1;
                         _selection.runAction = false;
                     }
+
                     break;
                 case ConsoleKey.Home:
                 case ConsoleKey.A:

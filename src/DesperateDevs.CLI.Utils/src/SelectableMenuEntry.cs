@@ -4,9 +4,11 @@ namespace DesperateDevs.Cli.Utils
 {
     public class SelectableMenuEntry : MenuEntry
     {
-        public  bool isSelected {
+        public bool isSelected
+        {
             get { return _isSelected; }
-            set  {
+            set
+            {
                 if (value != _isSelected)
                 {
                     _isSelected = value;

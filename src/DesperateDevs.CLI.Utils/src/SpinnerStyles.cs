@@ -11,9 +11,11 @@
 
     public static class SpinnerStyles
     {
-        public static SpinnerStyle magnifyingGlass => new SpinnerStyle {
+        public static SpinnerStyle magnifyingGlass => new SpinnerStyle
+        {
             interval = 100,
-            frames = new[] {
+            frames = new[]
+            {
                 "🔍    ",
                 " 🔍   ",
                 "  🔍  ",
@@ -23,9 +25,11 @@
             }
         };
 
-        public static SpinnerStyle bouncingBar => new SpinnerStyle {
+        public static SpinnerStyle bouncingBar => new SpinnerStyle
+        {
             interval = 80,
-            frames = new[] {
+            frames = new[]
+            {
                 "[    ]",
                 "[=   ]",
                 "[==  ]",
@@ -44,9 +48,11 @@
             }
         };
 
-        public static SpinnerStyle bouncingBall => new SpinnerStyle {
+        public static SpinnerStyle bouncingBall => new SpinnerStyle
+        {
             interval = 80,
-            frames = new[] {
+            frames = new[]
+            {
                 "( ●    )",
                 "(  ●   )",
                 "(   ●  )",
@@ -60,9 +66,11 @@
             }
         };
 
-        public static SpinnerStyle clock => new SpinnerStyle {
+        public static SpinnerStyle clock => new SpinnerStyle
+        {
             interval = 100,
-            frames = new[] {
+            frames = new[]
+            {
                 "🕛 ",
                 "🕐 ",
                 "🕑 ",
@@ -78,9 +86,11 @@
             }
         };
 
-        public static SpinnerStyle magicCat => new SpinnerStyle {
+        public static SpinnerStyle magicCat => new SpinnerStyle
+        {
             interval = 120,
-            frames = new[] {
+            frames = new[]
+            {
                 "   ∧＿∧\n" +
                 " （｡･ω･｡)つ━☆        \n" +
                 " ⊂　  ノ             \n" +

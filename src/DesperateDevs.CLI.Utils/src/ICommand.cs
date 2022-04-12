@@ -1,7 +1,7 @@
-﻿namespace DesperateDevs.Cli.Utils {
-
-    public interface ICommand {
-
+﻿namespace DesperateDevs.Cli.Utils
+{
+    public interface ICommand
+    {
         string Trigger { get; }
         string Description { get; }
         string Group { get; }

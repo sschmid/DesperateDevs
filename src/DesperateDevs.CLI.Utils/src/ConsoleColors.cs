@@ -13,13 +13,14 @@ namespace DesperateDevs.Cli.Utils
 
         public ConsoleColors()
         {
-            logLevelColors = new Dictionary<LogLevel, ConsoleColor> {
-                { LogLevel.Trace, ConsoleColor.Cyan },
-                { LogLevel.Debug, ConsoleColor.White },
-                { LogLevel.Info, ConsoleColor.White },
-                { LogLevel.Warn, ConsoleColor.DarkYellow },
-                { LogLevel.Error, ConsoleColor.Red },
-                { LogLevel.Fatal, ConsoleColor.DarkRed }
+            logLevelColors = new Dictionary<LogLevel, ConsoleColor>
+            {
+                {LogLevel.Trace, ConsoleColor.Cyan},
+                {LogLevel.Debug, ConsoleColor.White},
+                {LogLevel.Info, ConsoleColor.White},
+                {LogLevel.Warn, ConsoleColor.DarkYellow},
+                {LogLevel.Error, ConsoleColor.Red},
+                {LogLevel.Fatal, ConsoleColor.DarkRed}
             };
         }
     }
