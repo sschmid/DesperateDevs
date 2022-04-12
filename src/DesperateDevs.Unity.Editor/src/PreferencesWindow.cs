@@ -79,9 +79,9 @@ namespace DesperateDevs.Unity.Editor
                 {
                     drawer.DrawHeader(_preferences);
                 }
-                catch (Exception ex)
+                catch (Exception exception)
                 {
-                    DrawException(ex);
+                    DrawException(exception);
                 }
             }
         }
@@ -96,9 +96,9 @@ namespace DesperateDevs.Unity.Editor
                     {
                         _preferencesDrawers[i].DrawContent(_preferences);
                     }
-                    catch (Exception ex)
+                    catch (Exception exception)
                     {
-                        DrawException(ex);
+                        DrawException(exception);
                     }
 
                     if (i < _preferencesDrawers.Length - 1)

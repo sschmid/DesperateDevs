@@ -6,67 +6,59 @@ namespace DesperateDevs.Cli.Utils
 {
     public class CliMenu
     {
-        public string title => _title;
-        public string indent = string.Empty;
+        public string Title => _title;
+        public string Indent = string.Empty;
 
         readonly string _title;
         readonly MenuSelection _selection;
         readonly List<IMenuEntry> _menuEntries;
-        readonly ConsoleColors _colors;
 
         int _longestTitle;
         bool _stopRequested;
 
-        public CliMenu(string title, ConsoleColors colors)
+        public CliMenu(string title)
         {
             _title = title;
             _selection = new MenuSelection();
             _menuEntries = new List<IMenuEntry>();
-            _colors = colors;
         }
 
-        public void AddMenuEntry(IMenuEntry entry)
-        {
-            _menuEntries.Add(entry);
-        }
+        public void AddMenuEntry(IMenuEntry entry) => _menuEntries.Add(entry);
 
         public void Start()
         {
-            _longestTitle = _menuEntries.Max(e => e.title.Length) + indent.Length;
+            _longestTitle = _menuEntries.Max(e => e.Title.Length) + Indent.Length;
             _stopRequested = false;
             while (!_stopRequested)
             {
-                drawMenu();
-                processInput();
-                tryRunMenuEntry();
+                DrawMenu();
+                ProcessInput();
+                TryRunMenuEntry();
             }
 
             Console.Clear();
         }
 
-        public void Stop()
-        {
-            _stopRequested = true;
-        }
+        public void Stop() => _stopRequested = true;
 
-        void drawMenu()
+        void DrawMenu()
         {
             Console.Clear();
             Console.WriteLine(_title);
 
-            for (int i = 0; i < _menuEntries.Count; i++)
+            for (var i = 0; i < _menuEntries.Count; i++)
             {
-                var entry = indent;
-                if (_menuEntries[i].showTriggerInTitle)
+                var entry = Indent;
+                if (_menuEntries[i].ShowTriggerInTitle)
                 {
-                    entry += _menuEntries[i].triggers != null
-                        ? "[" + _menuEntries[i].triggers[0] + "] "
+                    entry += _menuEntries[i].Triggers != null
+                        ? $"[{_menuEntries[i].Triggers[0]}] "
                         : string.Empty;
                 }
 
-                entry += _menuEntries[i].title;
+                entry += _menuEntries[i].Title;
 
-                if (i == _selection.index)
+                if (i == _selection.Index)
                 {
                     CliHelper.WriteHighlighted(entry, true, _longestTitle);
                 }
@@ -78,22 +70,22 @@ namespace DesperateDevs.Cli.Utils
             }
         }
 
-        void tryRunMenuEntry()
+        void TryRunMenuEntry()
         {
-            if (_selection.runAction)
-                _menuEntries[_selection.index].action();
+            if (_selection.RunAction)
+                _menuEntries[_selection.Index].Action();
 
-            _selection.runAction = false;
+            _selection.RunAction = false;
         }
 
-        void processInput()
+        void ProcessInput()
         {
             var key = Console.ReadKey(true);
-            selectionFromNavigation(key);
-            selectionFromTrigger(key);
+            SelectionFromNavigation(key);
+            SelectionFromTrigger(key);
         }
 
-        void selectionFromNavigation(ConsoleKeyInfo key)
+        void SelectionFromNavigation(ConsoleKeyInfo key)
         {
             switch (key.Key)
             {
@@ -101,10 +93,10 @@ namespace DesperateDevs.Cli.Utils
                 case ConsoleKey.RightArrow:
                 case ConsoleKey.J:
                 case ConsoleKey.L:
-                    if (_selection.index < _menuEntries.Count - 1)
+                    if (_selection.Index < _menuEntries.Count - 1)
                     {
-                        _selection.index += 1;
-                        _selection.runAction = false;
+                        _selection.Index += 1;
+                        _selection.RunAction = false;
                     }
 
                     break;
@@ -112,42 +104,42 @@ namespace DesperateDevs.Cli.Utils
                 case ConsoleKey.LeftArrow:
                 case ConsoleKey.K:
                 case ConsoleKey.H:
-                    if (_selection.index > 0)
+                    if (_selection.Index > 0)
                     {
-                        _selection.index -= 1;
-                        _selection.runAction = false;
+                        _selection.Index -= 1;
+                        _selection.RunAction = false;
                     }
 
                     break;
                 case ConsoleKey.Home:
                 case ConsoleKey.A:
-                    _selection.index = 0;
-                    _selection.runAction = false;
+                    _selection.Index = 0;
+                    _selection.RunAction = false;
                     break;
                 case ConsoleKey.End:
                 case ConsoleKey.E:
-                    _selection.index = _menuEntries.Count - 1;
-                    _selection.runAction = false;
+                    _selection.Index = _menuEntries.Count - 1;
+                    _selection.RunAction = false;
                     break;
                 case ConsoleKey.Enter:
                 case ConsoleKey.Spacebar:
-                    _selection.runAction = true;
+                    _selection.RunAction = true;
                     break;
             }
         }
 
-        void selectionFromTrigger(ConsoleKeyInfo key)
+        void SelectionFromTrigger(ConsoleKeyInfo key)
         {
             for (var i = 0; i < _menuEntries.Count; i++)
             {
-                if (_menuEntries[i].triggers != null)
+                if (_menuEntries[i].Triggers != null)
                 {
-                    foreach (var trigger in _menuEntries[i].triggers)
+                    foreach (var trigger in _menuEntries[i].Triggers)
                     {
                         if (trigger == key.Key)
                         {
-                            _selection.index = i;
-                            _selection.runAction = true;
+                            _selection.Index = i;
+                            _selection.RunAction = true;
                             return;
                         }
                     }

@@ -5,11 +5,11 @@ namespace DesperateDevs.Cli.Utils
 {
     public static class CliHelper
     {
-        public static ConsoleColors consoleColors;
+        public static ConsoleColors ConsoleColors;
 
         public static void WriteCentered(string value, bool centerEachLine)
         {
-            writeMultiLine(value, centerEachLine, (line, length) =>
+            WriteMultiLine(value, centerEachLine, (line, length) =>
             {
                 Console.SetCursorPosition(Math.Max(0, (Console.BufferWidth - length) / 2), Console.CursorTop);
                 Console.WriteLine(line);
@@ -18,10 +18,10 @@ namespace DesperateDevs.Cli.Utils
 
         public static void WriteCenteredHighlighted(string value, bool centerEachLine)
         {
-            Console.BackgroundColor = consoleColors.highlightedBackground;
-            Console.ForegroundColor = consoleColors.highlightedForeground;
+            Console.BackgroundColor = ConsoleColors.HighlightedBackground;
+            Console.ForegroundColor = ConsoleColors.HighlightedForeground;
 
-            writeMultiLine(value, centerEachLine, (line, length) =>
+            WriteMultiLine(value, centerEachLine, (line, length) =>
             {
                 Console.SetCursorPosition(Math.Max(0, (Console.BufferWidth - length) / 2), Console.CursorTop);
                 Console.WriteLine(line);
@@ -32,10 +32,10 @@ namespace DesperateDevs.Cli.Utils
 
         public static void WriteCenteredHighlightedPadded(string value, bool centerEachLine)
         {
-            Console.BackgroundColor = consoleColors.highlightedBackground;
-            Console.ForegroundColor = consoleColors.highlightedForeground;
+            Console.BackgroundColor = ConsoleColors.HighlightedBackground;
+            Console.ForegroundColor = ConsoleColors.HighlightedForeground;
 
-            writeMultiLine(value, centerEachLine, (line, length) =>
+            WriteMultiLine(value, centerEachLine, (line, length) =>
             {
                 var pad = Math.Max(0, (Console.BufferWidth - length) / 2);
                 Console.WriteLine(line.PadLeft(line.Length + pad).PadRight(Console.BufferWidth - Console.CursorLeft - 1));
@@ -46,7 +46,7 @@ namespace DesperateDevs.Cli.Utils
 
         public static void WriteRight(string value, bool centerEachLine)
         {
-            writeMultiLine(value, centerEachLine, (line, length) =>
+            WriteMultiLine(value, centerEachLine, (line, length) =>
             {
                 Console.SetCursorPosition(Math.Max(0, Console.BufferWidth - length), Console.CursorTop);
                 Console.Write(line);
@@ -55,10 +55,10 @@ namespace DesperateDevs.Cli.Utils
 
         public static void WriteRightHighlighted(string value, bool centerEachLine)
         {
-            Console.BackgroundColor = consoleColors.highlightedBackground;
-            Console.ForegroundColor = consoleColors.highlightedForeground;
+            Console.BackgroundColor = ConsoleColors.HighlightedBackground;
+            Console.ForegroundColor = ConsoleColors.HighlightedForeground;
 
-            writeMultiLine(value, centerEachLine, (line, length) =>
+            WriteMultiLine(value, centerEachLine, (line, length) =>
             {
                 Console.SetCursorPosition(Math.Max(0, Console.BufferWidth - length), Console.CursorTop);
                 Console.Write(line);
@@ -69,10 +69,10 @@ namespace DesperateDevs.Cli.Utils
 
         public static void WriteRightHighlightedPadded(string value, bool centerEachLine)
         {
-            Console.BackgroundColor = consoleColors.highlightedBackground;
-            Console.ForegroundColor = consoleColors.highlightedForeground;
+            Console.BackgroundColor = ConsoleColors.HighlightedBackground;
+            Console.ForegroundColor = ConsoleColors.HighlightedForeground;
 
-            writeMultiLine(value, centerEachLine, (line, length) =>
+            WriteMultiLine(value, centerEachLine, (line, length) =>
             {
                 var pad = Math.Max(0, Console.BufferWidth - length);
                 Console.Write(line.PadLeft(length + pad));
@@ -83,17 +83,17 @@ namespace DesperateDevs.Cli.Utils
 
         public static void WriteHighlighted(string value, bool padRight, int pad = -1)
         {
-            Console.BackgroundColor = consoleColors.highlightedBackground;
-            Console.ForegroundColor = consoleColors.highlightedForeground;
+            Console.BackgroundColor = ConsoleColors.HighlightedBackground;
+            Console.ForegroundColor = ConsoleColors.HighlightedForeground;
 
-            writeMultiLine(value, true, (line, length) => Console.WriteLine(padRight
+            WriteMultiLine(value, true, (line, length) => Console.WriteLine(padRight
                 ? line.PadRight(pad == -1 ? (Console.BufferWidth - Console.CursorLeft) : pad)
                 : line));
 
             Console.ResetColor();
         }
 
-        static void writeMultiLine(string value, bool lengthPerLine, Action<string, int> logMethod)
+        static void WriteMultiLine(string value, bool lengthPerLine, Action<string, int> logMethod)
         {
             var lines = value.Split('\n');
             if (lengthPerLine)
@@ -105,9 +105,7 @@ namespace DesperateDevs.Cli.Utils
             {
                 var longestLine = lines.Max(line => line.Length);
                 foreach (var line in lines)
-                {
                     logMethod(line, longestLine);
-                }
             }
         }
 

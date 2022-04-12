@@ -11,7 +11,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
     {
         public string properties;
 
-        public Step1_PropertiesMenu(CliProgram progam, string title, ConsoleColors colors, string[] properties) : base(buildTitle(title, properties), colors)
+        public Step1_PropertiesMenu(CliProgram progam, string title, string[] properties) : base(buildTitle(title, properties))
         {
             foreach (var p in properties)
                 AddMenuEntry(new SelectPropertiesMenuEntry(this, p.MakePathRelativeTo(Directory.GetCurrentDirectory())));

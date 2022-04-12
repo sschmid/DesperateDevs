@@ -36,9 +36,9 @@ namespace DesperateDevs.Serialization.CLI.Utils
                 _preferences = new Preferences(propertiesPath, userPropertiesPath);
                 (this as IConfigurable)?.Configure(_preferences);
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                _logger.Error(ex.Message);
+                _logger.Error(exception.Message);
 
                 return;
             }

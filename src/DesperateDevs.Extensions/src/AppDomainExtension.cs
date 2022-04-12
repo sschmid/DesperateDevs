@@ -19,9 +19,9 @@ namespace DesperateDevs.Extensions
                 {
                     types.AddRange(assembly.GetTypes());
                 }
-                catch (ReflectionTypeLoadException ex)
+                catch (ReflectionTypeLoadException exception)
                 {
-                    types.AddRange(ex.Types.Where(type => type != null));
+                    types.AddRange(exception.Types.Where(type => type != null));
                 }
             }
 

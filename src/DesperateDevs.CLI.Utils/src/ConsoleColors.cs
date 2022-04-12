@@ -6,14 +6,14 @@ namespace DesperateDevs.Cli.Utils
 {
     public class ConsoleColors
     {
-        public ConsoleColor highlightedBackground { get; set; } = ConsoleColor.White;
-        public ConsoleColor highlightedForeground { get; set; } = ConsoleColor.Black;
+        public ConsoleColor HighlightedBackground = ConsoleColor.White;
+        public ConsoleColor HighlightedForeground = ConsoleColor.Black;
 
-        public readonly Dictionary<LogLevel, ConsoleColor> logLevelColors;
+        public readonly Dictionary<LogLevel, ConsoleColor> LogLevelColors;
 
         public ConsoleColors()
         {
-            logLevelColors = new Dictionary<LogLevel, ConsoleColor>
+            LogLevelColors = new Dictionary<LogLevel, ConsoleColor>
             {
                 {LogLevel.Trace, ConsoleColor.Cyan},
                 {LogLevel.Debug, ConsoleColor.White},

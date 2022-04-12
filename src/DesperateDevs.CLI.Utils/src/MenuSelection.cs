@@ -2,7 +2,7 @@
 {
     public sealed class MenuSelection
     {
-        public int index;
-        public bool runAction;
+        public int Index;
+        public bool RunAction;
     }
 }

@@ -52,9 +52,9 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator
                     {
                         return (ICodeGenerationPlugin)Activator.CreateInstance(type);
                     }
-                    catch (TypeLoadException ex)
+                    catch (TypeLoadException exception)
                     {
-                        _logger.Warn(ex.Message);
+                        _logger.Warn(exception.Message);
                     }
 
                     return null;

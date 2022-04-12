@@ -13,7 +13,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 
         readonly bool _isVerbose;
 
-        public Step2_PluginsMenu(CliProgram progam, string title, ConsoleColors colors, Preferences preferences, bool isVerbose) : base(buildTitle(title), colors)
+        public Step2_PluginsMenu(CliProgram progam, string title, Preferences preferences, bool isVerbose) : base(buildTitle(title))
         {
             _isVerbose = isVerbose;
             Console.WriteLine(title);
@@ -27,10 +27,10 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                 AddMenuEntry(new AutoSaveMenuEntry(this, preferences, config));
                 AddMenuEntry(new ManualSaveMenuEntry(this, preferences, config));
 
-                AddMenuEntry(new SelectableMenuEntry("Select all", pluginEntries.All(e => e.isSelected), isSelected =>
+                AddMenuEntry(new SelectableMenuEntry("Select all", pluginEntries.All(e => e.IsSelected), isSelected =>
                 {
                     foreach (var entry in pluginEntries)
-                        entry.isSelected = isSelected;
+                        entry.IsSelected = isSelected;
                 }));
             }
             else
@@ -58,7 +58,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
             if (!_isVerbose)
             {
                 var top = Console.CursorTop;
-                var spinner = new Spinner(SpinnerStyles.magicCat);
+                var spinner = new Spinner(SpinnerStyles.MagicCat);
                 spinner.Append("Searching for plugins. Please wait...");
                 spinner.WriteWhile(0, top, () => !task.IsCompleted);
             }

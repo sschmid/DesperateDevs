@@ -40,7 +40,7 @@ namespace DesperateDevs.Net
                 client.EndConnect(ar);
                 didConnect = true;
             }
-            catch (SocketException ex)
+            catch (SocketException exception)
             {
                 // Intended catch:
                 // SocketException "Connection refused"
@@ -48,7 +48,7 @@ namespace DesperateDevs.Net
                 // Caused by
                 // Port is not being listened to.
 
-                _logger.Error(ex.Message);
+                _logger.Error(exception.Message);
             }
 
             if (didConnect)

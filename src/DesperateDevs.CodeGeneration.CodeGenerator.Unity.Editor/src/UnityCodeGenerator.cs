@@ -47,12 +47,12 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
                 progressOffset = 0.5f;
                 files = codeGenerator.Generate();
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
                 dryFiles = new CodeGenFile[0];
                 files = new CodeGenFile[0];
 
-                EditorUtility.DisplayDialog("Error", ex.Message, "Ok");
+                EditorUtility.DisplayDialog("Error", exception.Message, "Ok");
             }
 
             EditorUtility.ClearProgressBar();

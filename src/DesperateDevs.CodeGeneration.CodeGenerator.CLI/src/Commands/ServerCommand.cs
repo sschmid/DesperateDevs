@@ -62,13 +62,13 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                     : Encoding.UTF8.GetBytes(logBufferString);
                 socket.Send(sendBytes);
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
                 _logger.Error(args.IsVerbose()
-                    ? ex.ToString()
-                    : ex.Message);
+                    ? exception.ToString()
+                    : exception.Message);
 
-                socket.Send(Encoding.UTF8.GetBytes(getLogBufferString() + ex.Message));
+                socket.Send(Encoding.UTF8.GetBytes(getLogBufferString() + exception.Message));
             }
 
             _logBuffer.Clear();

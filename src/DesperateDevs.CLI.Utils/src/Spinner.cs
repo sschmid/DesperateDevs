@@ -24,13 +24,11 @@ namespace DesperateDevs.Cli.Utils
         {
             if (_index >= _frames.Length)
                 _index = 0;
+
             return _frames[_index++];
         }
 
-        public void Append(string text)
-        {
-            _appendix = text;
-        }
+        public void Append(string text) => _appendix = text;
 
         public void Write(int left, int top)
         {

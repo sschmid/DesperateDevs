@@ -4,15 +4,15 @@ namespace DesperateDevs.Cli.Utils
 {
     public class SelectableMenuEntry : MenuEntry
     {
-        public bool isSelected
+        public bool IsSelected
         {
-            get { return _isSelected; }
+            get => _isSelected;
             set
             {
                 if (value != _isSelected)
                 {
                     _isSelected = value;
-                    updateTitle();
+                    UpdateTitle();
                     _onSelected?.Invoke(_isSelected);
                 }
             }
@@ -27,20 +27,12 @@ namespace DesperateDevs.Cli.Utils
         {
             _title = title;
             _isSelected = isSelected;
-            updateTitle();
+            UpdateTitle();
             _onSelected = onSelected;
-            action = toggleSelected;
+            Action = ToggleSelected;
         }
 
-        void toggleSelected()
-        {
-            isSelected = !isSelected;
-            updateTitle();
-        }
-
-        void updateTitle()
-        {
-            title = (_isSelected ? "[x] " : "[ ] ") + _title;
-        }
+        void ToggleSelected() => IsSelected = !IsSelected;
+        void UpdateTitle() => Title = (_isSelected ? "[x] " : "[ ] ") + _title;
     }
 }

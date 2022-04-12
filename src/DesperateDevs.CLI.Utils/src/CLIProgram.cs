@@ -20,17 +20,17 @@ namespace DesperateDevs.Cli.Utils
             _logger = Sherlog.GetLogger(applicationName);
             _defaultCommand = defaultCommand;
             _args = args;
-            CliHelper.consoleColors = consoleColors ?? new ConsoleColors();
+            CliHelper.ConsoleColors = consoleColors ?? new ConsoleColors();
             Console.Title = applicationName + string.Join("  ", args);
-            initializeLogging(args, CliHelper.consoleColors);
-            _commands = loadCommands(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory));
+            InitializeLogging(args, CliHelper.ConsoleColors);
+            _commands = LoadCommands(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory));
         }
 
         public void Run()
         {
-            if (_args != null && _args.WithoutParameter().Length != 0)
+            if (_args?.WithoutParameter().Length != 0)
             {
-                runCommand(_args);
+                RunCommand(_args);
             }
             else
             {
@@ -40,14 +40,14 @@ namespace DesperateDevs.Cli.Utils
                         .Single(c => c.GetType() == _defaultCommand)
                         .Run(this, _args);
                 }
-                catch (Exception ex)
+                catch (Exception exception)
                 {
-                    _logger.Error(_args.IsVerbose() ? ex.ToString() : ex.Message);
+                    _logger.Error(_args.IsVerbose() ? exception.ToString() : exception.Message);
                 }
             }
         }
 
-        ICommand[] loadCommands(string dir)
+        ICommand[] LoadCommands(string dir)
         {
             _logger.Debug("Loading assemblies from " + dir);
             var resolver = AssemblyResolver.LoadAssemblies(false, dir);
@@ -73,12 +73,9 @@ namespace DesperateDevs.Cli.Utils
             return command;
         }
 
-        public int GetCommandListPad()
-        {
-            return _commands.Length == 0
-                ? 0
-                : _commands.Max(c => c.Example?.Length ?? 0);
-        }
+        public int GetCommandListPad() => _commands.Length == 0
+            ? 0
+            : _commands.Max(c => c.Example?.Length ?? 0);
 
         public string GetFormattedCommandList()
         {
@@ -98,20 +95,20 @@ namespace DesperateDevs.Cli.Utils
             }));
         }
 
-        void runCommand(string[] args)
+        void RunCommand(string[] args)
         {
             try
             {
                 GetCommand(args.WithoutDefaultParameter()[0]).Run(this, args);
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                _logger.Error(args.IsVerbose() ? ex.ToString() : ex.Message);
+                _logger.Error(args.IsVerbose() ? exception.ToString() : exception.Message);
                 _logger.Info("Use -v to enable verbose logging");
             }
         }
 
-        void initializeLogging(string[] args, ConsoleColors consoleColors)
+        void InitializeLogging(string[] args, ConsoleColors consoleColors)
         {
             if (args.IsSilent())
             {
@@ -126,23 +123,17 @@ namespace DesperateDevs.Cli.Utils
                 Sherlog.GlobalLogLevel = LogLevel.Info;
             }
 
-            LogFormatter formatter;
-            if (args.IsDebug())
-            {
-                formatter = new LogMessageFormatter().FormatMessage;
-            }
-            else
-            {
-                formatter = (logger, level, message) => message;
-            }
+            var formatter = args.IsDebug()
+                ? (LogFormatter)new LogMessageFormatter().FormatMessage
+                : (logger, level, message) => message;
 
             Sherlog.ResetAppenders();
             Sherlog.AddAppender((logger, logLevel, message) =>
             {
                 message = formatter(logger, logLevel, message);
-                if (consoleColors.logLevelColors.ContainsKey(logLevel))
+                if (consoleColors.LogLevelColors.ContainsKey(logLevel))
                 {
-                    Console.ForegroundColor = consoleColors.logLevelColors[logLevel];
+                    Console.ForegroundColor = consoleColors.LogLevelColors[logLevel];
                     Console.WriteLine(message);
                     Console.ResetColor();
                 }

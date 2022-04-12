@@ -8,11 +8,11 @@ namespace DesperateDevs.Cli.Utils.Tests.Program
     {
         public static void Main(string[] args)
         {
-            CliHelper.consoleColors = new ConsoleColors();
-            var menu = new CliMenu("CLI Tester", CliHelper.consoleColors);
+            CliHelper.ConsoleColors = new ConsoleColors();
+            var menu = new CliMenu("CLI Tester");
             menu.AddMenuEntry(new GreetMenuEntry());
-            menu.AddMenuEntry(new SubMenuEntry(menu.title));
-            menu.AddMenuEntry(new SelectionMenuEntry(menu.title));
+            menu.AddMenuEntry(new SubMenuEntry(menu.Title));
+            menu.AddMenuEntry(new SelectionMenuEntry(menu.Title));
             menu.AddMenuEntry(new StopMenuEntry(menu, "Exit", true));
             menu.Start();
             Console.Clear();
@@ -22,11 +22,11 @@ namespace DesperateDevs.Cli.Utils.Tests.Program
 
 public sealed class GreetMenuEntry : IMenuEntry
 {
-    public string title => "Greet";
-    public ConsoleKey[] triggers => new[] {ConsoleKey.G};
-    public bool showTriggerInTitle => true;
+    public string Title => "Greet";
+    public ConsoleKey[] Triggers => new[] {ConsoleKey.G};
+    public bool ShowTriggerInTitle => true;
 
-    public Action action => () =>
+    public Action Action => () =>
     {
         Console.WriteLine("Hello " + new Random().Next());
         Thread.Sleep(1000);
@@ -35,20 +35,20 @@ public sealed class GreetMenuEntry : IMenuEntry
 
 public sealed class SubMenuEntry : IMenuEntry
 {
-    public string title => "Sub menu";
-    public ConsoleKey[] triggers => new[] {ConsoleKey.S};
-    public bool showTriggerInTitle => true;
+    public string Title => "Sub menu";
+    public ConsoleKey[] Triggers => new[] {ConsoleKey.S};
+    public bool ShowTriggerInTitle => true;
 
     readonly string _subtitle;
 
     public SubMenuEntry(string previous)
     {
-        _subtitle = previous + " > " + title;
+        _subtitle = previous + " > " + Title;
     }
 
-    public Action action => () =>
+    public Action Action => () =>
     {
-        var menu = new CliMenu(_subtitle, CliHelper.consoleColors);
+        var menu = new CliMenu(_subtitle);
         menu.AddMenuEntry(new GreetMenuEntry());
         menu.AddMenuEntry(new SubMenuEntry(_subtitle));
         menu.AddMenuEntry(new StopMenuEntry(menu, "Back", true));
@@ -58,20 +58,20 @@ public sealed class SubMenuEntry : IMenuEntry
 
 public sealed class SelectionMenuEntry : IMenuEntry
 {
-    public string title => "Selection";
-    public ConsoleKey[] triggers => new[] {ConsoleKey.X};
-    public bool showTriggerInTitle => true;
+    public string Title => "Selection";
+    public ConsoleKey[] Triggers => new[] {ConsoleKey.X};
+    public bool ShowTriggerInTitle => true;
 
     readonly string _subtitle;
 
     public SelectionMenuEntry(string previous)
     {
-        _subtitle = previous + " > " + title;
+        _subtitle = previous + " > " + Title;
     }
 
-    public Action action => () =>
+    public Action Action => () =>
     {
-        var menu = new CliMenu(_subtitle, CliHelper.consoleColors);
+        var menu = new CliMenu(_subtitle);
         menu.AddMenuEntry(new SelectableMenuEntry("Desperate", false));
         menu.AddMenuEntry(new SelectableMenuEntry("Devs", false));
         menu.AddMenuEntry(new SelectableMenuEntry("Console", false));

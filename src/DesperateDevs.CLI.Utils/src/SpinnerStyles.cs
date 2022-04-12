@@ -11,7 +11,7 @@
 
     public static class SpinnerStyles
     {
-        public static SpinnerStyle magnifyingGlass => new SpinnerStyle
+        public static SpinnerStyle MagnifyingGlass => new SpinnerStyle
         {
             interval = 100,
             frames = new[]
@@ -25,7 +25,7 @@
             }
         };
 
-        public static SpinnerStyle bouncingBar => new SpinnerStyle
+        public static SpinnerStyle BouncingBar => new SpinnerStyle
         {
             interval = 80,
             frames = new[]
@@ -48,7 +48,7 @@
             }
         };
 
-        public static SpinnerStyle bouncingBall => new SpinnerStyle
+        public static SpinnerStyle BouncingBall => new SpinnerStyle
         {
             interval = 80,
             frames = new[]
@@ -66,7 +66,7 @@
             }
         };
 
-        public static SpinnerStyle clock => new SpinnerStyle
+        public static SpinnerStyle Clock => new SpinnerStyle
         {
             interval = 100,
             frames = new[]
@@ -86,7 +86,7 @@
             }
         };
 
-        public static SpinnerStyle magicCat => new SpinnerStyle
+        public static SpinnerStyle MagicCat => new SpinnerStyle
         {
             interval = 120,
             frames = new[]

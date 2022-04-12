@@ -42,15 +42,15 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 
             // Step 1: Properties
             var allPreferenes = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.properties", SearchOption.TopDirectoryOnly);
-            var propertiesMenu = new Step1_PropertiesMenu(_program, title, CliHelper.consoleColors, allPreferenes);
-            propertiesMenu.indent = indent;
+            var propertiesMenu = new Step1_PropertiesMenu(_program, title, allPreferenes);
+            propertiesMenu.Indent = indent;
             propertiesMenu.Start();
 
             var preferences = new Preferences(propertiesMenu.properties, Preferences.DefaultUserPropertiesPath);
 
             // Step 2: Plugins
-            var pluginsMenu = new Step2_PluginsMenu(_program, title, CliHelper.consoleColors, preferences, _rawArgs.IsVerbose());
-            pluginsMenu.indent = indent;
+            var pluginsMenu = new Step2_PluginsMenu(_program, title, preferences, _rawArgs.IsVerbose());
+            pluginsMenu.Indent = indent;
             pluginsMenu.Start();
 
             var fixArgs = pluginsMenu.shouldAutoImport
