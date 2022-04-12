@@ -13,7 +13,7 @@ namespace DesperateDevs.Net
         public event TcpServerSocketHandler OnClientConnected;
         public event TcpServerSocketHandler OnClientDisconnected;
 
-        public int count
+        public int Count
         {
             get { return _clients.Count; }
         }
@@ -30,13 +30,13 @@ namespace DesperateDevs.Net
             _logger.Info("Server is listening on port " + port + "...");
             _socket.Bind(new IPEndPoint(IPAddress.Any, port));
             _socket.Listen(128);
-            _socket.BeginAccept(onAccepted, _socket);
+            _socket.BeginAccept(OnAccept, _socket);
         }
 
         public Socket GetClientWithRemoteEndPoint(IPEndPoint endPoint)
         {
             Socket client;
-            _clients.TryGetValue(keyForEndPoint(endPoint), out client);
+            _clients.TryGetValue(KeyForEndPoint(endPoint), out client);
             return client;
         }
 
@@ -46,7 +46,7 @@ namespace DesperateDevs.Net
             {
                 foreach (var client in _clients.Values.ToArray())
                 {
-                    send(client, buffer);
+                    Send(client, buffer);
                 }
             }
             else
@@ -58,14 +58,14 @@ namespace DesperateDevs.Net
         public void SendTo(byte[] buffer, IPEndPoint endPoint)
         {
             var client = GetClientWithRemoteEndPoint(endPoint);
-            send(client, buffer);
+            Send(client, buffer);
         }
 
         public void DisconnectClient(IPEndPoint endPoint)
         {
             var client = GetClientWithRemoteEndPoint(endPoint);
             client.Shutdown(SocketShutdown.Both);
-            client.BeginDisconnect(false, onDisconnectClient, client);
+            client.BeginDisconnect(false, OnDisconnectClient, client);
         }
 
         public override void Disconnect()
@@ -76,11 +76,11 @@ namespace DesperateDevs.Net
             foreach (var client in _clients.Values.ToArray())
             {
                 client.Shutdown(SocketShutdown.Both);
-                client.BeginDisconnect(false, onDisconnectClient, client);
+                client.BeginDisconnect(false, OnDisconnectClient, client);
             }
         }
 
-        void onAccepted(IAsyncResult ar)
+        void OnAccept(IAsyncResult ar)
         {
             var server = (Socket)ar.AsyncState;
             Socket client = null;
@@ -106,19 +106,19 @@ namespace DesperateDevs.Net
 
             if (client != null)
             {
-                addClient(client);
-                _socket.BeginAccept(onAccepted, _socket);
+                AddClient(client);
+                _socket.BeginAccept(OnAccept, _socket);
             }
         }
 
-        void addClient(Socket client)
+        void AddClient(Socket client)
         {
-            var key = keyForEndPoint((IPEndPoint)client.RemoteEndPoint);
+            var key = KeyForEndPoint((IPEndPoint)client.RemoteEndPoint);
             _clients.Add(key, client);
 
             _logger.Debug("Server accepted new client connection from " + key);
 
-            receive(new ReceiveVO(client, new byte[client.ReceiveBufferSize]));
+            Receive(new ReceiveVO(client, new byte[client.ReceiveBufferSize]));
 
             if (OnClientConnected != null)
             {
@@ -126,13 +126,13 @@ namespace DesperateDevs.Net
             }
         }
 
-        protected override void onReceived(IAsyncResult ar)
+        protected override void OnReceive(IAsyncResult ar)
         {
             var receiveVO = (ReceiveVO)ar.AsyncState;
             var bytesReceived = 0;
             try
             {
-                bytesReceived = receiveVO.socket.EndReceive(ar);
+                bytesReceived = receiveVO.Socket.EndReceive(ar);
             }
             catch (SocketException)
             {
@@ -146,9 +146,9 @@ namespace DesperateDevs.Net
 
             if (bytesReceived == 0)
             {
-                if (receiveVO.socket.Connected)
+                if (receiveVO.Socket.Connected)
                 {
-                    removeClient(receiveVO.socket);
+                    RemoveClient(receiveVO.Socket);
                 }
                 else
                 {
@@ -158,16 +158,16 @@ namespace DesperateDevs.Net
             }
             else
             {
-                var key = keyForEndPoint((IPEndPoint)receiveVO.socket.RemoteEndPoint);
+                var key = KeyForEndPoint((IPEndPoint)receiveVO.Socket.RemoteEndPoint);
                 _logger.Debug("Server received " + bytesReceived + " bytes from " + key);
 
-                triggerOnReceived(receiveVO, bytesReceived);
+                TriggerOnReceived(receiveVO, bytesReceived);
 
-                receive(receiveVO);
+                Receive(receiveVO);
             }
         }
 
-        void removeClient(Socket socket)
+        void RemoveClient(Socket socket)
         {
             var key = _clients.Single(kv => kv.Value == socket).Key;
             _clients.Remove(key);
@@ -180,7 +180,7 @@ namespace DesperateDevs.Net
             }
         }
 
-        void onDisconnectClient(IAsyncResult ar)
+        void OnDisconnectClient(IAsyncResult ar)
         {
             var client = (Socket)ar.AsyncState;
             var key = _clients.Single(kv => kv.Value == client).Key;

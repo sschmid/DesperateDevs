@@ -40,10 +40,10 @@ namespace DesperateDevs.Logging.Appenders
             if (_socket != null)
             {
                 if (_socket is TcpServerSocket server)
-                    return server.count > 0;
+                    return server.Count > 0;
 
                 if (_socket is TcpClientSocket client)
-                    return client.isConnected;
+                    return client.IsConnected;
             }
 
             return false;

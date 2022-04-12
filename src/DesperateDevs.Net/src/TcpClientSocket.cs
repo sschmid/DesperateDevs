@@ -11,7 +11,7 @@ namespace DesperateDevs.Net
         public event TcpClientSocketHandler OnConnected;
         public event TcpClientSocketHandler OnDisconnected;
 
-        public bool isConnected
+        public bool IsConnected
         {
             get { return _socket.Connected; }
         }
@@ -21,22 +21,22 @@ namespace DesperateDevs.Net
         public void Connect(IPAddress ipAddress, int port)
         {
             _logger.Debug("Client is connecting to " + ipAddress + ":" + port + "...");
-            _socket.BeginConnect(ipAddress, port, onConnected, _socket);
+            _socket.BeginConnect(ipAddress, port, OnConnect, _socket);
         }
 
         public override void Send(byte[] buffer)
         {
-            send(_socket, buffer);
+            Send(_socket, buffer);
         }
 
         public override void Disconnect()
         {
             _logger.Debug("Client is disconnecting...");
             _socket.Shutdown(SocketShutdown.Both);
-            _socket.BeginDisconnect(false, onDisconnected, _socket);
+            _socket.BeginDisconnect(false, OnDisconnect, _socket);
         }
 
-        void onConnected(IAsyncResult ar)
+        void OnConnect(IAsyncResult ar)
         {
             var client = (Socket)ar.AsyncState;
 
@@ -60,9 +60,9 @@ namespace DesperateDevs.Net
             if (didConnect)
             {
                 var rep = (IPEndPoint)client.RemoteEndPoint;
-                _logger.Debug("Client connected to " + keyForEndPoint(rep));
+                _logger.Debug("Client connected to " + KeyForEndPoint(rep));
 
-                receive(new ReceiveVO(client, new byte[client.ReceiveBufferSize]));
+                Receive(new ReceiveVO(client, new byte[client.ReceiveBufferSize]));
 
                 if (OnConnected != null)
                 {
@@ -71,13 +71,13 @@ namespace DesperateDevs.Net
             }
         }
 
-        protected override void onReceived(IAsyncResult ar)
+        protected override void OnReceive(IAsyncResult ar)
         {
             var receiveVO = (ReceiveVO)ar.AsyncState;
             var bytesReceived = 0;
             try
             {
-                bytesReceived = receiveVO.socket.EndReceive(ar);
+                bytesReceived = receiveVO.Socket.EndReceive(ar);
             }
             catch (SocketException)
             {
@@ -91,9 +91,9 @@ namespace DesperateDevs.Net
 
             if (bytesReceived == 0)
             {
-                if (receiveVO.socket.Connected)
+                if (receiveVO.Socket.Connected)
                 {
-                    disconnectedByRemote(receiveVO.socket);
+                    DisconnectedByRemote(receiveVO.Socket);
                 }
                 else
                 {
@@ -103,16 +103,16 @@ namespace DesperateDevs.Net
             }
             else
             {
-                var key = keyForEndPoint((IPEndPoint)receiveVO.socket.RemoteEndPoint);
+                var key = KeyForEndPoint((IPEndPoint)receiveVO.Socket.RemoteEndPoint);
                 _logger.Debug("Client received " + bytesReceived + " bytes from " + key);
 
-                triggerOnReceived(receiveVO, bytesReceived);
+                TriggerOnReceived(receiveVO, bytesReceived);
 
-                receive(receiveVO);
+                Receive(receiveVO);
             }
         }
 
-        void disconnectedByRemote(Socket client)
+        void DisconnectedByRemote(Socket client)
         {
             client.Close();
             _logger.Info("Client got disconnected by remote");
@@ -122,7 +122,7 @@ namespace DesperateDevs.Net
             }
         }
 
-        void onDisconnected(IAsyncResult ar)
+        void OnDisconnect(IAsyncResult ar)
         {
             var client = (Socket)ar.AsyncState;
             client.EndDisconnect(ar);

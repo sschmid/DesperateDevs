@@ -4,13 +4,13 @@ namespace DesperateDevs.Net
 {
     public class TcpMessageParser
     {
-        public const int LENGH_BUFFER_LENGTH = sizeof(int);
+        public const int BufferLength = sizeof(int);
 
         public delegate void TcpMessageParserMessage(TcpMessageParser messageParser, byte[] bytes);
 
         public event TcpMessageParserMessage OnMessage;
 
-        readonly byte[] _lengthBuffer = new byte[LENGH_BUFFER_LENGTH];
+        readonly byte[] _lengthBuffer = new byte[BufferLength];
 
         byte[] _messageBuffer;
         int _readIndex;
@@ -27,10 +27,10 @@ namespace DesperateDevs.Net
 
         public static byte[] UnwrapMessage(byte[] message)
         {
-            var lengthPrefix = new byte[LENGH_BUFFER_LENGTH];
-            var unwrappedMessage = new byte[message.Length - LENGH_BUFFER_LENGTH];
-            Array.Copy(message, lengthPrefix, LENGH_BUFFER_LENGTH);
-            Array.Copy(message, LENGH_BUFFER_LENGTH, unwrappedMessage, 0, unwrappedMessage.Length);
+            var lengthPrefix = new byte[BufferLength];
+            var unwrappedMessage = new byte[message.Length - BufferLength];
+            Array.Copy(message, lengthPrefix, BufferLength);
+            Array.Copy(message, BufferLength, unwrappedMessage, 0, unwrappedMessage.Length);
             return unwrappedMessage;
         }
 
@@ -40,29 +40,29 @@ namespace DesperateDevs.Net
             {
                 if (_messageBuffer == null)
                 {
-                    readLength(bytes);
+                    ReadLength(bytes);
                 }
 
                 if (_messageBuffer != null)
                 {
-                    readMessage(bytes);
+                    ReadMessage(bytes);
                 }
             }
 
             _readIndex = 0;
         }
 
-        void readLength(byte[] bytes)
+        void ReadLength(byte[] bytes)
         {
-            if (read(bytes, _lengthBuffer, LENGH_BUFFER_LENGTH))
+            if (Read(bytes, _lengthBuffer, BufferLength))
             {
                 _messageBuffer = new byte[BitConverter.ToInt32(_lengthBuffer, 0)];
             }
         }
 
-        void readMessage(byte[] bytes)
+        void ReadMessage(byte[] bytes)
         {
-            if (read(bytes, _messageBuffer, _messageBuffer.Length))
+            if (Read(bytes, _messageBuffer, _messageBuffer.Length))
             {
                 var message = _messageBuffer;
                 _messageBuffer = null;
@@ -74,7 +74,7 @@ namespace DesperateDevs.Net
             }
         }
 
-        bool read(byte[] bytes, byte[] buffer, int length)
+        bool Read(byte[] bytes, byte[] buffer, int length)
         {
             var bytesToReadToFillBuffer = length - _writeIndex;
             var availableBytesToRead = bytes.Length - _readIndex;

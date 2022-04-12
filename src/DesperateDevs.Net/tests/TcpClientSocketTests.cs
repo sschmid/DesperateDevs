@@ -39,7 +39,7 @@ namespace DesperateDevs.Net.Tests
             var client = NewClient;
             client.Connect(_ipAddress, Port + 1);
             Wait(2000);
-            client.isConnected.Should().BeFalse();
+            client.IsConnected.Should().BeFalse();
         }
 
         [Fact]
@@ -65,7 +65,7 @@ namespace DesperateDevs.Net.Tests
         [Fact]
         public void Connects()
         {
-            ConnectedClient.isConnected.Should().BeTrue();
+            ConnectedClient.IsConnected.Should().BeTrue();
         }
 
         [Fact]
@@ -74,7 +74,7 @@ namespace DesperateDevs.Net.Tests
             var client = ConnectedClient;
             client.Disconnect();
             Wait();
-            client.isConnected.Should().BeFalse();
+            client.IsConnected.Should().BeFalse();
         }
 
         [Fact]
@@ -85,7 +85,7 @@ namespace DesperateDevs.Net.Tests
             client.OnDisconnected += socket => { eventSocket = socket; };
             client.Disconnect();
             Wait();
-            client.isConnected.Should().BeFalse();
+            client.IsConnected.Should().BeFalse();
             eventSocket.Should().BeSameAs(client);
         }
 
@@ -95,7 +95,7 @@ namespace DesperateDevs.Net.Tests
             var client = ConnectedClient;
             _server.Disconnect();
             Wait();
-            client.isConnected.Should().BeFalse();
+            client.IsConnected.Should().BeFalse();
         }
 
         [Fact]
@@ -106,7 +106,7 @@ namespace DesperateDevs.Net.Tests
             client.OnDisconnected += socket => { eventSocket = socket; };
             _server.Disconnect();
             Wait();
-            client.isConnected.Should().BeFalse();
+            client.IsConnected.Should().BeFalse();
             eventSocket.Should().BeSameAs(client);
         }
 

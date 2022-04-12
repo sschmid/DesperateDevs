@@ -7,13 +7,13 @@ namespace DesperateDevs.Net
 {
     public class ReceiveVO
     {
-        public readonly Socket socket;
-        public readonly byte[] bytes;
+        public readonly Socket Socket;
+        public readonly byte[] Bytes;
 
         public ReceiveVO(Socket socket, byte[] bytes)
         {
-            this.socket = socket;
-            this.bytes = bytes;
+            Socket = socket;
+            Bytes = bytes;
         }
     }
 
@@ -38,9 +38,9 @@ namespace DesperateDevs.Net
 
         public abstract void Send(byte[] buffer);
 
-        protected void send(Socket socket, byte[] buffer)
+        protected void Send(Socket socket, byte[] buffer)
         {
-            var key = keyForEndPoint((IPEndPoint)socket.RemoteEndPoint);
+            var key = KeyForEndPoint((IPEndPoint)socket.RemoteEndPoint);
             _logger.Debug("Sending " + buffer.Length + " bytes via " + key);
 
             socket.BeginSend(
@@ -48,12 +48,12 @@ namespace DesperateDevs.Net
                 0,
                 buffer.Length,
                 SocketFlags.None,
-                onSent,
+                OnSent,
                 socket
             );
         }
 
-        void onSent(IAsyncResult ar)
+        void OnSent(IAsyncResult ar)
         {
             var socket = (Socket)ar.AsyncState;
             try
@@ -66,36 +66,36 @@ namespace DesperateDevs.Net
             }
         }
 
-        protected void receive(ReceiveVO receiveVO)
+        protected void Receive(ReceiveVO receiveVO)
         {
-            receiveVO.socket.BeginReceive(
-                receiveVO.bytes,
+            receiveVO.Socket.BeginReceive(
+                receiveVO.Bytes,
                 0,
-                receiveVO.bytes.Length,
+                receiveVO.Bytes.Length,
                 SocketFlags.None,
-                onReceived,
+                OnReceive,
                 receiveVO
             );
         }
 
-        protected abstract void onReceived(IAsyncResult ar);
+        protected abstract void OnReceive(IAsyncResult ar);
 
         public abstract void Disconnect();
 
-        protected void triggerOnReceived(ReceiveVO receiveVO, int bytesReceived)
+        protected void TriggerOnReceived(ReceiveVO receiveVO, int bytesReceived)
         {
             if (OnReceived != null)
             {
-                OnReceived(this, receiveVO.socket, trimmedBytes(receiveVO.bytes, bytesReceived));
+                OnReceived(this, receiveVO.Socket, TrimmedBytes(receiveVO.Bytes, bytesReceived));
             }
         }
 
-        protected static string keyForEndPoint(IPEndPoint endPoint)
+        protected static string KeyForEndPoint(IPEndPoint endPoint)
         {
             return endPoint.Address + ":" + endPoint.Port;
         }
 
-        static byte[] trimmedBytes(byte[] bytes, int length)
+        static byte[] TrimmedBytes(byte[] bytes, int length)
         {
             var trimmed = new byte[length];
             Array.Copy(bytes, trimmed, length);

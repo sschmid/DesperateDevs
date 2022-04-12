@@ -31,7 +31,7 @@ namespace DesperateDevs.Net.Tests
         public void NewServerSocketDoesNotHaveConnectedClients()
         {
             Listen();
-            _server.count.Should().Be(0);
+            _server.Count.Should().Be(0);
         }
 
         [Fact]
@@ -47,7 +47,7 @@ namespace DesperateDevs.Net.Tests
         {
             Listen();
             ConnectClient(out _client1);
-            _server.count.Should().Be(1);
+            _server.Count.Should().Be(1);
         }
 
         [Fact]
@@ -89,7 +89,7 @@ namespace DesperateDevs.Net.Tests
             Listen();
             ConnectClientWithEndPoint1(out _client1);
             DisconnectClient(ref _client1);
-            _server.count.Should().Be(0);
+            _server.Count.Should().Be(0);
         }
 
         [Fact]
@@ -119,7 +119,7 @@ namespace DesperateDevs.Net.Tests
             ConnectClient(out _client1);
             _server.Disconnect();
             Wait();
-            _server.count.Should().Be(0);
+            _server.Count.Should().Be(0);
         }
 
         [Fact]
@@ -201,7 +201,7 @@ namespace DesperateDevs.Net.Tests
             Listen();
             ConnectClient(out _client1);
             ConnectClient(out _client2);
-            _server.count.Should().Be(2);
+            _server.Count.Should().Be(2);
         }
 
         [Fact]
