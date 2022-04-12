@@ -10,13 +10,10 @@ namespace DesperateDevs.Unity.Editor
     {
         public static bool ObjectFieldButton(string label, string buttonText)
         {
-            var clicked = false;
+            bool clicked;
             EditorGUILayout.BeginHorizontal();
             {
                 EditorGUILayout.LabelField(label, GUILayout.Width(146));
-                if (buttonText.Length > 24)
-                    buttonText = "..." + buttonText.Substring(buttonText.Length - 24);
-
                 clicked = GUILayout.Button(buttonText, EditorStyles.objectField);
             }
             EditorGUILayout.EndHorizontal();
@@ -97,7 +94,7 @@ namespace DesperateDevs.Unity.Editor
             var guiChanged = GUI.changed;
             GUILayout.BeginHorizontal();
             {
-                searchString = GUILayout.TextField(searchString, EditorStyles.toolbarSearchField);
+                searchString = GUILayout.TextField(searchString, Styles.ToolbarSearchTextField);
                 if (GUILayout.Button(string.Empty, Styles.ToolbarSearchCancelButtonStyle))
                     searchString = string.Empty;
             }

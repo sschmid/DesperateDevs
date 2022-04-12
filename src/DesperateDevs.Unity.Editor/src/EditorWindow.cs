@@ -8,7 +8,7 @@ namespace DesperateDevs.Unity.Editor
     {
         public static Texture2D LoadTexture(string label)
         {
-            var guid = AssetDatabase.FindAssets(label).SingleOrDefault();
+            var guid = AssetDatabase.FindAssets(label).FirstOrDefault();
             if (guid != null)
             {
                 var path = AssetDatabase.GUIDToAssetPath(guid);

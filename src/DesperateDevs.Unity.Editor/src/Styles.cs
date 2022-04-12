@@ -28,6 +28,11 @@ namespace DesperateDevs.Unity.Editor
                 }
             });
 
+        static GUIStyle _toolbarSearchTextField;
+
+        public static GUIStyle ToolbarSearchTextField =>
+            _toolbarSearchTextField ?? (_toolbarSearchTextField = GUI.skin.FindStyle("ToolbarSeachTextField"));
+
         static GUIStyle _toolbarSearchCancelButtonStyle;
 
         public static GUIStyle ToolbarSearchCancelButtonStyle =>
