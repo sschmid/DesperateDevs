@@ -9,10 +9,7 @@ namespace DesperateDevs.Unity.Editor
 {
     public class PreferencesWindow : EditorWindow
     {
-        public Preferences preferences
-        {
-            get { return _preferences; }
-        }
+        public Preferences Preferences => _preferences;
 
         string _propertiesPath;
         string _userPropertiesPath;
@@ -47,25 +44,21 @@ namespace DesperateDevs.Unity.Editor
                     .ToArray();
 
                 foreach (var drawer in _preferencesDrawers)
-                {
                     drawer.Initialize(_preferences);
-                }
 
                 _preferences.Save();
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                _preferencesDrawers = new IPreferencesDrawer[0];
-                _configException = ex;
+                _preferencesDrawers = Array.Empty<IPreferencesDrawer>();
+                _configException = exception;
             }
         }
 
         void OnGUI()
         {
             if (_preferencesDrawers == null)
-            {
                 Initialize();
-            }
 
             DrawHeader();
             _scrollViewPosition = EditorGUILayout.BeginScrollView(_scrollViewPosition);
@@ -75,9 +68,7 @@ namespace DesperateDevs.Unity.Editor
             EditorGUILayout.EndScrollView();
 
             if (GUI.changed)
-            {
                 _preferences.Save();
-            }
         }
 
         void DrawHeader()
@@ -99,7 +90,7 @@ namespace DesperateDevs.Unity.Editor
         {
             if (_configException == null)
             {
-                for (int i = 0; i < _preferencesDrawers.Length; i++)
+                for (var i = 0; i < _preferencesDrawers.Length; i++)
                 {
                     try
                     {
@@ -124,19 +115,7 @@ namespace DesperateDevs.Unity.Editor
 
         static void DrawException(Exception exception)
         {
-            var style = new GUIStyle(GUI.skin.label);
-            style.wordWrap = true;
-            style.normal.textColor = Color.red;
-
-            if (Event.current.alt)
-            {
-                EditorGUILayout.LabelField(exception.ToString(), style);
-            }
-            else
-            {
-                EditorGUILayout.LabelField(exception.Message, style);
-            }
-
+            EditorGUILayout.LabelField(Event.current.alt ? exception.ToString() : exception.Message, Styles.ErrorLabel);
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Please make sure the properties files are set up correctly.");
         }

@@ -10,18 +10,27 @@ namespace DesperateDevs.Unity.Editor
 
         static GUIStyle _sectionContent;
 
-        public static GUIStyle SectionContent
-        {
-            get
+        public static GUIStyle SectionContent =>
+            _sectionContent ?? (_sectionContent = new GUIStyle("OL Box")
             {
-                if (_sectionContent == null)
-                {
-                    _sectionContent = new GUIStyle("OL Box");
-                    _sectionContent.stretchHeight = false;
-                }
+                stretchHeight = false
+            });
 
-                return _sectionContent;
-            }
-        }
+        static GUIStyle _errorLabel;
+
+        public static GUIStyle ErrorLabel =>
+            _errorLabel ?? (_errorLabel = new GUIStyle(GUI.skin.label)
+            {
+                wordWrap = true,
+                normal =
+                {
+                    textColor = Color.red
+                }
+            });
+
+        static GUIStyle _toolbarSearchCancelButtonStyle;
+
+        public static GUIStyle ToolbarSearchCancelButtonStyle =>
+            _toolbarSearchCancelButtonStyle ?? (_toolbarSearchCancelButtonStyle = GUI.skin.FindStyle("ToolbarSeachCancelButton"));
     }
 }
