@@ -7,12 +7,12 @@ namespace DesperateDevs.Unity.Editor
     {
         public static bool DrawSectionHeaderToggle(string header, bool value)
         {
-            return GUILayout.Toggle(value, header, Styles.sectionHeader);
+            return GUILayout.Toggle(value, header, Styles.SectionHeader);
         }
 
         public static void BeginSectionContent()
         {
-            EditorGUILayout.BeginVertical(Styles.sectionContent);
+            EditorGUILayout.BeginVertical(Styles.SectionContent);
         }
 
         public static void EndSectionContent()

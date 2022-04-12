@@ -12,7 +12,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
 {
     public class CodeGeneratorPreferencesDrawer : AbstractPreferencesDrawer
     {
-        public override string title { get { return "Jenny"; } }
+        public override string Title { get { return "Jenny"; } }
 
         string[] _availablePreProcessorTypes;
         string[] _availableDataProviderTypes;
@@ -75,7 +75,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
             }
         }
 
-        protected override void drawContent(Preferences preferences)
+        protected override void OnDrawContent(Preferences preferences)
         {
             var path = EditorLayout.ObjectFieldOpenFilePanel(
                 "Properties",

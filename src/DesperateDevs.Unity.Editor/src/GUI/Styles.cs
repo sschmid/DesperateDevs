@@ -6,7 +6,7 @@ namespace DesperateDevs.Unity.Editor
     {
         static GUIStyle _sectionHeader;
 
-        public static GUIStyle sectionHeader
+        public static GUIStyle SectionHeader
         {
             get
             {
@@ -21,7 +21,7 @@ namespace DesperateDevs.Unity.Editor
 
         static GUIStyle _sectionContent;
 
-        public static GUIStyle sectionContent
+        public static GUIStyle SectionContent
         {
             get
             {

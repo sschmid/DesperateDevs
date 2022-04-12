@@ -31,7 +31,7 @@ namespace DesperateDevs.Unity.Editor
             _preferencesDrawerNames = preferencesDrawerNames;
         }
 
-        void initialize()
+        void Initialize()
         {
             try
             {
@@ -64,13 +64,13 @@ namespace DesperateDevs.Unity.Editor
         {
             if (_preferencesDrawers == null)
             {
-                initialize();
+                Initialize();
             }
 
-            drawHeader();
+            DrawHeader();
             _scrollViewPosition = EditorGUILayout.BeginScrollView(_scrollViewPosition);
             {
-                drawContent();
+                DrawContent();
             }
             EditorGUILayout.EndScrollView();
 
@@ -80,7 +80,7 @@ namespace DesperateDevs.Unity.Editor
             }
         }
 
-        void drawHeader()
+        void DrawHeader()
         {
             foreach (var drawer in _preferencesDrawers)
             {
@@ -90,12 +90,12 @@ namespace DesperateDevs.Unity.Editor
                 }
                 catch (Exception ex)
                 {
-                    drawException(ex);
+                    DrawException(ex);
                 }
             }
         }
 
-        void drawContent()
+        void DrawContent()
         {
             if (_configException == null)
             {
@@ -107,7 +107,7 @@ namespace DesperateDevs.Unity.Editor
                     }
                     catch (Exception ex)
                     {
-                        drawException(ex);
+                        DrawException(ex);
                     }
 
                     if (i < _preferencesDrawers.Length - 1)
@@ -118,11 +118,11 @@ namespace DesperateDevs.Unity.Editor
             }
             else
             {
-                drawException(_configException);
+                DrawException(_configException);
             }
         }
 
-        static void drawException(Exception exception)
+        static void DrawException(Exception exception)
         {
             var style = new GUIStyle(GUI.skin.label);
             style.wordWrap = true;

@@ -60,25 +60,25 @@ namespace DesperateDevs.Unity.Editor
 
         public static bool MiniButton(string c)
         {
-            return miniButton(c, EditorStyles.miniButton);
+            return MiniButton(c, EditorStyles.miniButton);
         }
 
         public static bool MiniButtonLeft(string c)
         {
-            return miniButton(c, EditorStyles.miniButtonLeft);
+            return MiniButton(c, EditorStyles.miniButtonLeft);
         }
 
         public static bool MiniButtonMid(string c)
         {
-            return miniButton(c, EditorStyles.miniButtonMid);
+            return MiniButton(c, EditorStyles.miniButtonMid);
         }
 
         public static bool MiniButtonRight(string c)
         {
-            return miniButton(c, EditorStyles.miniButtonRight);
+            return MiniButton(c, EditorStyles.miniButtonRight);
         }
 
-        static bool miniButton(string c, GUIStyle style)
+        static bool MiniButton(string c, GUIStyle style)
         {
             var options = c.Length == 1
                 ? new[] {GUILayout.Width(19)}
@@ -93,14 +93,14 @@ namespace DesperateDevs.Unity.Editor
             return clicked;
         }
 
-        const int DEFAULT_FOLDOUT_MARGIN = 11;
+        const int DefaultFoldoutMargin = 11;
 
-        public static bool Foldout(bool foldout, string content, int leftMargin = DEFAULT_FOLDOUT_MARGIN)
+        public static bool Foldout(bool foldout, string content, int leftMargin = DefaultFoldoutMargin)
         {
             return Foldout(foldout, content, EditorStyles.foldout, leftMargin);
         }
 
-        public static bool Foldout(bool foldout, string content, GUIStyle style, int leftMargin = DEFAULT_FOLDOUT_MARGIN)
+        public static bool Foldout(bool foldout, string content, GUIStyle style, int leftMargin = DefaultFoldoutMargin)
         {
             EditorGUILayout.BeginHorizontal();
             GUILayout.Space(leftMargin);
