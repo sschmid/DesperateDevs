@@ -84,16 +84,10 @@ namespace DesperateDevs.Net
 
         protected void TriggerOnReceived(ReceiveVO receiveVO, int bytesReceived)
         {
-            if (OnReceived != null)
-            {
-                OnReceived(this, receiveVO.Socket, TrimmedBytes(receiveVO.Bytes, bytesReceived));
-            }
+            OnReceived?.Invoke(this, receiveVO.Socket, TrimmedBytes(receiveVO.Bytes, bytesReceived));
         }
 
-        protected static string KeyForEndPoint(IPEndPoint endPoint)
-        {
-            return endPoint.Address + ":" + endPoint.Port;
-        }
+        protected static string KeyForEndPoint(IPEndPoint endPoint) => endPoint.Address + ":" + endPoint.Port;
 
         static byte[] TrimmedBytes(byte[] bytes, int length)
         {

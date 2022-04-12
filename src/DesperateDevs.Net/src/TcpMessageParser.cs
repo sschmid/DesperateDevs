@@ -38,15 +38,8 @@ namespace DesperateDevs.Net
         {
             while (_readIndex < bytes.Length)
             {
-                if (_messageBuffer == null)
-                {
-                    ReadLength(bytes);
-                }
-
-                if (_messageBuffer != null)
-                {
-                    ReadMessage(bytes);
-                }
+                if (_messageBuffer == null) ReadLength(bytes);
+                if (_messageBuffer != null) ReadMessage(bytes);
             }
 
             _readIndex = 0;
@@ -55,9 +48,7 @@ namespace DesperateDevs.Net
         void ReadLength(byte[] bytes)
         {
             if (Read(bytes, _lengthBuffer, BufferLength))
-            {
                 _messageBuffer = new byte[BitConverter.ToInt32(_lengthBuffer, 0)];
-            }
         }
 
         void ReadMessage(byte[] bytes)
@@ -66,11 +57,7 @@ namespace DesperateDevs.Net
             {
                 var message = _messageBuffer;
                 _messageBuffer = null;
-
-                if (OnMessage != null)
-                {
-                    OnMessage(this, message);
-                }
+                OnMessage?.Invoke(this, message);
             }
         }
 
@@ -85,11 +72,13 @@ namespace DesperateDevs.Net
                 _writeIndex = 0;
                 return true;
             }
-
-            Array.Copy(bytes, _readIndex, buffer, _writeIndex, availableBytesToRead);
-            _readIndex += availableBytesToRead;
-            _writeIndex += availableBytesToRead;
-            return false;
+            else
+            {
+                Array.Copy(bytes, _readIndex, buffer, _writeIndex, availableBytesToRead);
+                _readIndex += availableBytesToRead;
+                _writeIndex += availableBytesToRead;
+                return false;
+            }
         }
     }
 }

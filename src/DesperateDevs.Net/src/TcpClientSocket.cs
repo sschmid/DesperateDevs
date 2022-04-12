@@ -11,10 +11,7 @@ namespace DesperateDevs.Net
         public event TcpClientSocketHandler OnConnected;
         public event TcpClientSocketHandler OnDisconnected;
 
-        public bool IsConnected
-        {
-            get { return _socket.Connected; }
-        }
+        public bool IsConnected => _socket.Connected;
 
         public TcpClientSocket() : base(typeof(TcpClientSocket).FullName) { }
 
@@ -24,10 +21,7 @@ namespace DesperateDevs.Net
             _socket.BeginConnect(ipAddress, port, OnConnect, _socket);
         }
 
-        public override void Send(byte[] buffer)
-        {
-            Send(_socket, buffer);
-        }
+        public override void Send(byte[] buffer) => Send(_socket, buffer);
 
         public override void Disconnect()
         {
@@ -49,10 +43,10 @@ namespace DesperateDevs.Net
             catch (SocketException ex)
             {
                 // Intended catch:
-                // SocketException "Conn    ection refused"
+                // SocketException "Connection refused"
 
                 // Caused by
-                // Port is not beeing listened to.
+                // Port is not being listened to.
 
                 _logger.Error(ex.Message);
             }
@@ -61,13 +55,8 @@ namespace DesperateDevs.Net
             {
                 var rep = (IPEndPoint)client.RemoteEndPoint;
                 _logger.Debug("Client connected to " + KeyForEndPoint(rep));
-
                 Receive(new ReceiveVO(client, new byte[client.ReceiveBufferSize]));
-
-                if (OnConnected != null)
-                {
-                    OnConnected(this);
-                }
+                OnConnected?.Invoke(this);
             }
         }
 
@@ -98,16 +87,14 @@ namespace DesperateDevs.Net
                 else
                 {
                     // Client manually disconnected via client.Disconnect() and will
-                    // be closed in onDisconnected()
+                    // be closed in OnDisconnect()
                 }
             }
             else
             {
                 var key = KeyForEndPoint((IPEndPoint)receiveVO.Socket.RemoteEndPoint);
                 _logger.Debug("Client received " + bytesReceived + " bytes from " + key);
-
                 TriggerOnReceived(receiveVO, bytesReceived);
-
                 Receive(receiveVO);
             }
         }
@@ -116,10 +103,7 @@ namespace DesperateDevs.Net
         {
             client.Close();
             _logger.Info("Client got disconnected by remote");
-            if (OnDisconnected != null)
-            {
-                OnDisconnected(this);
-            }
+            OnDisconnected?.Invoke(this);
         }
 
         void OnDisconnect(IAsyncResult ar)
@@ -128,11 +112,7 @@ namespace DesperateDevs.Net
             client.EndDisconnect(ar);
             client.Close();
             _logger.Debug("Client disconnected");
-
-            if (OnDisconnected != null)
-            {
-                OnDisconnected(this);
-            }
+            OnDisconnected?.Invoke(this);
         }
     }
 }

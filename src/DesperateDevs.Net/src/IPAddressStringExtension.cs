@@ -6,11 +6,8 @@ namespace DesperateDevs.Net
 {
     public static class IPAddressStringExtension
     {
-        public static IPAddress ResolveHost(this string host)
-        {
-            return Dns.GetHostEntry(host)
-                .AddressList
-                .FirstOrDefault(address => address.AddressFamily == AddressFamily.InterNetwork);
-        }
+        public static IPAddress ResolveHost(this string host) => Dns.GetHostEntry(host)
+            .AddressList
+            .FirstOrDefault(address => address.AddressFamily == AddressFamily.InterNetwork);
     }
 }
