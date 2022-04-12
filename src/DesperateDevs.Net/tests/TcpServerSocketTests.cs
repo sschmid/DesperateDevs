@@ -76,7 +76,7 @@ namespace DesperateDevs.Net.Tests
             Listen();
             ConnectClient(out _client1);
 
-            var rep = (IPEndPoint) eventClient.RemoteEndPoint;
+            var rep = (IPEndPoint)eventClient.RemoteEndPoint;
             var key = new IPEndPoint(IPAddress.Parse(rep.Address.ToString()), rep.Port);
 
             var client = _server.GetClientWithRemoteEndPoint(key);
@@ -261,13 +261,13 @@ namespace DesperateDevs.Net.Tests
 
         void ConnectClientWithEndPoint1(out Socket client)
         {
-            _server.OnClientConnected += (socket, c) => { _rep1 = (IPEndPoint) c.RemoteEndPoint; };
+            _server.OnClientConnected += (socket, c) => { _rep1 = (IPEndPoint)c.RemoteEndPoint; };
             ConnectClient(out client);
         }
 
         void ConnectClientWithEndPoint2(out Socket client)
         {
-            _server.OnClientConnected += (socket, c) => { _rep2 = (IPEndPoint) c.RemoteEndPoint; };
+            _server.OnClientConnected += (socket, c) => { _rep2 = (IPEndPoint)c.RemoteEndPoint; };
             ConnectClient(out client);
         }
 
@@ -286,7 +286,7 @@ namespace DesperateDevs.Net.Tests
             socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None,
                 ar =>
                 {
-                    var client = (Socket) ar.AsyncState;
+                    var client = (Socket)ar.AsyncState;
 
                     if (mayFail)
                     {
