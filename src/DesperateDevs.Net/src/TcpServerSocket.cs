@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 
-namespace DesperateDevs.Networking {
+namespace DesperateDevs.Net {
 
     public class TcpServerSocket : AbstractTcpSocket {
 

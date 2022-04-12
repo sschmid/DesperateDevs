@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DesperateDevs.Networking {
+namespace DesperateDevs.Net {
 
     public class TcpMessageParser {
 

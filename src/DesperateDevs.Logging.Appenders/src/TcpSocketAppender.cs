@@ -1,5 +1,5 @@
 using System.Text;
-using DesperateDevs.Networking;
+using DesperateDevs.Net;
 
 namespace DesperateDevs.Logging.Appenders
 {

@@ -21,7 +21,7 @@ DESPERATE_DEVS_RESTORE_UNITY=(
   DesperateDevs.CodeGeneration.Unity.Plugins
   DesperateDevs.Extensions
   DesperateDevs.Logging
-  DesperateDevs.Networking
+  DesperateDevs.Net
   DesperateDevs.Reflection
   DesperateDevs.Serialization
   DesperateDevs.Unity

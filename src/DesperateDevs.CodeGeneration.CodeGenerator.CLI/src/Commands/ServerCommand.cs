@@ -5,7 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using DesperateDevs.CLI.Utils;
 using DesperateDevs.Logging;
-using DesperateDevs.Networking;
+using DesperateDevs.Net;
 using DesperateDevs.Serialization;
 using DesperateDevs.Serialization.CLI.Utils;
 

@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using DesperateDevs.Logging;
 
-namespace DesperateDevs.Networking {
+namespace DesperateDevs.Net {
 
     public class ReceiveVO {
 

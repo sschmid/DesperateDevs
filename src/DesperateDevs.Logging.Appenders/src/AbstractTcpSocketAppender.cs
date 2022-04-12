@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Net;
-using DesperateDevs.Networking;
+using DesperateDevs.Net;
 
 namespace DesperateDevs.Logging.Appenders
 {

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
-using DesperateDevs.Networking;
+using DesperateDevs.Net;
 using DesperateDevs.Serialization;
 using DesperateDevs.Serialization.CLI.Utils;
 

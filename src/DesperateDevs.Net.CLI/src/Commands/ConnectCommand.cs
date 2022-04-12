@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace DesperateDevs.Networking.CLI {
+namespace DesperateDevs.Net.CLI {
 
     public class ConnectCommand : AbstractSocketCommand {
 

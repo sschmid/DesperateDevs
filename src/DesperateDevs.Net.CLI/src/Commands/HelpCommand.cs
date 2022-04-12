@@ -1,7 +1,7 @@
 ﻿using System;
 using DesperateDevs.CLI.Utils;
 
-namespace DesperateDevs.Networking.CLI
+namespace DesperateDevs.Net.CLI
 {
     public class HelpCommand : AbstractCommand
     {

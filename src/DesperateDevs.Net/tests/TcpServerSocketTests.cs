@@ -6,7 +6,7 @@ using System.Text;
 using FluentAssertions;
 using Xunit;
 
-namespace DesperateDevs.Networking.Tests
+namespace DesperateDevs.Net.Tests
 {
     [Collection("Non-Parallel")]
     public class TcpServerSocketTests : IDisposable

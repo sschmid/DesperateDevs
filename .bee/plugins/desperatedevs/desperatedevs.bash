@@ -220,7 +220,7 @@ desperatedevs::collect_jenny_unity() {
     DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
     DesperateDevs.CodeGeneration.CodeGenerator
     DesperateDevs.CodeGeneration
-    DesperateDevs.Networking
+    DesperateDevs.Net
     DesperateDevs.Unity.Editor
   )
   local images=(
@@ -252,7 +252,7 @@ desperatedevs::collect_desperatedevs_unity() {
     DesperateDevs.Logging
     DesperateDevs.Logging.Appenders
     DesperateDevs.Logging.Formatters
-    DesperateDevs.Networking
+    DesperateDevs.Net
     DesperateDevs.Reflection
     DesperateDevs.Serialization
     DesperateDevs.Threading

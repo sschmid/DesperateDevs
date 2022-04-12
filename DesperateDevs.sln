@@ -70,15 +70,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Logging.Bench
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Logging.Tests", "src\DesperateDevs.Logging\tests\DesperateDevs.Logging.Tests.csproj", "{A4E5103A-F671-44BD-9159-7F9EDD929E29}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Networking.CLI", "DesperateDevs.Networking.CLI", "{C70ADC4B-47D4-4EA0-A514-0A10393B58D0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Net.CLI", "DesperateDevs.Net.CLI", "{C70ADC4B-47D4-4EA0-A514-0A10393B58D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Networking.CLI", "src\DesperateDevs.Networking.CLI\src\DesperateDevs.Networking.CLI.csproj", "{587D0761-B70A-49DC-A202-2CCA8C99BC3A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Net.CLI", "src\DesperateDevs.Net.CLI\src\DesperateDevs.Net.CLI.csproj", "{587D0761-B70A-49DC-A202-2CCA8C99BC3A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Networking", "DesperateDevs.Networking", "{5707896A-553E-42BC-BB94-82247346C362}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Net", "DesperateDevs.Net", "{5707896A-553E-42BC-BB94-82247346C362}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Networking", "src\DesperateDevs.Networking\src\DesperateDevs.Networking.csproj", "{10E23D0D-B7DC-45FC-ADE0-AE87F4DA550B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Net", "src\DesperateDevs.Net\src\DesperateDevs.Net.csproj", "{10E23D0D-B7DC-45FC-ADE0-AE87F4DA550B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Networking.Tests", "src\DesperateDevs.Networking\tests\DesperateDevs.Networking.Tests.csproj", "{CFA75523-9940-4366-A863-5C9F69195995}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Net.Tests", "src\DesperateDevs.Net\tests\DesperateDevs.Net.Tests.csproj", "{CFA75523-9940-4366-A863-5C9F69195995}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Reflection", "DesperateDevs.Reflection", "{55AA5FC3-2145-4CCB-891E-F2FF721883C0}"
 EndProject

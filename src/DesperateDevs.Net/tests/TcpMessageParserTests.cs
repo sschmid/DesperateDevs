@@ -4,7 +4,7 @@ using System.Text;
 using FluentAssertions;
 using Xunit;
 
-namespace DesperateDevs.Networking.Tests
+namespace DesperateDevs.Net.Tests
 {
     public class TcpMessageParserTests
     {
