@@ -6,18 +6,7 @@ namespace DesperateDevs.Unity.Editor
     {
         static GUIStyle _sectionHeader;
 
-        public static GUIStyle SectionHeader
-        {
-            get
-            {
-                if (_sectionHeader == null)
-                {
-                    _sectionHeader = new GUIStyle("OL Title");
-                }
-
-                return _sectionHeader;
-            }
-        }
+        public static GUIStyle SectionHeader => _sectionHeader ?? (_sectionHeader = new GUIStyle("OL Title"));
 
         static GUIStyle _sectionContent;
 
