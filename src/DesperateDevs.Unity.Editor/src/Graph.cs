@@ -1,129 +1,182 @@
-﻿using System.Linq;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
-namespace DesperateDevs.Unity.Editor {
-
-    public class Graph {
-
-        public float xBorder = 48;
-        public float yBorder = 20;
-        public int rightLinePadding = -15;
-        public string labelFormat = "{0:0.0}";
-        public string axisFormat = "{0:0.0}";
-        public int gridLines = 1;
-        public float axisRounding = 1f;
-        public float anchorRadius = 1f;
-        public Color lineColor = Color.magenta;
+namespace DesperateDevs.Unity.Editor
+{
+    public class Graph
+    {
+        public float BorderX = 48;
+        public float BorderY = 20;
+        public int RightLinePadding = -15;
+        public string LabelFormat = "{0:0.0}";
+        public string AxisFormat = "{0:0.0}";
+        public int GridLines = 1;
+        public float AxisRounding = 1f;
+        public float AnchorRadius = 1f;
+        public float PointScale = 1f;
+        public float SelectedPointScale = 3f;
+        public float LineWidth = 2f;
+        public Color GridLinesColor = Color.gray;
+        public Color LineColor = Color.red;
+        public Color AvgLineColor = Color.yellow;
+        public Color PointColor = Color.red;
 
         readonly GUIStyle _labelTextStyle;
         readonly GUIStyle _centeredStyle;
-        readonly Vector3[] _cachedLinePointVerticies;
+        readonly Vector3[] _cachedLinePointVertices;
         readonly Vector3[] _linePoints;
 
-        public Graph(int dataLength) {
-            _labelTextStyle = new GUIStyle(GUI.skin.label);
-            _labelTextStyle.alignment = TextAnchor.UpperRight;
-            _centeredStyle = new GUIStyle();
-            _centeredStyle.alignment = TextAnchor.UpperCenter;
-            _centeredStyle.normal.textColor = Color.white;
+        public Graph(int dataLength)
+        {
+            _labelTextStyle = new GUIStyle(GUI.skin.label)
+            {
+                alignment = TextAnchor.UpperRight
+            };
+            _centeredStyle = new GUIStyle
+            {
+                alignment = TextAnchor.UpperCenter,
+                normal =
+                {
+                    textColor = Color.white
+                }
+            };
             _linePoints = new Vector3[dataLength];
-            _cachedLinePointVerticies = new[] {
-                new Vector3(-1, 1, 0) * anchorRadius,
-                new Vector3(1, 1, 0) * anchorRadius,
-                new Vector3(1, -1, 0) * anchorRadius,
-                new Vector3(-1, -1, 0) * anchorRadius,
+            _cachedLinePointVertices = new[]
+            {
+                new Vector3(-1, 1, 0) * AnchorRadius,
+                new Vector3(1, 1, 0) * AnchorRadius,
+                new Vector3(1, -1, 0) * AnchorRadius,
+                new Vector3(-1, -1, 0) * AnchorRadius,
             };
         }
 
-        public void Draw(float[] data, float height) {
+        public void Draw(float[] data, float height)
+        {
             var rect = GUILayoutUtility.GetRect(EditorGUILayout.GetControlRect().width, height);
-            var top = rect.y + yBorder;
-            var floor = rect.y + rect.height - yBorder;
+            var top = rect.y + BorderY;
+            var floor = rect.y + rect.height - BorderY;
             var availableHeight = floor - top;
-            var max = data.Length != 0 ? data.Max() : 0f;
-            if (max % axisRounding != 0) {
-                max = max + axisRounding - (max % axisRounding);
+
+            var min = 0f;
+            var max = 0f;
+            var avg = 0f;
+
+            if (data.Length > 0)
+            {
+                min = float.MaxValue;
+                max = float.MinValue;
+                foreach (var value in data)
+                {
+                    if (value < min) min = value;
+                    if (value > max) max = value;
+                    avg += value;
+                }
+
+                avg /= data.Length;
             }
 
-            drawGridLines(top, rect.width, availableHeight, max);
-            drawAvg(data, top, floor, rect.width, availableHeight, max);
-            drawLine(data, floor, rect.width, availableHeight, max);
+            if (min % AxisRounding != 0)
+                min = min < 0
+                    ? min - AxisRounding - min % AxisRounding
+                    : min - min % AxisRounding;
+
+            if (max % AxisRounding != 0)
+                max = max > 0
+                    ? max + AxisRounding - max % AxisRounding
+                    : max - max % AxisRounding;
+
+            var range = max - min;
+            DrawGridLines(top, rect.width, availableHeight, min, range);
+            DrawAvg(floor, rect.width, availableHeight, min, range, avg);
+            DrawLine(data, floor, rect.width, availableHeight, min, range);
         }
 
-        void drawGridLines(float top, float width, float availableHeight, float max) {
+        void DrawGridLines(float top, float width, float availableHeight, float min, float range)
+        {
             var handleColor = Handles.color;
-            Handles.color = Color.grey;
-            var n = gridLines + 1;
+            Handles.color = GridLinesColor;
+
+            var n = GridLines + 1;
             var lineSpacing = availableHeight / n;
-            for (int i = 0; i <= n; i++) {
-                var lineY = top + (lineSpacing * i);
+            for (var i = 0; i <= n; i++)
+            {
+                var lineY = top + lineSpacing * i;
                 Handles.DrawLine(
-                    new Vector2(xBorder, lineY),
-                    new Vector2(width - rightLinePadding, lineY)
+                    new Vector2(BorderX, lineY),
+                    new Vector2(width - RightLinePadding, lineY)
                 );
                 GUI.Label(
-                    new Rect(0, lineY - 8, xBorder - 2, 50),
-                    string.Format(axisFormat, max * (1f - ((float)i / (float)n))),
+                    new Rect(0, lineY - 8, BorderX - 2, 50),
+                    string.Format(AxisFormat, min + range * (1f - i / (float)n)),
                     _labelTextStyle
                 );
             }
+
             Handles.color = handleColor;
         }
 
-        void drawAvg(float[] data, float top, float floor, float width, float availableHeight, float max) {
+        void DrawAvg(float floor, float width, float availableHeight, float min, float range, float avg)
+        {
             var handleColor = Handles.color;
-            Handles.color = Color.yellow;
+            Handles.color = AvgLineColor;
 
-            var avg = data.Average();
-            var lineY = floor - (availableHeight * (avg / max));
+            var lineY = floor + availableHeight * (min / range) - availableHeight * (avg / range);
             Handles.DrawLine(
-                new Vector2(xBorder, lineY),
-                new Vector2(width - rightLinePadding, lineY)
+                new Vector2(BorderX, lineY),
+                new Vector2(width - RightLinePadding, lineY)
             );
+
             Handles.color = handleColor;
         }
 
-        void drawLine(float[] data, float floor, float width, float availableHeight, float max) {
-            var lineWidth = (float)(width - xBorder - rightLinePadding) / data.Length;
+        void DrawLine(float[] data, float floor, float width, float availableHeight, float min, float range)
+        {
             var handleColor = Handles.color;
-            var labelRect = new Rect();
-            Vector2 newLine;
-            bool mousePositionDiscovered = false;
-            float mouseHoverDataValue = 0;
-            float linePointScale;
-            Handles.color = lineColor;
             Handles.matrix = Matrix4x4.identity;
             HandleUtility.handleMaterial.SetPass(0);
-            for (int i = 0; i < data.Length; i++) {
+
+            var lineWidth = (width - BorderX - RightLinePadding) / data.Length;
+            var labelRect = new Rect();
+            var mousePositionDiscovered = false;
+            var mouseHoverDataValue = 0f;
+            for (var i = 0; i < data.Length; i++)
+            {
                 var value = data[i];
-                var lineTop = floor - (availableHeight * (value / max));
-                newLine = new Vector2(xBorder + (lineWidth * i), lineTop);
+                var lineTop = floor + availableHeight * (min / range) - availableHeight * (value / range);
+                var newLine = new Vector2(BorderX + lineWidth * i, lineTop);
                 _linePoints[i] = new Vector3(newLine.x, newLine.y, 0);
-                linePointScale = 1f;
-                if (!mousePositionDiscovered) {
-                    var anchorPosRadius3 = anchorRadius * 3;
-                    var anchorPosRadius6 = anchorRadius * 6;
-                    var anchorPos = newLine - (Vector2.up * 0.5f);
+                var linePointScale = PointScale;
+                if (!mousePositionDiscovered)
+                {
+                    var anchorPosRadius3 = AnchorRadius * 3;
+                    var anchorPosRadius6 = AnchorRadius * 6;
+                    var anchorPos = newLine - Vector2.up * 0.5f;
                     labelRect = new Rect(anchorPos.x - anchorPosRadius3, anchorPos.y - anchorPosRadius3, anchorPosRadius6, anchorPosRadius6);
-                    if (labelRect.Contains(Event.current.mousePosition)) {
+                    if (labelRect.Contains(Event.current.mousePosition))
+                    {
                         mousePositionDiscovered = true;
                         mouseHoverDataValue = value;
-                        linePointScale = 3f;
+                        linePointScale = SelectedPointScale;
                     }
                 }
-                Handles.matrix = Matrix4x4.TRS(_linePoints[i], Quaternion.identity, Vector3.one * linePointScale);
-                Handles.DrawAAConvexPolygon(_cachedLinePointVerticies);
-            }
-            Handles.matrix = Matrix4x4.identity;
-            Handles.DrawAAPolyLine(2f, data.Length, _linePoints);
 
-            if (mousePositionDiscovered) {
+                Handles.color = PointColor;
+                Handles.matrix = Matrix4x4.TRS(_linePoints[i], Quaternion.identity, Vector3.one * linePointScale);
+                Handles.DrawAAConvexPolygon(_cachedLinePointVertices);
+            }
+
+            Handles.color = LineColor;
+            Handles.matrix = Matrix4x4.identity;
+            Handles.DrawAAPolyLine(LineWidth, data.Length, _linePoints);
+
+            if (mousePositionDiscovered)
+            {
                 labelRect.y -= 16;
                 labelRect.width += 50;
                 labelRect.x -= 25;
-                GUI.Label(labelRect, string.Format(labelFormat, mouseHoverDataValue), _centeredStyle);
+                GUI.Label(labelRect, string.Format(LabelFormat, mouseHoverDataValue), _centeredStyle);
             }
+
             Handles.color = handleColor;
         }
     }
