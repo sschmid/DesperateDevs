@@ -2,10 +2,10 @@ namespace DesperateDevs.CLI.Utils
 {
     public abstract class AbstractCommand : ICommand
     {
-        public abstract string trigger { get; }
-        public abstract string description { get; }
-        public abstract string group { get; }
-        public abstract string example { get; }
+        public abstract string Trigger { get; }
+        public abstract string Description { get; }
+        public abstract string Group { get; }
+        public abstract string Example { get; }
 
         protected CLIProgram _program;
         protected string[] _rawArgs;
@@ -19,9 +19,9 @@ namespace DesperateDevs.CLI.Utils
                 .WithoutTrigger()
                 .WithoutDefaultParameter();
 
-            run();
+            Run();
         }
 
-        protected abstract void run();
+        protected abstract void Run();
     }
 }

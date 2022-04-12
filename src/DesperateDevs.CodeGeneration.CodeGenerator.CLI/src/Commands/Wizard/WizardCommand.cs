@@ -9,14 +9,14 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 {
     public class WizardCommand : AbstractCommand
     {
-        public override string trigger { get { return "wiz"; } }
-        public override string description { get { return "Setup Jenny, guided by a wizard"; } }
-        public override string group { get { return null; } }
-        public override string example { get { return "wiz"; } }
+        public override string Trigger { get { return "wiz"; } }
+        public override string Description { get { return "Setup Jenny, guided by a wizard"; } }
+        public override string Group { get { return null; } }
+        public override string Example { get { return "wiz"; } }
 
         readonly Logger _logger = Sherlog.GetLogger(typeof(WizardCommand));
 
-        protected override void run()
+        protected override void Run()
         {
             const string title = "";
 //            const string title = @"
@@ -58,12 +58,12 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                 : string.Empty;
 
             var fixCommand = new FixCommand();
-            fixCommand.Run(_program, new[] { fixCommand.trigger, preferences.PropertiesPath, fixArgs });
+            fixCommand.Run(_program, new[] { fixCommand.Trigger, preferences.PropertiesPath, fixArgs });
 
             Console.Clear();
 
             var doctorCommand = new DoctorCommand();
-            doctorCommand.Run(_program, new[] { doctorCommand.trigger, preferences.PropertiesPath });
+            doctorCommand.Run(_program, new[] { doctorCommand.Trigger, preferences.PropertiesPath });
         }
     }
 }

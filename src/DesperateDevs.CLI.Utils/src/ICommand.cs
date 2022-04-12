@@ -2,10 +2,10 @@
 
     public interface ICommand {
 
-        string trigger { get; }
-        string description { get; }
-        string group { get; }
-        string example { get; }
+        string Trigger { get; }
+        string Description { get; }
+        string Group { get; }
+        string Example { get; }
 
         void Run(CLIProgram program, string[] args);
     }

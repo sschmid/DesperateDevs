@@ -5,16 +5,16 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 {
     public class AutoImportCommand : AbstractPreferencesCommand
     {
-        public override string trigger => "auto-import";
-        public override string description => "Find and import all plugins";
-        public override string group => CommandGroups.PLUGINS;
-        public override string example => "auto-import";
+        public override string Trigger => "auto-import";
+        public override string Description => "Find and import all plugins";
+        public override string Group => CommandGroups.PLUGINS;
+        public override string Example => "auto-import";
 
         public AutoImportCommand() : base(typeof(AutoImportCommand).FullName)
         {
         }
 
-        protected override void run()
+        protected override void Run()
         {
             _logger.Debug(_preferences.ToString());
             autoImport();

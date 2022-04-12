@@ -6,16 +6,16 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 {
     public class GenerateCommand : AbstractPreferencesCommand
     {
-        public override string trigger => "gen";
-        public override string description => "Generate files based on properties file";
-        public override string group => CommandGroups.CODE_GENERATION;
-        public override string example => "gen";
+        public override string Trigger => "gen";
+        public override string Description => "Generate files based on properties file";
+        public override string Group => CommandGroups.CODE_GENERATION;
+        public override string Example => "gen";
 
         public GenerateCommand() : base(typeof(GenerateCommand).FullName)
         {
         }
 
-        protected override void run()
+        protected override void Run()
         {
             _logger.Info("Generating using " + _preferences.PropertiesPath);
 

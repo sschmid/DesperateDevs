@@ -5,29 +5,29 @@ namespace DesperateDevs.Net.Cli
 {
     public class ConnectCommand : AbstractSocketCommand
     {
-        public override string trigger
+        public override string Trigger
         {
             get { return "connect"; }
         }
 
-        public override string description
+        public override string Description
         {
             get { return "Connect to ip on port"; }
         }
 
-        public override string group
+        public override string Group
         {
             get { return null; }
         }
 
-        public override string example
+        public override string Example
         {
             get { return "connect [ip] [port]"; }
         }
 
         public ConnectCommand() : base(typeof(ConnectCommand).FullName) { }
 
-        protected override void run()
+        protected override void Run()
         {
             IPAddress ip = null;
             int port;
@@ -48,7 +48,7 @@ namespace DesperateDevs.Net.Cli
             client.OnDisconnected += socket => Environment.Exit(0);
             client.Connect(ip, port);
 
-            start();
+            Start();
         }
     }
 }

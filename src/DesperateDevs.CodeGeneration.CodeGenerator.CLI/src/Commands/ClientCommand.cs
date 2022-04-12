@@ -10,10 +10,10 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 {
     public class ClientCommand : AbstractPreferencesCommand
     {
-        public override string trigger => "client";
-        public override string description => "Start client mode";
-        public override string group => CommandGroups.CODE_GENERATION;
-        public override string example => "client [command]";
+        public override string Trigger => "client";
+        public override string Description => "Start client mode";
+        public override string Group => CommandGroups.CODE_GENERATION;
+        public override string Example => "client [command]";
 
         string _command;
 
@@ -21,7 +21,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
         {
         }
 
-        protected override void run()
+        protected override void Run()
         {
             _command = string.Join(" ", _rawArgs.Skip(1).ToArray());
 

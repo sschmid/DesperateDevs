@@ -4,16 +4,16 @@ namespace DesperateDevs.Serialization.CLI.Utils
 {
     public class FormatCommand : AbstractPreferencesCommand
     {
-        public override string trigger => "format";
-        public override string description => "Format the config files";
-        public override string group => CommandGroups.PROPERTIES;
-        public override string example => "format [-mini]";
+        public override string Trigger => "format";
+        public override string Description => "Format the config files";
+        public override string Group => CommandGroups.PROPERTIES;
+        public override string Example => "format [-mini]";
 
         public FormatCommand() : base(typeof(FormatCommand).FullName)
         {
         }
 
-        protected override void run()
+        protected override void Run()
         {
             _preferences.Save(_args.HasParameter("-mini"));
         }

@@ -4,16 +4,16 @@ namespace DesperateDevs.Serialization.CLI.Utils
 {
     public class EditConfigCommand : AbstractPreferencesCommand
     {
-        public override string trigger => "edit";
-        public override string description => "Open config files with default editor";
-        public override string group => CommandGroups.PROPERTIES;
-        public override string example => "edit";
+        public override string Trigger => "edit";
+        public override string Description => "Open config files with default editor";
+        public override string Group => CommandGroups.PROPERTIES;
+        public override string Example => "edit";
 
         public EditConfigCommand() : base(typeof(EditConfigCommand).FullName)
         {
         }
 
-        protected override void run()
+        protected override void Run()
         {
             _logger.Debug("Opening " + _preferences.UserPropertiesPath);
             System.Diagnostics.Process.Start(_preferences.UserPropertiesPath);

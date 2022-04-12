@@ -13,10 +13,10 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 {
     public class ServerCommand : AbstractPreferencesCommand
     {
-        public override string trigger => "server";
-        public override string description => "Start server mode";
-        public override string group => CommandGroups.CODE_GENERATION;
-        public override string example => "server";
+        public override string Trigger => "server";
+        public override string Description => "Start server mode";
+        public override string Group => CommandGroups.CODE_GENERATION;
+        public override string Example => "server";
 
         AbstractTcpSocket _socket;
         readonly List<string> _logBuffer = new List<string>();
@@ -25,7 +25,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
         {
         }
 
-        protected override void run()
+        protected override void Run()
         {
             var config = _preferences.CreateAndConfigure<CodeGeneratorConfig>();
             var server = new TcpServerSocket();
@@ -48,7 +48,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 
             try
             {
-                if (args[0] == trigger)
+                if (args[0] == Trigger)
                 {
                     throw new Exception("Server is already running!");
                 }

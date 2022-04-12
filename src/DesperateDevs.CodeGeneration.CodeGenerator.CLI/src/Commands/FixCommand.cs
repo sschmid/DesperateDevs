@@ -11,10 +11,10 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 {
     public class FixCommand : AbstractPreferencesCommand
     {
-        public override string trigger => "fix";
-        public override string description => "Add missing keys and add available or remove unavailable plugins interactively";
-        public override string group => CommandGroups.PLUGINS;
-        public override string example => "fix";
+        public override string Trigger => "fix";
+        public override string Description => "Add missing keys and add available or remove unavailable plugins interactively";
+        public override string Group => CommandGroups.PLUGINS;
+        public override string Example => "fix";
 
         static bool silent;
 
@@ -22,7 +22,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
         {
         }
 
-        protected override void run()
+        protected override void Run()
         {
             silent = _rawArgs.IsSilent();
 

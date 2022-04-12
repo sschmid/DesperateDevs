@@ -6,14 +6,14 @@ namespace DesperateDevs.Serialization.CLI.Utils
 {
     public class NewConfigCommand : AbstractCommand
     {
-        public override string trigger => "new";
-        public override string description => "Create new properties file(s) with default values";
-        public override string group => CommandGroups.PROPERTIES;
-        public override string example => "new [file] [userFile] [-f]";
+        public override string Trigger => "new";
+        public override string Description => "Create new properties file(s) with default values";
+        public override string Group => CommandGroups.PROPERTIES;
+        public override string Example => "new [file] [userFile] [-f]";
 
         readonly Logger _logger = Sherlog.GetLogger(typeof(NewConfigCommand));
 
-        protected override void run()
+        protected override void Run()
         {
             var properties = _args.GetPropertiesPath();
             var userProperties = _args.GetUserPropertiesPath();

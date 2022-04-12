@@ -4,29 +4,29 @@ namespace DesperateDevs.Net.Cli
 {
     public class ListenCommand : AbstractSocketCommand
     {
-        public override string trigger
+        public override string Trigger
         {
             get { return "listen"; }
         }
 
-        public override string description
+        public override string Description
         {
             get { return "Listen on port"; }
         }
 
-        public override string group
+        public override string Group
         {
             get { return null; }
         }
 
-        public override string example
+        public override string Example
         {
             get { return "listen [port]"; }
         }
 
         public ListenCommand() : base(typeof(ListenCommand).FullName) { }
 
-        protected override void run()
+        protected override void Run()
         {
             int port;
 
@@ -44,7 +44,7 @@ namespace DesperateDevs.Net.Cli
             _socket = server;
             server.Listen(port);
 
-            start();
+            Start();
         }
     }
 }

@@ -5,16 +5,16 @@ namespace DesperateDevs.Serialization.CLI.Utils
 {
     public class DumpCommand : AbstractPreferencesCommand
     {
-        public override string trigger => "dump";
-        public override string description => "List all config keys and values";
-        public override string group => CommandGroups.PROPERTIES;
-        public override string example => "dump";
+        public override string Trigger => "dump";
+        public override string Description => "List all config keys and values";
+        public override string Group => CommandGroups.PROPERTIES;
+        public override string Example => "dump";
 
         public DumpCommand() : base(typeof(DumpCommand).FullName)
         {
         }
 
-        protected override void run()
+        protected override void Run()
         {
             _logger.Debug(_preferences.ToString());
 

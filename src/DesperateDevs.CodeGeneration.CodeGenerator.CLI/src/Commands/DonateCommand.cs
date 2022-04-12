@@ -5,12 +5,12 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 {
     public class DonateCommand : AbstractCommand
     {
-        public override string trigger => "donate";
-        public override string description => null;
-        public override string group => null;
-        public override string example => null;
+        public override string Trigger => "donate";
+        public override string Description => null;
+        public override string Group => null;
+        public override string Example => null;
 
-        protected override void run()
+        protected override void Run()
         {
             const string heart = @"
         @@@@@@@@           @@@@@@@@

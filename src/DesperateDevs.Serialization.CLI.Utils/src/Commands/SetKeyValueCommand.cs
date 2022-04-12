@@ -4,16 +4,16 @@ namespace DesperateDevs.Serialization.CLI.Utils
 {
     public class SetKeyValueCommand : AbstractPreferencesCommand
     {
-        public override string trigger => "set";
-        public override string description => "Set the value of a key";
-        public override string group => CommandGroups.PROPERTIES;
-        public override string example => "set [key] [value]";
+        public override string Trigger => "set";
+        public override string Description => "Set the value of a key";
+        public override string Group => CommandGroups.PROPERTIES;
+        public override string Example => "set [key] [value]";
 
         public SetKeyValueCommand() : base(typeof(SetKeyValueCommand).FullName)
         {
         }
 
-        protected override void run()
+        protected override void Run()
         {
             if (_args.Length == 2)
             {

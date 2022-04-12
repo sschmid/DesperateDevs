@@ -5,12 +5,12 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 {
     public class HelpCommand : AbstractCommand
     {
-        public override string trigger => "help";
-        public override string description => "Show help";
-        public override string group => null;
-        public override string example => "help";
+        public override string Trigger => "help";
+        public override string Description => "Show help";
+        public override string Group => null;
+        public override string Example => "help";
 
-        protected override void run()
+        protected override void Run()
         {
             var pad = _program.GetCommandListPad();
             var commandList = _program.GetFormattedCommandList();

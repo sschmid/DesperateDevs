@@ -65,7 +65,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
             base("Create new " + CodeGenerator.defaultPropertiesPath, null, false, () =>
             {
                 var command = new NewConfigCommand();
-                command.Run(progam, new[] { command.trigger, "-s", CodeGenerator.defaultPropertiesPath });
+                command.Run(progam, new[] { command.Trigger, "-s", CodeGenerator.defaultPropertiesPath });
                 menu.properties = CodeGenerator.defaultPropertiesPath;
                 menu.Stop();
             })
@@ -81,7 +81,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                 Console.WriteLine("Please enter a file name");
                 var fileName = Console.ReadLine();
                 var command = new NewConfigCommand();
-                command.Run(progam, new[] { command.trigger, "-s", fileName });
+                command.Run(progam, new[] { command.Trigger, "-s", fileName });
                 menu.properties = fileName;
                 menu.Stop();
             })

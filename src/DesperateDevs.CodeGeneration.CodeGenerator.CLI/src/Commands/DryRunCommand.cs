@@ -4,16 +4,16 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 {
     public class DryRunCommand : AbstractPreferencesCommand
     {
-        public override string trigger => "dry";
-        public override string description => "Run the code generator in dry mode";
-        public override string group => CommandGroups.CODE_GENERATION;
-        public override string example => "dry";
+        public override string Trigger => "dry";
+        public override string Description => "Run the code generator in dry mode";
+        public override string Group => CommandGroups.CODE_GENERATION;
+        public override string Example => "dry";
 
         public DryRunCommand() : base(typeof(DryRunCommand).FullName)
         {
         }
 
-        protected override void run()
+        protected override void Run()
         {
             var codeGenerator = CodeGeneratorUtil.CodeGeneratorFromPreferences(_preferences);
 

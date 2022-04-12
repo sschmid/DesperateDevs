@@ -5,16 +5,16 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 {
     public class ScanCommand : AbstractPreferencesCommand
     {
-        public override string trigger => "scan";
-        public override string description => "Scan and print available types found in specified plugins";
-        public override string group => CommandGroups.PLUGINS;
-        public override string example => "scan";
+        public override string Trigger => "scan";
+        public override string Description => "Scan and print available types found in specified plugins";
+        public override string Group => CommandGroups.PLUGINS;
+        public override string Example => "scan";
 
         public ScanCommand() : base(typeof(ScanCommand).FullName)
         {
         }
 
-        protected override void run()
+        protected override void Run()
         {
             var instances = CodeGeneratorUtil.LoadFromPlugins(_preferences);
 

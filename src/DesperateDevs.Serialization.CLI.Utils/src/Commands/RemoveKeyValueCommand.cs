@@ -5,16 +5,16 @@ namespace DesperateDevs.Serialization.CLI.Utils
 {
     public class RemoveKeyValueCommand : AbstractPreferencesCommand
     {
-        public override string trigger => "remove";
-        public override string description => "Remove a key or a value from a key";
-        public override string group => CommandGroups.PROPERTIES;
-        public override string example => "remove [key] [value]";
+        public override string Trigger => "remove";
+        public override string Description => "Remove a key or a value from a key";
+        public override string Group => CommandGroups.PROPERTIES;
+        public override string Example => "remove [key] [value]";
 
         public RemoveKeyValueCommand() : base(typeof(RemoveKeyValueCommand).FullName)
         {
         }
 
-        protected override void run()
+        protected override void Run()
         {
             if (_args.Length == 2)
             {

@@ -8,16 +8,16 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 {
     public class DoctorCommand : AbstractPreferencesCommand
     {
-        public override string trigger => "doctor";
-        public override string description => "Check the config for potential problems";
-        public override string group => CommandGroups.PLUGINS;
-        public override string example => "doctor";
+        public override string Trigger => "doctor";
+        public override string Description => "Check the config for potential problems";
+        public override string Group => CommandGroups.PLUGINS;
+        public override string Example => "doctor";
 
         public DoctorCommand() : base(typeof(DoctorCommand).FullName)
         {
         }
 
-        protected override void run()
+        protected override void Run()
         {
             new StatusCommand().Run(_program, _rawArgs);
 

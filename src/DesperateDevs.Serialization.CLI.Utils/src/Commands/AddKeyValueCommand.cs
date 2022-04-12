@@ -5,14 +5,14 @@ namespace DesperateDevs.Serialization.CLI.Utils
 {
     public class AddKeyValueCommand : AbstractPreferencesCommand
     {
-        public override string trigger => "add";
-        public override string description => "Add a value to a key";
-        public override string group => CommandGroups.PROPERTIES;
-        public override string example => "add [key] [value]";
+        public override string Trigger => "add";
+        public override string Description => "Add a value to a key";
+        public override string Group => CommandGroups.PROPERTIES;
+        public override string Example => "add [key] [value]";
 
         public AddKeyValueCommand() : base(typeof(AddKeyValueCommand).FullName) { }
 
-        protected override void run()
+        protected override void Run()
         {
             if (_args.Length == 2)
             {

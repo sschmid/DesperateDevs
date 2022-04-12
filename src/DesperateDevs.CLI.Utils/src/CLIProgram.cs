@@ -54,7 +54,7 @@ namespace DesperateDevs.CLI.Utils
 
             var commands = AppDomain.CurrentDomain
                 .GetInstancesOf<ICommand>()
-                .OrderBy(c => c.trigger)
+                .OrderBy(c => c.Trigger)
                 .ToArray();
 
             resolver.Close();
@@ -64,7 +64,7 @@ namespace DesperateDevs.CLI.Utils
 
         public ICommand GetCommand(string trigger)
         {
-            var command = _commands.SingleOrDefault(c => c.trigger == trigger);
+            var command = _commands.SingleOrDefault(c => c.Trigger == trigger);
             if (command == null)
             {
                 throw new Exception("command not found: " + trigger);
@@ -77,7 +77,7 @@ namespace DesperateDevs.CLI.Utils
         {
             return _commands.Length == 0
                 ? 0
-                : _commands.Max(c => c.example?.Length ?? 0);
+                : _commands.Max(c => c.Example?.Length ?? 0);
         }
 
         public string GetFormattedCommandList()
@@ -85,15 +85,15 @@ namespace DesperateDevs.CLI.Utils
             var pad = GetCommandListPad();
 
             var groupedCommands = _commands
-                .Where(c => c.example != null)
-                .GroupBy(c => c.group ?? string.Empty)
+                .Where(c => c.Example != null)
+                .GroupBy(c => c.Group ?? string.Empty)
                 .OrderBy(group => group.Key);
 
             return string.Join("\n", groupedCommands.Select(group =>
             {
                 var groupHeader = group.Key == string.Empty ? string.Empty : group.Key + ":\n";
                 var commandInGroup = string.Join("\n", group
-                    .Select(command => "  " + command.example.PadRight(pad) + " - " + command.description));
+                    .Select(command => "  " + command.Example.PadRight(pad) + " - " + command.Description));
                 return groupHeader + "\n" + commandInGroup + "\n";
             }));
         }

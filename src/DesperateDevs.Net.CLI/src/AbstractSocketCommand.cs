@@ -18,29 +18,29 @@ namespace DesperateDevs.Net.Cli
             _logger = Sherlog.GetLogger(loggerName);
         }
 
-        protected void start()
+        protected void Start()
         {
             _tcpMessageParser = new TcpMessageParser();
-            _tcpMessageParser.OnMessage += onMessage;
-            _socket.OnReceived += onReceive;
-            Console.CancelKeyPress += onCancel;
+            _tcpMessageParser.OnMessage += OnMessage;
+            _socket.OnReceived += OnReceive;
+            Console.CancelKeyPress += OnCancel;
             while (true)
             {
                 _socket.Send(TcpMessageParser.WrapMessage(Encoding.UTF8.GetBytes(Console.ReadLine())));
             }
         }
 
-        void onMessage(TcpMessageParser messageparser, byte[] bytes)
+        void OnMessage(TcpMessageParser messageparser, byte[] bytes)
         {
             _logger.Info(Encoding.UTF8.GetString(bytes));
         }
 
-        protected void onReceive(AbstractTcpSocket socket, Socket client, byte[] bytes)
+        protected void OnReceive(AbstractTcpSocket socket, Socket client, byte[] bytes)
         {
             _tcpMessageParser.Receive(bytes);
         }
 
-        protected void onCancel(object sender, ConsoleCancelEventArgs e)
+        protected void OnCancel(object sender, ConsoleCancelEventArgs e)
         {
             _socket.Disconnect();
         }
