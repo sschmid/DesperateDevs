@@ -70,9 +70,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Logging.Bench
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Logging.Tests", "src\DesperateDevs.Logging\tests\DesperateDevs.Logging.Tests.csproj", "{A4E5103A-F671-44BD-9159-7F9EDD929E29}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Net.CLI", "DesperateDevs.Net.CLI", "{C70ADC4B-47D4-4EA0-A514-0A10393B58D0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Net.Cli", "DesperateDevs.Net.Cli", "{C70ADC4B-47D4-4EA0-A514-0A10393B58D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Net.CLI", "src\DesperateDevs.Net.CLI\src\DesperateDevs.Net.CLI.csproj", "{587D0761-B70A-49DC-A202-2CCA8C99BC3A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Net.Cli", "src\DesperateDevs.Net.Cli\src\DesperateDevs.Net.Cli.csproj", "{587D0761-B70A-49DC-A202-2CCA8C99BC3A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Net", "DesperateDevs.Net", "{5707896A-553E-42BC-BB94-82247346C362}"
 EndProject

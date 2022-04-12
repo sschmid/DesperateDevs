@@ -1,6 +1,6 @@
 ﻿using DesperateDevs.CLI.Utils;
 
-namespace DesperateDevs.Net.CLI
+namespace DesperateDevs.Net.Cli
 {
     class Program
     {

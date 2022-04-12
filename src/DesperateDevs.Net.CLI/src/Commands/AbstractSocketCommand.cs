@@ -4,7 +4,7 @@ using System.Text;
 using DesperateDevs.CLI.Utils;
 using DesperateDevs.Logging;
 
-namespace DesperateDevs.Net.CLI {
+namespace DesperateDevs.Net.Cli {
 
     public abstract class AbstractSocketCommand : AbstractCommand {
 
