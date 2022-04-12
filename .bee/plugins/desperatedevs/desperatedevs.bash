@@ -123,6 +123,7 @@ desperatedevs::restore_unity() {
     _clean_dir "${project}/Assets/Samples"
     _sync_unity src/DesperateDevs.Tests/unity/Samples "${project}/Assets"
     mv "${project}/Assets/Samples/Jenny.properties" "${project}/Jenny.properties"
+    mv "${project}/Assets/Samples/Sample.properties" "${project}/Sample.properties"
 
     bee::log_echo "Restore DesperateDevs: ${project}"
     rm -rf "${project}"/Assets/DesperateDevs.*
