@@ -10,7 +10,7 @@
     <ProjectReference Include="..\..\DesperateDevs.Cli.Utils\src\DesperateDevs.Cli.Utils.csproj" />
     <ProjectReference Include="..\..\DesperateDevs.CodeGeneration.CodeGenerator\src\DesperateDevs.CodeGeneration.CodeGenerator.csproj" />
     <ProjectReference Include="..\..\DesperateDevs.Net\src\DesperateDevs.Net.csproj" />
-    <ProjectReference Include="..\..\DesperateDevs.Serialization.CLI.Utils\src\DesperateDevs.Serialization.CLI.Utils.csproj" />
+    <ProjectReference Include="..\..\DesperateDevs.Serialization.Cli.Utils\src\DesperateDevs.Serialization.Cli.Utils.csproj" />
   </ItemGroup>
 
 </Project>

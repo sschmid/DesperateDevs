@@ -1,6 +1,6 @@
 ﻿using DesperateDevs.Extensions;
 
-namespace DesperateDevs.Serialization.CLI.Utils
+namespace DesperateDevs.Serialization.Cli.Utils
 {
     public class SetKeyValueCommand : AbstractPreferencesCommand
     {

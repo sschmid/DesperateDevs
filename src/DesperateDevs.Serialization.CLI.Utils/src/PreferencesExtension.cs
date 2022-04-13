@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using DesperateDevs.Logging;
 
-namespace DesperateDevs.Serialization.CLI.Utils
+namespace DesperateDevs.Serialization.Cli.Utils
 {
     public static class PreferencesExtension
     {

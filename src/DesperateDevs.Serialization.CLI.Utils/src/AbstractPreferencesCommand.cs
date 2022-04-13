@@ -3,7 +3,7 @@ using System.IO;
 using DesperateDevs.Cli.Utils;
 using DesperateDevs.Logging;
 
-namespace DesperateDevs.Serialization.CLI.Utils
+namespace DesperateDevs.Serialization.Cli.Utils
 {
     public abstract class AbstractPreferencesCommand : AbstractCommand
     {

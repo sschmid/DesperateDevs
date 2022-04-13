@@ -1,6 +1,6 @@
 ﻿using DesperateDevs.Cli.Utils;
 
-namespace DesperateDevs.Serialization.CLI.Utils
+namespace DesperateDevs.Serialization.Cli.Utils
 {
     public class FormatCommand : AbstractPreferencesCommand
     {

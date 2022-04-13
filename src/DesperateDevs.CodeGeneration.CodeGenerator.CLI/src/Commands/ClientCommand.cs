@@ -4,7 +4,7 @@ using System.Net.Sockets;
 using System.Text;
 using DesperateDevs.Net;
 using DesperateDevs.Serialization;
-using DesperateDevs.Serialization.CLI.Utils;
+using DesperateDevs.Serialization.Cli.Utils;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 {

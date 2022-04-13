@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using DesperateDevs.Cli.Utils;
-using DesperateDevs.Serialization.CLI.Utils;
+using DesperateDevs.Serialization.Cli.Utils;
 using DesperateDevs.Extensions;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI

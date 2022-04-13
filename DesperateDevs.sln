@@ -100,9 +100,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Roslyn", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Roslyn.Tests", "src\DesperateDevs.Roslyn\tests\DesperateDevs.Roslyn.Tests.csproj", "{3A8C7CA2-FDE1-49C6-9183-7E6A9ED2003F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Serialization.CLI.Utils", "DesperateDevs.Serialization.CLI.Utils", "{9CB0FB67-2D69-43AE-ADC4-2330419B2B1A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Serialization.Cli.Utils", "DesperateDevs.Serialization.Cli.Utils", "{9CB0FB67-2D69-43AE-ADC4-2330419B2B1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Serialization.CLI.Utils", "src\DesperateDevs.Serialization.CLI.Utils\src\DesperateDevs.Serialization.CLI.Utils.csproj", "{687A13C7-5996-455A-83F2-D8CAA28A9032}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Serialization.Cli.Utils", "src\DesperateDevs.Serialization.Cli.Utils\src\DesperateDevs.Serialization.Cli.Utils.csproj", "{687A13C7-5996-455A-83F2-D8CAA28A9032}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Serialization", "DesperateDevs.Serialization", "{88C9719D-3D76-4027-86E1-AD64B28962BA}"
 EndProject
