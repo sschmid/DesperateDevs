@@ -18,17 +18,6 @@ packages
 **/Assets/Plugins/Editor/JetBrains
 **/Assets/Plugins/Editor/JetBrains.meta
 
-# Unity
-!**/unity/*/Packages
-**/unity/*/Library
-**/unity/*/Temp
-**/unity/*/Logs
-**/unity/*/UserSettings
-**/unity/*/*.sln
-*.unitypackage
-Assembly-CSharp*.csproj
-RiderScriptEditorPersistedState.asset
-
 # Jenny
 *.userproperties
 
@@ -36,11 +25,3 @@ RiderScriptEditorPersistedState.asset
 .unitypath
 build
 src/DesperateDevs.Serialization/tests/Fixtures/Temp
-
-# Unity test projects
-src/DesperateDevs.Tests/unity/DesperateDevs-*/Assets/DesperateDevs.*
-src/DesperateDevs.Tests/unity/DesperateDevs-*/Assets/Samples*
-src/DesperateDevs.Tests/unity/DesperateDevs-*/Jenny.properties
-src/DesperateDevs.Tests/unity/DesperateDevs-*/CodeStyle.DotSettings
-src/DesperateDevs.Tests/unity/DesperateDevs-*/*.sln.DotSettings
-src/DesperateDevs.Tests/unity/DesperateDevs-*/PatternsAndTemplates.DotSettings
