@@ -9,9 +9,7 @@ namespace DesperateDevs.Serialization.Cli.Utils
         public override string Group => CommandGroups.PROPERTIES;
         public override string Example => "set [key] [value]";
 
-        public SetKeyValueCommand() : base(typeof(SetKeyValueCommand).FullName)
-        {
-        }
+        public SetKeyValueCommand() : base(typeof(SetKeyValueCommand).FullName) { }
 
         protected override void Run()
         {

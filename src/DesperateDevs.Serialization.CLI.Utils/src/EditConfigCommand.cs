@@ -9,9 +9,7 @@ namespace DesperateDevs.Serialization.Cli.Utils
         public override string Group => CommandGroups.PROPERTIES;
         public override string Example => "edit";
 
-        public EditConfigCommand() : base(typeof(EditConfigCommand).FullName)
-        {
-        }
+        public EditConfigCommand() : base(typeof(EditConfigCommand).FullName) { }
 
         protected override void Run()
         {

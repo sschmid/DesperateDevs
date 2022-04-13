@@ -10,9 +10,7 @@ namespace DesperateDevs.Serialization.Cli.Utils
         public override string Group => CommandGroups.PROPERTIES;
         public override string Example => "remove [key] [value]";
 
-        public RemoveKeyValueCommand() : base(typeof(RemoveKeyValueCommand).FullName)
-        {
-        }
+        public RemoveKeyValueCommand() : base(typeof(RemoveKeyValueCommand).FullName) { }
 
         protected override void Run()
         {

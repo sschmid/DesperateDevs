@@ -9,9 +9,7 @@ namespace DesperateDevs.Serialization.Cli.Utils
         public override string Group => CommandGroups.PROPERTIES;
         public override string Example => "format [-mini]";
 
-        public FormatCommand() : base(typeof(FormatCommand).FullName)
-        {
-        }
+        public FormatCommand() : base(typeof(FormatCommand).FullName) { }
 
         protected override void Run()
         {

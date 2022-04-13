@@ -10,9 +10,7 @@ namespace DesperateDevs.Serialization.Cli.Utils
         public override string Group => CommandGroups.PROPERTIES;
         public override string Example => "dump";
 
-        public DumpCommand() : base(typeof(DumpCommand).FullName)
-        {
-        }
+        public DumpCommand() : base(typeof(DumpCommand).FullName) { }
 
         protected override void Run()
         {
