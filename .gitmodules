@@ -1,0 +1,12 @@
+[submodule "src/DesperateDevs.Tests/unity/Unity-2018.4"]
+	path = src/DesperateDevs.Tests/unity/Unity-2018.4
+	url = https://github.com/sschmid/Unity-2018.4.git
+[submodule "src/DesperateDevs.Tests/unity/Unity-2019.4"]
+	path = src/DesperateDevs.Tests/unity/Unity-2019.4
+	url = https://github.com/sschmid/Unity-2019.4.git
+[submodule "src/DesperateDevs.Tests/unity/Unity-2020.3"]
+	path = src/DesperateDevs.Tests/unity/Unity-2020.3
+	url = https://github.com/sschmid/Unity-2020.3.git
+[submodule "src/DesperateDevs.Tests/unity/Unity-2021.3"]
+	path = src/DesperateDevs.Tests/unity/Unity-2021.3
+	url = https://github.com/sschmid/Unity-2021.3.git
