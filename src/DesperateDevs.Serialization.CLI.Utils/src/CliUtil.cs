@@ -5,15 +5,13 @@ using DesperateDevs.Extensions;
 
 namespace DesperateDevs.Serialization.Cli.Utils
 {
-    public static class CLIUtil
+    public static class CliUtil
     {
-        public static Dictionary<string, string> GetDefaultProperties()
-        {
-            return new Dictionary<string, string>().Merge(
+        public static Dictionary<string, string> GetDefaultProperties() =>
+            new Dictionary<string, string>().Merge(
                 AppDomain.CurrentDomain
                     .GetInstancesOf<IConfigurable>()
                     .Select(instance => instance.DefaultProperties)
                     .ToArray());
-        }
     }
 }

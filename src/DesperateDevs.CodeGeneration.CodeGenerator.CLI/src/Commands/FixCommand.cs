@@ -18,9 +18,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 
         static bool silent;
 
-        public FixCommand() : base(typeof(FixCommand).FullName)
-        {
-        }
+        public FixCommand() : base(typeof(FixCommand).FullName) { }
 
         protected override void Run()
         {
@@ -38,9 +36,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 
             var askedRemoveKeys = new HashSet<string>();
             var askedAddKeys = new HashSet<string>();
-            while (fix(askedRemoveKeys, askedAddKeys, instances, config, _preferences))
-            {
-            }
+            while (fix(askedRemoveKeys, askedAddKeys, instances, config, _preferences)) { }
 
             runDoctors();
             fixSearchPath(instances, config, _preferences);
@@ -99,13 +95,20 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
             {
                 if (silent)
                 {
-                    preferences.RemoveValue(path, config.searchPaths,
-                        values => config.searchPaths = values);
+                    preferences.RemoveValue(
+                        path,
+                        config.searchPaths,
+                        values => config.searchPaths = values.ToArray()
+                    );
                 }
                 else
                 {
-                    preferences.AskRemoveValue("Remove unused search path", path, config.searchPaths,
-                        values => config.searchPaths = values);
+                    preferences.AskRemoveValue(
+                        "Remove unused search path",
+                        path,
+                        config.searchPaths,
+                        values => config.searchPaths = values.ToArray()
+                    );
                 }
             }
 
@@ -164,14 +167,22 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                 {
                     if (silent)
                     {
-                        preferences.RemoveValue(value, config.preProcessors,
-                            values => config.preProcessors = values);
+                        preferences.RemoveValue(
+                            value,
+                            config.preProcessors,
+                            values => config.preProcessors = values.ToArray()
+                        );
                     }
                     else
                     {
-                        preferences.AskRemoveValue("Remove unavailable pre processor", value, config.preProcessors,
-                            values => config.preProcessors = values);
+                        preferences.AskRemoveValue(
+                            "Remove unavailable pre processor",
+                            value,
+                            config.preProcessors,
+                            values => config.preProcessors = values.ToArray()
+                        );
                     }
+
                     askedRemoveKeys.Add(value);
                     changed = true;
                 }
@@ -183,13 +194,20 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                 {
                     if (silent)
                     {
-                        preferences.RemoveValue(value, config.dataProviders,
-                            values => config.dataProviders = values);
+                        preferences.RemoveValue(
+                            value,
+                            config.dataProviders,
+                            values => config.dataProviders = values.ToArray()
+                        );
                     }
                     else
                     {
-                        preferences.AskRemoveValue("Remove unavailable data provider", value, config.dataProviders,
-                            values => config.dataProviders = values);
+                        preferences.AskRemoveValue(
+                            "Remove unavailable data provider",
+                            value,
+                            config.dataProviders,
+                            values => config.dataProviders = values.ToArray()
+                        );
                     }
 
                     askedRemoveKeys.Add(value);
@@ -203,13 +221,20 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                 {
                     if (silent)
                     {
-                        preferences.RemoveValue(value, config.codeGenerators,
-                            values => config.codeGenerators = values);
+                        preferences.RemoveValue(
+                            value,
+                            config.codeGenerators,
+                            values => config.codeGenerators = values.ToArray()
+                        );
                     }
                     else
                     {
-                        preferences.AskRemoveValue("Remove unavailable code generator", value, config.codeGenerators,
-                            values => config.codeGenerators = values);
+                        preferences.AskRemoveValue(
+                            "Remove unavailable code generator",
+                            value,
+                            config.codeGenerators,
+                            values => config.codeGenerators = values.ToArray()
+                        );
                     }
 
                     askedRemoveKeys.Add(value);
@@ -223,14 +248,22 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                 {
                     if (silent)
                     {
-                        preferences.RemoveValue(value, config.postProcessors,
-                            values => config.postProcessors = values);
+                        preferences.RemoveValue(
+                            value,
+                            config.postProcessors,
+                            values => config.postProcessors = values.ToArray()
+                        );
                     }
                     else
                     {
-                        preferences.AskRemoveValue("Remove unavailable post processor", value, config.postProcessors,
-                            values => config.postProcessors = values);
+                        preferences.AskRemoveValue(
+                            "Remove unavailable post processor",
+                            value,
+                            config.postProcessors,
+                            values => config.postProcessors = values.ToArray()
+                        );
                     }
+
                     askedRemoveKeys.Add(value);
                     changed = true;
                 }
@@ -242,14 +275,22 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                 {
                     if (silent)
                     {
-                        preferences.AddValue(value, config.preProcessors,
-                            values => config.preProcessors = values);
+                        preferences.AddValue(
+                            value,
+                            config.preProcessors,
+                            values => config.preProcessors = values.ToArray()
+                        );
                     }
                     else
                     {
-                        preferences.AskAddValue("Add available pre processor", value, config.preProcessors,
-                            values => config.preProcessors = values);
+                        preferences.AskAddValue(
+                            "Add available pre processor",
+                            value,
+                            config.preProcessors,
+                            values => config.preProcessors = values.ToArray()
+                        );
                     }
+
                     askedAddKeys.Add(value);
                     changed = true;
                 }
@@ -261,14 +302,22 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                 {
                     if (silent)
                     {
-                        preferences.AddValue(value, config.dataProviders,
-                            values => config.dataProviders = values);
+                        preferences.AddValue(
+                            value,
+                            config.dataProviders,
+                            values => config.dataProviders = values.ToArray()
+                        );
                     }
                     else
                     {
-                        preferences.AskAddValue("Add available data provider", value, config.dataProviders,
-                            values => config.dataProviders = values);
+                        preferences.AskAddValue(
+                            "Add available data provider",
+                            value,
+                            config.dataProviders,
+                            values => config.dataProviders = values.ToArray()
+                        );
                     }
+
                     askedAddKeys.Add(value);
                     changed = true;
                 }
@@ -280,14 +329,22 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                 {
                     if (silent)
                     {
-                        preferences.AddValue(value, config.codeGenerators,
-                            values => config.codeGenerators = values);
+                        preferences.AddValue(
+                            value,
+                            config.codeGenerators,
+                            values => config.codeGenerators = values.ToArray()
+                        );
                     }
                     else
                     {
-                        preferences.AskAddValue("Add available code generator", value, config.codeGenerators,
-                            values => config.codeGenerators = values);
+                        preferences.AskAddValue(
+                            "Add available code generator",
+                            value,
+                            config.codeGenerators,
+                            values => config.codeGenerators = values.ToArray()
+                        );
                     }
+
                     askedAddKeys.Add(value);
                     changed = true;
                 }
@@ -299,14 +356,22 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                 {
                     if (silent)
                     {
-                        preferences.AddValue(value, config.postProcessors,
-                            values => config.postProcessors = values);
+                        preferences.AddValue(
+                            value,
+                            config.postProcessors,
+                            values => config.postProcessors = values.ToArray()
+                        );
                     }
                     else
                     {
-                        preferences.AskAddValue("Add available post processor", value, config.postProcessors,
-                            values => config.postProcessors = values);
+                        preferences.AskAddValue(
+                            "Add available post processor",
+                            value,
+                            config.postProcessors,
+                            values => config.postProcessors = values.ToArray()
+                        );
                     }
+
                     askedAddKeys.Add(value);
                     changed = true;
                 }
@@ -371,7 +436,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                             preferences.RemoveValue(
                                 collision,
                                 values,
-                                result => values = updateAction(result));
+                                result => values = updateAction(result.ToArray())
+                            );
                             askedAddKeys.Add(collision);
                             changed = true;
                         }
@@ -411,6 +477,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
             {
                 chars[i] = (i + 1).ToString()[0];
             }
+
             chars[chars.Length - 1] = '0';
             return chars;
         }
@@ -430,6 +497,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                     {
                         preferences.AskRemoveKey("Remove unused key", key);
                     }
+
                     askedRemoveKeys.Add(key);
                 }
             }

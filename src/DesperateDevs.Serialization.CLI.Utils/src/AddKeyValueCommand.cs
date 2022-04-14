@@ -7,7 +7,7 @@ namespace DesperateDevs.Serialization.Cli.Utils
     {
         public override string Trigger => "add";
         public override string Description => "Add a value to a key";
-        public override string Group => CommandGroups.PROPERTIES;
+        public override string Group => CommandGroups.Properties;
         public override string Example => "add [key] [value]";
 
         public AddKeyValueCommand() : base(typeof(AddKeyValueCommand).FullName) { }
@@ -15,24 +15,20 @@ namespace DesperateDevs.Serialization.Cli.Utils
         protected override void Run()
         {
             if (_args.Length == 2)
-            {
-                addKeyValue(_args[0], _args[1]);
-            }
+                AddKeyValue(_args[0], _args[1]);
             else
-            {
-                _logger.Error("The add command expects exactly two arguments");
-                _logger.Info("E.g. add myKey myValue");
-            }
+                _logger.Error("The add command expects exactly two arguments, e.g. 'add myKey myValue'");
         }
 
-        void addKeyValue(string key, string value)
+        void AddKeyValue(string key, string value)
         {
             if (_preferences.HasKey(key))
             {
                 _preferences.AddValue(
                     value,
                     _preferences[key].FromCSV(true).ToArray(),
-                    values => _preferences[key] = values.ToCSV(false, true));
+                    values => _preferences[key] = values.ToCSV(false, true)
+                );
             }
             else
             {

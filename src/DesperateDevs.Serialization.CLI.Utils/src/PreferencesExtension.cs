@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using DesperateDevs.Logging;
 
@@ -6,100 +7,84 @@ namespace DesperateDevs.Serialization.Cli.Utils
 {
     public static class PreferencesExtension
     {
-        static readonly Logger _logger = Sherlog.GetLogger(typeof(PreferencesExtension));
+        static readonly Logger Logger = Sherlog.GetLogger(typeof(PreferencesExtension));
 
-        public static string[] GetUnusedKeys(this Preferences preferences, string[] requiredKeys)
-        {
-            return preferences.Keys
-                .Where(key => !requiredKeys.Contains(key))
-                .ToArray();
-        }
+        public static IEnumerable<string> GetUnusedKeys(this Preferences preferences, IEnumerable<string> requiredKeys) =>
+            preferences.Keys.Where(key => !requiredKeys.Contains(key));
 
-        public static string[] GetMissingKeys(this Preferences preferences, string[] requiredKeys)
-        {
-            return requiredKeys
-                .Where(key => !preferences.HasKey(key))
-                .ToArray();
-        }
+        public static IEnumerable<string> GetMissingKeys(this Preferences preferences, IEnumerable<string> requiredKeys) =>
+            requiredKeys.Where(key => !preferences.HasKey(key));
 
         public static void NotifyForceAddKey(this Preferences preferences, string message, string key, string value)
         {
-            Console.WriteLine("ℹ️  " + message + ": '" + key + "' (press any key)");
+            Console.WriteLine($"ℹ️  {message}: '{key}' (press any key)");
             Console.ReadKey(true);
             AddKey(preferences, key, value);
         }
 
         public static void AskAddKey(this Preferences preferences, string question, string key, string value)
         {
-            Console.WriteLine("✅  " + question + ": '" + key + "' ? (y / n)");
+            Console.WriteLine($"✅  {question}: '{key}' ? (y / n)");
             if (GetUserDecision())
-            {
                 AddKey(preferences, key, value);
-            }
         }
 
         public static void AddKey(this Preferences preferences, string key, string value)
         {
             preferences[key] = value;
             preferences.Save();
-            _logger.Info("Added: " + key);
+            Logger.Info($"Added: {key}");
         }
 
-        public static void AskAddValue(this Preferences preferences, string question, string value, string[] values, Action<string[]> updateAction)
+        public static void AskAddValue(this Preferences preferences, string question, string value, IEnumerable<string> values, Action<IEnumerable<string>> updateAction)
         {
-            Console.WriteLine("✅  " + question + ": '" + value + "' ? (y / n)");
+            Console.WriteLine($"✅  {question}: '{value}' ? (y / n)");
             if (GetUserDecision())
-            {
                 AddValue(preferences, value, values, updateAction);
-            }
         }
 
-        public static void AddValue(this Preferences preferences, string value, string[] values, Action<string[]> updateAction)
+        public static void AddValue(this Preferences preferences, string value, IEnumerable<string> values, Action<IEnumerable<string>> updateAction)
         {
-            var valueList = values.ToList();
-            valueList.Add(value);
-            updateAction(valueList.ToArray());
+            var list = values.ToList();
+            list.Add(value);
+            updateAction(list);
             preferences.Save();
-            _logger.Info("Added: " + value);
+            Logger.Info($"Added: {value}");
         }
 
         public static void AskRemoveKey(this Preferences preferences, string question, string key)
         {
-            Console.WriteLine("❌  " + question + ": '" + key + "' ? (y / n)");
+            Console.WriteLine($"❌  {question}: '{key}' ? (y / n)");
             if (GetUserDecision())
-            {
                 RemoveKey(preferences, key);
-            }
         }
 
         public static void RemoveKey(this Preferences preferences, string key)
         {
             preferences.Properties.RemoveProperty(key);
             preferences.Save();
-            _logger.Warn("Removed: " + key);
+            Logger.Warn($"Removed: {key}");
         }
 
-        public static void AskRemoveValue(this Preferences preferences, string question, string value, string[] values, Action<string[]> updateAction)
+        public static void AskRemoveValue(this Preferences preferences, string question, string value, IEnumerable<string> values, Action<IEnumerable<string>> updateAction)
         {
-            Console.WriteLine("❌  " + question + ": '" + value + "' ? (y / n)");
+            Console.WriteLine($"❌  {question}: '{value}' ? (y / n)");
             if (GetUserDecision())
-            {
                 RemoveValue(preferences, value, values, updateAction);
-            }
         }
 
-        public static void RemoveValue(this Preferences preferences, string value, string[] values, Action<string[]> updateAction)
+        public static void RemoveValue(this Preferences preferences, string value, IEnumerable<string> values, Action<IEnumerable<string>> updateAction)
         {
-            var valueList = values.ToList();
-            if (valueList.Remove(value))
+            var list = values.ToList();
+            if (list.Remove(value))
             {
-                updateAction(valueList.ToArray());
+                updateAction(list);
                 preferences.Save();
-                _logger.Warn("Removed: " + value);
+                Logger.Warn($"Removed: {value}");
             }
             else
             {
-                _logger.Warn("Value does not exist: " + value);
+                Logger.Warn($"Value does not exist: {value}");
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using DesperateDevs.Extensions;
+﻿using System;
+using DesperateDevs.Extensions;
 
 namespace DesperateDevs.Serialization.Cli.Utils
 {
@@ -6,7 +7,7 @@ namespace DesperateDevs.Serialization.Cli.Utils
     {
         public override string Trigger => "set";
         public override string Description => "Set the value of a key";
-        public override string Group => CommandGroups.PROPERTIES;
+        public override string Group => CommandGroups.Properties;
         public override string Example => "set [key] [value]";
 
         public SetKeyValueCommand() : base(typeof(SetKeyValueCommand).FullName) { }
@@ -14,29 +15,21 @@ namespace DesperateDevs.Serialization.Cli.Utils
         protected override void Run()
         {
             if (_args.Length == 2)
-            {
-                setKeyValue(_args[0], _args[1]);
-            }
+                SetKeyValue(_args[0], _args[1]);
             else
-            {
-                _logger.Error("The set command expects exactly two arguments");
-                _logger.Info("E.g. set myKey myValue");
-            }
+                _logger.Error("The set command expects exactly two arguments, e.g. 'set myKey myValue'");
         }
 
-        void setKeyValue(string key, string value)
+        void SetKeyValue(string key, string value)
         {
             if (_preferences.HasKey(key))
-            {
                 _preferences.AddValue(
                     value,
-                    new string[0],
-                    values => _preferences[key] = values.ToCSV(false, true));
-            }
+                    Array.Empty<string>(),
+                    values => _preferences[key] = values.ToCSV(false, true)
+                );
             else
-            {
                 _preferences.AskAddKey("Key doesn't exist. Do you want to add", key, value);
-            }
         }
     }
 }

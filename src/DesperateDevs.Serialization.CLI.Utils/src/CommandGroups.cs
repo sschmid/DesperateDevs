@@ -2,6 +2,6 @@
 {
     public static class CommandGroups
     {
-        public const string PROPERTIES = "Properties";
+        public const string Properties = "Properties";
     }
 }

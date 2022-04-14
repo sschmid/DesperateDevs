@@ -7,7 +7,7 @@ namespace DesperateDevs.Serialization.Cli.Utils
     {
         public override string Trigger => "dump";
         public override string Description => "List all config keys and values";
-        public override string Group => CommandGroups.PROPERTIES;
+        public override string Group => CommandGroups.Properties;
         public override string Example => "dump";
 
         public DumpCommand() : base(typeof(DumpCommand).FullName) { }
@@ -24,18 +24,12 @@ namespace DesperateDevs.Serialization.Cli.Utils
 
                 string valueString;
                 if (values.Length > 1)
-                {
-                    valueString = indent + string.Join(indent, values.Take(values.Length - 1).ToArray()) +
+                    valueString = indent + string.Join(indent, values.Take(values.Length - 1)) +
                                   lastIndent + values.Last();
-                }
                 else if (values.Length == 1)
-                {
                     valueString = lastIndent + values[0];
-                }
                 else
-                {
                     valueString = string.Empty;
-                }
 
                 _logger.Info(key + valueString);
             }
