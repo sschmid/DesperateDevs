@@ -166,7 +166,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
                 .ToArray();
 
             availableNames = orderedInstances
-                .Select(instance => instance.name)
+                .Select(instance => instance.Name)
                 .ToArray();
         }
 

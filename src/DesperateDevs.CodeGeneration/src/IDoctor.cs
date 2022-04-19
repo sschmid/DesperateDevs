@@ -3,6 +3,6 @@
     public interface IDoctor : ICodeGenerationPlugin
     {
         Diagnosis Diagnose();
-        bool Fix();
+        bool ApplyFix();
     }
 }

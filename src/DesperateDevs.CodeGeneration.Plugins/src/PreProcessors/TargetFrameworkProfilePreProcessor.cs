@@ -7,9 +7,9 @@ namespace DesperateDevs.CodeGeneration.Plugins {
 
     public class TargetFrameworkProfilePreProcessor : IPreProcessor, IConfigurable {
 
-        public string name { get { return "Fix Target Framework Profile"; } }
-        public int priority { get { return 0; } }
-        public bool runInDryMode { get { return true; } }
+        public string Name { get { return "Fix Target Framework Profile"; } }
+        public int Priority { get { return 0; } }
+        public bool RunInDryMode { get { return true; } }
 
         public Dictionary<string, string> DefaultProperties { get { return _projectPathConfig.DefaultProperties; } }
 

@@ -43,21 +43,21 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                 .Select(doctor => doctor.Diagnose())
                 .ToArray();
 
-            foreach (var diagnosis in diagnoses.Where(d => d.severity == DiagnosisSeverity.Hint))
+            foreach (var diagnosis in diagnoses.Where(d => d.Severity == DiagnosisSeverity.Hint))
             {
-                _logger.Info("👨‍⚕️  Symptoms: " + diagnosis.symptoms);
-                _logger.Info("💊  Treatment: " + diagnosis.treatment);
+                _logger.Info("👨‍⚕️  Symptoms: " + diagnosis.Symptoms);
+                _logger.Info("💊  Treatment: " + diagnosis.Treatment);
             }
 
-            foreach (var diagnosis in diagnoses.Where(d => d.severity == DiagnosisSeverity.Warning))
+            foreach (var diagnosis in diagnoses.Where(d => d.Severity == DiagnosisSeverity.Warning))
             {
-                _logger.Warn("👨‍⚕️  Symptoms: " + diagnosis.symptoms);
-                _logger.Warn("💊  Treatment: " + diagnosis.treatment);
+                _logger.Warn("👨‍⚕️  Symptoms: " + diagnosis.Symptoms);
+                _logger.Warn("💊  Treatment: " + diagnosis.Treatment);
             }
 
             var errors = string.Join("\n", diagnoses
-                .Where(d => d.severity == DiagnosisSeverity.Error)
-                .Select(d => "👨‍⚕️  Symptoms: " + d.symptoms + "\n💊  Treatment: " + d.treatment)
+                .Where(d => d.Severity == DiagnosisSeverity.Error)
+                .Select(d => "👨‍⚕️  Symptoms: " + d.Symptoms + "\n💊  Treatment: " + d.Treatment)
                 .ToArray());
 
             if (!string.IsNullOrEmpty(errors))

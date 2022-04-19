@@ -9,9 +9,9 @@ namespace DesperateDevs.CodeGeneration.Plugins {
 
     public class UpdateCSProjPostProcessor : IPostProcessor, IConfigurable {
 
-        public string name { get { return "Update .csproj"; } }
-        public int priority { get { return 96; } }
-        public bool runInDryMode { get { return false; } }
+        public string Name { get { return "Update .csproj"; } }
+        public int Priority { get { return 96; } }
+        public bool RunInDryMode { get { return false; } }
 
         public Dictionary<string, string> DefaultProperties {
             get {
@@ -62,7 +62,7 @@ namespace DesperateDevs.CodeGeneration.Plugins {
             var entryTemplate = @"    <Compile Include=""" + _targetDirectoryConfig.targetDirectory.Replace("/", "\\") + @"\{0}"" />";
 
             var entries = string.Join("\r\n", files.Select(
-                file => string.Format(entryTemplate, file.fileName.Replace("/", "\\"))).ToArray());
+                file => string.Format(entryTemplate, file.FileName.Replace("/", "\\"))).ToArray());
 
             var generatedEntries = string.Format(generatedEntriesTemplate, entries);
 

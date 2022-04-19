@@ -57,14 +57,14 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
 
             EditorUtility.ClearProgressBar();
 
-            var totalGeneratedFiles = files.Select(file => file.fileName).Distinct().Count();
+            var totalGeneratedFiles = files.Select(file => file.FileName).Distinct().Count();
 
             var sloc = dryFiles
-                .Select(file => file.fileContent.ToUnixLineEndings())
+                .Select(file => file.FileContent.ToUnixLineEndings())
                 .Sum(content => content.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries).Length);
 
             var loc = files
-                .Select(file => file.fileContent.ToUnixLineEndings())
+                .Select(file => file.FileContent.ToUnixLineEndings())
                 .Sum(content => content.Split(new[] { '\n' }).Length);
 
             Debug.Log("Generated " + totalGeneratedFiles + " files (" + sloc + " sloc, " + loc + " loc)");

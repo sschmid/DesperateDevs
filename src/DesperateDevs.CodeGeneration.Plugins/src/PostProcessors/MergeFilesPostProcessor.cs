@@ -5,19 +5,19 @@ namespace DesperateDevs.CodeGeneration.Plugins {
 
     public class MergeFilesPostProcessor : IPostProcessor {
 
-        public string name { get { return "Merge files"; } }
-        public int priority { get { return 90; } }
-        public bool runInDryMode { get { return true; } }
+        public string Name { get { return "Merge files"; } }
+        public int Priority { get { return 90; } }
+        public bool RunInDryMode { get { return true; } }
 
         public CodeGenFile[] PostProcess(CodeGenFile[] files) {
             var pathToFile = new Dictionary<string, CodeGenFile>();
             for (int i = 0; i < files.Length; i++) {
                 var file = files[i];
-                if (!pathToFile.ContainsKey(file.fileName)) {
-                    pathToFile.Add(file.fileName, file);
+                if (!pathToFile.ContainsKey(file.FileName)) {
+                    pathToFile.Add(file.FileName, file);
                 } else {
-                    pathToFile[file.fileName].fileContent += "\n" + file.fileContent;
-                    pathToFile[file.fileName].generatorName += ", " + file.generatorName;
+                    pathToFile[file.FileName].FileContent += "\n" + file.FileContent;
+                    pathToFile[file.FileName].GeneratorName += ", " + file.GeneratorName;
                     files[i] = null;
                 }
             }

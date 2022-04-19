@@ -10,20 +10,17 @@
 
     public class Diagnosis
     {
-        public static Diagnosis Healthy
-        {
-            get { return new Diagnosis(null, null, DiagnosisSeverity.Healthy); }
-        }
+        public static Diagnosis Healthy => new Diagnosis(null, null, DiagnosisSeverity.Healthy);
 
-        public readonly string symptoms;
-        public readonly string treatment;
-        public readonly DiagnosisSeverity severity;
+        public readonly string Symptoms;
+        public readonly string Treatment;
+        public readonly DiagnosisSeverity Severity;
 
         public Diagnosis(string symptoms, string treatment, DiagnosisSeverity severity)
         {
-            this.symptoms = symptoms;
-            this.treatment = treatment;
-            this.severity = severity;
+            Symptoms = symptoms;
+            Treatment = treatment;
+            Severity = severity;
         }
     }
 }

@@ -25,20 +25,20 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
             IDataProvider[] dataProviders,
             ICodeGenerator[] codeGenerators,
             IPostProcessor[] postProcessors) {
-            _preProcessors = preProcessors.OrderBy(i => i.priority).ToArray();
-            _dataProviders = dataProviders.OrderBy(i => i.priority).ToArray();
-            _codeGenerators = codeGenerators.OrderBy(i => i.priority).ToArray();
-            _postProcessors = postProcessors.OrderBy(i => i.priority).ToArray();
+            _preProcessors = preProcessors.OrderBy(i => i.Priority).ToArray();
+            _dataProviders = dataProviders.OrderBy(i => i.Priority).ToArray();
+            _codeGenerators = codeGenerators.OrderBy(i => i.Priority).ToArray();
+            _postProcessors = postProcessors.OrderBy(i => i.Priority).ToArray();
             _objectCache = new Dictionary<string, object>();
         }
 
         public CodeGenFile[] DryRun() {
             return generate(
                 "[Dry Run] ",
-                _preProcessors.Where(i => i.runInDryMode).ToArray(),
-                _dataProviders.Where(i => i.runInDryMode).ToArray(),
-                _codeGenerators.Where(i => i.runInDryMode).ToArray(),
-                _postProcessors.Where(i => i.runInDryMode).ToArray()
+                _preProcessors.Where(i => i.RunInDryMode).ToArray(),
+                _dataProviders.Where(i => i.RunInDryMode).ToArray(),
+                _codeGenerators.Where(i => i.RunInDryMode).ToArray(),
+                _postProcessors.Where(i => i.RunInDryMode).ToArray()
             );
         }
 
@@ -70,7 +70,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
                 .OfType<ICachable>();
 
             foreach (var cachable in cachables) {
-                cachable.objectCache = _objectCache;
+                cachable.ObjectCache = _objectCache;
             }
 
             var total = preProcessors.Length + dataProviders.Length + codeGenerators.Length + postProcessors.Length;
@@ -83,7 +83,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
 
                 progress += 1;
                 if (OnProgress != null) {
-                    OnProgress(messagePrefix + "Pre Processing", preProcessor.name, (float)progress / total);
+                    OnProgress(messagePrefix + "Pre Processing", preProcessor.Name, (float)progress / total);
                 }
 
                 preProcessor.PreProcess();
@@ -97,7 +97,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
 
                 progress += 1;
                 if (OnProgress != null) {
-                    OnProgress(messagePrefix + "Creating model", dataProvider.name, (float)progress / total);
+                    OnProgress(messagePrefix + "Creating model", dataProvider.Name, (float)progress / total);
                 }
 
                 data.AddRange(dataProvider.GetData());
@@ -112,7 +112,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
 
                 progress += 1;
                 if (OnProgress != null) {
-                    OnProgress(messagePrefix + "Creating files", generator.name, (float)progress / total);
+                    OnProgress(messagePrefix + "Creating files", generator.Name, (float)progress / total);
                 }
 
                 files.AddRange(generator.Generate(dataArray));
@@ -126,7 +126,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
 
                 progress += 1;
                 if (OnProgress != null) {
-                    OnProgress(messagePrefix + "Post Processing", postProcessor.name, (float)progress / total);
+                    OnProgress(messagePrefix + "Post Processing", postProcessor.Name, (float)progress / total);
                 }
 
                 generatedFiles = postProcessor.PostProcess(generatedFiles);

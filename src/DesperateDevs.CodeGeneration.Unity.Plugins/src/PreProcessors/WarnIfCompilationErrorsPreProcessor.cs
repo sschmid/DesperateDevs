@@ -5,9 +5,9 @@ namespace DesperateDevs.CodeGeneration.Unity.Plugins {
 
     public class WarnIfCompilationErrorsPreProcessor : IPreProcessor {
 
-        public string name { get { return "Warn If Compilation Errors"; } }
-        public int priority { get { return -5; } }
-        public bool runInDryMode { get { return true; } }
+        public string Name { get { return "Warn If Compilation Errors"; } }
+        public int Priority { get { return -5; } }
+        public bool RunInDryMode { get { return true; } }
 
         public void PreProcess() {
             string errorMessage = null;
@@ -27,7 +27,7 @@ namespace DesperateDevs.CodeGeneration.Unity.Plugins {
             }
 
             if (errorMessage != null) {
-                throw new Exception(errorMessage + "\n\n" + "You can disable this warning by removing '" + name + "' from the Pre Processors.");
+                throw new Exception(errorMessage + "\n\n" + "You can disable this warning by removing '" + Name + "' from the Pre Processors.");
             }
         }
     }

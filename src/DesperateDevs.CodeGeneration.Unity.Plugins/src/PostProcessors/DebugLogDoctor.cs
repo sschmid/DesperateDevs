@@ -9,9 +9,9 @@ namespace DesperateDevs.CodeGeneration.Unity.Plugins {
 
     public class DebugLogDoctor : IDoctor, IConfigurable {
 
-        public string name { get { return "Debug.Log"; } }
-        public int priority { get { return 0; } }
-        public bool runInDryMode { get { return true; } }
+        public string Name { get { return "Debug.Log"; } }
+        public int Priority { get { return 0; } }
+        public bool RunInDryMode { get { return true; } }
 
         public Dictionary<string, string> DefaultProperties { get { return new Dictionary<string, string>(); } }
 
@@ -40,7 +40,7 @@ namespace DesperateDevs.CodeGeneration.Unity.Plugins {
             return Diagnosis.Healthy;
         }
 
-        public bool Fix() {
+        public bool ApplyFix() {
             var postProcessorList = _codeGeneratorConfig.postProcessors.ToList();
             var removed = postProcessorList.Remove(typeof(DebugLogPostProcessor).FullName);
             if (removed) {

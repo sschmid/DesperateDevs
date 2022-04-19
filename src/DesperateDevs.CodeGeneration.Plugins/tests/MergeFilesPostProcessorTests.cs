@@ -19,11 +19,11 @@ namespace DesperateDevs.CodeGeneration.Plugins.Tests
             files = postprocessor.PostProcess(files);
 
             files.Length.Should().Be(2);
-            files[0].fileName.Should().Be("file1");
-            files[1].fileName.Should().Be("file3");
+            files[0].FileName.Should().Be("file1");
+            files[1].FileName.Should().Be("file3");
 
-            files[0].fileContent.Should().Be("content1\ncontent2");
-            files[0].generatorName.Should().Be("gen1, gen2");
+            files[0].FileContent.Should().Be("content1\ncontent2");
+            files[0].GeneratorName.Should().Be("gen1, gen2");
         }
     }
 }

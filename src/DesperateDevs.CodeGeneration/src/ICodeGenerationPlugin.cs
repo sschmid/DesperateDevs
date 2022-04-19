@@ -2,8 +2,8 @@
 {
     public interface ICodeGenerationPlugin
     {
-        string name { get; }
-        int priority { get; }
-        bool runInDryMode { get; }
+        string Name { get; }
+        int Priority { get; }
+        bool RunInDryMode { get; }
     }
 }

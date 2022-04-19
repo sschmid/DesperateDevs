@@ -9,9 +9,9 @@ namespace DesperateDevs.CodeGeneration.Unity.Plugins {
 
     public class WarnIfCompilationErrorsDoctor : IDoctor, IConfigurable {
 
-        public string name { get { return "Warn If Compilation Errors"; } }
-        public int priority { get { return 0; } }
-        public bool runInDryMode { get { return true; } }
+        public string Name { get { return "Warn If Compilation Errors"; } }
+        public int Priority { get { return 0; } }
+        public bool RunInDryMode { get { return true; } }
 
         public Dictionary<string, string> DefaultProperties { get { return new Dictionary<string, string>(); } }
 
@@ -40,7 +40,7 @@ namespace DesperateDevs.CodeGeneration.Unity.Plugins {
             return Diagnosis.Healthy;
         }
 
-        public bool Fix() {
+        public bool ApplyFix() {
             var preProcessorList = _codeGeneratorConfig.preProcessors.ToList();
             var removed = preProcessorList.Remove(typeof(WarnIfCompilationErrorsPreProcessor).FullName);
             if (removed) {

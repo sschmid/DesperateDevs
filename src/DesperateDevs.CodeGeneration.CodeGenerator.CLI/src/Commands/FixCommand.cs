@@ -53,23 +53,23 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
             foreach (var doctor in doctors)
             {
                 var diagnosis = doctor.Diagnose();
-                if (diagnosis.severity == DiagnosisSeverity.Error)
+                if (diagnosis.Severity == DiagnosisSeverity.Error)
                 {
                     if (silent)
                     {
-                        if (doctor.Fix())
+                        if (doctor.ApplyFix())
                         {
                             _preferences.Save();
-                            _logger.Info("💉  Applied fix: " + diagnosis.treatment);
+                            _logger.Info("💉  Applied fix: " + diagnosis.Treatment);
                         }
                     }
                     else
                     {
-                        Console.WriteLine("💉  Apply fix: " + diagnosis.treatment);
-                        Console.WriteLine("to treat symptoms: " + diagnosis.symptoms + " ? (y / n)");
+                        Console.WriteLine("💉  Apply fix: " + diagnosis.Treatment);
+                        Console.WriteLine("to treat symptoms: " + diagnosis.Symptoms + " ? (y / n)");
                         if (PreferencesExtension.GetUserDecision())
                         {
-                            if (doctor.Fix())
+                            if (doctor.ApplyFix())
                             {
                                 _preferences.Save();
                             }

@@ -6,9 +6,9 @@ namespace DesperateDevs.CodeGeneration.Plugins {
 
     public class WriteToDiskPostProcessor : IPostProcessor, IConfigurable {
 
-        public string name { get { return "Write to disk"; } }
-        public int priority { get { return 100; } }
-        public bool runInDryMode { get { return false; } }
+        public string Name { get { return "Write to disk"; } }
+        public int Priority { get { return 100; } }
+        public bool RunInDryMode { get { return false; } }
 
         public Dictionary<string, string> DefaultProperties { get { return _targetDirectoryConfig.DefaultProperties; } }
 
@@ -20,12 +20,12 @@ namespace DesperateDevs.CodeGeneration.Plugins {
 
         public CodeGenFile[] PostProcess(CodeGenFile[] files) {
             foreach (var file in files) {
-                var fileName = _targetDirectoryConfig.targetDirectory + Path.DirectorySeparatorChar + file.fileName;
+                var fileName = _targetDirectoryConfig.targetDirectory + Path.DirectorySeparatorChar + file.FileName;
                 var targetDir = Path.GetDirectoryName(fileName);
                 if (!Directory.Exists(targetDir)) {
                     Directory.CreateDirectory(targetDir);
                 }
-                File.WriteAllText(fileName, file.fileContent);
+                File.WriteAllText(fileName, file.FileContent);
             }
 
             return files;
