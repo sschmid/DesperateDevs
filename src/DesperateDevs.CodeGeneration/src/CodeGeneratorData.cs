@@ -2,21 +2,21 @@
 using System.Linq;
 using DesperateDevs.Extensions;
 
-namespace DesperateDevs.CodeGeneration {
+namespace DesperateDevs.CodeGeneration
+{
+    public class CodeGeneratorData : Dictionary<string, object>
+    {
+        public CodeGeneratorData() { }
 
-    public class CodeGeneratorData : Dictionary<string, object> {
+        public CodeGeneratorData(CodeGeneratorData data) : base(data) { }
 
-        public CodeGeneratorData() {
-        }
-
-        public CodeGeneratorData(CodeGeneratorData data) : base(data) {
-        }
-
-        public string ReplacePlaceholders(string template) {
+        public string ReplacePlaceholders(string template)
+        {
             return this.Aggregate(template, (current, kv) => ReplacePlaceholders(current, kv.Key, kv.Value.ToString()));
         }
 
-        public string ReplacePlaceholders(string template, string key, string value) {
+        public string ReplacePlaceholders(string template, string key, string value)
+        {
             const string placeholderFormat = @"${{{0}}}";
 
             var upperKey = string.Format(placeholderFormat, key.UppercaseFirst());

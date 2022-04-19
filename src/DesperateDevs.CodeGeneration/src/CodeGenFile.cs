@@ -1,12 +1,13 @@
 ﻿using DesperateDevs.Extensions;
 
-namespace DesperateDevs.CodeGeneration {
-
-    public class CodeGenFile {
-
+namespace DesperateDevs.CodeGeneration
+{
+    public class CodeGenFile
+    {
         public string fileName { get; set; }
 
-        public string fileContent {
+        public string fileContent
+        {
             get { return _fileContent; }
             set { _fileContent = value.ToUnixLineEndings(); }
         }
@@ -15,7 +16,8 @@ namespace DesperateDevs.CodeGeneration {
 
         string _fileContent;
 
-        public CodeGenFile(string fileName, string fileContent, string generatorName) {
+        public CodeGenFile(string fileName, string fileContent, string generatorName)
+        {
             this.fileName = fileName;
             this.fileContent = fileContent;
             this.generatorName = generatorName;
