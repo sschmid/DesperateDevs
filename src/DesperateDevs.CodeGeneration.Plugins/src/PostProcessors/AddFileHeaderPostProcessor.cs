@@ -1,10 +1,21 @@
-namespace DesperateDevs.CodeGeneration.Plugins {
+namespace DesperateDevs.CodeGeneration.Plugins
+{
+    public class AddFileHeaderPostProcessor : IPostProcessor
+    {
+        public string Name
+        {
+            get { return "Add file header"; }
+        }
 
-    public class AddFileHeaderPostProcessor : IPostProcessor {
+        public int Order
+        {
+            get { return 0; }
+        }
 
-        public string Name { get { return "Add file header"; } }
-        public int Order { get { return 0; } }
-        public bool RunInDryMode { get { return true; } }
+        public bool RunInDryMode
+        {
+            get { return true; }
+        }
 
         public const string AUTO_GENERATED_HEADER_FORMAT =
             @"//------------------------------------------------------------------------------
@@ -17,8 +28,10 @@ namespace DesperateDevs.CodeGeneration.Plugins {
 //------------------------------------------------------------------------------
 ";
 
-        public CodeGenFile[] PostProcess(CodeGenFile[] files) {
-            foreach (var file in files) {
+        public CodeGenFile[] PostProcess(CodeGenFile[] files)
+        {
+            foreach (var file in files)
+            {
                 file.FileContent = string.Format(AUTO_GENERATED_HEADER_FORMAT, file.GeneratorName) + file.FileContent;
             }
 
