@@ -16,18 +16,13 @@ namespace DesperateDevs.Reflection
                 fieldInfos.Length + propertyInfos.Length
             );
 
-            for (int i = 0; i < fieldInfos.Length; i++)
-            {
-                memberInfos.Add(new PublicMemberInfo(fieldInfos[i]));
-            }
+            foreach (var t in fieldInfos)
+                memberInfos.Add(new PublicMemberInfo(t));
 
-            for (int i = 0; i < propertyInfos.Length; i++)
+            foreach (var propertyInfo in propertyInfos)
             {
-                var propertyInfo = propertyInfos[i];
                 if (propertyInfo.CanRead && propertyInfo.CanWrite && propertyInfo.GetIndexParameters().Length == 0)
-                {
                     memberInfos.Add(new PublicMemberInfo(propertyInfo));
-                }
             }
 
             return memberInfos;
@@ -50,11 +45,8 @@ namespace DesperateDevs.Reflection
         public static void CopyPublicMemberValues(this object source, object target)
         {
             var memberInfos = source.GetType().GetPublicMemberInfos();
-            for (int i = 0; i < memberInfos.Count; i++)
-            {
-                var info = memberInfos[i];
+            foreach (var info in memberInfos)
                 info.SetValue(target, info.GetValue(source));
-            }
         }
     }
 }

@@ -63,7 +63,7 @@ namespace DesperateDevs.Reflection.Tests
                 .Select(t => t.FullName)
                 .Should().Contain(Project1ClassType);
 
-            resolver.assemblies.Length.Should().Be(1);
+            resolver.Assemblies.Length.Should().Be(1);
         }
 
         [Fact]
@@ -75,7 +75,7 @@ namespace DesperateDevs.Reflection.Tests
                 .Select(t => t.FullName)
                 .Should().Contain(Project1ClassType);
 
-            Project1ResolverReflection.assemblies.Length.Should().Be(1);
+            Project1ResolverReflection.Assemblies.Length.Should().Be(1);
         }
 
         [Fact]
@@ -87,7 +87,7 @@ namespace DesperateDevs.Reflection.Tests
                 .Select(t => t.FullName)
                 .Should().Contain(Project1ClassType);
 
-            Project1ResolverReflection.assemblies.Length.Should().Be(1);
+            Project1ResolverReflection.Assemblies.Length.Should().Be(1);
         }
 
         [Fact(Skip = "Must be run separately (uses AppDomain)")]
@@ -109,7 +109,7 @@ namespace DesperateDevs.Reflection.Tests
 
             var types = Project1ResolverReflection.GetTypes();
             types[0].FullName.Should().Be(Project1ClassType);
-            types[0].Assembly.Should().BeSameAs(Project1ResolverReflection.assemblies[0]);
+            types[0].Assembly.Should().BeSameAs(Project1ResolverReflection.Assemblies[0]);
         }
 
         [Fact]
@@ -117,7 +117,7 @@ namespace DesperateDevs.Reflection.Tests
         {
             Project1ResolverReflection.Load(Project1AssemblyName);
             Project1ResolverReflection.Load(Project1AssemblyName);
-            Project1ResolverReflection.assemblies.Length.Should().Be(1);
+            Project1ResolverReflection.Assemblies.Length.Should().Be(1);
         }
 
         [Fact]
@@ -132,7 +132,7 @@ namespace DesperateDevs.Reflection.Tests
 
             typeNames.Length.Should().Be(1);
             typeNames.Should().Contain(Project2ClassType);
-            resolver.assemblies.Length.Should().Be(1);
+            resolver.Assemblies.Length.Should().Be(1);
         }
 
         [Fact]
@@ -151,7 +151,7 @@ namespace DesperateDevs.Reflection.Tests
             var types = Project12Resolver.GetTypes();
             types.Length.Should().Be(1);
             types[0].FullName.Should().Be(Project2ClassType);
-            Project12Resolver.assemblies.Length.Should().Be(1);
+            Project12Resolver.Assemblies.Length.Should().Be(1);
         }
 
         [Fact(Skip = "TODO")]
@@ -167,7 +167,7 @@ namespace DesperateDevs.Reflection.Tests
             typeNames.Length.Should().Be(2);
             typeNames.Should().Contain(Project1ClassType);
             typeNames.Should().Contain(Project2ClassType);
-            Project12Resolver.assemblies.Length.Should().Be(2);
+            Project12Resolver.Assemblies.Length.Should().Be(2);
         }
 
         [Fact]

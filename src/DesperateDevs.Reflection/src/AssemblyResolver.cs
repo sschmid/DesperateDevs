@@ -10,12 +10,9 @@ namespace DesperateDevs.Reflection
 {
     public partial class AssemblyResolver
     {
-        readonly Logger _logger = Sherlog.GetLogger(typeof(AssemblyResolver).Name);
+        readonly Logger _logger = Sherlog.GetLogger(nameof(AssemblyResolver));
 
-        public Assembly[] assemblies
-        {
-            get { return _assemblies.ToArray(); }
-        }
+        public Assembly[] Assemblies => _assemblies.ToArray();
 
         readonly bool _reflectionOnly;
         readonly string[] _basePaths;
@@ -30,13 +27,9 @@ namespace DesperateDevs.Reflection
             _appDomain = AppDomain.CurrentDomain;
 
             if (reflectionOnly)
-            {
-                _appDomain.ReflectionOnlyAssemblyResolve += onReflectionOnlyAssemblyResolve;
-            }
+                _appDomain.ReflectionOnlyAssemblyResolve += OnReflectionOnlyAssemblyResolve;
             else
-            {
-                _appDomain.AssemblyResolve += onAssemblyResolve;
-            }
+                _appDomain.AssemblyResolve += OnAssemblyResolve;
         }
 
         public void Load(string path)
@@ -44,53 +37,45 @@ namespace DesperateDevs.Reflection
             if (_reflectionOnly)
             {
                 _logger.Debug(_appDomain + " reflect: " + path);
-                resolveAndLoad(path, Assembly.ReflectionOnlyLoadFrom, false);
+                ResolveAndLoad(path, Assembly.ReflectionOnlyLoadFrom, false);
             }
             else
             {
                 _logger.Debug(_appDomain + " load: " + path);
-                resolveAndLoad(path, Assembly.LoadFrom, false);
+                ResolveAndLoad(path, Assembly.LoadFrom, false);
             }
         }
 
         public void Close()
         {
             if (_reflectionOnly)
-            {
-                _appDomain.ReflectionOnlyAssemblyResolve -= onReflectionOnlyAssemblyResolve;
-            }
+                _appDomain.ReflectionOnlyAssemblyResolve -= OnReflectionOnlyAssemblyResolve;
             else
-            {
-                _appDomain.AssemblyResolve -= onAssemblyResolve;
-            }
+                _appDomain.AssemblyResolve -= OnAssemblyResolve;
         }
 
-        Assembly resolveAndLoad(string name, Func<string, Assembly> loadMethod, bool isDependency)
+        Assembly ResolveAndLoad(string name, Func<string, Assembly> loadMethod, bool isDependency)
         {
             Assembly assembly = null;
             try
             {
                 if (isDependency)
-                {
                     _logger.Debug("  ➜ Loading Dependency: " + name);
-                }
                 else
-                {
                     _logger.Debug("  ➜ Loading: " + name);
-                }
 
                 assembly = loadMethod(name);
-                addAssembly(assembly);
+                AddAssembly(assembly);
             }
             catch (Exception)
             {
-                var path = resolvePath(name);
+                var path = ResolvePath(name);
                 if (path != null)
                 {
                     try
                     {
                         assembly = loadMethod(path);
-                        addAssembly(assembly);
+                        AddAssembly(assembly);
                     }
                     catch (BadImageFormatException) { }
                 }
@@ -99,22 +84,15 @@ namespace DesperateDevs.Reflection
             return assembly;
         }
 
-        Assembly onAssemblyResolve(object sender, ResolveEventArgs args)
-        {
-            return resolveAndLoad(args.Name, Assembly.LoadFrom, true);
-        }
+        Assembly OnAssemblyResolve(object sender, ResolveEventArgs args) =>
+            ResolveAndLoad(args.Name, Assembly.LoadFrom, true);
 
-        Assembly onReflectionOnlyAssemblyResolve(object sender, ResolveEventArgs args)
-        {
-            return resolveAndLoad(args.Name, Assembly.ReflectionOnlyLoadFrom, true);
-        }
+        Assembly OnReflectionOnlyAssemblyResolve(object sender, ResolveEventArgs args) =>
+            ResolveAndLoad(args.Name, Assembly.ReflectionOnlyLoadFrom, true);
 
-        void addAssembly(Assembly assembly)
-        {
-            _assemblies.Add(assembly);
-        }
+        void AddAssembly(Assembly assembly) => _assemblies.Add(assembly);
 
-        string resolvePath(string name)
+        string ResolvePath(string name)
         {
             try
             {
@@ -144,9 +122,6 @@ namespace DesperateDevs.Reflection
             return null;
         }
 
-        public Type[] GetTypes()
-        {
-            return _assemblies.GetAllTypes().ToArray();
-        }
+        public Type[] GetTypes() => _assemblies.GetAllTypes().ToArray();
     }
 }

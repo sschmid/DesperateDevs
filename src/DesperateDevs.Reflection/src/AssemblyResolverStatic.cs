@@ -10,10 +10,8 @@ namespace DesperateDevs.Reflection
         public static AssemblyResolver LoadAssemblies(bool allDirectories, params string[] basePaths)
         {
             var resolver = new AssemblyResolver(false, basePaths);
-            foreach (var file in getAssemblyFiles(allDirectories, basePaths))
-            {
+            foreach (var file in GetAssemblyFiles(allDirectories, basePaths))
                 resolver.Load(file);
-            }
 
             return resolver;
         }
@@ -21,10 +19,8 @@ namespace DesperateDevs.Reflection
         public static Assembly[] GetAssembliesContainingType<T>(bool allDirectories, params string[] basePaths)
         {
             var resolver = new AssemblyResolver(true, basePaths);
-            foreach (var file in getAssemblyFiles(allDirectories, basePaths))
-            {
+            foreach (var file in GetAssemblyFiles(allDirectories, basePaths))
                 resolver.Load(file);
-            }
 
             var interfaceName = typeof(T).FullName;
             var assemblies = resolver
@@ -42,24 +38,19 @@ namespace DesperateDevs.Reflection
         public static AssemblyResolver LoadAssembliesContainingType<T>(bool allDirectories, params string[] basePaths)
         {
             var assemblies = GetAssembliesContainingType<T>(allDirectories, basePaths);
-
             var resolver = new AssemblyResolver(false, basePaths);
             foreach (var assembly in assemblies)
-            {
                 resolver.Load(assembly.CodeBase);
-            }
 
             return resolver;
         }
 
-        static string[] getAssemblyFiles(bool allDirectories, params string[] basePaths)
+        static string[] GetAssemblyFiles(bool allDirectories, params string[] basePaths)
         {
             var patterns = new[] {"*.dll", "*.exe"};
             var files = new List<string>();
             foreach (var pattern in patterns)
-            {
                 files.AddRange(basePaths.SelectMany(s => Directory.GetFiles(s, pattern, allDirectories ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly)));
-            }
 
             return files.ToArray();
         }

@@ -19,11 +19,11 @@ namespace DesperateDevs.Reflection.Tests
             var infos = typeof(TestClassWithFields).GetPublicMemberInfos();
             infos.Count.Should().Be(1);
             var mi = infos[0];
-            mi.type.Should().Be(typeof(string));
-            mi.name.Should().Be("PublicField");
-            mi.attributes.Length.Should().Be(1);
-            mi.attributes[0].memberInfos.Count.Should().Be(1);
-            var attrValue = mi.attributes[0].memberInfos[0].GetValue(mi.attributes[0].attribute);
+            mi.Type.Should().Be(typeof(string));
+            mi.Name.Should().Be("PublicField");
+            mi.Attributes.Length.Should().Be(1);
+            mi.Attributes[0].memberInfos.Count.Should().Be(1);
+            var attrValue = mi.Attributes[0].memberInfos[0].GetValue(mi.Attributes[0].attribute);
             attrValue.Should().Be("MyField");
         }
 
@@ -33,11 +33,11 @@ namespace DesperateDevs.Reflection.Tests
             var infos = typeof(TestClassWithProperties).GetPublicMemberInfos();
             infos.Count.Should().Be(1);
             var mi = infos[0];
-            mi.type.Should().Be(typeof(string));
-            mi.name.Should().Be("PublicProperty");
-            mi.attributes.Length.Should().Be(1);
-            mi.attributes[0].memberInfos.Count.Should().Be(1);
-            var attrValue = mi.attributes[0].memberInfos[0].GetValue(mi.attributes[0].attribute);
+            mi.Type.Should().Be(typeof(string));
+            mi.Name.Should().Be("PublicProperty");
+            mi.Attributes.Length.Should().Be(1);
+            mi.Attributes[0].memberInfos.Count.Should().Be(1);
+            var attrValue = mi.Attributes[0].memberInfos[0].GetValue(mi.Attributes[0].attribute);
             attrValue.Should().Be("MyProperty");
         }
 
@@ -49,11 +49,11 @@ namespace DesperateDevs.Reflection.Tests
             var mi1 = infos[0];
             var mi2 = infos[1];
 
-            mi1.type.Should().Be(typeof(string));
-            mi1.name.Should().Be("PublicField");
+            mi1.Type.Should().Be(typeof(string));
+            mi1.Name.Should().Be("PublicField");
 
-            mi2.type.Should().Be(typeof(string));
-            mi2.name.Should().Be("PublicProperty");
+            mi2.Type.Should().Be(typeof(string));
+            mi2.Name.Should().Be("PublicProperty");
         }
 
         [Fact]
