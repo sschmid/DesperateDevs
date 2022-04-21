@@ -12,15 +12,14 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
 {
     public static class UnityCodeGenerator
     {
-        public const string DRY_RUN = "DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor.DryRun";
+        public static readonly string DryRun = $"{nameof(DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor)}.DryRun";
 
-        public static Preferences GetPreferences()
-        {
-            var propertiesPath = EditorPrefs.GetString(CodeGeneratorPreferencesDrawer.PROPERTIES_PATH_KEY, CodeGenerator.DefaultPropertiesPath);
-            return new Preferences(propertiesPath, Preferences.DefaultUserPropertiesPath);
-        }
+        public static Preferences GetPreferences() => new Preferences(
+            EditorPrefs.GetString(CodeGeneratorPreferencesDrawer.PropertiesPathKey, CodeGenerator.DefaultPropertiesPath),
+            Preferences.DefaultUserPropertiesPath
+        );
 
-        [MenuItem(CodeGeneratorMenuItems.generate, false, CodeGeneratorMenuItemPriorities.generate)]
+        [MenuItem(CodeGeneratorMenuItems.Generate, false, CodeGeneratorMenuItemPriorities.Generate)]
         public static void Generate()
         {
             Debug.Log("Generating...");
@@ -32,10 +31,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
             codeGenerator.OnProgress += (title, info, progress) =>
             {
                 var cancel = EditorUtility.DisplayCancelableProgressBar(title, info, progressOffset + progress / 2);
-                if (cancel)
-                {
-                    codeGenerator.Cancel();
-                }
+                if (cancel) codeGenerator.Cancel();
             };
 
             CodeGenFile[] dryFiles = null;
@@ -43,14 +39,14 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
 
             try
             {
-                dryFiles = EditorPrefs.GetBool(DRY_RUN, true) ? codeGenerator.DryRun() : new CodeGenFile[0];
+                dryFiles = EditorPrefs.GetBool(DryRun, true) ? codeGenerator.DryRun() : Array.Empty<CodeGenFile>();
                 progressOffset = 0.5f;
                 files = codeGenerator.Generate();
             }
             catch (Exception exception)
             {
-                dryFiles = new CodeGenFile[0];
-                files = new CodeGenFile[0];
+                dryFiles = Array.Empty<CodeGenFile>();
+                files = Array.Empty<CodeGenFile>();
 
                 EditorUtility.DisplayDialog("Error", exception.Message, "Ok");
             }
@@ -65,7 +61,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
 
             var loc = files
                 .Select(file => file.FileContent.ToUnixLineEndings())
-                .Sum(content => content.Split(new[] {'\n'}).Length);
+                .Sum(content => content.Split('\n').Length);
 
             Debug.Log("Generated " + totalGeneratedFiles + " files (" + sloc + " sloc, " + loc + " loc)");
 
@@ -74,7 +70,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
 
         static string _propertiesPath;
 
-        [MenuItem(CodeGeneratorMenuItems.generate_server, false, CodeGeneratorMenuItemPriorities.generate_server)]
+        [MenuItem(CodeGeneratorMenuItems.GenerateServer, false, CodeGeneratorMenuItemPriorities.GenerateServer)]
         public static void GenerateExternal()
         {
             Debug.Log("Connecting...");
@@ -83,26 +79,26 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
             _propertiesPath = preferences.PropertiesPath;
             var config = preferences.CreateAndConfigure<CodeGeneratorConfig>();
             var client = new TcpClientSocket();
-            client.OnConnected += onConnected;
-            client.OnReceived += onReceive;
-            client.OnDisconnected += onDisconnect;
+            client.OnConnected += OnConnected;
+            client.OnReceived += OnReceive;
+            client.OnDisconnected += OnDisconnect;
             client.Connect(config.Host.ResolveHost(), config.Port);
         }
 
-        static void onConnected(TcpClientSocket client)
+        static void OnConnected(TcpClientSocket client)
         {
             Debug.Log("Connected");
             Debug.Log("Generating...");
             client.Send(Encoding.UTF8.GetBytes("gen " + _propertiesPath));
         }
 
-        static void onReceive(AbstractTcpSocket socket, Socket client, byte[] bytes)
+        static void OnReceive(AbstractTcpSocket socket, Socket client, byte[] bytes)
         {
             Debug.Log("Generated");
             socket.Disconnect();
         }
 
-        static void onDisconnect(AbstractTcpSocket socket)
+        static void OnDisconnect(AbstractTcpSocket socket)
         {
             Debug.Log("Disconnected");
         }

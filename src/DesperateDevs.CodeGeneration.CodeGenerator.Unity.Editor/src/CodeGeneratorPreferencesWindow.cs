@@ -7,15 +7,15 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
 {
     public class CodeGeneratorPreferencesWindow : PreferencesWindow
     {
-        [MenuItem(CodeGeneratorMenuItems.preferences, false, CodeGeneratorMenuItemPriorities.preferences)]
+        [MenuItem(CodeGeneratorMenuItems.Preferences, false, CodeGeneratorMenuItemPriorities.Preferences)]
         public static void OpenPreferences()
         {
             var window = GetWindow<CodeGeneratorPreferencesWindow>(true, "Jenny");
             window.minSize = new Vector2(415f, 366f);
             window.Initialize(
-                EditorPrefs.GetString(CodeGeneratorPreferencesDrawer.PROPERTIES_PATH_KEY, CodeGenerator.DefaultPropertiesPath),
+                EditorPrefs.GetString(CodeGeneratorPreferencesDrawer.PropertiesPathKey, CodeGenerator.DefaultPropertiesPath),
                 Preferences.DefaultUserPropertiesPath,
-                "DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor.CodeGeneratorPreferencesDrawer"
+                typeof(CodeGeneratorPreferencesDrawer).FullName
             );
 
             window.Show();

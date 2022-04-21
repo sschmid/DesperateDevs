@@ -12,10 +12,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
 {
     public class CodeGeneratorPreferencesDrawer : AbstractPreferencesDrawer
     {
-        public override string Title
-        {
-            get { return "Jenny"; }
-        }
+        public override string Title => "Jenny";
 
         string[] _availablePreProcessorTypes;
         string[] _availableDataProviderTypes;
@@ -32,8 +29,9 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
 
         CodeGeneratorConfig _codeGeneratorConfig;
 
-        public const string PROPERTIES_PATH_KEY = "DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor.PropertiesPath";
-        const string USE_EXTERNAL_CODE_GENERATOR = "DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor.UseExternalCodeGenerator";
+        public static readonly string PropertiesPathKey = $"{nameof(DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor)}.PropertiesPath";
+        public static readonly string UseExternalCodeGeneratorKey = $"{nameof(DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor)}.UseExternalCodeGenerator";
+
         bool _useExternalCodeGenerator;
         bool _doDryRun;
 
@@ -45,15 +43,15 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
 
             _instances = CodeGeneratorUtil.LoadFromPlugins(preferences);
 
-            setTypesAndNames<IPreProcessor>(_instances, out _availablePreProcessorTypes, out _availablePreProcessorNames);
-            setTypesAndNames<IDataProvider>(_instances, out _availableDataProviderTypes, out _availableDataProviderNames);
-            setTypesAndNames<ICodeGenerator>(_instances, out _availableGeneratorTypes, out _availableGeneratorNames);
-            setTypesAndNames<IPostProcessor>(_instances, out _availablePostProcessorTypes, out _availablePostProcessorNames);
+            SetTypesAndNames<IPreProcessor>(_instances, out _availablePreProcessorTypes, out _availablePreProcessorNames);
+            SetTypesAndNames<IDataProvider>(_instances, out _availableDataProviderTypes, out _availableDataProviderNames);
+            SetTypesAndNames<ICodeGenerator>(_instances, out _availableGeneratorTypes, out _availableGeneratorNames);
+            SetTypesAndNames<IPostProcessor>(_instances, out _availablePostProcessorTypes, out _availablePostProcessorNames);
 
             preferences.Properties.AddProperties(CodeGeneratorUtil.GetDefaultProperties(_instances, _codeGeneratorConfig), false);
 
-            _useExternalCodeGenerator = EditorPrefs.GetBool(USE_EXTERNAL_CODE_GENERATOR);
-            _doDryRun = EditorPrefs.GetBool(UnityCodeGenerator.DRY_RUN, true);
+            _useExternalCodeGenerator = EditorPrefs.GetBool(UseExternalCodeGeneratorKey);
+            _doDryRun = EditorPrefs.GetBool(UnityCodeGenerator.DryRun, true);
         }
 
         public override void DrawHeader(Preferences preferences)
@@ -88,7 +86,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
             );
             if (!string.IsNullOrEmpty(path))
             {
-                EditorPrefs.SetString(PROPERTIES_PATH_KEY, path);
+                EditorPrefs.SetString(PropertiesPathKey, path);
                 EditorWindow.focusedWindow.Close();
                 CodeGeneratorPreferencesWindow.OpenPreferences();
             }
@@ -97,24 +95,22 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
             {
                 EditorGUILayout.LabelField("Auto Import Plugins");
                 if (EditorLayout.MiniButton("Auto Import"))
-                {
-                    autoImport(preferences);
-                }
+                    AutoImport(preferences);
             }
             EditorGUILayout.EndHorizontal();
 
-            _codeGeneratorConfig.PreProcessors = drawMaskField("Pre Processors", _availablePreProcessorTypes, _availablePreProcessorNames, _codeGeneratorConfig.PreProcessors);
-            _codeGeneratorConfig.DataProviders = drawMaskField("Data Providers", _availableDataProviderTypes, _availableDataProviderNames, _codeGeneratorConfig.DataProviders);
-            _codeGeneratorConfig.CodeGenerators = drawMaskField("Code Generators", _availableGeneratorTypes, _availableGeneratorNames, _codeGeneratorConfig.CodeGenerators);
-            _codeGeneratorConfig.PostProcessors = drawMaskField("Post Processors", _availablePostProcessorTypes, _availablePostProcessorNames, _codeGeneratorConfig.PostProcessors);
+            _codeGeneratorConfig.PreProcessors = DrawMaskField("Pre Processors", _availablePreProcessorTypes, _availablePreProcessorNames, _codeGeneratorConfig.PreProcessors);
+            _codeGeneratorConfig.DataProviders = DrawMaskField("Data Providers", _availableDataProviderTypes, _availableDataProviderNames, _codeGeneratorConfig.DataProviders);
+            _codeGeneratorConfig.CodeGenerators = DrawMaskField("Code Generators", _availableGeneratorTypes, _availableGeneratorNames, _codeGeneratorConfig.CodeGenerators);
+            _codeGeneratorConfig.PostProcessors = DrawMaskField("Post Processors", _availablePostProcessorTypes, _availablePostProcessorNames, _codeGeneratorConfig.PostProcessors);
 
-            drawConfigurables(preferences);
+            DrawConfigurables(preferences);
 
             EditorGUILayout.Space();
-            drawGenerateButtons();
+            DrawGenerateButtons();
         }
 
-        void autoImport(Preferences preferences)
+        void AutoImport(Preferences preferences)
         {
             var propertiesPath = Path.GetFileName(preferences.PropertiesPath);
             if (EditorUtility.DisplayDialog("Jenny - Auto Import",
@@ -143,7 +139,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
             }
         }
 
-        void drawConfigurables(Preferences preferences)
+        void DrawConfigurables(Preferences preferences)
         {
             var defaultProperties = CodeGeneratorUtil.GetDefaultProperties(_instances, _codeGeneratorConfig);
             preferences.Properties.AddProperties(defaultProperties, false);
@@ -154,13 +150,11 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
                 EditorGUILayout.LabelField("Plugins Configuration", EditorStyles.boldLabel);
             }
 
-            foreach (var kv in defaultProperties.OrderBy(kv => kv.Key))
-            {
-                preferences[kv.Key] = EditorGUILayout.TextField(kv.Key.ShortTypeName().ToSpacedCamelCase(), preferences[kv.Key]);
-            }
+            foreach (var kvp in defaultProperties.OrderBy(kv => kv.Key))
+                preferences[kvp.Key] = EditorGUILayout.TextField(kvp.Key.ShortTypeName().ToSpacedCamelCase(), preferences[kvp.Key]);
         }
 
-        static void setTypesAndNames<T>(ICodeGenerationPlugin[] instances, out string[] availableTypes, out string[] availableNames) where T : ICodeGenerationPlugin
+        static void SetTypesAndNames<T>(ICodeGenerationPlugin[] instances, out string[] availableTypes, out string[] availableNames) where T : ICodeGenerationPlugin
         {
             var orderedInstances = CodeGeneratorUtil.GetOrderedInstancesOf<T>(instances);
 
@@ -173,25 +167,19 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
                 .ToArray();
         }
 
-        static string[] drawMaskField(string title, string[] types, string[] names, string[] input)
+        static string[] DrawMaskField(string title, string[] types, string[] names, string[] input)
         {
             var mask = 0;
 
-            for (int i = 0; i < types.Length; i++)
-            {
+            for (var i = 0; i < types.Length; i++)
                 if (input.Contains(types[i]))
-                {
                     mask += (1 << i);
-                }
-            }
 
             if (names.Length != 0)
             {
                 var everything = (int)Math.Pow(2, types.Length) - 1;
                 if (mask == everything)
-                {
                     mask = -1;
-                }
 
                 mask = EditorGUILayout.MaskField(title, mask, names);
             }
@@ -201,13 +189,11 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
             }
 
             var selected = new List<string>();
-            for (int i = 0; i < types.Length; i++)
+            for (var i = 0; i < types.Length; i++)
             {
                 var index = 1 << i;
                 if ((index & mask) == index)
-                {
                     selected.Add(types[i]);
-                }
             }
 
             // Re-add unavailable types
@@ -216,7 +202,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
             return selected.ToArray();
         }
 
-        void drawGenerateButtons()
+        void DrawGenerateButtons()
         {
             EditorGUILayout.BeginVertical();
             {
@@ -226,9 +212,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
                 }
                 var useExternalCodeGeneratorChanged = EditorGUI.EndChangeCheck();
                 if (useExternalCodeGeneratorChanged)
-                {
-                    EditorPrefs.SetBool(USE_EXTERNAL_CODE_GENERATOR, _useExternalCodeGenerator);
-                }
+                    EditorPrefs.SetBool(UseExternalCodeGeneratorKey, _useExternalCodeGenerator);
 
                 if (_useExternalCodeGenerator)
                 {
@@ -243,9 +227,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
                     }
                     var doDryRunChanged = EditorGUI.EndChangeCheck();
                     if (doDryRunChanged)
-                    {
-                        EditorPrefs.SetBool(UnityCodeGenerator.DRY_RUN, _doDryRun);
-                    }
+                        EditorPrefs.SetBool(UnityCodeGenerator.DryRun, _doDryRun);
                 }
 
                 var bgColor = GUI.backgroundColor;
@@ -253,13 +235,9 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
                 if (GUILayout.Button("Generate", GUILayout.Height(32)))
                 {
                     if (_useExternalCodeGenerator)
-                    {
                         UnityCodeGenerator.GenerateExternal();
-                    }
                     else
-                    {
                         UnityCodeGenerator.Generate();
-                    }
                 }
 
                 GUI.backgroundColor = bgColor;
