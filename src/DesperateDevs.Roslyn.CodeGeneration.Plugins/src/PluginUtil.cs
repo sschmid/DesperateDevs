@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 
-namespace DesperateDevs.Roslyn.CodeGeneration.Plugins {
+namespace DesperateDevs.Roslyn.CodeGeneration.Plugins
+{
+    public static class PluginUtil
+    {
+        public static readonly string ProjectParserKey = $"{nameof(DesperateDevs.Roslyn.CodeGeneration.Plugins)}.ProjectParser";
 
-    public static class PluginUtil {
-
-        public const string PROJECT_PARSER_KEY = "DesperateDevs.Roslyn.CodeGeneration.Plugins.ProjectParser";
-
-        public static ProjectParser GetCachedProjectParser(Dictionary<string, object> objectCache, string projectPath) {
-            object cachedProjectParser;
-            if (!objectCache.TryGetValue(PROJECT_PARSER_KEY, out cachedProjectParser)) {
+        public static ProjectParser GetCachedProjectParser(Dictionary<string, object> objectCache, string projectPath)
+        {
+            if (!objectCache.TryGetValue(ProjectParserKey, out var cachedProjectParser))
+            {
                 cachedProjectParser = new ProjectParser(projectPath);
-                objectCache.Add(PROJECT_PARSER_KEY, cachedProjectParser);
+                objectCache.Add(ProjectParserKey, cachedProjectParser);
             }
 
             return (ProjectParser)cachedProjectParser;
