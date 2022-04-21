@@ -7,18 +7,18 @@ using DesperateDevs.Serialization;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
 {
-    public class Step2_PluginsMenu : CliMenu
+    public class Step2PluginsMenu : CliMenu
     {
-        public bool shouldAutoImport;
+        public bool ShouldAutoImport;
 
         readonly bool _isVerbose;
 
-        public Step2_PluginsMenu(CliProgram progam, string title, Preferences preferences, bool isVerbose) : base(buildTitle(title))
+        public Step2PluginsMenu(CliProgram program, string title, Preferences preferences, bool isVerbose) : base(BuildTitle(title))
         {
             _isVerbose = isVerbose;
             Console.WriteLine(title);
             var config = preferences.CreateAndConfigure<CodeGeneratorConfig>();
-            var allPlugins = autoImport(config);
+            var allPlugins = AutoImport(config);
 
             var pluginEntries = new List<SelectableMenuEntry>(allPlugins.Length);
 
@@ -35,13 +35,13 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
             }
             else
             {
-                AddMenuEntry(new EditMenuEntry(progam, this, preferences.PropertiesPath));
+                AddMenuEntry(new EditMenuEntry(program, this, preferences.PropertiesPath));
             }
 
             foreach (var plugin in allPlugins)
             {
                 var localPlugin = plugin;
-                var entry = new SelectableMenuEntry(localPlugin, config.Plugins.Contains(localPlugin), isSelected => updateConfig(config, localPlugin, isSelected));
+                var entry = new SelectableMenuEntry(localPlugin, config.Plugins.Contains(localPlugin), isSelected => UpdateConfig(config, localPlugin, isSelected));
                 AddMenuEntry(entry);
                 pluginEntries.Add(entry);
             }
@@ -49,7 +49,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
             AddMenuEntry(new ExitMenuEntry("Quit", false));
         }
 
-        string[] autoImport(CodeGeneratorConfig config)
+        string[] AutoImport(CodeGeneratorConfig config)
         {
             var selectedPlugins = config.Plugins;
             var searchPaths = CodeGeneratorUtil.BuildSearchPaths(config.SearchPaths, new[] {"."});
@@ -72,7 +72,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
             return allPlugins;
         }
 
-        void updateConfig(CodeGeneratorConfig config, string plugin, bool isSelected)
+        void UpdateConfig(CodeGeneratorConfig config, string plugin, bool isSelected)
         {
             var list = config.Plugins.ToList();
             if (isSelected)
@@ -86,27 +86,25 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
                 .ToArray();
         }
 
-        static string buildTitle(string title)
-        {
-            return title + "\n" +
-                   "Step 2: Plugins\n" +
-                   "===============\n\n" +
-                   "Plugins can contain one or more\n" +
-                   "- PreProcessors - prepare the data source if needed\n" +
-                   "- DataProviders - process the data source and create the model\n" +
-                   "- CodeGenerators - read the model and generate CodeGenFiles in memory\n" +
-                   "- PostProcessors - process the CodeGenFiles, e.g. writing to disc\n" +
-                   "- Doctors - diagnose and fix problems\n\n" +
-                   "FAQ:\n" +
-                   "- No plugins found: Make sure to specify the paths to plugins in " + CodeGeneratorConfig.SearchPathsKey +
-                   "\n\n" +
-                   "Please select the plugins you want to activate";
-        }
+        static string BuildTitle(string title) =>
+            title + "\n" +
+            "Step 2: Plugins\n" +
+            "===============\n\n" +
+            "Plugins can contain one or more\n" +
+            "- PreProcessors - prepare the data source if needed\n" +
+            "- DataProviders - process the data source and create the model\n" +
+            "- CodeGenerators - read the model and generate CodeGenFiles in memory\n" +
+            "- PostProcessors - process the CodeGenFiles, e.g. writing to disc\n" +
+            "- Doctors - diagnose and fix problems\n\n" +
+            "FAQ:\n" +
+            "- No plugins found: Make sure to specify the paths to plugins in " + CodeGeneratorConfig.SearchPathsKey +
+            "\n\n" +
+            "Please select the plugins you want to activate";
     }
 
     public class AutoSaveMenuEntry : MenuEntry
     {
-        public AutoSaveMenuEntry(Step2_PluginsMenu menu, Preferences preferences, CodeGeneratorConfig config) :
+        public AutoSaveMenuEntry(Step2PluginsMenu menu, Preferences preferences, CodeGeneratorConfig config) :
             base("Save and continue (auto import)", null, false, () =>
             {
                 config.SearchPaths = config.SearchPaths
@@ -118,14 +116,14 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
                     .ToArray();
 
                 preferences.Save();
-                menu.shouldAutoImport = true;
+                menu.ShouldAutoImport = true;
                 menu.Stop();
             }) { }
     }
 
     public class ManualSaveMenuEntry : MenuEntry
     {
-        public ManualSaveMenuEntry(Step2_PluginsMenu menu, Preferences preferences, CodeGeneratorConfig config) :
+        public ManualSaveMenuEntry(Step2PluginsMenu menu, Preferences preferences, CodeGeneratorConfig config) :
             base("Save and continue (manual import)", null, false, () =>
             {
                 config.SearchPaths = config.SearchPaths
@@ -137,7 +135,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
                     .ToArray();
 
                 preferences.Save();
-                menu.shouldAutoImport = false;
+                menu.ShouldAutoImport = false;
                 menu.Stop();
             }) { }
     }

@@ -7,7 +7,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
     {
         public override string Trigger => "scan";
         public override string Description => "Scan and print available types found in specified plugins";
-        public override string Group => CommandGroups.PLUGINS;
+        public override string Group => CommandGroups.Plugins;
         public override string Example => "scan";
 
         public ScanCommand() : base(typeof(ScanCommand).FullName) { }
@@ -22,9 +22,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
                 .ThenBy(type => type.FullName);
 
             foreach (var type in orderedTypes)
-            {
                 _logger.Info(type.Assembly.GetName().Name + ": " + type);
-            }
         }
     }
 }

@@ -9,25 +9,10 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
 {
     public class WizardCommand : AbstractCommand
     {
-        public override string Trigger
-        {
-            get { return "wiz"; }
-        }
-
-        public override string Description
-        {
-            get { return "Setup Jenny, guided by a wizard"; }
-        }
-
-        public override string Group
-        {
-            get { return null; }
-        }
-
-        public override string Example
-        {
-            get { return "wiz"; }
-        }
+        public override string Trigger => "wiz";
+        public override string Description => "Setup Jenny, guided by a wizard";
+        public override string Group => null;
+        public override string Example => "wiz";
 
         readonly Logger _logger = Sherlog.GetLogger(typeof(WizardCommand));
 
@@ -56,19 +41,23 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
             const string indent = "→ ";
 
             // Step 1: Properties
-            var allPreferenes = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.properties", SearchOption.TopDirectoryOnly);
-            var propertiesMenu = new Step1_PropertiesMenu(_program, title, allPreferenes);
-            propertiesMenu.Indent = indent;
+            var allPreferences = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.properties", SearchOption.TopDirectoryOnly);
+            var propertiesMenu = new Step1PropertiesMenu(_program, title, allPreferences)
+            {
+                Indent = indent
+            };
             propertiesMenu.Start();
 
-            var preferences = new Preferences(propertiesMenu.properties, Preferences.DefaultUserPropertiesPath);
+            var preferences = new Preferences(propertiesMenu.Properties, Preferences.DefaultUserPropertiesPath);
 
             // Step 2: Plugins
-            var pluginsMenu = new Step2_PluginsMenu(_program, title, preferences, _rawArgs.IsVerbose());
-            pluginsMenu.Indent = indent;
+            var pluginsMenu = new Step2PluginsMenu(_program, title, preferences, _rawArgs.IsVerbose())
+            {
+                Indent = indent
+            };
             pluginsMenu.Start();
 
-            var fixArgs = pluginsMenu.shouldAutoImport
+            var fixArgs = pluginsMenu.ShouldAutoImport
                 ? "-s"
                 : string.Empty;
 

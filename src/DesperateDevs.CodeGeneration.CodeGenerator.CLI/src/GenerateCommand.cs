@@ -8,7 +8,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
     {
         public override string Trigger => "gen";
         public override string Description => "Generate files based on properties file";
-        public override string Group => CommandGroups.CODE_GENERATION;
+        public override string Group => CommandGroups.CodeGeneration;
         public override string Example => "gen";
 
         public GenerateCommand() : base(typeof(GenerateCommand).FullName) { }

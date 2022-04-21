@@ -10,7 +10,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
     {
         public override string Trigger => "doctor";
         public override string Description => "Check the config for potential problems";
-        public override string Group => CommandGroups.PLUGINS;
+        public override string Group => CommandGroups.Plugins;
         public override string Example => "doctor";
 
         public DoctorCommand() : base(typeof(DoctorCommand).FullName) { }
@@ -19,7 +19,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
         {
             new StatusCommand().Run(_program, _rawArgs);
 
-            diagnose();
+            Diagnose();
 
             _logger.Info("Dry Run");
             CodeGeneratorUtil
@@ -29,13 +29,11 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
             _logger.Info("👨‍🔬  No problems detected. Happy coding :)");
         }
 
-        void diagnose()
+        void Diagnose()
         {
             var doctors = AppDomain.CurrentDomain.GetInstancesOf<IDoctor>();
             foreach (var doctor in doctors.OfType<IConfigurable>())
-            {
                 doctor.Configure(_preferences);
-            }
 
             var diagnoses = doctors
                 .Select(doctor => doctor.Diagnose())
@@ -59,10 +57,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
                 .ToArray());
 
             if (!string.IsNullOrEmpty(errors))
-            {
-                errors += "\nUse 'jenny fix' to apply treatments";
-                throw new Exception(errors);
-            }
+                throw new Exception(errors + "\nUse 'jenny fix' to apply treatments");
         }
     }
 }

@@ -13,19 +13,19 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
     {
         public override string Trigger => "fix";
         public override string Description => "Add missing keys and add available or remove unavailable plugins interactively";
-        public override string Group => CommandGroups.PLUGINS;
+        public override string Group => CommandGroups.Plugins;
         public override string Example => "fix";
 
-        static bool silent;
+        static bool _silent;
 
         public FixCommand() : base(typeof(FixCommand).FullName) { }
 
         protected override void Run()
         {
-            silent = _rawArgs.IsSilent();
+            _silent = _rawArgs.IsSilent();
 
             var config = _preferences.CreateAndConfigure<CodeGeneratorConfig>();
-            forceAddMissingKeys(config.DefaultProperties, _preferences);
+            ForceAddMissingKeys(config.DefaultProperties, _preferences);
 
             var instances = CodeGeneratorUtil.LoadFromPlugins(_preferences);
             // A test to check if all types can be resolved and instantiated.
@@ -36,26 +36,24 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
 
             var askedRemoveKeys = new HashSet<string>();
             var askedAddKeys = new HashSet<string>();
-            while (fix(askedRemoveKeys, askedAddKeys, instances, config, _preferences)) { }
+            while (Fix(askedRemoveKeys, askedAddKeys, instances, config, _preferences)) { }
 
-            runDoctors();
-            fixSearchPath(instances, config, _preferences);
+            RunDoctors();
+            FixSearchPath(instances, config, _preferences);
         }
 
-        void runDoctors()
+        void RunDoctors()
         {
             var doctors = AppDomain.CurrentDomain.GetInstancesOf<IDoctor>();
             foreach (var doctor in doctors.OfType<IConfigurable>())
-            {
                 doctor.Configure(_preferences);
-            }
 
             foreach (var doctor in doctors)
             {
                 var diagnosis = doctor.Diagnose();
                 if (diagnosis.Severity == DiagnosisSeverity.Error)
                 {
-                    if (silent)
+                    if (_silent)
                     {
                         if (doctor.ApplyFix())
                         {
@@ -67,19 +65,14 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
                     {
                         Console.WriteLine("💉  Apply fix: " + diagnosis.Treatment);
                         Console.WriteLine("to treat symptoms: " + diagnosis.Symptoms + " ? (y / n)");
-                        if (PreferencesExtension.GetUserDecision())
-                        {
-                            if (doctor.ApplyFix())
-                            {
-                                _preferences.Save();
-                            }
-                        }
+                        if (PreferencesExtension.GetUserDecision() && doctor.ApplyFix())
+                            _preferences.Save();
                     }
                 }
             }
         }
 
-        void fixSearchPath(ICodeGenerationPlugin[] instances, CodeGeneratorConfig config, Preferences preferences)
+        void FixSearchPath(ICodeGenerationPlugin[] instances, CodeGeneratorConfig config, Preferences preferences)
         {
             var requiredSearchPaths = instances
                 .Select(instance => Path.GetDirectoryName(instance.GetType().Assembly.CodeBase.MakePathRelativeTo(Directory.GetCurrentDirectory())))
@@ -93,7 +86,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
 
             foreach (var path in unusedPaths)
             {
-                if (silent)
+                if (_silent)
                 {
                     preferences.RemoveValue(
                         path,
@@ -116,38 +109,38 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
             preferences.Save();
         }
 
-        static void forceAddMissingKeys(Dictionary<string, string> requiredProperties, Preferences preferences)
+        static void ForceAddMissingKeys(Dictionary<string, string> requiredProperties, Preferences preferences)
         {
             var requiredKeys = requiredProperties.Keys.ToArray();
             var missingKeys = preferences.GetMissingKeys(requiredKeys);
 
             foreach (var key in missingKeys)
             {
-                if (silent)
+                if (_silent)
                     preferences.AddKey(key, requiredProperties[key]);
                 else
                     preferences.NotifyForceAddKey("Will add missing key", key, requiredProperties[key]);
             }
         }
 
-        bool fix(HashSet<string> askedRemoveKeys, HashSet<string> askedAddKeys, ICodeGenerationPlugin[] instances, CodeGeneratorConfig config, Preferences preferences)
+        bool Fix(HashSet<string> askedRemoveKeys, HashSet<string> askedAddKeys, ICodeGenerationPlugin[] instances, CodeGeneratorConfig config, Preferences preferences)
         {
-            var changed = fixPlugins(askedRemoveKeys, askedAddKeys, instances, config, preferences);
-            changed |= fixCollisions(askedAddKeys, config, preferences);
+            var changed = FixPlugins(askedRemoveKeys, askedAddKeys, instances, config, preferences);
+            changed |= FixCollisions(askedAddKeys, config, preferences);
 
-            forceAddMissingKeys(CodeGeneratorUtil.GetDefaultProperties(instances, config), preferences);
+            ForceAddMissingKeys(CodeGeneratorUtil.GetDefaultProperties(instances, config), preferences);
 
             var requiredKeys = config.DefaultProperties
                 .Merge(CodeGeneratorUtil.GetDefaultProperties(instances, config))
                 .Keys
                 .ToArray();
 
-            removeUnusedKeys(askedRemoveKeys, requiredKeys, preferences);
+            RemoveUnusedKeys(askedRemoveKeys, requiredKeys, preferences);
 
             return changed;
         }
 
-        static bool fixPlugins(HashSet<string> askedRemoveKeys, HashSet<string> askedAddKeys, ICodeGenerationPlugin[] instances, CodeGeneratorConfig config, Preferences preferences)
+        static bool FixPlugins(HashSet<string> askedRemoveKeys, HashSet<string> askedAddKeys, ICodeGenerationPlugin[] instances, CodeGeneratorConfig config, Preferences preferences)
         {
             var changed = false;
 
@@ -165,7 +158,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
             {
                 if (!askedRemoveKeys.Contains(value))
                 {
-                    if (silent)
+                    if (_silent)
                     {
                         preferences.RemoveValue(
                             value,
@@ -192,7 +185,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
             {
                 if (!askedRemoveKeys.Contains(value))
                 {
-                    if (silent)
+                    if (_silent)
                     {
                         preferences.RemoveValue(
                             value,
@@ -219,7 +212,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
             {
                 if (!askedRemoveKeys.Contains(value))
                 {
-                    if (silent)
+                    if (_silent)
                     {
                         preferences.RemoveValue(
                             value,
@@ -246,7 +239,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
             {
                 if (!askedRemoveKeys.Contains(value))
                 {
-                    if (silent)
+                    if (_silent)
                     {
                         preferences.RemoveValue(
                             value,
@@ -273,7 +266,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
             {
                 if (!askedAddKeys.Contains(value))
                 {
-                    if (silent)
+                    if (_silent)
                     {
                         preferences.AddValue(
                             value,
@@ -300,7 +293,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
             {
                 if (!askedAddKeys.Contains(value))
                 {
-                    if (silent)
+                    if (_silent)
                     {
                         preferences.AddValue(
                             value,
@@ -327,7 +320,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
             {
                 if (!askedAddKeys.Contains(value))
                 {
-                    if (silent)
+                    if (_silent)
                     {
                         preferences.AddValue(
                             value,
@@ -354,7 +347,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
             {
                 if (!askedAddKeys.Contains(value))
                 {
-                    if (silent)
+                    if (_silent)
                     {
                         preferences.AddValue(
                             value,
@@ -380,37 +373,37 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
             return changed;
         }
 
-        bool fixCollisions(HashSet<string> askedAddKeys, CodeGeneratorConfig config, Preferences preferences)
+        bool FixCollisions(HashSet<string> askedAddKeys, CodeGeneratorConfig config, Preferences preferences)
         {
-            var changed = fixDuplicates(askedAddKeys, config.PreProcessors, values =>
+            var changed = FixDuplicates(askedAddKeys, config.PreProcessors, values =>
             {
                 config.PreProcessors = values;
                 return config.PreProcessors;
             }, preferences);
 
-            changed = fixDuplicates(askedAddKeys, config.DataProviders, values =>
+            changed = FixDuplicates(askedAddKeys, config.DataProviders, values =>
             {
                 config.DataProviders = values;
                 return config.DataProviders;
             }, preferences) | changed;
 
-            changed = fixDuplicates(askedAddKeys, config.CodeGenerators, values =>
+            changed = FixDuplicates(askedAddKeys, config.CodeGenerators, values =>
             {
                 config.CodeGenerators = values;
                 return config.CodeGenerators;
             }, preferences) | changed;
 
-            return fixDuplicates(askedAddKeys, config.PostProcessors, values =>
+            return FixDuplicates(askedAddKeys, config.PostProcessors, values =>
             {
                 config.PostProcessors = values;
                 return config.PostProcessors;
             }, preferences) | changed;
         }
 
-        bool fixDuplicates(HashSet<string> askedAddKeys, string[] values, Func<string[], string[]> updateAction, Preferences preferences)
+        bool FixDuplicates(HashSet<string> askedAddKeys, string[] values, Func<string[], string[]> updateAction, Preferences preferences)
         {
             var changed = false;
-            var duplicates = getDuplicates(values);
+            var duplicates = GetDuplicates(values);
 
             foreach (var duplicate in duplicates)
             {
@@ -421,8 +414,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
                     .Where(name => name.EndsWith(duplicate))
                     .ToArray();
 
-                printCollisions(collisions);
-                var inputChars = getInputChars(collisions);
+                PrintCollisions(collisions);
+                var inputChars = GetInputChars(collisions);
                 var keyChar = PreferencesExtension.GetGenericUserDecision(inputChars);
                 if (keyChar != '0')
                 {
@@ -448,7 +441,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
             return changed;
         }
 
-        static string[] getDuplicates(string[] values)
+        static string[] GetDuplicates(string[] values)
         {
             var shortNames = values
                 .Select(name => name.ShortTypeName())
@@ -462,41 +455,33 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
                 .ToArray();
         }
 
-        void printCollisions(string[] collisions)
+        void PrintCollisions(string[] collisions)
         {
-            for (int i = 0; i < collisions.Length; i++)
-            {
+            for (var i = 0; i < collisions.Length; i++)
                 Console.WriteLine((i + 1) + ": Keep " + collisions[i]);
-            }
         }
 
-        static char[] getInputChars(string[] collisions)
+        static char[] GetInputChars(string[] collisions)
         {
             var chars = new char[collisions.Length + 1];
-            for (int i = 0; i < collisions.Length; i++)
-            {
+            for (var i = 0; i < collisions.Length; i++)
                 chars[i] = (i + 1).ToString()[0];
-            }
 
             chars[chars.Length - 1] = '0';
             return chars;
         }
 
-        static void removeUnusedKeys(HashSet<string> askedRemoveKeys, string[] requiredKeys, Preferences preferences)
+        static void RemoveUnusedKeys(HashSet<string> askedRemoveKeys, string[] requiredKeys, Preferences preferences)
         {
             var unusedKeys = preferences.GetUnusedKeys(requiredKeys);
             foreach (var key in unusedKeys)
             {
                 if (!askedRemoveKeys.Contains(key))
                 {
-                    if (silent)
-                    {
+                    if (_silent)
                         preferences.RemoveKey(key);
-                    }
                     else
-                    {
                         preferences.AskRemoveKey("Remove unused key", key);
-                    }
 
                     askedRemoveKeys.Add(key);
                 }

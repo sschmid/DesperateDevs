@@ -15,7 +15,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
     {
         public override string Trigger => "server";
         public override string Description => "Start server mode";
-        public override string Group => CommandGroups.CODE_GENERATION;
+        public override string Group => CommandGroups.CodeGeneration;
         public override string Example => "server";
 
         AbstractTcpSocket _socket;
@@ -28,21 +28,19 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
             var config = _preferences.CreateAndConfigure<CodeGeneratorConfig>();
             var server = new TcpServerSocket();
             _socket = server;
-            server.OnReceived += onReceived;
+            server.OnReceived += OnReceived;
             server.Listen(config.Port);
-            Console.CancelKeyPress += onCancel;
+            Console.CancelKeyPress += OnCancel;
             while (true)
-            {
                 server.Send(Encoding.UTF8.GetBytes(Console.ReadLine()));
-            }
         }
 
-        void onReceived(AbstractTcpSocket socket, Socket client, byte[] bytes)
+        void OnReceived(AbstractTcpSocket socket, Socket client, byte[] bytes)
         {
             var message = Encoding.UTF8.GetString(bytes);
             _logger.Info(message);
 
-            var args = getArgsFromMessage(message);
+            var args = GetArgsFromMessage(message);
 
             try
             {
@@ -52,10 +50,10 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
                 }
 
                 var command = _program.GetCommand(args.WithoutDefaultParameter()[0]);
-                Sherlog.AddAppender(onLog);
+                Sherlog.AddAppender(OnLog);
                 command.Run(_program, args);
-                Sherlog.RemoveAppender(onLog);
-                var logBufferString = getLogBufferString();
+                Sherlog.RemoveAppender(OnLog);
+                var logBufferString = GetLogBufferString();
                 var sendBytes = logBufferString.Length == 0
                     ? new byte[] {0}
                     : Encoding.UTF8.GetBytes(logBufferString);
@@ -67,33 +65,21 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
                     ? exception.ToString()
                     : exception.Message);
 
-                socket.Send(Encoding.UTF8.GetBytes(getLogBufferString() + exception.Message));
+                socket.Send(Encoding.UTF8.GetBytes(GetLogBufferString() + exception.Message));
             }
 
             _logBuffer.Clear();
         }
 
-        string[] getArgsFromMessage(string command)
-        {
-            return command
-                .Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries)
-                .Select(value => value.Trim())
-                .ToArray();
-        }
+        string[] GetArgsFromMessage(string command) => command
+            .Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries)
+            .Select(value => value.Trim())
+            .ToArray();
 
-        void onCancel(object sender, ConsoleCancelEventArgs e)
-        {
-            _socket.Disconnect();
-        }
+        void OnCancel(object sender, ConsoleCancelEventArgs e) => _socket.Disconnect();
 
-        string getLogBufferString()
-        {
-            return string.Join("\n", _logBuffer.ToArray());
-        }
+        string GetLogBufferString() => string.Join("\n", _logBuffer);
 
-        void onLog(Logger logger, LogLevel loglevel, string message)
-        {
-            _logBuffer.Add(message);
-        }
+        void OnLog(Logger logger, LogLevel loglevel, string message) => _logBuffer.Add(message);
     }
 }

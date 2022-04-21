@@ -7,23 +7,23 @@ using DesperateDevs.Extensions;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
 {
-    public class Step1_PropertiesMenu : CliMenu
+    public class Step1PropertiesMenu : CliMenu
     {
-        public string properties;
+        public string Properties;
 
-        public Step1_PropertiesMenu(CliProgram progam, string title, string[] properties) : base(buildTitle(title, properties))
+        public Step1PropertiesMenu(CliProgram program, string title, string[] properties) : base(BuildTitle(title, properties))
         {
             foreach (var p in properties)
                 AddMenuEntry(new SelectPropertiesMenuEntry(this, p.MakePathRelativeTo(Directory.GetCurrentDirectory())));
 
             if (!properties.Any(p => p.EndsWith(CodeGenerator.DefaultPropertiesPath)))
-                AddMenuEntry(new CreateDefaultPropertiesMenuEntry(progam, this));
+                AddMenuEntry(new CreateDefaultPropertiesMenuEntry(program, this));
 
-            AddMenuEntry(new CreateCustomPropertiesMenuEntry(progam, this));
+            AddMenuEntry(new CreateCustomPropertiesMenuEntry(program, this));
             AddMenuEntry(new ExitMenuEntry("Quit", false));
         }
 
-        static string buildTitle(string title, string[] properties)
+        static string BuildTitle(string title, string[] properties)
         {
             var header = title + "\n" +
                          "Step 1: Properties File\n" +
@@ -49,36 +49,36 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
 
     public class SelectPropertiesMenuEntry : MenuEntry
     {
-        public SelectPropertiesMenuEntry(Step1_PropertiesMenu menu, string properties) :
+        public SelectPropertiesMenuEntry(Step1PropertiesMenu menu, string properties) :
             base("Use " + properties, null, false, () =>
             {
-                menu.properties = properties;
+                menu.Properties = properties;
                 menu.Stop();
             }) { }
     }
 
     public class CreateDefaultPropertiesMenuEntry : MenuEntry
     {
-        public CreateDefaultPropertiesMenuEntry(CliProgram progam, Step1_PropertiesMenu menu) :
+        public CreateDefaultPropertiesMenuEntry(CliProgram progam, Step1PropertiesMenu menu) :
             base("Create new " + CodeGenerator.DefaultPropertiesPath, null, false, () =>
             {
                 var command = new NewConfigCommand();
                 command.Run(progam, new[] {command.Trigger, "-s", CodeGenerator.DefaultPropertiesPath});
-                menu.properties = CodeGenerator.DefaultPropertiesPath;
+                menu.Properties = CodeGenerator.DefaultPropertiesPath;
                 menu.Stop();
             }) { }
     }
 
     public class CreateCustomPropertiesMenuEntry : MenuEntry
     {
-        public CreateCustomPropertiesMenuEntry(CliProgram progam, Step1_PropertiesMenu menu) :
+        public CreateCustomPropertiesMenuEntry(CliProgram progam, Step1PropertiesMenu menu) :
             base("Create a new properties file with a custom name", null, false, () =>
             {
                 Console.WriteLine("Please enter a file name");
                 var fileName = Console.ReadLine();
                 var command = new NewConfigCommand();
                 command.Run(progam, new[] {command.Trigger, "-s", fileName});
-                menu.properties = fileName;
+                menu.Properties = fileName;
                 menu.Stop();
             }) { }
     }
