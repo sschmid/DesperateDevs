@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Linq;
 using DesperateDevs.Tests;
 using FluentAssertions;
 using Xunit;
@@ -17,8 +16,7 @@ namespace DesperateDevs.Roslyn.Tests
         {
             new ProjectParser(TestProject)
                 .GetTypes()
-                .Any(c => c.ToCompilableString() == "DesperateDevs.Roslyn.Tests.Project.TestClass")
-                .Should().BeTrue();
+                .Should().Contain(c => c.ToCompilableString() == "DesperateDevs.Roslyn.Tests.Project.TestClass");
         }
     }
 }

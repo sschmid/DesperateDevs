@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y --fix-missing \
   mono-complete \
   nuget \
   tree \
+  unzip \
   vim \
   && rm -rf /var/lib/apt/lists/*
 COPY .bee/desperatedevs/.bashrc /root/.bashrc

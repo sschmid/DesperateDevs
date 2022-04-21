@@ -109,6 +109,19 @@ desperatedevs::rebuild() {
   dotnet build -c Release
 }
 
+desperatedevs::test() {
+  if [[ ! -f src/DesperateDevs.Roslyn/tests/bin/Release/msbuild ]]; then
+    mkdir -p src/DesperateDevs.Roslyn/tests/bin/Release
+    unzip -d \
+      src/DesperateDevs.Roslyn/tests/bin \
+      src/DesperateDevs.Roslyn/mono_msbuild_d25dd923839404bd64cc63f420e75acf96fc75c4.zip
+      mv src/DesperateDevs.Roslyn/tests/bin/msbuild/* src/DesperateDevs.Roslyn/tests/bin/Release
+      rm -rf src/DesperateDevs.Roslyn/tests/bin/msbuild
+  fi
+
+  dotnet test -c Release "$@"
+}
+
 desperatedevs::coverage() {
   rm -rf coverage
   find src -type d -name TestResults -exec rm -rf {} +
@@ -142,24 +155,24 @@ desperatedevs::restore_unity() {
 
 desperatedevs::sync_unity_solutions() {
   local version
-  local -A projects=()
+  local -A projects_pids=()
   for project in "${DEDE_UNITY_PROJECTS[@]}" ; do
     UNITY_PROJECT_PATH="${project}"
     version="$(grep "m_EditorVersion:" "${project}/ProjectSettings/ProjectVersion.txt" | awk '{print $2}')"
     UNITY="${UNITY_PATH}/${version}/${UNITY_APP}"
     unity::sync_solution &
-    projects["${project}"]=$!
+    projects_pids["${project}"]=$!
   done
 
-  for project in "${!projects[@]}"; do
-    if wait ${projects["${project}"]}
-    then projects["${project}"]=1
-    else projects["${project}"]=0
+  for project in "${!projects_pids[@]}"; do
+    if wait ${projects_pids["${project}"]}
+    then projects_pids["${project}"]=1
+    else projects_pids["${project}"]=0
     fi
   done
 
-  for project in "${!projects[@]}"; do
-    if ((projects["${project}"]))
+  for project in "${!projects_pids[@]}"; do
+    if ((projects_pids["${project}"]))
     then bee::log_echo "🟢 ${project}"
     else bee::log_echo "🔴 ${project}"
     fi
