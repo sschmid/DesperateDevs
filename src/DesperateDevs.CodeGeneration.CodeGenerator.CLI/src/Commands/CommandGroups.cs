@@ -1,4 +1,4 @@
-﻿namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
+﻿namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
 {
     public static class CommandGroups
     {

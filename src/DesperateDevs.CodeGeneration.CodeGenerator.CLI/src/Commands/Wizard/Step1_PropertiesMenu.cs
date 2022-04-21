@@ -5,7 +5,7 @@ using DesperateDevs.Cli.Utils;
 using DesperateDevs.Serialization.Cli.Utils;
 using DesperateDevs.Extensions;
 
-namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
+namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
 {
     public class Step1_PropertiesMenu : CliMenu
     {

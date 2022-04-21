@@ -9,7 +9,7 @@ using DesperateDevs.Net;
 using DesperateDevs.Serialization;
 using DesperateDevs.Serialization.Cli.Utils;
 
-namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
+namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
 {
     public class ServerCommand : AbstractPreferencesCommand
     {

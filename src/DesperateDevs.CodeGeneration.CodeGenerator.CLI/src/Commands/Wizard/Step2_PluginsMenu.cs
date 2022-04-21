@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using DesperateDevs.Cli.Utils;
 using DesperateDevs.Serialization;
 
-namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
+namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
 {
     public class Step2_PluginsMenu : CliMenu
     {

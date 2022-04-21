@@ -1,7 +1,7 @@
 using System.Linq;
 using DesperateDevs.Serialization.Cli.Utils;
 
-namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
+namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
 {
     public class ScanCommand : AbstractPreferencesCommand
     {

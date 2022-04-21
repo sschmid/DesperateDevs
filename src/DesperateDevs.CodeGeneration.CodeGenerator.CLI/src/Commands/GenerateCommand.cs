@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics;
 using DesperateDevs.Serialization.Cli.Utils;
 
-namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
+namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
 {
     public class GenerateCommand : AbstractPreferencesCommand
     {

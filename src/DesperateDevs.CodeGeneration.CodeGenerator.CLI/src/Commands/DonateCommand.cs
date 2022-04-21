@@ -1,7 +1,7 @@
 ﻿using DesperateDevs.Cli.Utils;
 using DesperateDevs.Logging;
 
-namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
+namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
 {
     public class DonateCommand : AbstractCommand
     {

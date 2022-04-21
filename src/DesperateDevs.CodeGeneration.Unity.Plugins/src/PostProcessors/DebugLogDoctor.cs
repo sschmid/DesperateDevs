@@ -24,7 +24,7 @@ namespace DesperateDevs.CodeGeneration.Unity.Plugins {
         public Diagnosis Diagnose() {
             var isStandalone = AppDomain.CurrentDomain
                 .GetAllTypes()
-                .Any(type => type.FullName == "DesperateDevs.CodeGeneration.CodeGenerator.CLI.Program");
+                .Any(type => type.FullName == "DesperateDevs.CodeGeneration.CodeGenerator.Cli.Program");
 
             if (isStandalone) {
                 var typeName = typeof(DebugLogPostProcessor).FullName;

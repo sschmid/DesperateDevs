@@ -14,9 +14,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Cli.Utils.Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Cli.Utils.Tests.Program", "src\DesperateDevs.Cli.Utils\fixtures\DesperateDevs.Cli.Utils.Tests.Program\DesperateDevs.Cli.Utils.Tests.Program.csproj", "{5169F477-31B7-40C2-B8CE-A5BE9D6318D5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.CodeGeneration.CodeGenerator.CLI", "DesperateDevs.CodeGeneration.CodeGenerator.CLI", "{B6F14DE9-1EC2-435D-8864-020E6BB2D1F5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.CodeGeneration.CodeGenerator.Cli", "DesperateDevs.CodeGeneration.CodeGenerator.Cli", "{B6F14DE9-1EC2-435D-8864-020E6BB2D1F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneration.CodeGenerator.CLI", "src\DesperateDevs.CodeGeneration.CodeGenerator.CLI\src\DesperateDevs.CodeGeneration.CodeGenerator.CLI.csproj", "{A45BF04B-61D4-4AA8-B829-3F891C13B6DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneration.CodeGenerator.Cli", "src\DesperateDevs.CodeGeneration.CodeGenerator.Cli\src\DesperateDevs.CodeGeneration.CodeGenerator.Cli.csproj", "{A45BF04B-61D4-4AA8-B829-3F891C13B6DB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor", "DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor", "{35C88A6B-8460-4EBF-A3F7-E3980F5A444A}"
 EndProject

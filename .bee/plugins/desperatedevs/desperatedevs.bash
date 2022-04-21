@@ -183,7 +183,7 @@ desperatedevs::collect_jenny() {
   _clean_dir "${jenny_dir}" "${code_generator_dir}" "${plugins_dir}"
 
   local projects=(
-    DesperateDevs.CodeGeneration.CodeGenerator.CLI
+    DesperateDevs.CodeGeneration.CodeGenerator.Cli
     DesperateDevs.CodeGeneration.Plugins
     DesperateDevs.CodeGeneration.Unity.Plugins
   )
@@ -195,12 +195,12 @@ desperatedevs::collect_jenny() {
   for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/" "${code_generator_dir}"; done
   for f in "${to_plugins[@]}"; do mv "${code_generator_dir}/${f}.dll" "${plugins_dir}"; done
 
-  mv "${code_generator_dir}/DesperateDevs.CodeGeneration.CodeGenerator.CLI.exe" "${code_generator_dir}/Jenny.exe"
+  mv "${code_generator_dir}/DesperateDevs.CodeGeneration.CodeGenerator.Cli.exe" "${code_generator_dir}/Jenny.exe"
 
-  cp src/DesperateDevs.CodeGeneration.CodeGenerator.CLI/scripts/Jenny-Server "${jenny_dir}"
-  cp src/DesperateDevs.CodeGeneration.CodeGenerator.CLI/scripts/Jenny-Server.bat "${jenny_dir}"
-  cp src/DesperateDevs.CodeGeneration.CodeGenerator.CLI/scripts/Jenny-Auto-Import "${jenny_dir}"
-  cp src/DesperateDevs.CodeGeneration.CodeGenerator.CLI/scripts/Jenny-Auto-Import.bat "${jenny_dir}"
+  cp src/DesperateDevs.CodeGeneration.CodeGenerator.Cli/scripts/Jenny-Server "${jenny_dir}"
+  cp src/DesperateDevs.CodeGeneration.CodeGenerator.Cli/scripts/Jenny-Server.bat "${jenny_dir}"
+  cp src/DesperateDevs.CodeGeneration.CodeGenerator.Cli/scripts/Jenny-Auto-Import "${jenny_dir}"
+  cp src/DesperateDevs.CodeGeneration.CodeGenerator.Cli/scripts/Jenny-Auto-Import.bat "${jenny_dir}"
 }
 
 desperatedevs::collect_jenny_unity() {

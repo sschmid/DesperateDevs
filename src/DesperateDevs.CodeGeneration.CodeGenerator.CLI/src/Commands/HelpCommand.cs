@@ -1,7 +1,7 @@
 ﻿using System;
 using DesperateDevs.Cli.Utils;
 
-namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
+namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
 {
     public class HelpCommand : AbstractCommand
     {
