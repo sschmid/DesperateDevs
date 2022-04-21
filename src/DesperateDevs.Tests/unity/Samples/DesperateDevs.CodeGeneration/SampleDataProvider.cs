@@ -4,9 +4,9 @@ namespace Samples.DesperateDevs.CodeGeneration
 {
     public class SampleDataProvider : IDataProvider
     {
-        public string name => "Sample";
-        public int priority => 0;
-        public bool runInDryMode => true;
+        public string Name => "Sample";
+        public int Order => 0;
+        public bool RunInDryMode => true;
 
         public CodeGeneratorData[] GetData() => new[]
         {
