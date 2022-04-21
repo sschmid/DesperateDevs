@@ -6,110 +6,146 @@ using System.Reflection;
 using DesperateDevs.Extensions;
 using DesperateDevs.Logging;
 
-namespace DesperateDevs.Reflection {
-
-    public partial class AssemblyResolver {
-
+namespace DesperateDevs.Reflection
+{
+    public partial class AssemblyResolver
+    {
         readonly Logger _logger = Sherlog.GetLogger(typeof(AssemblyResolver).Name);
 
-        public Assembly[] assemblies { get { return _assemblies.ToArray(); } }
+        public Assembly[] assemblies
+        {
+            get { return _assemblies.ToArray(); }
+        }
 
         readonly bool _reflectionOnly;
         readonly string[] _basePaths;
         readonly HashSet<Assembly> _assemblies;
         readonly AppDomain _appDomain;
 
-        public AssemblyResolver(bool reflectionOnly, params string[] basePaths) {
+        public AssemblyResolver(bool reflectionOnly, params string[] basePaths)
+        {
             _reflectionOnly = reflectionOnly;
             _basePaths = basePaths;
             _assemblies = new HashSet<Assembly>();
             _appDomain = AppDomain.CurrentDomain;
 
-            if (reflectionOnly) {
+            if (reflectionOnly)
+            {
                 _appDomain.ReflectionOnlyAssemblyResolve += onReflectionOnlyAssemblyResolve;
-            } else {
+            }
+            else
+            {
                 _appDomain.AssemblyResolve += onAssemblyResolve;
             }
         }
 
-        public void Load(string path) {
-            if (_reflectionOnly) {
+        public void Load(string path)
+        {
+            if (_reflectionOnly)
+            {
                 _logger.Debug(_appDomain + " reflect: " + path);
                 resolveAndLoad(path, Assembly.ReflectionOnlyLoadFrom, false);
-            } else {
+            }
+            else
+            {
                 _logger.Debug(_appDomain + " load: " + path);
                 resolveAndLoad(path, Assembly.LoadFrom, false);
             }
         }
 
-        public void Close() {
-            if (_reflectionOnly) {
+        public void Close()
+        {
+            if (_reflectionOnly)
+            {
                 _appDomain.ReflectionOnlyAssemblyResolve -= onReflectionOnlyAssemblyResolve;
-            } else {
+            }
+            else
+            {
                 _appDomain.AssemblyResolve -= onAssemblyResolve;
             }
         }
 
-        Assembly resolveAndLoad(string name, Func<string, Assembly> loadMethod, bool isDependency) {
+        Assembly resolveAndLoad(string name, Func<string, Assembly> loadMethod, bool isDependency)
+        {
             Assembly assembly = null;
-            try {
-                if (isDependency) {
+            try
+            {
+                if (isDependency)
+                {
                     _logger.Debug("  ➜ Loading Dependency: " + name);
-                } else {
+                }
+                else
+                {
                     _logger.Debug("  ➜ Loading: " + name);
                 }
+
                 assembly = loadMethod(name);
                 addAssembly(assembly);
-            } catch (Exception) {
+            }
+            catch (Exception)
+            {
                 var path = resolvePath(name);
-                if (path != null) {
-                    try {
+                if (path != null)
+                {
+                    try
+                    {
                         assembly = loadMethod(path);
                         addAssembly(assembly);
-                    } catch (BadImageFormatException) {
                     }
+                    catch (BadImageFormatException) { }
                 }
             }
 
             return assembly;
         }
 
-        Assembly onAssemblyResolve(object sender, ResolveEventArgs args) {
+        Assembly onAssemblyResolve(object sender, ResolveEventArgs args)
+        {
             return resolveAndLoad(args.Name, Assembly.LoadFrom, true);
         }
 
-        Assembly onReflectionOnlyAssemblyResolve(object sender, ResolveEventArgs args) {
+        Assembly onReflectionOnlyAssemblyResolve(object sender, ResolveEventArgs args)
+        {
             return resolveAndLoad(args.Name, Assembly.ReflectionOnlyLoadFrom, true);
         }
 
-        void addAssembly(Assembly assembly) {
+        void addAssembly(Assembly assembly)
+        {
             _assemblies.Add(assembly);
         }
 
-        string resolvePath(string name) {
-            try {
+        string resolvePath(string name)
+        {
+            try
+            {
                 var assemblyName = new AssemblyName(name).Name;
 
                 if (!assemblyName.EndsWith(".dll", StringComparison.OrdinalIgnoreCase) &&
-                    !assemblyName.EndsWith(".exe", StringComparison.OrdinalIgnoreCase)) {
+                    !assemblyName.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))
+                {
                     assemblyName += ".dll";
                 }
 
-                foreach (var basePath in _basePaths) {
+                foreach (var basePath in _basePaths)
+                {
                     var path = basePath + Path.DirectorySeparatorChar + assemblyName;
-                    if (File.Exists(path)) {
+                    if (File.Exists(path))
+                    {
                         _logger.Debug("    ➜ Resolved: " + path);
                         return path;
                     }
                 }
-            } catch (FileLoadException) {
+            }
+            catch (FileLoadException)
+            {
                 _logger.Debug("    × Could not resolve: " + name);
             }
 
             return null;
         }
 
-        public Type[] GetTypes() {
+        public Type[] GetTypes()
+        {
             return _assemblies.GetAllTypes().ToArray();
         }
     }

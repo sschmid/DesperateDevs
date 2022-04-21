@@ -98,7 +98,7 @@ namespace DesperateDevs.Reflection.Tests
                 PublicProperty = "property"
             };
 
-            var clone = (TestClassWithFieldsAndProperties) obj.PublicMemberClone();
+            var clone = (TestClassWithFieldsAndProperties)obj.PublicMemberClone();
 
             clone.Should().NotBeSameAs(obj);
             clone.PublicField.Should().Be(obj.PublicField);

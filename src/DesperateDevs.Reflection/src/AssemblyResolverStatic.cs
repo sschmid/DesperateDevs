@@ -3,22 +3,26 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace DesperateDevs.Reflection {
-
-    public partial class AssemblyResolver {
-
-        public static AssemblyResolver LoadAssemblies(bool allDirectories, params string[] basePaths) {
+namespace DesperateDevs.Reflection
+{
+    public partial class AssemblyResolver
+    {
+        public static AssemblyResolver LoadAssemblies(bool allDirectories, params string[] basePaths)
+        {
             var resolver = new AssemblyResolver(false, basePaths);
-            foreach (var file in getAssemblyFiles(allDirectories, basePaths)) {
+            foreach (var file in getAssemblyFiles(allDirectories, basePaths))
+            {
                 resolver.Load(file);
             }
 
             return resolver;
         }
 
-        public static Assembly[] GetAssembliesContainingType<T>(bool allDirectories, params string[] basePaths) {
+        public static Assembly[] GetAssembliesContainingType<T>(bool allDirectories, params string[] basePaths)
+        {
             var resolver = new AssemblyResolver(true, basePaths);
-            foreach (var file in getAssemblyFiles(allDirectories, basePaths)) {
+            foreach (var file in getAssemblyFiles(allDirectories, basePaths))
+            {
                 resolver.Load(file);
             }
 
@@ -35,21 +39,25 @@ namespace DesperateDevs.Reflection {
             return assemblies;
         }
 
-        public static AssemblyResolver LoadAssembliesContainingType<T>(bool allDirectories, params string[] basePaths) {
+        public static AssemblyResolver LoadAssembliesContainingType<T>(bool allDirectories, params string[] basePaths)
+        {
             var assemblies = GetAssembliesContainingType<T>(allDirectories, basePaths);
 
             var resolver = new AssemblyResolver(false, basePaths);
-            foreach (var assembly in assemblies) {
+            foreach (var assembly in assemblies)
+            {
                 resolver.Load(assembly.CodeBase);
             }
 
             return resolver;
         }
 
-        static string[] getAssemblyFiles(bool allDirectories, params string[] basePaths) {
-            var patterns = new[] { "*.dll", "*.exe" };
+        static string[] getAssemblyFiles(bool allDirectories, params string[] basePaths)
+        {
+            var patterns = new[] {"*.dll", "*.exe"};
             var files = new List<string>();
-            foreach (var pattern in patterns) {
+            foreach (var pattern in patterns)
+            {
                 files.AddRange(basePaths.SelectMany(s => Directory.GetFiles(s, pattern, allDirectories ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly)));
             }
 
