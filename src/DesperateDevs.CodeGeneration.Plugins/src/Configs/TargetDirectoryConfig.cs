@@ -6,23 +6,14 @@ namespace DesperateDevs.CodeGeneration.Plugins
 {
     public class TargetDirectoryConfig : AbstractConfigurableConfig
     {
-        const string TARGET_DIRECTORY_KEY = "DesperateDevs.CodeGeneration.Plugins.TargetDirectory";
+        readonly string _targetDirectoryKey = $"{nameof(DesperateDevs.CodeGeneration.Plugins)}.TargetDirectory";
 
-        public override Dictionary<string, string> DefaultProperties
+        public override Dictionary<string, string> DefaultProperties => new Dictionary<string, string>
         {
-            get
-            {
-                return new Dictionary<string, string>
-                {
-                    {TARGET_DIRECTORY_KEY, "Assets"}
-                };
-            }
-        }
+            {_targetDirectoryKey, "Assets"}
+        };
 
-        public string targetDirectory
-        {
-            get { return _preferences[TARGET_DIRECTORY_KEY].ToSafeDirectory(); }
-        }
+        public string TargetDirectory => _preferences[_targetDirectoryKey].ToSafeDirectory();
     }
 
     public static class TargetDirectoryStringExtension
@@ -30,19 +21,13 @@ namespace DesperateDevs.CodeGeneration.Plugins
         public static string ToSafeDirectory(this string directory)
         {
             if (string.IsNullOrEmpty(directory) || directory == ".")
-            {
                 return "Generated";
-            }
 
             if (directory.EndsWith("/", StringComparison.Ordinal))
-            {
                 directory = directory.Substring(0, directory.Length - 1);
-            }
 
             if (!directory.EndsWith("/Generated", StringComparison.OrdinalIgnoreCase))
-            {
                 directory += "/Generated";
-            }
 
             return directory;
         }

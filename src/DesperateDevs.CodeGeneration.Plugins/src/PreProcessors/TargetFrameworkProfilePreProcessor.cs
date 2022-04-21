@@ -7,25 +7,11 @@ namespace DesperateDevs.CodeGeneration.Plugins
 {
     public class TargetFrameworkProfilePreProcessor : IPreProcessor, IConfigurable
     {
-        public string Name
-        {
-            get { return "Fix Target Framework Profile"; }
-        }
+        public string Name => "Fix Target Framework Profile";
+        public int Order => 0;
+        public bool RunInDryMode => true;
 
-        public int Order
-        {
-            get { return 0; }
-        }
-
-        public bool RunInDryMode
-        {
-            get { return true; }
-        }
-
-        public Dictionary<string, string> DefaultProperties
-        {
-            get { return _projectPathConfig.DefaultProperties; }
-        }
+        public Dictionary<string, string> DefaultProperties => _projectPathConfig.DefaultProperties;
 
         readonly ProjectPathConfig _projectPathConfig = new ProjectPathConfig();
 
@@ -36,9 +22,9 @@ namespace DesperateDevs.CodeGeneration.Plugins
 
         public void PreProcess()
         {
-            var project = File.ReadAllText(_projectPathConfig.projectPath);
+            var project = File.ReadAllText(_projectPathConfig.ProjectPath);
             project = removeTargetFrameworkProfile(project);
-            File.WriteAllText(_projectPathConfig.projectPath, project);
+            File.WriteAllText(_projectPathConfig.ProjectPath, project);
         }
 
         string removeTargetFrameworkProfile(string project)

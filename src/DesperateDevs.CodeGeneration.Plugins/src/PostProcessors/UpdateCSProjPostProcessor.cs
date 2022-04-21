@@ -9,29 +9,12 @@ namespace DesperateDevs.CodeGeneration.Plugins
 {
     public class UpdateCSProjPostProcessor : IPostProcessor, IConfigurable
     {
-        public string Name
-        {
-            get { return "Update .csproj"; }
-        }
+        public string Name => "Update .csproj";
+        public int Order => 96;
+        public bool RunInDryMode => false;
 
-        public int Order
-        {
-            get { return 96; }
-        }
-
-        public bool RunInDryMode
-        {
-            get { return false; }
-        }
-
-        public Dictionary<string, string> DefaultProperties
-        {
-            get
-            {
-                return _projectPathConfig.DefaultProperties
-                    .Merge(_targetDirectoryConfig.DefaultProperties);
-            }
-        }
+        public Dictionary<string, string> DefaultProperties =>
+            _projectPathConfig.DefaultProperties.Merge(_targetDirectoryConfig.DefaultProperties);
 
         readonly ProjectPathConfig _projectPathConfig = new ProjectPathConfig();
         readonly TargetDirectoryConfig _targetDirectoryConfig = new TargetDirectoryConfig();
@@ -44,16 +27,16 @@ namespace DesperateDevs.CodeGeneration.Plugins
 
         public CodeGenFile[] PostProcess(CodeGenFile[] files)
         {
-            var project = File.ReadAllText(_projectPathConfig.projectPath);
-            project = removeExistingGeneratedEntries(project);
-            project = addGeneratedEntries(project, files);
-            File.WriteAllText(_projectPathConfig.projectPath, project);
+            var project = File.ReadAllText(_projectPathConfig.ProjectPath);
+            project = RemoveExistingGeneratedEntries(project);
+            project = AddGeneratedEntries(project, files);
+            File.WriteAllText(_projectPathConfig.ProjectPath, project);
             return files;
         }
 
-        string removeExistingGeneratedEntries(string project)
+        string RemoveExistingGeneratedEntries(string project)
         {
-            var escapedTargetDirectory = _targetDirectoryConfig.targetDirectory
+            var escapedTargetDirectory = _targetDirectoryConfig.TargetDirectory
                 .Replace("/", "\\")
                 .Replace("\\", "\\\\");
 
@@ -66,7 +49,7 @@ namespace DesperateDevs.CodeGeneration.Plugins
             return project;
         }
 
-        string addGeneratedEntries(string project, CodeGenFile[] files)
+        string AddGeneratedEntries(string project, CodeGenFile[] files)
         {
             const string endOfItemGroupPattern = @"<\/ItemGroup>";
 
@@ -76,7 +59,7 @@ namespace DesperateDevs.CodeGeneration.Plugins
 {0}
   </ItemGroup>";
 
-            var entryTemplate = @"    <Compile Include=""" + _targetDirectoryConfig.targetDirectory.Replace("/", "\\") + @"\{0}"" />";
+            var entryTemplate = @"    <Compile Include=""" + _targetDirectoryConfig.TargetDirectory.Replace("/", "\\") + @"\{0}"" />";
 
             var entries = string.Join("\r\n", files.Select(
                 file => string.Format(entryTemplate, file.FileName.Replace("/", "\\"))).ToArray());

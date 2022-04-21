@@ -5,22 +5,13 @@ namespace DesperateDevs.CodeGeneration.Plugins
 {
     public class ProjectPathConfig : AbstractConfigurableConfig
     {
-        const string PROJECT_PATH_KEY = "DesperateDevs.CodeGeneration.Plugins.ProjectPath";
+        readonly string _projectPathKey = $"{nameof(DesperateDevs.CodeGeneration.Plugins)}.ProjectPath";
 
-        public override Dictionary<string, string> DefaultProperties
+        public override Dictionary<string, string> DefaultProperties => new Dictionary<string, string>
         {
-            get
-            {
-                return new Dictionary<string, string>
-                {
-                    {PROJECT_PATH_KEY, "Assembly-CSharp.csproj"}
-                };
-            }
-        }
+            {_projectPathKey, "Assembly-CSharp.csproj"}
+        };
 
-        public string projectPath
-        {
-            get { return _preferences[PROJECT_PATH_KEY]; }
-        }
+        public string ProjectPath => _preferences[_projectPathKey];
     }
 }

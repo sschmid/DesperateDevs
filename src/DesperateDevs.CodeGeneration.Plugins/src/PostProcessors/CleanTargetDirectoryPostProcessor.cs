@@ -7,25 +7,11 @@ namespace DesperateDevs.CodeGeneration.Plugins
 {
     public class CleanTargetDirectoryPostProcessor : IPostProcessor, IConfigurable
     {
-        public string Name
-        {
-            get { return "Clean target directory"; }
-        }
+        public string Name => "Clean target directory";
+        public int Order => 0;
+        public bool RunInDryMode => false;
 
-        public int Order
-        {
-            get { return 0; }
-        }
-
-        public bool RunInDryMode
-        {
-            get { return false; }
-        }
-
-        public Dictionary<string, string> DefaultProperties
-        {
-            get { return _targetDirectoryConfig.DefaultProperties; }
-        }
+        public Dictionary<string, string> DefaultProperties => _targetDirectoryConfig.DefaultProperties;
 
         readonly Logger _logger = Sherlog.GetLogger(typeof(CleanTargetDirectoryPostProcessor));
 
@@ -38,15 +24,15 @@ namespace DesperateDevs.CodeGeneration.Plugins
 
         public CodeGenFile[] PostProcess(CodeGenFile[] files)
         {
-            cleanDir();
+            CleanDir();
             return files;
         }
 
-        void cleanDir()
+        void CleanDir()
         {
-            if (Directory.Exists(_targetDirectoryConfig.targetDirectory))
+            if (Directory.Exists(_targetDirectoryConfig.TargetDirectory))
             {
-                var files = new DirectoryInfo(_targetDirectoryConfig.targetDirectory).GetFiles("*.cs", SearchOption.AllDirectories);
+                var files = new DirectoryInfo(_targetDirectoryConfig.TargetDirectory).GetFiles("*.cs", SearchOption.AllDirectories);
                 foreach (var file in files)
                 {
                     try
@@ -61,7 +47,7 @@ namespace DesperateDevs.CodeGeneration.Plugins
             }
             else
             {
-                Directory.CreateDirectory(_targetDirectoryConfig.targetDirectory);
+                Directory.CreateDirectory(_targetDirectoryConfig.TargetDirectory);
             }
         }
     }

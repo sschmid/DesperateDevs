@@ -6,25 +6,11 @@ namespace DesperateDevs.CodeGeneration.Plugins
 {
     public class WriteToDiskPostProcessor : IPostProcessor, IConfigurable
     {
-        public string Name
-        {
-            get { return "Write to disk"; }
-        }
+        public string Name => "Write to disk";
+        public int Order => 100;
+        public bool RunInDryMode => false;
 
-        public int Order
-        {
-            get { return 100; }
-        }
-
-        public bool RunInDryMode
-        {
-            get { return false; }
-        }
-
-        public Dictionary<string, string> DefaultProperties
-        {
-            get { return _targetDirectoryConfig.DefaultProperties; }
-        }
+        public Dictionary<string, string> DefaultProperties => _targetDirectoryConfig.DefaultProperties;
 
         readonly TargetDirectoryConfig _targetDirectoryConfig = new TargetDirectoryConfig();
 
@@ -37,12 +23,10 @@ namespace DesperateDevs.CodeGeneration.Plugins
         {
             foreach (var file in files)
             {
-                var fileName = _targetDirectoryConfig.targetDirectory + Path.DirectorySeparatorChar + file.FileName;
+                var fileName = _targetDirectoryConfig.TargetDirectory + Path.DirectorySeparatorChar + file.FileName;
                 var targetDir = Path.GetDirectoryName(fileName);
                 if (!Directory.Exists(targetDir))
-                {
                     Directory.CreateDirectory(targetDir);
-                }
 
                 File.WriteAllText(fileName, file.FileContent);
             }
