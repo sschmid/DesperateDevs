@@ -148,7 +148,7 @@ namespace DesperateDevs.Net
 
         void RemoveClient(Socket socket)
         {
-            var key = _clients.Single(kv => kv.Value == socket).Key;
+            var key = _clients.Single(kvp => kvp.Value == socket).Key;
             _clients.Remove(key);
             socket.Close();
             _logger.Debug("Client " + key + " disconnected from server");
@@ -158,7 +158,7 @@ namespace DesperateDevs.Net
         void OnDisconnectClient(IAsyncResult ar)
         {
             var client = (Socket)ar.AsyncState;
-            var key = _clients.Single(kv => kv.Value == client).Key;
+            var key = _clients.Single(kvp => kvp.Value == client).Key;
             _clients.Remove(key);
             client.EndDisconnect(ar);
             client.Close();

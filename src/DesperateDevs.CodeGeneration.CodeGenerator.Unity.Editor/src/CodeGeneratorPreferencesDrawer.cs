@@ -150,7 +150,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
                 EditorGUILayout.LabelField("Plugins Configuration", EditorStyles.boldLabel);
             }
 
-            foreach (var kvp in defaultProperties.OrderBy(kv => kv.Key))
+            foreach (var kvp in defaultProperties.OrderBy(kvp => kvp.Key))
                 preferences[kvp.Key] = EditorGUILayout.TextField(kvp.Key.ShortTypeName().ToSpacedCamelCase(), preferences[kvp.Key]);
         }
 
