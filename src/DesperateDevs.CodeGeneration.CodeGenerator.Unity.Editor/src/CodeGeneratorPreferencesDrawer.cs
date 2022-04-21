@@ -12,7 +12,10 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
 {
     public class CodeGeneratorPreferencesDrawer : AbstractPreferencesDrawer
     {
-        public override string Title { get { return "Jenny"; } }
+        public override string Title
+        {
+            get { return "Jenny"; }
+        }
 
         string[] _availablePreProcessorTypes;
         string[] _availableDataProviderTypes;
@@ -115,18 +118,18 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
         {
             var propertiesPath = Path.GetFileName(preferences.PropertiesPath);
             if (EditorUtility.DisplayDialog("Jenny - Auto Import",
-                "Auto Import will automatically find and set all plugins for you. " +
-                "It will search in folders and sub folders specified in " + propertiesPath +
-                " under the key '" + CodeGeneratorConfig.SearchPathsKey + "'." +
-                "\n\nThis will overwrite your current plugin settings." +
-                "\n\nDo you want to continue?",
-                "Continue and Overwrite",
-                "Cancel"
-            ))
+                    "Auto Import will automatically find and set all plugins for you. " +
+                    "It will search in folders and sub folders specified in " + propertiesPath +
+                    " under the key '" + CodeGeneratorConfig.SearchPathsKey + "'." +
+                    "\n\nThis will overwrite your current plugin settings." +
+                    "\n\nDo you want to continue?",
+                    "Continue and Overwrite",
+                    "Cancel"
+                ))
             {
                 var searchPaths = CodeGeneratorUtil.BuildSearchPaths(
                     _codeGeneratorConfig.SearchPaths,
-                    new[] { "./Assets", "./Library/ScriptAssemblies" }
+                    new[] {"./Assets", "./Library/ScriptAssemblies"}
                 );
 
                 CodeGeneratorUtil.AutoImport(_codeGeneratorConfig, searchPaths);
