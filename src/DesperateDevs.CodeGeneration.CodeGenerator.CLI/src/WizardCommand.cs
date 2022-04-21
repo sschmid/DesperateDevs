@@ -9,10 +9,25 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
 {
     public class WizardCommand : AbstractCommand
     {
-        public override string Trigger { get { return "wiz"; } }
-        public override string Description { get { return "Setup Jenny, guided by a wizard"; } }
-        public override string Group { get { return null; } }
-        public override string Example { get { return "wiz"; } }
+        public override string Trigger
+        {
+            get { return "wiz"; }
+        }
+
+        public override string Description
+        {
+            get { return "Setup Jenny, guided by a wizard"; }
+        }
+
+        public override string Group
+        {
+            get { return null; }
+        }
+
+        public override string Example
+        {
+            get { return "wiz"; }
+        }
 
         readonly Logger _logger = Sherlog.GetLogger(typeof(WizardCommand));
 
@@ -58,12 +73,12 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
                 : string.Empty;
 
             var fixCommand = new FixCommand();
-            fixCommand.Run(_program, new[] { fixCommand.Trigger, preferences.PropertiesPath, fixArgs });
+            fixCommand.Run(_program, new[] {fixCommand.Trigger, preferences.PropertiesPath, fixArgs});
 
             Console.Clear();
 
             var doctorCommand = new DoctorCommand();
-            doctorCommand.Run(_program, new[] { doctorCommand.Trigger, preferences.PropertiesPath });
+            doctorCommand.Run(_program, new[] {doctorCommand.Trigger, preferences.PropertiesPath});
         }
     }
 }

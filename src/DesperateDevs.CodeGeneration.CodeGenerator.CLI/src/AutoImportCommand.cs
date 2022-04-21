@@ -10,9 +10,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
         public override string Group => CommandGroups.PLUGINS;
         public override string Example => "auto-import";
 
-        public AutoImportCommand() : base(typeof(AutoImportCommand).FullName)
-        {
-        }
+        public AutoImportCommand() : base(typeof(AutoImportCommand).FullName) { }
 
         protected override void Run()
         {
@@ -24,7 +22,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
         void autoImport()
         {
             var config = _preferences.CreateAndConfigure<CodeGeneratorConfig>();
-            var searchPaths = CodeGeneratorUtil.BuildSearchPaths(config.SearchPaths, new[] { "." });
+            var searchPaths = CodeGeneratorUtil.BuildSearchPaths(config.SearchPaths, new[] {"."});
             CodeGeneratorUtil.AutoImport(config, searchPaths);
             _preferences.Save();
         }

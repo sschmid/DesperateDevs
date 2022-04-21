@@ -52,7 +52,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
         string[] autoImport(CodeGeneratorConfig config)
         {
             var selectedPlugins = config.Plugins;
-            var searchPaths = CodeGeneratorUtil.BuildSearchPaths(config.SearchPaths, new[] { "." });
+            var searchPaths = CodeGeneratorUtil.BuildSearchPaths(config.SearchPaths, new[] {"."});
             var task = Task.Run(() => CodeGeneratorUtil.AutoImport(config, searchPaths));
 
             if (!_isVerbose)
@@ -64,9 +64,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
             }
             else
             {
-                while (!task.IsCompleted)
-                {
-                }
+                while (!task.IsCompleted) { }
             }
 
             var allPlugins = config.Plugins;
@@ -122,9 +120,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
                 preferences.Save();
                 menu.shouldAutoImport = true;
                 menu.Stop();
-            })
-        {
-        }
+            }) { }
     }
 
     public class ManualSaveMenuEntry : MenuEntry
@@ -143,8 +139,6 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
                 preferences.Save();
                 menu.shouldAutoImport = false;
                 menu.Stop();
-            })
-        {
-        }
+            }) { }
     }
 }

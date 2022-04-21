@@ -14,9 +14,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
         public override string Group => CommandGroups.PLUGINS;
         public override string Example => "status";
 
-        public StatusCommand() : base(typeof(StatusCommand).FullName)
-        {
-        }
+        public StatusCommand() : base(typeof(StatusCommand).FullName) { }
 
         protected override void Run()
         {

@@ -21,9 +21,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
         AbstractTcpSocket _socket;
         readonly List<string> _logBuffer = new List<string>();
 
-        public ServerCommand() : base(typeof(ServerCommand).FullName)
-        {
-        }
+        public ServerCommand() : base(typeof(ServerCommand).FullName) { }
 
         protected override void Run()
         {
@@ -52,13 +50,14 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
                 {
                     throw new Exception("Server is already running!");
                 }
+
                 var command = _program.GetCommand(args.WithoutDefaultParameter()[0]);
                 Sherlog.AddAppender(onLog);
                 command.Run(_program, args);
                 Sherlog.RemoveAppender(onLog);
                 var logBufferString = getLogBufferString();
                 var sendBytes = logBufferString.Length == 0
-                    ? new byte[] { 0 }
+                    ? new byte[] {0}
                     : Encoding.UTF8.GetBytes(logBufferString);
                 socket.Send(sendBytes);
             }
@@ -77,7 +76,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
         string[] getArgsFromMessage(string command)
         {
             return command
-                .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries)
                 .Select(value => value.Trim())
                 .ToArray();
         }

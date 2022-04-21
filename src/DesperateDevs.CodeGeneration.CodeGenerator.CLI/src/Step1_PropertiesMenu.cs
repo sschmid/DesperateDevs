@@ -54,9 +54,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
             {
                 menu.properties = properties;
                 menu.Stop();
-            })
-        {
-        }
+            }) { }
     }
 
     public class CreateDefaultPropertiesMenuEntry : MenuEntry
@@ -65,12 +63,10 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
             base("Create new " + CodeGenerator.DefaultPropertiesPath, null, false, () =>
             {
                 var command = new NewConfigCommand();
-                command.Run(progam, new[] { command.Trigger, "-s", CodeGenerator.DefaultPropertiesPath });
+                command.Run(progam, new[] {command.Trigger, "-s", CodeGenerator.DefaultPropertiesPath});
                 menu.properties = CodeGenerator.DefaultPropertiesPath;
                 menu.Stop();
-            })
-        {
-        }
+            }) { }
     }
 
     public class CreateCustomPropertiesMenuEntry : MenuEntry
@@ -81,11 +77,9 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
                 Console.WriteLine("Please enter a file name");
                 var fileName = Console.ReadLine();
                 var command = new NewConfigCommand();
-                command.Run(progam, new[] { command.Trigger, "-s", fileName });
+                command.Run(progam, new[] {command.Trigger, "-s", fileName});
                 menu.properties = fileName;
                 menu.Stop();
-            })
-        {
-        }
+            }) { }
     }
 }

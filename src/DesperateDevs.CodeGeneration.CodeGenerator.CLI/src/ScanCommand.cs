@@ -10,9 +10,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
         public override string Group => CommandGroups.PLUGINS;
         public override string Example => "scan";
 
-        public ScanCommand() : base(typeof(ScanCommand).FullName)
-        {
-        }
+        public ScanCommand() : base(typeof(ScanCommand).FullName) { }
 
         protected override void Run()
         {

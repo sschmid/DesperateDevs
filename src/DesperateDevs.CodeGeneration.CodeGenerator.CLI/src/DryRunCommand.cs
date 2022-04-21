@@ -9,9 +9,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
         public override string Group => CommandGroups.CODE_GENERATION;
         public override string Example => "dry";
 
-        public DryRunCommand() : base(typeof(DryRunCommand).FullName)
-        {
-        }
+        public DryRunCommand() : base(typeof(DryRunCommand).FullName) { }
 
         protected override void Run()
         {

@@ -9,10 +9,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
             base("Edit " + propertiesPath, null, false, () =>
             {
                 var command = new EditConfigCommand();
-                command.Run(progam, new[] { command.Trigger, propertiesPath });
+                command.Run(progam, new[] {command.Trigger, propertiesPath});
                 menu.Stop();
-            })
-        {
-        }
+            }) { }
     }
 }

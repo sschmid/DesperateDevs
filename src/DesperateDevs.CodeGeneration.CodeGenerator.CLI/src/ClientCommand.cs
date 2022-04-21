@@ -17,9 +17,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
 
         string _command;
 
-        public ClientCommand() : base(typeof(ClientCommand).FullName)
-        {
-        }
+        public ClientCommand() : base(typeof(ClientCommand).FullName) { }
 
         protected override void Run()
         {
@@ -32,9 +30,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
             client.OnDisconnected += onDisconnected;
             client.Connect(config.Host.ResolveHost(), config.Port);
 
-            while (true)
-            {
-            }
+            while (true) { }
         }
 
         void onConnected(TcpClientSocket client)

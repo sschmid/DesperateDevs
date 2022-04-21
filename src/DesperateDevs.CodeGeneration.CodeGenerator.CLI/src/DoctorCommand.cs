@@ -13,9 +13,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
         public override string Group => CommandGroups.PLUGINS;
         public override string Example => "doctor";
 
-        public DoctorCommand() : base(typeof(DoctorCommand).FullName)
-        {
-        }
+        public DoctorCommand() : base(typeof(DoctorCommand).FullName) { }
 
         protected override void Run()
         {

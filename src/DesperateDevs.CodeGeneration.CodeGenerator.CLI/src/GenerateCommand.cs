@@ -11,9 +11,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
         public override string Group => CommandGroups.CODE_GENERATION;
         public override string Example => "gen";
 
-        public GenerateCommand() : base(typeof(GenerateCommand).FullName)
-        {
-        }
+        public GenerateCommand() : base(typeof(GenerateCommand).FullName) { }
 
         protected override void Run()
         {
