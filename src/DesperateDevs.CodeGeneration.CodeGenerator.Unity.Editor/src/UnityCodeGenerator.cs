@@ -16,7 +16,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
 
         public static Preferences GetPreferences()
         {
-            var propertiesPath = EditorPrefs.GetString(CodeGeneratorPreferencesDrawer.PROPERTIES_PATH_KEY, CodeGenerator.defaultPropertiesPath);
+            var propertiesPath = EditorPrefs.GetString(CodeGeneratorPreferencesDrawer.PROPERTIES_PATH_KEY, CodeGenerator.DefaultPropertiesPath);
             return new Preferences(propertiesPath, Preferences.DefaultUserPropertiesPath);
         }
 
@@ -86,7 +86,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
             client.OnConnected += onConnected;
             client.OnReceived += onReceive;
             client.OnDisconnected += onDisconnect;
-            client.Connect(config.host.ResolveHost(), config.port);
+            client.Connect(config.Host.ResolveHost(), config.Port);
         }
 
         static void onConnected(TcpClientSocket client)

@@ -16,7 +16,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
             foreach (var p in properties)
                 AddMenuEntry(new SelectPropertiesMenuEntry(this, p.MakePathRelativeTo(Directory.GetCurrentDirectory())));
 
-            if (!properties.Any(p => p.EndsWith(CodeGenerator.defaultPropertiesPath)))
+            if (!properties.Any(p => p.EndsWith(CodeGenerator.DefaultPropertiesPath)))
                 AddMenuEntry(new CreateDefaultPropertiesMenuEntry(progam, this));
 
             AddMenuEntry(new CreateCustomPropertiesMenuEntry(progam, this));
@@ -62,11 +62,11 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
     public class CreateDefaultPropertiesMenuEntry : MenuEntry
     {
         public CreateDefaultPropertiesMenuEntry(CliProgram progam, Step1_PropertiesMenu menu) :
-            base("Create new " + CodeGenerator.defaultPropertiesPath, null, false, () =>
+            base("Create new " + CodeGenerator.DefaultPropertiesPath, null, false, () =>
             {
                 var command = new NewConfigCommand();
-                command.Run(progam, new[] { command.Trigger, "-s", CodeGenerator.defaultPropertiesPath });
-                menu.properties = CodeGenerator.defaultPropertiesPath;
+                command.Run(progam, new[] { command.Trigger, "-s", CodeGenerator.DefaultPropertiesPath });
+                menu.properties = CodeGenerator.DefaultPropertiesPath;
                 menu.Stop();
             })
         {

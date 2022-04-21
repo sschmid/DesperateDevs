@@ -100,10 +100,10 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
             }
             EditorGUILayout.EndHorizontal();
 
-            _codeGeneratorConfig.preProcessors = drawMaskField("Pre Processors", _availablePreProcessorTypes, _availablePreProcessorNames, _codeGeneratorConfig.preProcessors);
-            _codeGeneratorConfig.dataProviders = drawMaskField("Data Providers", _availableDataProviderTypes, _availableDataProviderNames, _codeGeneratorConfig.dataProviders);
-            _codeGeneratorConfig.codeGenerators = drawMaskField("Code Generators", _availableGeneratorTypes, _availableGeneratorNames, _codeGeneratorConfig.codeGenerators);
-            _codeGeneratorConfig.postProcessors = drawMaskField("Post Processors", _availablePostProcessorTypes, _availablePostProcessorNames, _codeGeneratorConfig.postProcessors);
+            _codeGeneratorConfig.PreProcessors = drawMaskField("Pre Processors", _availablePreProcessorTypes, _availablePreProcessorNames, _codeGeneratorConfig.PreProcessors);
+            _codeGeneratorConfig.DataProviders = drawMaskField("Data Providers", _availableDataProviderTypes, _availableDataProviderNames, _codeGeneratorConfig.DataProviders);
+            _codeGeneratorConfig.CodeGenerators = drawMaskField("Code Generators", _availableGeneratorTypes, _availableGeneratorNames, _codeGeneratorConfig.CodeGenerators);
+            _codeGeneratorConfig.PostProcessors = drawMaskField("Post Processors", _availablePostProcessorTypes, _availablePostProcessorNames, _codeGeneratorConfig.PostProcessors);
 
             drawConfigurables(preferences);
 
@@ -117,7 +117,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
             if (EditorUtility.DisplayDialog("Jenny - Auto Import",
                 "Auto Import will automatically find and set all plugins for you. " +
                 "It will search in folders and sub folders specified in " + propertiesPath +
-                " under the key '" + CodeGeneratorConfig.SEARCH_PATHS_KEY + "'." +
+                " under the key '" + CodeGeneratorConfig.SearchPathsKey + "'." +
                 "\n\nThis will overwrite your current plugin settings." +
                 "\n\nDo you want to continue?",
                 "Continue and Overwrite",
@@ -125,7 +125,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
             ))
             {
                 var searchPaths = CodeGeneratorUtil.BuildSearchPaths(
-                    _codeGeneratorConfig.searchPaths,
+                    _codeGeneratorConfig.SearchPaths,
                     new[] { "./Assets", "./Library/ScriptAssemblies" }
                 );
 
@@ -133,10 +133,10 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
                 preferences.Save();
 
                 Initialize(preferences);
-                _codeGeneratorConfig.preProcessors = _availablePreProcessorTypes;
-                _codeGeneratorConfig.dataProviders = _availableDataProviderTypes;
-                _codeGeneratorConfig.codeGenerators = _availableGeneratorTypes;
-                _codeGeneratorConfig.postProcessors = _availablePostProcessorTypes;
+                _codeGeneratorConfig.PreProcessors = _availablePreProcessorTypes;
+                _codeGeneratorConfig.DataProviders = _availableDataProviderTypes;
+                _codeGeneratorConfig.CodeGenerators = _availableGeneratorTypes;
+                _codeGeneratorConfig.PostProcessors = _availablePostProcessorTypes;
             }
         }
 
@@ -229,8 +229,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
 
                 if (_useExternalCodeGenerator)
                 {
-                    _codeGeneratorConfig.port = EditorGUILayout.IntField("Port", _codeGeneratorConfig.port);
-                    _codeGeneratorConfig.host = EditorGUILayout.TextField("Host", _codeGeneratorConfig.host);
+                    _codeGeneratorConfig.Port = EditorGUILayout.IntField("Port", _codeGeneratorConfig.Port);
+                    _codeGeneratorConfig.Host = EditorGUILayout.TextField("Host", _codeGeneratorConfig.Host);
                 }
                 else
                 {

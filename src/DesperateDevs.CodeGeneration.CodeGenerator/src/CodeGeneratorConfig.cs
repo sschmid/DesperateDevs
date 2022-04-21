@@ -7,28 +7,28 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator
 {
     public class CodeGeneratorConfig : AbstractConfigurableConfig
     {
-        public const string SEARCH_PATHS_KEY = "Jenny.SearchPaths";
-        public const string PLUGINS_PATHS_KEY = "Jenny.Plugins";
+        public const string SearchPathsKey = "Jenny.SearchPaths";
+        public const string PluginsPathsKey = "Jenny.Plugins";
 
-        public const string PRE_PROCESSORS_KEY = "Jenny.PreProcessors";
-        public const string DATA_PROVIDERS_KEY = "Jenny.DataProviders";
-        public const string CODE_GENERATORS_KEY = "Jenny.CodeGenerators";
-        public const string POST_PROCESSORS_KEY = "Jenny.PostProcessors";
+        public const string PreProcessorsKey = "Jenny.PreProcessors";
+        public const string DataProvidersKey = "Jenny.DataProviders";
+        public const string CodeGeneratorsKey = "Jenny.CodeGenerators";
+        public const string PostProcessorsKey = "Jenny.PostProcessors";
 
-        public const string PORT_KEY = "Jenny.Server.Port";
-        public const string HOST_KEY = "Jenny.Client.Host";
+        public const string PortKey = "Jenny.Server.Port";
+        public const string HostKey = "Jenny.Client.Host";
 
         public override Dictionary<string, string> DefaultProperties =>
             new Dictionary<string, string>
             {
-                {SEARCH_PATHS_KEY, string.Empty},
-                {PLUGINS_PATHS_KEY, string.Empty},
-                {PRE_PROCESSORS_KEY, string.Empty},
-                {DATA_PROVIDERS_KEY, string.Empty},
-                {CODE_GENERATORS_KEY, string.Empty},
-                {POST_PROCESSORS_KEY, string.Empty},
-                {PORT_KEY, "3333"},
-                {HOST_KEY, "localhost"}
+                {SearchPathsKey, string.Empty},
+                {PluginsPathsKey, string.Empty},
+                {PreProcessorsKey, string.Empty},
+                {DataProvidersKey, string.Empty},
+                {CodeGeneratorsKey, string.Empty},
+                {PostProcessorsKey, string.Empty},
+                {PortKey, "3333"},
+                {HostKey, "localhost"}
             };
 
         readonly bool _minified;
@@ -42,52 +42,52 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator
             _removeEmptyEntries = removeEmptyEntries;
         }
 
-        public string[] searchPaths
+        public string[] SearchPaths
         {
-            get => _preferences[SEARCH_PATHS_KEY].FromCSV(_removeEmptyEntries).ToArray();
-            set => _preferences[SEARCH_PATHS_KEY] = value.ToCSV(_minified, _removeEmptyEntries);
+            get => _preferences[SearchPathsKey].FromCSV(_removeEmptyEntries).ToArray();
+            set => _preferences[SearchPathsKey] = value.ToCSV(_minified, _removeEmptyEntries);
         }
 
-        public string[] plugins
+        public string[] Plugins
         {
-            get => _preferences[PLUGINS_PATHS_KEY].FromCSV(_removeEmptyEntries).ToArray();
-            set => _preferences[PLUGINS_PATHS_KEY] = value.ToCSV(_minified, _removeEmptyEntries);
+            get => _preferences[PluginsPathsKey].FromCSV(_removeEmptyEntries).ToArray();
+            set => _preferences[PluginsPathsKey] = value.ToCSV(_minified, _removeEmptyEntries);
         }
 
-        public string[] preProcessors
+        public string[] PreProcessors
         {
-            get => _preferences[PRE_PROCESSORS_KEY].FromCSV(_removeEmptyEntries).ToArray();
-            set => _preferences[PRE_PROCESSORS_KEY] = value.ToCSV(_minified, _removeEmptyEntries);
+            get => _preferences[PreProcessorsKey].FromCSV(_removeEmptyEntries).ToArray();
+            set => _preferences[PreProcessorsKey] = value.ToCSV(_minified, _removeEmptyEntries);
         }
 
-        public string[] dataProviders
+        public string[] DataProviders
         {
-            get => _preferences[DATA_PROVIDERS_KEY].FromCSV(_removeEmptyEntries).ToArray();
-            set => _preferences[DATA_PROVIDERS_KEY] = value.ToCSV(_minified, _removeEmptyEntries);
+            get => _preferences[DataProvidersKey].FromCSV(_removeEmptyEntries).ToArray();
+            set => _preferences[DataProvidersKey] = value.ToCSV(_minified, _removeEmptyEntries);
         }
 
-        public string[] codeGenerators
+        public string[] CodeGenerators
         {
-            get => _preferences[CODE_GENERATORS_KEY].FromCSV(_removeEmptyEntries).ToArray();
-            set => _preferences[CODE_GENERATORS_KEY] = value.ToCSV(_minified, _removeEmptyEntries);
+            get => _preferences[CodeGeneratorsKey].FromCSV(_removeEmptyEntries).ToArray();
+            set => _preferences[CodeGeneratorsKey] = value.ToCSV(_minified, _removeEmptyEntries);
         }
 
-        public string[] postProcessors
+        public string[] PostProcessors
         {
-            get => _preferences[POST_PROCESSORS_KEY].FromCSV(_removeEmptyEntries).ToArray();
-            set => _preferences[POST_PROCESSORS_KEY] = value.ToCSV(_minified, _removeEmptyEntries);
+            get => _preferences[PostProcessorsKey].FromCSV(_removeEmptyEntries).ToArray();
+            set => _preferences[PostProcessorsKey] = value.ToCSV(_minified, _removeEmptyEntries);
         }
 
-        public int port
+        public int Port
         {
-            get => int.Parse(_preferences[PORT_KEY]);
-            set => _preferences[PORT_KEY] = value.ToString();
+            get => int.Parse(_preferences[PortKey]);
+            set => _preferences[PortKey] = value.ToString();
         }
 
-        public string host
+        public string Host
         {
-            get => _preferences[HOST_KEY];
-            set => _preferences[HOST_KEY] = value;
+            get => _preferences[HostKey];
+            set => _preferences[HostKey] = value;
         }
     }
 }

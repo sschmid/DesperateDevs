@@ -41,7 +41,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
             foreach (var plugin in allPlugins)
             {
                 var localPlugin = plugin;
-                var entry = new SelectableMenuEntry(localPlugin, config.plugins.Contains(localPlugin), isSelected => updateConfig(config, localPlugin, isSelected));
+                var entry = new SelectableMenuEntry(localPlugin, config.Plugins.Contains(localPlugin), isSelected => updateConfig(config, localPlugin, isSelected));
                 AddMenuEntry(entry);
                 pluginEntries.Add(entry);
             }
@@ -51,8 +51,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 
         string[] autoImport(CodeGeneratorConfig config)
         {
-            var selectedPlugins = config.plugins;
-            var searchPaths = CodeGeneratorUtil.BuildSearchPaths(config.searchPaths, new[] { "." });
+            var selectedPlugins = config.Plugins;
+            var searchPaths = CodeGeneratorUtil.BuildSearchPaths(config.SearchPaths, new[] { "." });
             var task = Task.Run(() => CodeGeneratorUtil.AutoImport(config, searchPaths));
 
             if (!_isVerbose)
@@ -69,20 +69,20 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                 }
             }
 
-            var allPlugins = config.plugins;
-            config.plugins = selectedPlugins;
+            var allPlugins = config.Plugins;
+            config.Plugins = selectedPlugins;
             return allPlugins;
         }
 
         void updateConfig(CodeGeneratorConfig config, string plugin, bool isSelected)
         {
-            var list = config.plugins.ToList();
+            var list = config.Plugins.ToList();
             if (isSelected)
                 list.Add(plugin);
             else
                 list.Remove(plugin);
 
-            config.plugins = list
+            config.Plugins = list
                 .Distinct()
                 .OrderBy(p => p)
                 .ToArray();
@@ -100,7 +100,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                    "- PostProcessors - process the CodeGenFiles, e.g. writing to disc\n" +
                    "- Doctors - diagnose and fix problems\n\n" +
                    "FAQ:\n" +
-                   "- No plugins found: Make sure to specify the paths to plugins in " + CodeGeneratorConfig.SEARCH_PATHS_KEY +
+                   "- No plugins found: Make sure to specify the paths to plugins in " + CodeGeneratorConfig.SearchPathsKey +
                    "\n\n" +
                    "Please select the plugins you want to activate";
         }
@@ -111,11 +111,11 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
         public AutoSaveMenuEntry(Step2_PluginsMenu menu, Preferences preferences, CodeGeneratorConfig config) :
             base("Save and continue (auto import)", null, false, () =>
             {
-                config.searchPaths = config.searchPaths
+                config.SearchPaths = config.SearchPaths
                     .OrderBy(path => path)
                     .ToArray();
 
-                config.plugins = config.plugins
+                config.Plugins = config.Plugins
                     .OrderBy(path => path)
                     .ToArray();
 
@@ -132,11 +132,11 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
         public ManualSaveMenuEntry(Step2_PluginsMenu menu, Preferences preferences, CodeGeneratorConfig config) :
             base("Save and continue (manual import)", null, false, () =>
             {
-                config.searchPaths = config.searchPaths
+                config.SearchPaths = config.SearchPaths
                     .OrderBy(path => path)
                     .ToArray();
 
-                config.plugins = config.plugins
+                config.Plugins = config.Plugins
                     .OrderBy(path => path)
                     .ToArray();
 

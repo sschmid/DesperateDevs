@@ -28,7 +28,7 @@ namespace DesperateDevs.CodeGeneration.Unity.Plugins {
 
             if (isStandalone) {
                 var typeName = typeof(DebugLogPostProcessor).FullName;
-                if (_codeGeneratorConfig.postProcessors.Contains(typeName)) {
+                if (_codeGeneratorConfig.PostProcessors.Contains(typeName)) {
                     return new Diagnosis(
                         typeName + " uses Unity APIs but is used outside of Unity!",
                         "Remove " + typeName + " from CodeGenerator.PostProcessors",
@@ -41,10 +41,10 @@ namespace DesperateDevs.CodeGeneration.Unity.Plugins {
         }
 
         public bool ApplyFix() {
-            var postProcessorList = _codeGeneratorConfig.postProcessors.ToList();
+            var postProcessorList = _codeGeneratorConfig.PostProcessors.ToList();
             var removed = postProcessorList.Remove(typeof(DebugLogPostProcessor).FullName);
             if (removed) {
-                _codeGeneratorConfig.postProcessors = postProcessorList.ToArray();
+                _codeGeneratorConfig.PostProcessors = postProcessorList.ToArray();
 
                 return true;
             }

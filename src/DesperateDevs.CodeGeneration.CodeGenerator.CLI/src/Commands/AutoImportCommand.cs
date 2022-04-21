@@ -24,7 +24,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
         void autoImport()
         {
             var config = _preferences.CreateAndConfigure<CodeGeneratorConfig>();
-            var searchPaths = CodeGeneratorUtil.BuildSearchPaths(config.searchPaths, new[] { "." });
+            var searchPaths = CodeGeneratorUtil.BuildSearchPaths(config.SearchPaths, new[] { "." });
             CodeGeneratorUtil.AutoImport(config, searchPaths);
             _preferences.Save();
         }

@@ -64,15 +64,15 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 
         void printPluginStatus(ICodeGenerationPlugin[] instances, CodeGeneratorConfig config)
         {
-            printUnavailable(CodeGeneratorUtil.GetUnavailableNamesOf<IPreProcessor>(instances, config.preProcessors));
-            printUnavailable(CodeGeneratorUtil.GetUnavailableNamesOf<IDataProvider>(instances, config.dataProviders));
-            printUnavailable(CodeGeneratorUtil.GetUnavailableNamesOf<ICodeGenerator>(instances, config.codeGenerators));
-            printUnavailable(CodeGeneratorUtil.GetUnavailableNamesOf<IPostProcessor>(instances, config.postProcessors));
+            printUnavailable(CodeGeneratorUtil.GetUnavailableNamesOf<IPreProcessor>(instances, config.PreProcessors));
+            printUnavailable(CodeGeneratorUtil.GetUnavailableNamesOf<IDataProvider>(instances, config.DataProviders));
+            printUnavailable(CodeGeneratorUtil.GetUnavailableNamesOf<ICodeGenerator>(instances, config.CodeGenerators));
+            printUnavailable(CodeGeneratorUtil.GetUnavailableNamesOf<IPostProcessor>(instances, config.PostProcessors));
 
-            printAvailable(CodeGeneratorUtil.GetAvailableNamesOf<IPreProcessor>(instances, config.preProcessors));
-            printAvailable(CodeGeneratorUtil.GetAvailableNamesOf<IDataProvider>(instances, config.dataProviders));
-            printAvailable(CodeGeneratorUtil.GetAvailableNamesOf<ICodeGenerator>(instances, config.codeGenerators));
-            printAvailable(CodeGeneratorUtil.GetAvailableNamesOf<IPostProcessor>(instances, config.postProcessors));
+            printAvailable(CodeGeneratorUtil.GetAvailableNamesOf<IPreProcessor>(instances, config.PreProcessors));
+            printAvailable(CodeGeneratorUtil.GetAvailableNamesOf<IDataProvider>(instances, config.DataProviders));
+            printAvailable(CodeGeneratorUtil.GetAvailableNamesOf<ICodeGenerator>(instances, config.CodeGenerators));
+            printAvailable(CodeGeneratorUtil.GetAvailableNamesOf<IPostProcessor>(instances, config.PostProcessors));
         }
 
         void printUnavailable(string[] names)
@@ -93,10 +93,10 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 
         void printCollisions(CodeGeneratorConfig config)
         {
-            printDuplicates(config.preProcessors);
-            printDuplicates(config.dataProviders);
-            printDuplicates(config.codeGenerators);
-            printDuplicates(config.postProcessors);
+            printDuplicates(config.PreProcessors);
+            printDuplicates(config.DataProviders);
+            printDuplicates(config.CodeGenerators);
+            printDuplicates(config.PostProcessors);
         }
 
         void printDuplicates(string[] names)

@@ -28,7 +28,7 @@ namespace DesperateDevs.CodeGeneration.Unity.Plugins {
 
             if (isStandalone) {
                 var typeName = typeof(WarnIfCompilationErrorsPreProcessor).FullName;
-                if (_codeGeneratorConfig.preProcessors.Contains(typeName)) {
+                if (_codeGeneratorConfig.PreProcessors.Contains(typeName)) {
                     return new Diagnosis(
                         typeName + " uses Unity APIs but is used outside of Unity!",
                         "Remove " + typeName + " from CodeGenerator.PreProcessors",
@@ -41,10 +41,10 @@ namespace DesperateDevs.CodeGeneration.Unity.Plugins {
         }
 
         public bool ApplyFix() {
-            var preProcessorList = _codeGeneratorConfig.preProcessors.ToList();
+            var preProcessorList = _codeGeneratorConfig.PreProcessors.ToList();
             var removed = preProcessorList.Remove(typeof(WarnIfCompilationErrorsPreProcessor).FullName);
             if (removed) {
-                _codeGeneratorConfig.preProcessors = preProcessorList.ToArray();
+                _codeGeneratorConfig.PreProcessors = preProcessorList.ToArray();
 
                 return true;
             }

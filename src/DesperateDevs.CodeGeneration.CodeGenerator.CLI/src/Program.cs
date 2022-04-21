@@ -7,7 +7,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
     {
         public static void Main(string[] args)
         {
-            AbstractPreferencesCommand.DefaultPropertiesPath = CodeGenerator.defaultPropertiesPath;
+            AbstractPreferencesCommand.DefaultPropertiesPath = CodeGenerator.DefaultPropertiesPath;
             new CliProgram("Jenny", typeof(WizardCommand), args).Run();
         }
     }

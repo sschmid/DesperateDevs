@@ -28,18 +28,18 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Tests
         public void UpdatesSearchPathsInCodeGeneratorConfig()
         {
             CodeGeneratorUtil.AutoImport(_config, Path.Combine(ProjectRoot, SearchPaths, "/TestPlugins"));
-            _config.searchPaths.Length.Should().Be(2);
-            _config.searchPaths[0].Should().Be(SearchPaths + "/TestPlugins/One");
-            _config.searchPaths[1].Should().Be(SearchPaths + "/TestPlugins/Two");
+            _config.SearchPaths.Length.Should().Be(2);
+            _config.SearchPaths[0].Should().Be(SearchPaths + "/TestPlugins/One");
+            _config.SearchPaths[1].Should().Be(SearchPaths + "/TestPlugins/Two");
         }
 
         [Fact(Skip = "Add project to build test plugin dlls")]
         public void UpdatesSearchPathsWhenPathContainsSpaces()
         {
             CodeGeneratorUtil.AutoImport(_config, Path.Combine(ProjectRoot, SearchPaths, "/Test Plugins"));
-            _config.searchPaths.Length.Should().Be(2);
-            _config.searchPaths[0].Should().Be(SearchPaths + "/Test Plugins/One");
-            _config.searchPaths[1].Should().Be(SearchPaths + "/Test Plugins/Two");
+            _config.SearchPaths.Length.Should().Be(2);
+            _config.SearchPaths[0].Should().Be(SearchPaths + "/Test Plugins/One");
+            _config.SearchPaths[1].Should().Be(SearchPaths + "/Test Plugins/Two");
         }
     }
 }

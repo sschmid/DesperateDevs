@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,10 +8,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator
 
     public class CodeGenerator
     {
-        public static string defaultPropertiesPath
-        {
-            get { return "Jenny.properties"; }
-        }
+        public static string DefaultPropertiesPath => "Jenny.properties";
 
         public event GeneratorProgress OnProgress;
 
@@ -36,31 +34,23 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator
             _objectCache = new Dictionary<string, object>();
         }
 
-        public CodeGenFile[] DryRun()
-        {
-            return generate(
-                "[Dry Run] ",
-                _preProcessors.Where(i => i.RunInDryMode).ToArray(),
-                _dataProviders.Where(i => i.RunInDryMode).ToArray(),
-                _codeGenerators.Where(i => i.RunInDryMode).ToArray(),
-                _postProcessors.Where(i => i.RunInDryMode).ToArray()
-            );
-        }
+        public CodeGenFile[] DryRun() => Generate(
+            "[Dry Run] ",
+            _preProcessors.Where(i => i.RunInDryMode).ToArray(),
+            _dataProviders.Where(i => i.RunInDryMode).ToArray(),
+            _codeGenerators.Where(i => i.RunInDryMode).ToArray(),
+            _postProcessors.Where(i => i.RunInDryMode).ToArray()
+        );
 
-        public CodeGenFile[] Generate()
-        {
-            var files = generate(
-                string.Empty,
-                _preProcessors,
-                _dataProviders,
-                _codeGenerators,
-                _postProcessors
-            );
+        public CodeGenFile[] Generate() => Generate(
+            string.Empty,
+            _preProcessors,
+            _dataProviders,
+            _codeGenerators,
+            _postProcessors
+        );
 
-            return files;
-        }
-
-        CodeGenFile[] generate(string messagePrefix,
+        CodeGenFile[] Generate(string messagePrefix,
             IPreProcessor[] preProcessors,
             IDataProvider[] dataProviders,
             ICodeGenerator[] codeGenerators,
@@ -77,43 +67,25 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator
                 .OfType<ICachable>();
 
             foreach (var cachable in cachables)
-            {
                 cachable.ObjectCache = _objectCache;
-            }
 
             var total = preProcessors.Length + dataProviders.Length + codeGenerators.Length + postProcessors.Length;
             var progress = 0;
 
             foreach (var preProcessor in preProcessors)
             {
-                if (_cancel)
-                {
-                    return new CodeGenFile[0];
-                }
-
+                if (_cancel) return Array.Empty<CodeGenFile>();
                 progress += 1;
-                if (OnProgress != null)
-                {
-                    OnProgress(messagePrefix + "Pre Processing", preProcessor.Name, (float)progress / total);
-                }
-
+                OnProgress?.Invoke(messagePrefix + "Pre Processing", preProcessor.Name, (float)progress / total);
                 preProcessor.PreProcess();
             }
 
             var data = new List<CodeGeneratorData>();
             foreach (var dataProvider in dataProviders)
             {
-                if (_cancel)
-                {
-                    return new CodeGenFile[0];
-                }
-
+                if (_cancel) return Array.Empty<CodeGenFile>();
                 progress += 1;
-                if (OnProgress != null)
-                {
-                    OnProgress(messagePrefix + "Creating model", dataProvider.Name, (float)progress / total);
-                }
-
+                OnProgress?.Invoke(messagePrefix + "Creating model", dataProvider.Name, (float)progress / total);
                 data.AddRange(dataProvider.GetData());
             }
 
@@ -121,43 +93,24 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator
             var dataArray = data.ToArray();
             foreach (var generator in codeGenerators)
             {
-                if (_cancel)
-                {
-                    return new CodeGenFile[0];
-                }
-
+                if (_cancel) return Array.Empty<CodeGenFile>();
                 progress += 1;
-                if (OnProgress != null)
-                {
-                    OnProgress(messagePrefix + "Creating files", generator.Name, (float)progress / total);
-                }
-
+                OnProgress?.Invoke(messagePrefix + "Creating files", generator.Name, (float)progress / total);
                 files.AddRange(generator.Generate(dataArray));
             }
 
             var generatedFiles = files.ToArray();
             foreach (var postProcessor in postProcessors)
             {
-                if (_cancel)
-                {
-                    return new CodeGenFile[0];
-                }
-
+                if (_cancel) return Array.Empty<CodeGenFile>();
                 progress += 1;
-                if (OnProgress != null)
-                {
-                    OnProgress(messagePrefix + "Post Processing", postProcessor.Name, (float)progress / total);
-                }
-
+                OnProgress?.Invoke(messagePrefix + "Post Processing", postProcessor.Name, (float)progress / total);
                 generatedFiles = postProcessor.PostProcess(generatedFiles);
             }
 
             return generatedFiles;
         }
 
-        public void Cancel()
-        {
-            _cancel = true;
-        }
+        public void Cancel() => _cancel = true;
     }
 }

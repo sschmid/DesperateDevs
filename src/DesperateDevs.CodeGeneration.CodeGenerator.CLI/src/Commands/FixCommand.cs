@@ -29,10 +29,10 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 
             var instances = CodeGeneratorUtil.LoadFromPlugins(_preferences);
             // A test to check if all types can be resolved and instantiated.
-            CodeGeneratorUtil.GetEnabledInstancesOf<IPreProcessor>(instances, config.preProcessors);
-            CodeGeneratorUtil.GetEnabledInstancesOf<IDataProvider>(instances, config.dataProviders);
-            CodeGeneratorUtil.GetEnabledInstancesOf<ICodeGenerator>(instances, config.codeGenerators);
-            CodeGeneratorUtil.GetEnabledInstancesOf<IPostProcessor>(instances, config.postProcessors);
+            CodeGeneratorUtil.GetEnabledInstancesOf<IPreProcessor>(instances, config.PreProcessors);
+            CodeGeneratorUtil.GetEnabledInstancesOf<IDataProvider>(instances, config.DataProviders);
+            CodeGeneratorUtil.GetEnabledInstancesOf<ICodeGenerator>(instances, config.CodeGenerators);
+            CodeGeneratorUtil.GetEnabledInstancesOf<IPostProcessor>(instances, config.PostProcessors);
 
             var askedRemoveKeys = new HashSet<string>();
             var askedAddKeys = new HashSet<string>();
@@ -88,7 +88,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                 .OrderBy(path => path)
                 .ToArray();
 
-            var unusedPaths = config.searchPaths
+            var unusedPaths = config.SearchPaths
                 .Where(path => !requiredSearchPaths.Contains(Path.GetFullPath(path)));
 
             foreach (var path in unusedPaths)
@@ -97,8 +97,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                 {
                     preferences.RemoveValue(
                         path,
-                        config.searchPaths,
-                        values => config.searchPaths = values.ToArray()
+                        config.SearchPaths,
+                        values => config.SearchPaths = values.ToArray()
                     );
                 }
                 else
@@ -106,13 +106,13 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                     preferences.AskRemoveValue(
                         "Remove unused search path",
                         path,
-                        config.searchPaths,
-                        values => config.searchPaths = values.ToArray()
+                        config.SearchPaths,
+                        values => config.SearchPaths = values.ToArray()
                     );
                 }
             }
 
-            config.searchPaths = config.searchPaths.Distinct().ToArray();
+            config.SearchPaths = config.SearchPaths.Distinct().ToArray();
             preferences.Save();
         }
 
@@ -151,15 +151,15 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
         {
             var changed = false;
 
-            var unavailablePreProcessors = CodeGeneratorUtil.GetUnavailableNamesOf<IPreProcessor>(instances, config.preProcessors);
-            var unavailableDataProviders = CodeGeneratorUtil.GetUnavailableNamesOf<IDataProvider>(instances, config.dataProviders);
-            var unavailableCodeGenerators = CodeGeneratorUtil.GetUnavailableNamesOf<ICodeGenerator>(instances, config.codeGenerators);
-            var unavailablePostProcessors = CodeGeneratorUtil.GetUnavailableNamesOf<IPostProcessor>(instances, config.postProcessors);
+            var unavailablePreProcessors = CodeGeneratorUtil.GetUnavailableNamesOf<IPreProcessor>(instances, config.PreProcessors);
+            var unavailableDataProviders = CodeGeneratorUtil.GetUnavailableNamesOf<IDataProvider>(instances, config.DataProviders);
+            var unavailableCodeGenerators = CodeGeneratorUtil.GetUnavailableNamesOf<ICodeGenerator>(instances, config.CodeGenerators);
+            var unavailablePostProcessors = CodeGeneratorUtil.GetUnavailableNamesOf<IPostProcessor>(instances, config.PostProcessors);
 
-            var availablePreProcessors = CodeGeneratorUtil.GetAvailableNamesOf<IPreProcessor>(instances, config.preProcessors);
-            var availableDataProviders = CodeGeneratorUtil.GetAvailableNamesOf<IDataProvider>(instances, config.dataProviders);
-            var availableCodeGenerators = CodeGeneratorUtil.GetAvailableNamesOf<ICodeGenerator>(instances, config.codeGenerators);
-            var availablePostProcessors = CodeGeneratorUtil.GetAvailableNamesOf<IPostProcessor>(instances, config.postProcessors);
+            var availablePreProcessors = CodeGeneratorUtil.GetAvailableNamesOf<IPreProcessor>(instances, config.PreProcessors);
+            var availableDataProviders = CodeGeneratorUtil.GetAvailableNamesOf<IDataProvider>(instances, config.DataProviders);
+            var availableCodeGenerators = CodeGeneratorUtil.GetAvailableNamesOf<ICodeGenerator>(instances, config.CodeGenerators);
+            var availablePostProcessors = CodeGeneratorUtil.GetAvailableNamesOf<IPostProcessor>(instances, config.PostProcessors);
 
             foreach (var value in unavailablePreProcessors)
             {
@@ -169,8 +169,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                     {
                         preferences.RemoveValue(
                             value,
-                            config.preProcessors,
-                            values => config.preProcessors = values.ToArray()
+                            config.PreProcessors,
+                            values => config.PreProcessors = values.ToArray()
                         );
                     }
                     else
@@ -178,8 +178,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                         preferences.AskRemoveValue(
                             "Remove unavailable pre processor",
                             value,
-                            config.preProcessors,
-                            values => config.preProcessors = values.ToArray()
+                            config.PreProcessors,
+                            values => config.PreProcessors = values.ToArray()
                         );
                     }
 
@@ -196,8 +196,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                     {
                         preferences.RemoveValue(
                             value,
-                            config.dataProviders,
-                            values => config.dataProviders = values.ToArray()
+                            config.DataProviders,
+                            values => config.DataProviders = values.ToArray()
                         );
                     }
                     else
@@ -205,8 +205,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                         preferences.AskRemoveValue(
                             "Remove unavailable data provider",
                             value,
-                            config.dataProviders,
-                            values => config.dataProviders = values.ToArray()
+                            config.DataProviders,
+                            values => config.DataProviders = values.ToArray()
                         );
                     }
 
@@ -223,8 +223,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                     {
                         preferences.RemoveValue(
                             value,
-                            config.codeGenerators,
-                            values => config.codeGenerators = values.ToArray()
+                            config.CodeGenerators,
+                            values => config.CodeGenerators = values.ToArray()
                         );
                     }
                     else
@@ -232,8 +232,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                         preferences.AskRemoveValue(
                             "Remove unavailable code generator",
                             value,
-                            config.codeGenerators,
-                            values => config.codeGenerators = values.ToArray()
+                            config.CodeGenerators,
+                            values => config.CodeGenerators = values.ToArray()
                         );
                     }
 
@@ -250,8 +250,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                     {
                         preferences.RemoveValue(
                             value,
-                            config.postProcessors,
-                            values => config.postProcessors = values.ToArray()
+                            config.PostProcessors,
+                            values => config.PostProcessors = values.ToArray()
                         );
                     }
                     else
@@ -259,8 +259,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                         preferences.AskRemoveValue(
                             "Remove unavailable post processor",
                             value,
-                            config.postProcessors,
-                            values => config.postProcessors = values.ToArray()
+                            config.PostProcessors,
+                            values => config.PostProcessors = values.ToArray()
                         );
                     }
 
@@ -277,8 +277,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                     {
                         preferences.AddValue(
                             value,
-                            config.preProcessors,
-                            values => config.preProcessors = values.ToArray()
+                            config.PreProcessors,
+                            values => config.PreProcessors = values.ToArray()
                         );
                     }
                     else
@@ -286,8 +286,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                         preferences.AskAddValue(
                             "Add available pre processor",
                             value,
-                            config.preProcessors,
-                            values => config.preProcessors = values.ToArray()
+                            config.PreProcessors,
+                            values => config.PreProcessors = values.ToArray()
                         );
                     }
 
@@ -304,8 +304,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                     {
                         preferences.AddValue(
                             value,
-                            config.dataProviders,
-                            values => config.dataProviders = values.ToArray()
+                            config.DataProviders,
+                            values => config.DataProviders = values.ToArray()
                         );
                     }
                     else
@@ -313,8 +313,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                         preferences.AskAddValue(
                             "Add available data provider",
                             value,
-                            config.dataProviders,
-                            values => config.dataProviders = values.ToArray()
+                            config.DataProviders,
+                            values => config.DataProviders = values.ToArray()
                         );
                     }
 
@@ -331,8 +331,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                     {
                         preferences.AddValue(
                             value,
-                            config.codeGenerators,
-                            values => config.codeGenerators = values.ToArray()
+                            config.CodeGenerators,
+                            values => config.CodeGenerators = values.ToArray()
                         );
                     }
                     else
@@ -340,8 +340,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                         preferences.AskAddValue(
                             "Add available code generator",
                             value,
-                            config.codeGenerators,
-                            values => config.codeGenerators = values.ToArray()
+                            config.CodeGenerators,
+                            values => config.CodeGenerators = values.ToArray()
                         );
                     }
 
@@ -358,8 +358,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                     {
                         preferences.AddValue(
                             value,
-                            config.postProcessors,
-                            values => config.postProcessors = values.ToArray()
+                            config.PostProcessors,
+                            values => config.PostProcessors = values.ToArray()
                         );
                     }
                     else
@@ -367,8 +367,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                         preferences.AskAddValue(
                             "Add available post processor",
                             value,
-                            config.postProcessors,
-                            values => config.postProcessors = values.ToArray()
+                            config.PostProcessors,
+                            values => config.PostProcessors = values.ToArray()
                         );
                     }
 
@@ -382,28 +382,28 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
 
         bool fixCollisions(HashSet<string> askedAddKeys, CodeGeneratorConfig config, Preferences preferences)
         {
-            var changed = fixDuplicates(askedAddKeys, config.preProcessors, values =>
+            var changed = fixDuplicates(askedAddKeys, config.PreProcessors, values =>
             {
-                config.preProcessors = values;
-                return config.preProcessors;
+                config.PreProcessors = values;
+                return config.PreProcessors;
             }, preferences);
 
-            changed = fixDuplicates(askedAddKeys, config.dataProviders, values =>
+            changed = fixDuplicates(askedAddKeys, config.DataProviders, values =>
             {
-                config.dataProviders = values;
-                return config.dataProviders;
+                config.DataProviders = values;
+                return config.DataProviders;
             }, preferences) | changed;
 
-            changed = fixDuplicates(askedAddKeys, config.codeGenerators, values =>
+            changed = fixDuplicates(askedAddKeys, config.CodeGenerators, values =>
             {
-                config.codeGenerators = values;
-                return config.codeGenerators;
+                config.CodeGenerators = values;
+                return config.CodeGenerators;
             }, preferences) | changed;
 
-            return fixDuplicates(askedAddKeys, config.postProcessors, values =>
+            return fixDuplicates(askedAddKeys, config.PostProcessors, values =>
             {
-                config.postProcessors = values;
-                return config.postProcessors;
+                config.PostProcessors = values;
+                return config.PostProcessors;
             }, preferences) | changed;
         }
 

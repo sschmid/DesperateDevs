@@ -25,7 +25,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
                                 "  End, e                     - Select last\n" +
                                 "  Enter, Space               - Run selected menu entry";
 
-            var examples = "Jenny automatically uses " + CodeGenerator.defaultPropertiesPath + " and <userName>.userproperties\n" +
+            var examples = "Jenny automatically uses " + CodeGenerator.DefaultPropertiesPath + " and <userName>.userproperties\n" +
                            "when no properties files are specified along with the command.\n\n" +
                            "EXAMPLE\n" +
                            "  jenny new Jenny.properties\n" +

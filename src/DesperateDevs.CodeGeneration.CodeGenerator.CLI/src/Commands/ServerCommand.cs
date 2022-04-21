@@ -31,7 +31,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.CLI
             var server = new TcpServerSocket();
             _socket = server;
             server.OnReceived += onReceived;
-            server.Listen(config.port);
+            server.Listen(config.Port);
             Console.CancelKeyPress += onCancel;
             while (true)
             {
