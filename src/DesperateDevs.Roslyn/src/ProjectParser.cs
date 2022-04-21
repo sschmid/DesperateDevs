@@ -7,7 +7,7 @@ namespace DesperateDevs.Roslyn
 {
     public class ProjectParser
     {
-        static readonly Logger _logger = Sherlog.GetLogger(typeof(ProjectParser).Name);
+        static readonly Logger _logger = Sherlog.GetLogger(nameof(ProjectParser));
 
         readonly Project _project;
         INamedTypeSymbol[] _types;
