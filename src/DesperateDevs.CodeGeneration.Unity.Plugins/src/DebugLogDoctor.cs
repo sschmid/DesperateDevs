@@ -9,25 +9,11 @@ namespace DesperateDevs.CodeGeneration.Unity.Plugins
 {
     public class DebugLogDoctor : IDoctor, IConfigurable
     {
-        public string Name
-        {
-            get { return "Debug.Log"; }
-        }
+        public string Name => "Debug.Log";
+        public int Order => 0;
+        public bool RunInDryMode => true;
 
-        public int Order
-        {
-            get { return 0; }
-        }
-
-        public bool RunInDryMode
-        {
-            get { return true; }
-        }
-
-        public Dictionary<string, string> DefaultProperties
-        {
-            get { return new Dictionary<string, string>(); }
-        }
+        public Dictionary<string, string> DefaultProperties => new Dictionary<string, string>();
 
         readonly CodeGeneratorConfig _codeGeneratorConfig = new CodeGeneratorConfig();
 
@@ -65,11 +51,12 @@ namespace DesperateDevs.CodeGeneration.Unity.Plugins
             if (removed)
             {
                 _codeGeneratorConfig.PostProcessors = postProcessorList.ToArray();
-
                 return true;
             }
-
-            return false;
+            else
+            {
+                return false;
+            }
         }
     }
 }
