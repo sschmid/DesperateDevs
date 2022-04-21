@@ -6,7 +6,7 @@ namespace DesperateDevs.CodeGeneration.Unity.Plugins {
     public class WarnIfCompilationErrorsPreProcessor : IPreProcessor {
 
         public string Name { get { return "Warn If Compilation Errors"; } }
-        public int Priority { get { return -5; } }
+        public int Order { get { return -5; } }
         public bool RunInDryMode { get { return true; } }
 
         public void PreProcess() {

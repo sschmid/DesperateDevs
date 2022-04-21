@@ -8,7 +8,7 @@ namespace DesperateDevs.CodeGeneration.Plugins {
     public class CleanTargetDirectoryPostProcessor : IPostProcessor, IConfigurable {
 
         public string Name { get { return "Clean target directory"; } }
-        public int Priority { get { return 0; } }
+        public int Order { get { return 0; } }
         public bool RunInDryMode { get { return false; } }
 
         public Dictionary<string, string> DefaultProperties { get { return _targetDirectoryConfig.DefaultProperties; } }

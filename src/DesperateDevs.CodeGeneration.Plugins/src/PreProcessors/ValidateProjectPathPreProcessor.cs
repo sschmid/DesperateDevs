@@ -8,7 +8,7 @@ namespace DesperateDevs.CodeGeneration.Plugins {
     public class ValidateProjectPathPreProcessor : IPreProcessor, IConfigurable {
 
         public string Name { get { return "Validate Project Path"; } }
-        public int Priority { get { return -10; } }
+        public int Order { get { return -10; } }
         public bool RunInDryMode { get { return true; } }
 
         public Dictionary<string, string> DefaultProperties { get { return _projectPathConfig.DefaultProperties; } }

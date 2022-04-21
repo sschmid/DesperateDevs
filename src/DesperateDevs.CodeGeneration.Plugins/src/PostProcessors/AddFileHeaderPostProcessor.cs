@@ -3,7 +3,7 @@ namespace DesperateDevs.CodeGeneration.Plugins {
     public class AddFileHeaderPostProcessor : IPostProcessor {
 
         public string Name { get { return "Add file header"; } }
-        public int Priority { get { return 0; } }
+        public int Order { get { return 0; } }
         public bool RunInDryMode { get { return true; } }
 
         public const string AUTO_GENERATED_HEADER_FORMAT =

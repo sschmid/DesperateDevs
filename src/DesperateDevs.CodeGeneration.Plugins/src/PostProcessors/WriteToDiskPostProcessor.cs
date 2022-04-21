@@ -7,7 +7,7 @@ namespace DesperateDevs.CodeGeneration.Plugins {
     public class WriteToDiskPostProcessor : IPostProcessor, IConfigurable {
 
         public string Name { get { return "Write to disk"; } }
-        public int Priority { get { return 100; } }
+        public int Order { get { return 100; } }
         public bool RunInDryMode { get { return false; } }
 
         public Dictionary<string, string> DefaultProperties { get { return _targetDirectoryConfig.DefaultProperties; } }

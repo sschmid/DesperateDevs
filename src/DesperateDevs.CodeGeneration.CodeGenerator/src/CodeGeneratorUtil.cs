@@ -67,7 +67,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator
         {
             return instances
                 .OfType<T>()
-                .OrderBy(instance => instance.Priority)
+                .OrderBy(instance => instance.Order)
                 .ThenBy(instance => instance.GetType().ToCompilableString())
                 .ToArray();
         }

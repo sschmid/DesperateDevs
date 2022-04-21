@@ -3,7 +3,7 @@
     public interface ICodeGenerationPlugin
     {
         string Name { get; }
-        int Priority { get; }
+        int Order { get; }
         bool RunInDryMode { get; }
     }
 }

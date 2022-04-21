@@ -6,7 +6,7 @@ namespace DesperateDevs.CodeGeneration.Plugins {
     public class MergeFilesPostProcessor : IPostProcessor {
 
         public string Name { get { return "Merge files"; } }
-        public int Priority { get { return 90; } }
+        public int Order { get { return 90; } }
         public bool RunInDryMode { get { return true; } }
 
         public CodeGenFile[] PostProcess(CodeGenFile[] files) {

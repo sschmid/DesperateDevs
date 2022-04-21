@@ -25,10 +25,10 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator {
             IDataProvider[] dataProviders,
             ICodeGenerator[] codeGenerators,
             IPostProcessor[] postProcessors) {
-            _preProcessors = preProcessors.OrderBy(i => i.Priority).ToArray();
-            _dataProviders = dataProviders.OrderBy(i => i.Priority).ToArray();
-            _codeGenerators = codeGenerators.OrderBy(i => i.Priority).ToArray();
-            _postProcessors = postProcessors.OrderBy(i => i.Priority).ToArray();
+            _preProcessors = preProcessors.OrderBy(i => i.Order).ToArray();
+            _dataProviders = dataProviders.OrderBy(i => i.Order).ToArray();
+            _codeGenerators = codeGenerators.OrderBy(i => i.Order).ToArray();
+            _postProcessors = postProcessors.OrderBy(i => i.Order).ToArray();
             _objectCache = new Dictionary<string, object>();
         }
 

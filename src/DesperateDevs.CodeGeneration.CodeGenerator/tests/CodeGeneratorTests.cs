@@ -71,7 +71,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Tests
         }
 
         [Fact]
-        public void RunsPreProcessorsBasedOnPriority()
+        public void RunsPreProcessorsBasedOnOrder()
         {
             var preStr = new List<string>();
             var generator = new CodeGenerator(
@@ -89,7 +89,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Tests
         }
 
         [Fact]
-        public void RunsDataProviderBasedOnPriority()
+        public void RunsDataProviderBasedOnOrder()
         {
             var generator = new CodeGenerator(
                 new IPreProcessor[] {new Pre1PreProcessor(new List<string>())},
@@ -116,7 +116,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Tests
         }
 
         [Fact]
-        public void RunsCodeGeneratorsBasedOnPriority()
+        public void RunsCodeGeneratorsBasedOnOrder()
         {
             var generator = new CodeGenerator(
                 new IPreProcessor[] {new Pre1PreProcessor(new List<string>())},
@@ -136,7 +136,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Tests
         }
 
         [Fact]
-        public void RunsPostProcessorsBasedOnPriority()
+        public void RunsPostProcessorsBasedOnOrder()
         {
             var generator = new CodeGenerator(
                 new IPreProcessor[] {new Pre1PreProcessor(new List<string>())},
@@ -268,7 +268,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Tests
 public class Data_1_2_Provider : IDataProvider
 {
     public string Name => "";
-    public int Priority => 0;
+    public int Order => 0;
     public bool RunInDryMode => true;
 
     public CodeGeneratorData[] GetData()
@@ -290,7 +290,7 @@ public class Data_1_2_Provider : IDataProvider
 public class Data_3_4_Provider : IDataProvider
 {
     public string Name => "";
-    public int Priority => 5;
+    public int Order => 5;
     public bool RunInDryMode => true;
 
     public CodeGeneratorData[] GetData()
@@ -312,7 +312,7 @@ public class Data_3_4_Provider : IDataProvider
 public class DisabledDataProvider : IDataProvider
 {
     public string Name => "";
-    public int Priority => 5;
+    public int Order => 5;
     public bool RunInDryMode => false;
 
     public CodeGeneratorData[] GetData()
@@ -334,7 +334,7 @@ public class DisabledDataProvider : IDataProvider
 public class DataFile1CodeGenerator : ICodeGenerator
 {
     public string Name => "";
-    public int Priority => 0;
+    public int Order => 0;
     public bool RunInDryMode => true;
 
     public CodeGenFile[] Generate(CodeGeneratorData[] data)
@@ -351,7 +351,7 @@ public class DataFile1CodeGenerator : ICodeGenerator
 public class DataFile2CodeGenerator : ICodeGenerator
 {
     public string Name => "";
-    public int Priority => 5;
+    public int Order => 5;
     public bool RunInDryMode => true;
 
     public CodeGenFile[] Generate(CodeGeneratorData[] data)
@@ -368,7 +368,7 @@ public class DataFile2CodeGenerator : ICodeGenerator
 public class DisabledCodeGenerator : ICodeGenerator
 {
     public string Name => "";
-    public int Priority => -5;
+    public int Order => -5;
     public bool RunInDryMode => false;
 
     public CodeGenFile[] Generate(CodeGeneratorData[] data)
@@ -385,7 +385,7 @@ public class DisabledCodeGenerator : ICodeGenerator
 public class Processed1PostProcessor : IPostProcessor
 {
     public string Name => "";
-    public int Priority => 0;
+    public int Order => 0;
     public bool RunInDryMode => true;
 
     public CodeGenFile[] PostProcess(CodeGenFile[] files)
@@ -402,7 +402,7 @@ public class Processed1PostProcessor : IPostProcessor
 public class Processed2PostProcessor : IPostProcessor
 {
     public string Name => "";
-    public int Priority => 5;
+    public int Order => 5;
     public bool RunInDryMode => true;
 
     public CodeGenFile[] PostProcess(CodeGenFile[] files)
@@ -419,7 +419,7 @@ public class Processed2PostProcessor : IPostProcessor
 public class DisabledPostProcessor : IPostProcessor
 {
     public string Name => "";
-    public int Priority => 5;
+    public int Order => 5;
     public bool RunInDryMode => false;
 
     public CodeGenFile[] PostProcess(CodeGenFile[] files)
@@ -436,7 +436,7 @@ public class DisabledPostProcessor : IPostProcessor
 public class NoFilesPostProcessor : IPostProcessor
 {
     public string Name => "";
-    public int Priority => -5;
+    public int Order => -5;
     public bool RunInDryMode => true;
 
     public CodeGenFile[] PostProcess(CodeGenFile[] files)
@@ -448,7 +448,7 @@ public class NoFilesPostProcessor : IPostProcessor
 public class CachableProvider : IDataProvider, ICachable
 {
     public string Name => "";
-    public int Priority => 0;
+    public int Order => 0;
     public bool RunInDryMode => true;
 
     public Dictionary<string, object> ObjectCache { get; set; }
@@ -471,7 +471,7 @@ public class CachableProvider : IDataProvider, ICachable
 public class Pre1PreProcessor : IPreProcessor
 {
     public string Name => "";
-    public int Priority => 0;
+    public int Order => 0;
     public bool RunInDryMode => true;
 
     List<string> _strings;
@@ -490,7 +490,7 @@ public class Pre1PreProcessor : IPreProcessor
 public class Pre2PreProcessor : IPreProcessor
 {
     public string Name => "";
-    public int Priority => 5;
+    public int Order => 5;
     public bool RunInDryMode => true;
 
     List<string> _strings;
@@ -509,7 +509,7 @@ public class Pre2PreProcessor : IPreProcessor
 public class DisabledPreProcessor : IPreProcessor
 {
     public string Name => "";
-    public int Priority => 0;
+    public int Order => 0;
     public bool RunInDryMode => false;
 
     List<string> _strings;

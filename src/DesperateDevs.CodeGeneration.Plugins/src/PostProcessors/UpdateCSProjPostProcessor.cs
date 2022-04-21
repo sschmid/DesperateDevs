@@ -10,7 +10,7 @@ namespace DesperateDevs.CodeGeneration.Plugins {
     public class UpdateCSProjPostProcessor : IPostProcessor, IConfigurable {
 
         public string Name { get { return "Update .csproj"; } }
-        public int Priority { get { return 96; } }
+        public int Order { get { return 96; } }
         public bool RunInDryMode { get { return false; } }
 
         public Dictionary<string, string> DefaultProperties {

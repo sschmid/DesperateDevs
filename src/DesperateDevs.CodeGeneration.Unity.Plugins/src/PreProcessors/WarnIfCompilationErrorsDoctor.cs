@@ -10,7 +10,7 @@ namespace DesperateDevs.CodeGeneration.Unity.Plugins {
     public class WarnIfCompilationErrorsDoctor : IDoctor, IConfigurable {
 
         public string Name { get { return "Warn If Compilation Errors"; } }
-        public int Priority { get { return 0; } }
+        public int Order { get { return 0; } }
         public bool RunInDryMode { get { return true; } }
 
         public Dictionary<string, string> DefaultProperties { get { return new Dictionary<string, string>(); } }
