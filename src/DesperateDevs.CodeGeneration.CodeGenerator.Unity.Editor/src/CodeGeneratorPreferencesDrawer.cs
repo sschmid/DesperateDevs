@@ -29,8 +29,8 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
 
         CodeGeneratorConfig _codeGeneratorConfig;
 
-        public static readonly string PropertiesPathKey = $"{nameof(DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor)}.PropertiesPath";
-        public static readonly string UseExternalCodeGeneratorKey = $"{nameof(DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor)}.UseExternalCodeGenerator";
+        public static readonly string PropertiesPathKey = $"{typeof(CodeGeneratorPreferencesDrawer).Namespace}.PropertiesPath";
+        public static readonly string UseExternalCodeGeneratorKey = $"{typeof(CodeGeneratorPreferencesDrawer).Namespace}.UseExternalCodeGenerator";
 
         bool _useExternalCodeGenerator;
         bool _doDryRun;
@@ -51,7 +51,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
             preferences.Properties.AddProperties(CodeGeneratorUtil.GetDefaultProperties(_instances, _codeGeneratorConfig), false);
 
             _useExternalCodeGenerator = EditorPrefs.GetBool(UseExternalCodeGeneratorKey);
-            _doDryRun = EditorPrefs.GetBool(UnityCodeGenerator.DryRun, true);
+            _doDryRun = EditorPrefs.GetBool(UnityCodeGenerator.DryRunKey, true);
         }
 
         public override void DrawHeader(Preferences preferences)
@@ -227,7 +227,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
                     }
                     var doDryRunChanged = EditorGUI.EndChangeCheck();
                     if (doDryRunChanged)
-                        EditorPrefs.SetBool(UnityCodeGenerator.DryRun, _doDryRun);
+                        EditorPrefs.SetBool(UnityCodeGenerator.DryRunKey, _doDryRun);
                 }
 
                 var bgColor = GUI.backgroundColor;

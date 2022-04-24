@@ -5,7 +5,7 @@ namespace DesperateDevs.CodeGeneration.Plugins
 {
     public class ProjectPathConfig : AbstractConfigurableConfig
     {
-        readonly string _projectPathKey = $"{nameof(DesperateDevs.CodeGeneration.Plugins)}.ProjectPath";
+        readonly string _projectPathKey = $"{typeof(ProjectPathConfig).Namespace}.ProjectPath";
 
         public override Dictionary<string, string> DefaultProperties => new Dictionary<string, string>
         {

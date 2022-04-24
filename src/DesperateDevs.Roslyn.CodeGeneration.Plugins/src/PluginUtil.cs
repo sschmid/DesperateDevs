@@ -4,7 +4,7 @@ namespace DesperateDevs.Roslyn.CodeGeneration.Plugins
 {
     public static class PluginUtil
     {
-        public static readonly string ProjectParserKey = $"{nameof(DesperateDevs.Roslyn.CodeGeneration.Plugins)}.ProjectParser";
+        public static readonly string ProjectParserKey = $"{typeof(PluginUtil).Namespace}.ProjectParser";
 
         public static ProjectParser GetCachedProjectParser(Dictionary<string, object> objectCache, string projectPath)
         {

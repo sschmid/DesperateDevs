@@ -12,7 +12,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
 {
     public static class UnityCodeGenerator
     {
-        public static readonly string DryRun = $"{nameof(DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor)}.DryRun";
+        public static readonly string DryRunKey = $"{typeof(UnityCodeGenerator).Namespace}.DryRun";
 
         public static Preferences GetPreferences() => new Preferences(
             EditorPrefs.GetString(CodeGeneratorPreferencesDrawer.PropertiesPathKey, CodeGenerator.DefaultPropertiesPath),
@@ -39,7 +39,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
 
             try
             {
-                dryFiles = EditorPrefs.GetBool(DryRun, true) ? codeGenerator.DryRun() : Array.Empty<CodeGenFile>();
+                dryFiles = EditorPrefs.GetBool(DryRunKey, true) ? codeGenerator.DryRun() : Array.Empty<CodeGenFile>();
                 progressOffset = 0.5f;
                 files = codeGenerator.Generate();
             }

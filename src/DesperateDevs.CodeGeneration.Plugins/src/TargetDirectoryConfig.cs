@@ -6,7 +6,7 @@ namespace DesperateDevs.CodeGeneration.Plugins
 {
     public class TargetDirectoryConfig : AbstractConfigurableConfig
     {
-        readonly string _targetDirectoryKey = $"{nameof(DesperateDevs.CodeGeneration.Plugins)}.TargetDirectory";
+        readonly string _targetDirectoryKey = $"{typeof(TargetDirectoryConfig).Namespace}.TargetDirectory";
 
         public override Dictionary<string, string> DefaultProperties => new Dictionary<string, string>
         {
