@@ -16,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\DesperateDevs.Tests\tests\DesperateDevs.Tests.csproj" />
-    <ProjectReference Include="..\src\DesperateDevs.Roslyn.csproj" />
+    <ProjectReference Include="../../DesperateDevs.Tests/tests/DesperateDevs.Tests.csproj" />
+    <ProjectReference Include="../src/DesperateDevs.Roslyn.csproj" />
   </ItemGroup>
 
 </Project>

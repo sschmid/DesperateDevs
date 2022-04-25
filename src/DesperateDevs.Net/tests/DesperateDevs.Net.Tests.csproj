@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\DesperateDevs.Net.csproj" />
+    <ProjectReference Include="../src/DesperateDevs.Net.csproj" />
   </ItemGroup>
 
 </Project>

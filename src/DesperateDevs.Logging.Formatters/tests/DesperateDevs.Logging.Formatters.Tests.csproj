@@ -16,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\DesperateDevs.Logging\src\DesperateDevs.Logging.csproj" />
-    <ProjectReference Include="..\src\DesperateDevs.Logging.Formatters.csproj" />
+    <ProjectReference Include="../../DesperateDevs.Logging/src/DesperateDevs.Logging.csproj" />
+    <ProjectReference Include="../src/DesperateDevs.Logging.Formatters.csproj" />
   </ItemGroup>
 
 </Project>

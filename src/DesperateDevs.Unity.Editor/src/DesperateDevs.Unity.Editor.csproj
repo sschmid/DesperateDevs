@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\DesperateDevs.Serialization\src\DesperateDevs.Serialization.csproj" />
+    <ProjectReference Include="../../DesperateDevs.Serialization/src/DesperateDevs.Serialization.csproj" />
   </ItemGroup>
 
   <ItemGroup>

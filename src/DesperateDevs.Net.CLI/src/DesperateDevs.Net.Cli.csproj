@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\DesperateDevs.Cli.Utils\src\DesperateDevs.Cli.Utils.csproj" />
-    <ProjectReference Include="..\..\DesperateDevs.Net\src\DesperateDevs.Net.csproj" />
+    <ProjectReference Include="../../DesperateDevs.Cli.Utils/src/DesperateDevs.Cli.Utils.csproj" />
+    <ProjectReference Include="../../DesperateDevs.Net/src/DesperateDevs.Net.csproj" />
   </ItemGroup>
 
 </Project>

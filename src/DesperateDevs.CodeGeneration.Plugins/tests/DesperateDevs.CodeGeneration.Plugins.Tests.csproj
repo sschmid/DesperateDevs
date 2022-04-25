@@ -16,9 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\DesperateDevs.CodeGeneration\src\DesperateDevs.CodeGeneration.csproj" />
-    <ProjectReference Include="..\..\DesperateDevs.Serialization\tests\DesperateDevs.Serialization.Tests.csproj" />
-    <ProjectReference Include="..\src\DesperateDevs.CodeGeneration.Plugins.csproj" />
+    <ProjectReference Include="../../DesperateDevs.CodeGeneration/src/DesperateDevs.CodeGeneration.csproj" />
+    <ProjectReference Include="../../DesperateDevs.Serialization/tests/DesperateDevs.Serialization.Tests.csproj" />
+    <ProjectReference Include="../src/DesperateDevs.CodeGeneration.Plugins.csproj" />
   </ItemGroup>
 
 </Project>

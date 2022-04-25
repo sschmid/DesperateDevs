@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\DesperateDevs.CodeGeneration.CodeGenerator\src\DesperateDevs.CodeGeneration.CodeGenerator.csproj" />
+    <ProjectReference Include="../../DesperateDevs.CodeGeneration.CodeGenerator/src/DesperateDevs.CodeGeneration.CodeGenerator.csproj" />
   </ItemGroup>
 
   <ItemGroup>

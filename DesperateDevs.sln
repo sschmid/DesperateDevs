@@ -2,135 +2,135 @@
 #
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Caching", "DesperateDevs.Caching", "{8BA88C37-B258-4DD6-941F-4913FB7F96C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Caching", "src\DesperateDevs.Caching\src\DesperateDevs.Caching.csproj", "{0E668B24-A62C-4AE3-A725-27A05238A403}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Caching", "src/DesperateDevs.Caching/src/DesperateDevs.Caching.csproj", "{0E668B24-A62C-4AE3-A725-27A05238A403}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Caching.Tests", "src\DesperateDevs.Caching\tests\DesperateDevs.Caching.Tests.csproj", "{E3EEF33E-D536-4084-9AD7-C4654E0A3857}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Caching.Tests", "src/DesperateDevs.Caching/tests/DesperateDevs.Caching.Tests.csproj", "{E3EEF33E-D536-4084-9AD7-C4654E0A3857}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Cli.Utils", "DesperateDevs.Cli.Utils", "{C69CDE77-3860-4BC8-9ABD-A7F5C2416ECD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Cli.Utils", "src\DesperateDevs.Cli.Utils\src\DesperateDevs.Cli.Utils.csproj", "{8867EE00-6581-4EE0-AC50-F1946D3B852B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Cli.Utils", "src/DesperateDevs.Cli.Utils/src/DesperateDevs.Cli.Utils.csproj", "{8867EE00-6581-4EE0-AC50-F1946D3B852B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Cli.Utils.Tests", "src\DesperateDevs.Cli.Utils\tests\DesperateDevs.Cli.Utils.Tests.csproj", "{ACD14402-AAF4-4875-A94C-E4137F037E34}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Cli.Utils.Tests", "src/DesperateDevs.Cli.Utils/tests/DesperateDevs.Cli.Utils.Tests.csproj", "{ACD14402-AAF4-4875-A94C-E4137F037E34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Cli.Utils.Tests.Program", "src\DesperateDevs.Cli.Utils\fixtures\DesperateDevs.Cli.Utils.Tests.Program\DesperateDevs.Cli.Utils.Tests.Program.csproj", "{5169F477-31B7-40C2-B8CE-A5BE9D6318D5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Cli.Utils.Tests.Program", "src/DesperateDevs.Cli.Utils/fixtures/DesperateDevs.Cli.Utils.Tests.Program/DesperateDevs.Cli.Utils.Tests.Program.csproj", "{5169F477-31B7-40C2-B8CE-A5BE9D6318D5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.CodeGeneration.CodeGenerator.Cli", "DesperateDevs.CodeGeneration.CodeGenerator.Cli", "{B6F14DE9-1EC2-435D-8864-020E6BB2D1F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneration.CodeGenerator.Cli", "src\DesperateDevs.CodeGeneration.CodeGenerator.Cli\src\DesperateDevs.CodeGeneration.CodeGenerator.Cli.csproj", "{A45BF04B-61D4-4AA8-B829-3F891C13B6DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneration.CodeGenerator.Cli", "src/DesperateDevs.CodeGeneration.CodeGenerator.Cli/src/DesperateDevs.CodeGeneration.CodeGenerator.Cli.csproj", "{A45BF04B-61D4-4AA8-B829-3F891C13B6DB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor", "DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor", "{35C88A6B-8460-4EBF-A3F7-E3980F5A444A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor", "src\DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor\src\DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor.csproj", "{C9B6C39B-D714-49FD-AE7D-5FB186412D8A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor", "src/DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor/src/DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor.csproj", "{C9B6C39B-D714-49FD-AE7D-5FB186412D8A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.CodeGeneration.CodeGenerator", "DesperateDevs.CodeGeneration.CodeGenerator", "{B26FE6BE-C6CB-4617-965E-6CB9A8EA9749}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneration.CodeGenerator", "src\DesperateDevs.CodeGeneration.CodeGenerator\src\DesperateDevs.CodeGeneration.CodeGenerator.csproj", "{9B95FD72-70DD-4CB5-8620-466C5201B8BD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneration.CodeGenerator", "src/DesperateDevs.CodeGeneration.CodeGenerator/src/DesperateDevs.CodeGeneration.CodeGenerator.csproj", "{9B95FD72-70DD-4CB5-8620-466C5201B8BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneration.CodeGenerator.Tests", "src\DesperateDevs.CodeGeneration.CodeGenerator\tests\DesperateDevs.CodeGeneration.CodeGenerator.Tests.csproj", "{CDA1CF66-E39F-418F-A275-1BBD6A077453}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneration.CodeGenerator.Tests", "src/DesperateDevs.CodeGeneration.CodeGenerator/tests/DesperateDevs.CodeGeneration.CodeGenerator.Tests.csproj", "{CDA1CF66-E39F-418F-A275-1BBD6A077453}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.CodeGeneration.Plugins", "DesperateDevs.CodeGeneration.Plugins", "{33DF30BE-2045-4A4D-9145-0E7000C922FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneration.Plugins", "src\DesperateDevs.CodeGeneration.Plugins\src\DesperateDevs.CodeGeneration.Plugins.csproj", "{20D63131-A16E-4C0A-96FB-ECBFA7E95448}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneration.Plugins", "src/DesperateDevs.CodeGeneration.Plugins/src/DesperateDevs.CodeGeneration.Plugins.csproj", "{20D63131-A16E-4C0A-96FB-ECBFA7E95448}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneration.Plugins.Tests", "src\DesperateDevs.CodeGeneration.Plugins\tests\DesperateDevs.CodeGeneration.Plugins.Tests.csproj", "{7C883191-2FBD-403B-892A-14FF1654918D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneration.Plugins.Tests", "src/DesperateDevs.CodeGeneration.Plugins/tests/DesperateDevs.CodeGeneration.Plugins.Tests.csproj", "{7C883191-2FBD-403B-892A-14FF1654918D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.CodeGeneration.Unity.Plugins", "DesperateDevs.CodeGeneration.Unity.Plugins", "{8C2B0C2B-E565-49F3-9C29-BD5108B0F6A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneration.Unity.Plugins", "src\DesperateDevs.CodeGeneration.Unity.Plugins\src\DesperateDevs.CodeGeneration.Unity.Plugins.csproj", "{E8B94BBE-C1AF-44D1-95A1-FC1AAC79F711}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneration.Unity.Plugins", "src/DesperateDevs.CodeGeneration.Unity.Plugins/src/DesperateDevs.CodeGeneration.Unity.Plugins.csproj", "{E8B94BBE-C1AF-44D1-95A1-FC1AAC79F711}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.CodeGeneration", "DesperateDevs.CodeGeneration", "{B9CB9EEA-2AC9-439A-A957-B09FE93383EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneration", "src\DesperateDevs.CodeGeneration\src\DesperateDevs.CodeGeneration.csproj", "{370ABE75-8DBF-453F-8435-719F6ED545E3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneration", "src/DesperateDevs.CodeGeneration/src/DesperateDevs.CodeGeneration.csproj", "{370ABE75-8DBF-453F-8435-719F6ED545E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneration.Benchmarks", "src\DesperateDevs.CodeGeneration\benchmarks\DesperateDevs.CodeGeneration.Benchmarks.csproj", "{9BE401A1-2214-47F1-8A19-AC9AD76C0098}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneration.Benchmarks", "src/DesperateDevs.CodeGeneration/benchmarks/DesperateDevs.CodeGeneration.Benchmarks.csproj", "{9BE401A1-2214-47F1-8A19-AC9AD76C0098}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneration.Tests", "src\DesperateDevs.CodeGeneration\tests\DesperateDevs.CodeGeneration.Tests.csproj", "{63F8DC8A-C976-4B14-91AA-12BB0E6227D4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.CodeGeneration.Tests", "src/DesperateDevs.CodeGeneration/tests/DesperateDevs.CodeGeneration.Tests.csproj", "{63F8DC8A-C976-4B14-91AA-12BB0E6227D4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Extensions", "DesperateDevs.Extensions", "{C843B1D1-C099-4486-AF34-A5D8412244F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Extensions", "src\DesperateDevs.Extensions\src\DesperateDevs.Extensions.csproj", "{091EB29B-5064-4D0C-93FA-E55DB331BAAA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Extensions", "src/DesperateDevs.Extensions/src/DesperateDevs.Extensions.csproj", "{091EB29B-5064-4D0C-93FA-E55DB331BAAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Extensions.Benchmarks", "src\DesperateDevs.Extensions\benchmarks\DesperateDevs.Extensions.Benchmarks.csproj", "{9369C7F0-A0D7-4F0F-BACF-6A3E6CC8AEAA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Extensions.Benchmarks", "src/DesperateDevs.Extensions/benchmarks/DesperateDevs.Extensions.Benchmarks.csproj", "{9369C7F0-A0D7-4F0F-BACF-6A3E6CC8AEAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Extensions.Tests", "src\DesperateDevs.Extensions\tests\DesperateDevs.Extensions.Tests.csproj", "{AF455105-4F9D-4CB1-BB3F-08F8E5EB7188}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Extensions.Tests", "src/DesperateDevs.Extensions/tests/DesperateDevs.Extensions.Tests.csproj", "{AF455105-4F9D-4CB1-BB3F-08F8E5EB7188}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Logging.Appenders", "DesperateDevs.Logging.Appenders", "{BE3F49D7-F5F9-4238-9376-DC9F597CF4F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Logging.Appenders", "src\DesperateDevs.Logging.Appenders\src\DesperateDevs.Logging.Appenders.csproj", "{2D3ED000-175F-4C57-BF48-281C90BAE86B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Logging.Appenders", "src/DesperateDevs.Logging.Appenders/src/DesperateDevs.Logging.Appenders.csproj", "{2D3ED000-175F-4C57-BF48-281C90BAE86B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Logging.Formatters", "DesperateDevs.Logging.Formatters", "{7F03FBC5-827C-4909-974A-4BA8C3080BDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Logging.Formatters", "src\DesperateDevs.Logging.Formatters\src\DesperateDevs.Logging.Formatters.csproj", "{963C2CE9-71BC-4C54-9E5F-B26D3E029B42}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Logging.Formatters", "src/DesperateDevs.Logging.Formatters/src/DesperateDevs.Logging.Formatters.csproj", "{963C2CE9-71BC-4C54-9E5F-B26D3E029B42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Logging.Formatters.Tests", "src\DesperateDevs.Logging.Formatters\tests\DesperateDevs.Logging.Formatters.Tests.csproj", "{16227F1E-AFD6-450F-97CC-2F963356B183}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Logging.Formatters.Tests", "src/DesperateDevs.Logging.Formatters/tests/DesperateDevs.Logging.Formatters.Tests.csproj", "{16227F1E-AFD6-450F-97CC-2F963356B183}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Logging", "DesperateDevs.Logging", "{AF7FEE7A-25BD-4242-8775-65F777AABA23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Logging", "src\DesperateDevs.Logging\src\DesperateDevs.Logging.csproj", "{2912859E-F962-41F6-B5A7-34072DF43BC5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Logging", "src/DesperateDevs.Logging/src/DesperateDevs.Logging.csproj", "{2912859E-F962-41F6-B5A7-34072DF43BC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Logging.Benchmarks", "src\DesperateDevs.Logging\benchmarks\DesperateDevs.Logging.Benchmarks.csproj", "{64232612-86C3-4405-99F8-0611A396F9FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Logging.Benchmarks", "src/DesperateDevs.Logging/benchmarks/DesperateDevs.Logging.Benchmarks.csproj", "{64232612-86C3-4405-99F8-0611A396F9FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Logging.Tests", "src\DesperateDevs.Logging\tests\DesperateDevs.Logging.Tests.csproj", "{A4E5103A-F671-44BD-9159-7F9EDD929E29}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Logging.Tests", "src/DesperateDevs.Logging/tests/DesperateDevs.Logging.Tests.csproj", "{A4E5103A-F671-44BD-9159-7F9EDD929E29}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Net.Cli", "DesperateDevs.Net.Cli", "{C70ADC4B-47D4-4EA0-A514-0A10393B58D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Net.Cli", "src\DesperateDevs.Net.Cli\src\DesperateDevs.Net.Cli.csproj", "{587D0761-B70A-49DC-A202-2CCA8C99BC3A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Net.Cli", "src/DesperateDevs.Net.Cli/src/DesperateDevs.Net.Cli.csproj", "{587D0761-B70A-49DC-A202-2CCA8C99BC3A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Net", "DesperateDevs.Net", "{5707896A-553E-42BC-BB94-82247346C362}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Net", "src\DesperateDevs.Net\src\DesperateDevs.Net.csproj", "{10E23D0D-B7DC-45FC-ADE0-AE87F4DA550B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Net", "src/DesperateDevs.Net/src/DesperateDevs.Net.csproj", "{10E23D0D-B7DC-45FC-ADE0-AE87F4DA550B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Net.Tests", "src\DesperateDevs.Net\tests\DesperateDevs.Net.Tests.csproj", "{CFA75523-9940-4366-A863-5C9F69195995}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Net.Tests", "src/DesperateDevs.Net/tests/DesperateDevs.Net.Tests.csproj", "{CFA75523-9940-4366-A863-5C9F69195995}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Reflection", "DesperateDevs.Reflection", "{55AA5FC3-2145-4CCB-891E-F2FF721883C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Reflection", "src\DesperateDevs.Reflection\src\DesperateDevs.Reflection.csproj", "{7D21F6F8-BEE6-4166-9782-5C7CA9B790BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Reflection", "src/DesperateDevs.Reflection/src/DesperateDevs.Reflection.csproj", "{7D21F6F8-BEE6-4166-9782-5C7CA9B790BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Reflection.Tests", "src\DesperateDevs.Reflection\tests\DesperateDevs.Reflection.Tests.csproj", "{BB5985FE-10A5-4D6E-B961-D93F19EBCB23}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Reflection.Tests", "src/DesperateDevs.Reflection/tests/DesperateDevs.Reflection.Tests.csproj", "{BB5985FE-10A5-4D6E-B961-D93F19EBCB23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Reflection.Tests.Project1", "src\DesperateDevs.Reflection\fixtures\DesperateDevs.Reflection.Tests.Project1\DesperateDevs.Reflection.Tests.Project1.csproj", "{8BFDF954-F135-48FF-AFC0-6E41B5B68573}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Reflection.Tests.Project1", "src/DesperateDevs.Reflection/fixtures/DesperateDevs.Reflection.Tests.Project1/DesperateDevs.Reflection.Tests.Project1.csproj", "{8BFDF954-F135-48FF-AFC0-6E41B5B68573}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Reflection.Tests.Project2", "src\DesperateDevs.Reflection\fixtures\DesperateDevs.Reflection.Tests.Project2\DesperateDevs.Reflection.Tests.Project2.csproj", "{61D2E6FF-E421-44EA-9C67-F67ADDD9B249}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Reflection.Tests.Project2", "src/DesperateDevs.Reflection/fixtures/DesperateDevs.Reflection.Tests.Project2/DesperateDevs.Reflection.Tests.Project2.csproj", "{61D2E6FF-E421-44EA-9C67-F67ADDD9B249}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Roslyn.CodeGeneration.Plugins", "DesperateDevs.Roslyn.CodeGeneration.Plugins", "{B006BB08-6CDD-4420-81CE-0297942659C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Roslyn.CodeGeneration.Plugins", "src\DesperateDevs.Roslyn.CodeGeneration.Plugins\src\DesperateDevs.Roslyn.CodeGeneration.Plugins.csproj", "{27FF899D-5D0D-4E88-BE53-6AFC2940A3B5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Roslyn.CodeGeneration.Plugins", "src/DesperateDevs.Roslyn.CodeGeneration.Plugins/src/DesperateDevs.Roslyn.CodeGeneration.Plugins.csproj", "{27FF899D-5D0D-4E88-BE53-6AFC2940A3B5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Roslyn", "DesperateDevs.Roslyn", "{C046596C-9429-454B-AEAE-D558D6E8158F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Roslyn", "src\DesperateDevs.Roslyn\src\DesperateDevs.Roslyn.csproj", "{9F87BF24-577F-426E-B308-F4E93A33FE02}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Roslyn", "src/DesperateDevs.Roslyn/src/DesperateDevs.Roslyn.csproj", "{9F87BF24-577F-426E-B308-F4E93A33FE02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Roslyn.Tests", "src\DesperateDevs.Roslyn\tests\DesperateDevs.Roslyn.Tests.csproj", "{3A8C7CA2-FDE1-49C6-9183-7E6A9ED2003F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Roslyn.Tests", "src/DesperateDevs.Roslyn/tests/DesperateDevs.Roslyn.Tests.csproj", "{3A8C7CA2-FDE1-49C6-9183-7E6A9ED2003F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Serialization.Cli.Utils", "DesperateDevs.Serialization.Cli.Utils", "{9CB0FB67-2D69-43AE-ADC4-2330419B2B1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Serialization.Cli.Utils", "src\DesperateDevs.Serialization.Cli.Utils\src\DesperateDevs.Serialization.Cli.Utils.csproj", "{687A13C7-5996-455A-83F2-D8CAA28A9032}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Serialization.Cli.Utils", "src/DesperateDevs.Serialization.Cli.Utils/src/DesperateDevs.Serialization.Cli.Utils.csproj", "{687A13C7-5996-455A-83F2-D8CAA28A9032}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Serialization", "DesperateDevs.Serialization", "{88C9719D-3D76-4027-86E1-AD64B28962BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Serialization", "src\DesperateDevs.Serialization\src\DesperateDevs.Serialization.csproj", "{36AC311F-34FF-4BF0-B144-AA50A2A19EB3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Serialization", "src/DesperateDevs.Serialization/src/DesperateDevs.Serialization.csproj", "{36AC311F-34FF-4BF0-B144-AA50A2A19EB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Serialization.Benchmarks", "src\DesperateDevs.Serialization\benchmarks\DesperateDevs.Serialization.Benchmarks.csproj", "{77C42B7C-AEAE-411B-9335-F4A521AAD879}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Serialization.Benchmarks", "src/DesperateDevs.Serialization/benchmarks/DesperateDevs.Serialization.Benchmarks.csproj", "{77C42B7C-AEAE-411B-9335-F4A521AAD879}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Serialization.Tests", "src\DesperateDevs.Serialization\tests\DesperateDevs.Serialization.Tests.csproj", "{ADD0A13F-9D8E-4907-BBA1-0E4E89A7481C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Serialization.Tests", "src/DesperateDevs.Serialization/tests/DesperateDevs.Serialization.Tests.csproj", "{ADD0A13F-9D8E-4907-BBA1-0E4E89A7481C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Tests", "DesperateDevs.Tests", "{1B55844B-7723-456A-8BF8-A2E9B5F0BE96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Tests", "src\DesperateDevs.Tests\tests\DesperateDevs.Tests.csproj", "{15D39FB6-5102-4405-B969-3FEE2F03A26A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Tests", "src/DesperateDevs.Tests/tests/DesperateDevs.Tests.csproj", "{15D39FB6-5102-4405-B969-3FEE2F03A26A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Threading", "DesperateDevs.Threading", "{BFF493EC-5867-42F0-AC3A-C0701B92B552}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Threading", "src\DesperateDevs.Threading\src\DesperateDevs.Threading.csproj", "{E412A694-B7BF-4633-B612-60137D401363}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Threading", "src/DesperateDevs.Threading/src/DesperateDevs.Threading.csproj", "{E412A694-B7BF-4633-B612-60137D401363}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Threading.Tests", "src\DesperateDevs.Threading\tests\DesperateDevs.Threading.Tests.csproj", "{C23782BC-EF4C-4A94-BDE8-4A1B83FDFC7E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Threading.Tests", "src/DesperateDevs.Threading/tests/DesperateDevs.Threading.Tests.csproj", "{C23782BC-EF4C-4A94-BDE8-4A1B83FDFC7E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Unity.Editor", "DesperateDevs.Unity.Editor", "{BE1641D9-9D6C-4B7C-96F1-5E6B09BC7816}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Unity.Editor", "src\DesperateDevs.Unity.Editor\src\DesperateDevs.Unity.Editor.csproj", "{7E8275B1-672A-46F8-91F3-8803C1E46306}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Unity.Editor", "src/DesperateDevs.Unity.Editor/src/DesperateDevs.Unity.Editor.csproj", "{7E8275B1-672A-46F8-91F3-8803C1E46306}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Unity", "DesperateDevs.Unity", "{D986BA75-F59B-499A-ADC5-D917765BC68D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Unity", "src\DesperateDevs.Unity\src\DesperateDevs.Unity.csproj", "{8C153439-05B7-4446-BF7F-437775B9521B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Unity", "src/DesperateDevs.Unity/src/DesperateDevs.Unity.csproj", "{8C153439-05B7-4446-BF7F-437775B9521B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

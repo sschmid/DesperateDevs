@@ -6,10 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\DesperateDevs.CodeGeneration.CodeGenerator\src\DesperateDevs.CodeGeneration.CodeGenerator.csproj" />
-    <ProjectReference Include="..\..\DesperateDevs.CodeGeneration\src\DesperateDevs.CodeGeneration.csproj" />
-    <ProjectReference Include="..\..\DesperateDevs.Net\src\DesperateDevs.Net.csproj" />
-    <ProjectReference Include="..\..\DesperateDevs.Unity.Editor\src\DesperateDevs.Unity.Editor.csproj" />
+    <ProjectReference Include="../../DesperateDevs.CodeGeneration.CodeGenerator/src/DesperateDevs.CodeGeneration.CodeGenerator.csproj" />
+    <ProjectReference Include="../../DesperateDevs.CodeGeneration/src/DesperateDevs.CodeGeneration.csproj" />
+    <ProjectReference Include="../../DesperateDevs.Net/src/DesperateDevs.Net.csproj" />
+    <ProjectReference Include="../../DesperateDevs.Unity.Editor/src/DesperateDevs.Unity.Editor.csproj" />
   </ItemGroup>
 
   <ItemGroup>
