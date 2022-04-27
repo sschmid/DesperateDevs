@@ -2,6 +2,6 @@
 {
     public class TestClass
     {
-        public Project1.TestClass Value = new Project1.TestClass();
+        public DesperateDevs.Reflection.Tests.Project1.TestClass Value = new Project1.TestClass();
     }
 }
