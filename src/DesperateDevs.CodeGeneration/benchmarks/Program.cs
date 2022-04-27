@@ -2,7 +2,7 @@
 
 namespace DesperateDevs.CodeGeneration.Benchmarks
 {
-    class Program
+    static class Program
     {
         public static void Main(string[] args)
         {
