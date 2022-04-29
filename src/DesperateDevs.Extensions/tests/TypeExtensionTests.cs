@@ -9,7 +9,7 @@ namespace DesperateDevs.Extensions.Tests
     public class TypeExtensionTests
     {
         [Fact]
-        public void ReturnsFalseIfTypeDoesNotOmplementInterface()
+        public void ReturnsFalseIfTypeDoesNotImplementInterface()
         {
             typeof(object).ImplementsInterface<ITestInterface>().Should().BeFalse();
         }

@@ -6,16 +6,16 @@ namespace DesperateDevs.Extensions.Tests
     public class StringExtensionTests
     {
         [Fact]
-        public void UppercaseFirst() => "test".UppercaseFirst().Should().Be("Test");
+        public void UppercaseFirst() => "test".UpperFirst().Should().Be("Test");
 
         [Fact]
-        public void UppercaseFirstHandlesEmptyString() => string.Empty.UppercaseFirst().Should().Be(string.Empty);
+        public void UppercaseFirstHandlesEmptyString() => string.Empty.UpperFirst().Should().Be(string.Empty);
 
         [Fact]
-        public void LowercaseFirst() => "Test".LowercaseFirst().Should().Be("test");
+        public void LowercaseFirst() => "Test".LowerFirst().Should().Be("test");
 
         [Fact]
-        public void LowercaseFirstHandlesEmptyString() => string.Empty.LowercaseFirst().Should().Be(string.Empty);
+        public void LowercaseFirstHandlesEmptyString() => string.Empty.LowerFirst().Should().Be(string.Empty);
 
         [Fact]
         public void ToUnixLineEndings() => "1\r\n2\r3\n".ToUnixLineEndings().Should().Be("1\n2\n3\n");

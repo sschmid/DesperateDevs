@@ -6,13 +6,13 @@ namespace DesperateDevs.Extensions
 {
     public static class StringExtension
     {
-        public static string UppercaseFirst(this string str) => string.IsNullOrEmpty(str)
+        public static string UpperFirst(this string str) => string.IsNullOrEmpty(str)
             ? str
-            : char.ToUpper(str[0]) + str.Substring(1);
+            : char.ToUpper(str[0]) + str[1..];
 
-        public static string LowercaseFirst(this string str) => string.IsNullOrEmpty(str)
+        public static string LowerFirst(this string str) => string.IsNullOrEmpty(str)
             ? str
-            : char.ToLower(str[0]) + str.Substring(1);
+            : char.ToLower(str[0]) + str[1..];
 
         public static string ToUnixLineEndings(this string str) => str
             .Replace("\r\n", "\n")
@@ -57,7 +57,7 @@ namespace DesperateDevs.Extensions
             {
                 path = path.Replace(currentDirectory, string.Empty);
                 if (path.StartsWith("/"))
-                    path = path.Substring(1);
+                    path = path[1..];
             }
 
             return path;

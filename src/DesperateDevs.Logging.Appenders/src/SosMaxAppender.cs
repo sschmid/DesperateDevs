@@ -16,7 +16,7 @@ namespace DesperateDevs.Logging.Appenders
         }
 
         string MultilineMessage(string title, string message) =>
-            $"<title>{ReplaceXmlSymbols(title)}</title><message>{ReplaceXmlSymbols(message.Substring(message.IndexOf('\n') + 1))}</message>";
+            $"<title>{ReplaceXmlSymbols(title)}</title><message>{ReplaceXmlSymbols(message[(message.IndexOf('\n') + 1)..])}</message>";
 
         string ReplaceXmlSymbols(string str) => str
             .Replace("<", "&lt;")

@@ -23,8 +23,8 @@ namespace DesperateDevs.CodeGeneration
                         {
                             "lower" => value.ToString().ToLower(),
                             "upper" => value.ToString().ToUpper(),
-                            "lowerFirst" => value.ToString().LowercaseFirst(),
-                            "upperFirst" => value.ToString().UppercaseFirst(),
+                            "lowerFirst" => value.ToString().LowerFirst(),
+                            "upperFirst" => value.ToString().UpperFirst(),
                             "foreach" => ForEach((IEnumerable<object>)value, split[2]),
                             _ => value.ToString()
                         }
