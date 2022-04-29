@@ -16,33 +16,22 @@ namespace DesperateDevs.CodeGeneration
             match =>
             {
                 var split = match.Groups[1].Value.Split(':');
-                var key = split[0];
-                if (TryGetValue(key, out var value))
-                {
-                    if (split.Length == 1)
-                    {
-                        return value.ToString();
-                    }
-                    else
-                    {
-                        switch (split[1])
+                return TryGetValue(split[0], out var value)
+                    ? split.Length == 1
+                        ? value.ToString()
+                        : split[1] switch
                         {
-                            case "lower": return value.ToString().ToLower();
-                            case "upper": return value.ToString().ToUpper();
-                            case "lowerFirst": return value.ToString().LowercaseFirst();
-                            case "upperFirst": return value.ToString().UppercaseFirst();
-                            case "foreach": return ForEach((IEnumerable<object>)value, split[2]);
-                            default: return value.ToString();
+                            "lower" => value.ToString().ToLower(),
+                            "upper" => value.ToString().ToUpper(),
+                            "lowerFirst" => value.ToString().LowercaseFirst(),
+                            "upperFirst" => value.ToString().UppercaseFirst(),
+                            "foreach" => ForEach((IEnumerable<object>)value, split[2]),
+                            _ => value.ToString()
                         }
-                    }
-                }
-                else
-                {
-                    return match.Value;
-                }
+                    : match.Value;
             });
 
-        string ForEach(IEnumerable<object> values, string template)
+        static string ForEach(IEnumerable<object> values, string template)
         {
             var result = string.Empty;
             foreach (var value in values)
