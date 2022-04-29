@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml;
 using FluentAssertions;
+using Microsoft.Build.Locator;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.MSBuild;
 using Xunit;
@@ -64,6 +65,7 @@ namespace DesperateDevs.Tests
 
         static Task<Solution> OpenSolutionAsync()
         {
+            if (!MSBuildLocator.IsRegistered) MSBuildLocator.RegisterDefaults();
             using (var workspace = MSBuildWorkspace.Create())
             {
                 workspace.LoadMetadataForReferencedProjects = true;

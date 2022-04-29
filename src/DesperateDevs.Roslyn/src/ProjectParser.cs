@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using DesperateDevs.Logging;
+using Microsoft.Build.Locator;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.MSBuild;
 
@@ -16,6 +17,7 @@ namespace DesperateDevs.Roslyn
         {
             _logger.Debug("Opening " + projectPath);
 
+            if (!MSBuildLocator.IsRegistered) MSBuildLocator.RegisterDefaults();
             using (var workspace = MSBuildWorkspace.Create())
             {
                 _project = workspace.OpenProjectAsync(projectPath).Result;
