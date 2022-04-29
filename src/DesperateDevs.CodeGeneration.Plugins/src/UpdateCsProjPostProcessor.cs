@@ -7,7 +7,7 @@ using DesperateDevs.Extensions;
 
 namespace DesperateDevs.CodeGeneration.Plugins
 {
-    public class UpdateCSProjPostProcessor : IPostProcessor, IConfigurable
+    public class UpdateCsProjPostProcessor : IPostProcessor, IConfigurable
     {
         public string Name => "Update .csproj";
         public int Order => 96;

@@ -12,7 +12,7 @@ namespace DesperateDevs.CodeGeneration.Plugins
         public CodeGenFile[] PostProcess(CodeGenFile[] files)
         {
             var pathToFile = new Dictionary<string, CodeGenFile>();
-            for (int i = 0; i < files.Length; i++)
+            for (var i = 0; i < files.Length; i++)
             {
                 var file = files[i];
                 if (!pathToFile.ContainsKey(file.FileName))
