@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using FluentAssertions;
 using Xunit;
 
@@ -27,7 +28,7 @@ namespace DesperateDevs.Cli.Utils.Tests
         [Fact]
         public void FiltersDefaultParameter()
         {
-            var filtered = new[] {"-v", "-s", "-d", "value"}.WithoutDefaultParameter();
+            var filtered = new[] {"-v", "-s", "-d", "value"}.WithoutDefaultParameter().ToArray();
             filtered.Length.Should().Be(1);
             filtered.Should().Contain("value");
         }
@@ -35,7 +36,7 @@ namespace DesperateDevs.Cli.Utils.Tests
         [Fact]
         public void KeepsCustomParameter()
         {
-            var filtered = new[] {"-v", "-s", "-d", "-f"}.WithoutDefaultParameter();
+            var filtered = new[] {"-v", "-s", "-d", "-f"}.WithoutDefaultParameter().ToArray();
             filtered.Length.Should().Be(1);
             filtered.Should().Contain("-f");
         }
@@ -43,7 +44,7 @@ namespace DesperateDevs.Cli.Utils.Tests
         [Fact]
         public void FiltersAllParameter()
         {
-            var filtered = new[] {"-v", "-s", "-d", "-x", "-y", "value"}.WithoutParameter();
+            var filtered = new[] {"-v", "-s", "-d", "-x", "-y", "value"}.WithoutParameter().ToArray();
             filtered.Length.Should().Be(1);
             filtered.Should().Contain("value");
         }
@@ -51,7 +52,7 @@ namespace DesperateDevs.Cli.Utils.Tests
         [Fact]
         public void FiltersTrigger()
         {
-            var filtered = new[] {"value1", "-p", "value2"}.WithoutTrigger();
+            var filtered = new[] {"value1", "-p", "value2"}.WithoutTrigger().ToArray();
             filtered.Length.Should().Be(2);
             filtered.Should().Contain("-p");
             filtered.Should().Contain("value2");

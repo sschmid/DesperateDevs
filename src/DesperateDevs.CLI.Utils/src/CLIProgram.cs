@@ -28,7 +28,7 @@ namespace DesperateDevs.Cli.Utils
 
         public void Run()
         {
-            if (_args?.WithoutParameter().Length != 0)
+            if (_args?.WithoutParameter().Any() ?? false)
             {
                 RunCommand(_args);
             }
@@ -99,7 +99,7 @@ namespace DesperateDevs.Cli.Utils
         {
             try
             {
-                GetCommand(args.WithoutDefaultParameter()[0]).Run(this, args);
+                GetCommand(args.WithoutDefaultParameter().First()).Run(this, args);
             }
             catch (Exception exception)
             {
@@ -110,22 +110,13 @@ namespace DesperateDevs.Cli.Utils
 
         void InitializeLogging(string[] args, ConsoleColors consoleColors)
         {
-            if (args.IsSilent())
-            {
-                Sherlog.GlobalLogLevel = LogLevel.Error;
-            }
-            else if (args.IsVerbose())
-            {
-                Sherlog.GlobalLogLevel = LogLevel.Debug;
-            }
-            else
-            {
-                Sherlog.GlobalLogLevel = LogLevel.Info;
-            }
+            if (args.IsSilent()) Sherlog.GlobalLogLevel = LogLevel.Error;
+            else if (args.IsVerbose()) Sherlog.GlobalLogLevel = LogLevel.Debug;
+            else Sherlog.GlobalLogLevel = LogLevel.Info;
 
             var formatter = args.IsDebug()
                 ? (LogFormatter)new LogMessageFormatter().FormatMessage
-                : (logger, level, message) => message;
+                : (_, _, message) => message;
 
             Sherlog.ResetAppenders();
             Sherlog.AddAppender((logger, logLevel, message) =>

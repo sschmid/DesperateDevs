@@ -11,7 +11,7 @@ namespace DesperateDevs.Cli.Utils
         int _index;
         string _appendix;
 
-        public Spinner(SpinnerStyle style) : this(style.interval, style.frames) { }
+        public Spinner(SpinnerStyle style) : this(style.Interval, style.Frames) { }
 
         public Spinner(int interval, params string[] frames)
         {

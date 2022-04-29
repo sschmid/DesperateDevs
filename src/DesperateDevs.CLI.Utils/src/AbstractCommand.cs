@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace DesperateDevs.Cli.Utils
 {
     public abstract class AbstractCommand : ICommand
@@ -17,7 +19,8 @@ namespace DesperateDevs.Cli.Utils
             _rawArgs = args;
             _args = args
                 .WithoutTrigger()
-                .WithoutDefaultParameter();
+                .WithoutDefaultParameter()
+                .ToArray();
 
             Run();
         }

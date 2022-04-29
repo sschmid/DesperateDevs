@@ -5,16 +5,16 @@
 
     public class SpinnerStyle
     {
-        public int interval;
-        public string[] frames;
+        public int Interval;
+        public string[] Frames;
     }
 
     public static class SpinnerStyles
     {
         public static SpinnerStyle MagnifyingGlass => new SpinnerStyle
         {
-            interval = 100,
-            frames = new[]
+            Interval = 100,
+            Frames = new[]
             {
                 "🔍    ",
                 " 🔍   ",
@@ -27,8 +27,8 @@
 
         public static SpinnerStyle BouncingBar => new SpinnerStyle
         {
-            interval = 80,
-            frames = new[]
+            Interval = 80,
+            Frames = new[]
             {
                 "[    ]",
                 "[=   ]",
@@ -50,8 +50,8 @@
 
         public static SpinnerStyle BouncingBall => new SpinnerStyle
         {
-            interval = 80,
-            frames = new[]
+            Interval = 80,
+            Frames = new[]
             {
                 "( ●    )",
                 "(  ●   )",
@@ -68,8 +68,8 @@
 
         public static SpinnerStyle Clock => new SpinnerStyle
         {
-            interval = 100,
-            frames = new[]
+            Interval = 100,
+            Frames = new[]
             {
                 "🕛 ",
                 "🕐 ",
@@ -88,8 +88,8 @@
 
         public static SpinnerStyle MagicCat => new SpinnerStyle
         {
-            interval = 120,
-            frames = new[]
+            Interval = 120,
+            Frames = new[]
             {
                 "   ∧＿∧\n" +
                 " （｡･ω･｡)つ━☆        \n" +

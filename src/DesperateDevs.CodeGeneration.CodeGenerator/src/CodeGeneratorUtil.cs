@@ -11,7 +11,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator
 {
     public static class CodeGeneratorUtil
     {
-        static readonly DesperateDevs.Logging.Logger _logger = Sherlog.GetLogger(typeof(CodeGeneratorUtil).FullName);
+        static readonly Logger _logger = Sherlog.GetLogger(typeof(CodeGeneratorUtil).FullName);
 
         public static CodeGenerator CodeGeneratorFromPreferences(Preferences preferences)
         {
