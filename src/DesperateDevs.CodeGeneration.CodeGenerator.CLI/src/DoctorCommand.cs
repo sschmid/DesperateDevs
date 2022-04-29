@@ -31,7 +31,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
 
         void Diagnose()
         {
-            var doctors = AppDomain.CurrentDomain.GetInstancesOf<IDoctor>();
+            var doctors = AppDomain.CurrentDomain.GetInstancesOf<IDoctor>().ToArray();
             foreach (var doctor in doctors.OfType<IConfigurable>())
                 doctor.Configure(_preferences);
 

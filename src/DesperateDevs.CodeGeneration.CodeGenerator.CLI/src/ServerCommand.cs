@@ -32,7 +32,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
             server.Listen(config.Port);
             Console.CancelKeyPress += OnCancel;
             while (true)
-                server.Send(Encoding.UTF8.GetBytes(Console.ReadLine()));
+                server.Send(Encoding.UTF8.GetBytes(Console.ReadLine() ?? string.Empty));
         }
 
         void OnReceived(AbstractTcpSocket socket, Socket client, byte[] bytes)
@@ -49,7 +49,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
                     throw new Exception("Server is already running!");
                 }
 
-                var command = _program.GetCommand(args.WithoutDefaultParameter()[0]);
+                var command = _program.GetCommand(args.WithoutDefaultParameter().First());
                 Sherlog.AddAppender(OnLog);
                 command.Run(_program, args);
                 Sherlog.RemoveAppender(OnLog);

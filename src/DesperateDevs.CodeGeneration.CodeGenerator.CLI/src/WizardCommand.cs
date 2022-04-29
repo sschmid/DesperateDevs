@@ -3,7 +3,6 @@ using System.IO;
 using DesperateDevs.Cli.Utils;
 using DesperateDevs.Logging;
 using DesperateDevs.Serialization;
-using DesperateDevs.Serialization.Cli.Utils;
 
 namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
 {

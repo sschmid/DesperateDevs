@@ -41,7 +41,11 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
             foreach (var plugin in allPlugins)
             {
                 var localPlugin = plugin;
-                var entry = new SelectableMenuEntry(localPlugin, config.Plugins.Contains(localPlugin), isSelected => UpdateConfig(config, localPlugin, isSelected));
+                var entry = new SelectableMenuEntry(
+                    localPlugin,
+                    config.Plugins.Contains(localPlugin),
+                    isSelected => UpdateConfig(config, localPlugin, isSelected)
+                );
                 AddMenuEntry(entry);
                 pluginEntries.Add(entry);
             }

@@ -44,7 +44,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
 
         void RunDoctors()
         {
-            var doctors = AppDomain.CurrentDomain.GetInstancesOf<IDoctor>();
+            var doctors = AppDomain.CurrentDomain.GetInstancesOf<IDoctor>().ToArray();
             foreach (var doctor in doctors.OfType<IConfigurable>())
                 doctor.Configure(_preferences);
 
@@ -75,7 +75,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
         void FixSearchPath(ICodeGenerationPlugin[] instances, CodeGeneratorConfig config, Preferences preferences)
         {
             var requiredSearchPaths = instances
-                .Select(instance => Path.GetDirectoryName(instance.GetType().Assembly.CodeBase.MakePathRelativeTo(Directory.GetCurrentDirectory())))
+                .Select(instance => Path.GetDirectoryName(instance.GetType().Assembly.Location.MakePathRelativeTo(Directory.GetCurrentDirectory())))
                 .Distinct()
                 .Select(Path.GetFullPath)
                 .OrderBy(path => path)
@@ -467,7 +467,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
             for (var i = 0; i < collisions.Length; i++)
                 chars[i] = (i + 1).ToString()[0];
 
-            chars[chars.Length - 1] = '0';
+            chars[^1] = '0';
             return chars;
         }
 
