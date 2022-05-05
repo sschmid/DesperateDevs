@@ -7,8 +7,10 @@ namespace DesperateDevs.Logging
     public class Logger
     {
         public event LogDelegate OnLog;
-        public LogLevel LogLevel { get; set; }
-        public string Name { get; }
+
+        public readonly string Name;
+
+        public LogLevel LogLevel;
 
         public Logger(string name) => Name = name;
 
