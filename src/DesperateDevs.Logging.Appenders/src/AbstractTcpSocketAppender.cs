@@ -7,6 +7,7 @@ namespace DesperateDevs.Logging.Appenders
     public abstract class AbstractTcpSocketAppender
     {
         readonly List<HistoryEntry> _history = new List<HistoryEntry>();
+
         AbstractTcpSocket _socket;
 
         public void Connect(IPAddress ip, int port)

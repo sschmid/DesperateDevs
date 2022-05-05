@@ -13,10 +13,8 @@ namespace DesperateDevs.Logging.Appenders
         {
             lock (_lock)
             {
-                using (var writer = new StreamWriter(_filePath, true))
-                {
-                    writer.WriteLine(message);
-                }
+                using var writer = new StreamWriter(_filePath, true);
+                writer.WriteLine(message);
             }
         }
 
@@ -24,10 +22,8 @@ namespace DesperateDevs.Logging.Appenders
         {
             lock (_lock)
             {
-                using (var writer = new StreamWriter(_filePath, false))
-                {
-                    writer.Write(string.Empty);
-                }
+                using var writer = new StreamWriter(_filePath, false);
+                writer.Write(string.Empty);
             }
         }
     }
