@@ -28,7 +28,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
             client.OnConnected += OnConnected;
             client.OnReceived += OnReceived;
             client.OnDisconnected += OnDisconnected;
-            client.Connect(config.Host.ResolveHost(), config.Port);
+            client.Connect(config.Host, config.Port);
 
             while (true) { }
         }

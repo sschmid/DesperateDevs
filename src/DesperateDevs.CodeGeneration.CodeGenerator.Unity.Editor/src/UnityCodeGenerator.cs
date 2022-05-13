@@ -82,7 +82,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
             client.OnConnected += OnConnected;
             client.OnReceived += OnReceive;
             client.OnDisconnected += OnDisconnect;
-            client.Connect(config.Host.ResolveHost(), config.Port);
+            client.Connect(config.Host, config.Port);
         }
 
         static void OnConnected(TcpClientSocket client)

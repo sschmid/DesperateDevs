@@ -14,12 +14,12 @@ namespace DesperateDevs.Net.Cli
 
         protected override void Run()
         {
-            IPAddress ip;
+            string ip;
             int port;
 
             try
             {
-                ip = _args[0].ResolveHost();
+                ip = _args[0];
                 port = int.Parse(_args[1]);
             }
             catch (Exception)

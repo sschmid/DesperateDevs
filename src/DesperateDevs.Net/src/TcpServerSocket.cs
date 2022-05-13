@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -15,19 +14,60 @@ namespace DesperateDevs.Net
 
         public int Count => _clients.Count;
 
-        readonly Dictionary<string, Socket> _clients;
+        readonly Dictionary<string, Socket> _clients = new Dictionary<string, Socket>();
 
-        public TcpServerSocket() : base(typeof(TcpServerSocket).FullName)
-        {
-            _clients = new Dictionary<string, Socket>();
-        }
+        public TcpServerSocket() : base(typeof(TcpServerSocket).FullName) { }
 
         public void Listen(int port)
         {
-            _logger.Info("Server is listening on port " + port + "...");
+            _logger.Info($"Listening on port {port}");
             _socket.Bind(new IPEndPoint(IPAddress.Any, port));
             _socket.Listen(128);
-            _socket.BeginAccept(OnAccept, _socket);
+            AcceptAsync();
+        }
+
+        void AcceptAsync()
+        {
+            var args = new SocketAsyncEventArgs();
+            args.Completed += OnAccept;
+            if (!_socket.AcceptAsync(args))
+                OnAccept(_socket, args);
+        }
+
+        void OnAccept(object sender, SocketAsyncEventArgs args)
+        {
+            if (args.SocketError == SocketError.Success)
+            {
+                var key = KeyForEndPoint((IPEndPoint)args.AcceptSocket.RemoteEndPoint);
+                _clients.Add(key, args.AcceptSocket);
+                _logger.Debug($"Accepted new client connection from {key}");
+                OnClientConnected?.Invoke(this, args.AcceptSocket);
+                ReceiveAsync(args.AcceptSocket);
+                AcceptAsync();
+            }
+        }
+
+        protected override void OnReceive(object sender, SocketAsyncEventArgs args)
+        {
+            if (args.SocketError == SocketError.Success)
+            {
+                var client = (Socket)sender;
+                if (args.BytesTransferred == 0)
+                {
+                    if (client.Connected)
+                    {
+                        args.UserToken = sender;
+                        OnClientDisconnect(sender, args);
+                    }
+                }
+                else
+                {
+                    var key = KeyForEndPoint((IPEndPoint)client.RemoteEndPoint);
+                    _logger.Debug($"Received {args.BytesTransferred} bytes from {key}");
+                    TriggerOnReceived(client, args.Buffer, args.BytesTransferred);
+                    ReceiveAsync(client);
+                }
+            }
         }
 
         public Socket GetClientWithRemoteEndPoint(IPEndPoint endPoint)
@@ -42,127 +82,46 @@ namespace DesperateDevs.Net
                 foreach (var client in _clients.Values.ToArray())
                     Send(client, buffer);
             else
-                _logger.Debug("Server doesn't have any connected clients. Won't send.");
+                _logger.Debug("No connected clients. Won't send.");
         }
 
         public void SendTo(byte[] buffer, IPEndPoint endPoint) =>
             Send(GetClientWithRemoteEndPoint(endPoint), buffer);
 
-        public void DisconnectClient(IPEndPoint endPoint)
-        {
-            var client = GetClientWithRemoteEndPoint(endPoint);
-            client.Shutdown(SocketShutdown.Both);
-            client.BeginDisconnect(false, OnDisconnectClient, client);
-        }
+        public void DisconnectClient(IPEndPoint endPoint) =>
+            DisconnectClient(GetClientWithRemoteEndPoint(endPoint));
 
         public override void Disconnect()
         {
             _socket.Close();
-            _logger.Info("Server stopped listening");
-
+            _logger.Info("Stopped listening");
             foreach (var client in _clients.Values.ToArray())
+                DisconnectClient(client);
+        }
+
+        void DisconnectClient(Socket client)
+        {
+            if (client != null && client.Connected)
             {
                 client.Shutdown(SocketShutdown.Both);
-                client.BeginDisconnect(false, OnDisconnectClient, client);
+                var args = new SocketAsyncEventArgs();
+                args.Completed += OnClientDisconnect;
+                if (!client.DisconnectAsync(args))
+                    OnClientDisconnect(client, args);
             }
         }
 
-        void OnAccept(IAsyncResult ar)
+        void OnClientDisconnect(object sender, SocketAsyncEventArgs args)
         {
-            var server = (Socket)ar.AsyncState;
-            Socket client = null;
-
-            try
-            {
-                client = server.EndAccept(ar);
-            }
-            catch (ObjectDisposedException)
-            {
-                // Intended catch:
-                // ObjectDisposedException "Cannot access a disposed object."
-
-                // Caused by:
-                // tcpServerSocket.Disconnect() calls socket.Close() while socket.BeginAccept() is in progress.
-
-                // Explanation:
-                // When the socket.Close() method is called while an asynchronous operation is in progress,
-                // the callback provided to the socket.BeginAccept method is called.
-                // A subsequent call to the socket.EndAccept method will throw an ObjectDisposedException
-                // to indicate that the operation has been cancelled.
-            }
-
-            if (client != null)
-            {
-                AddClient(client);
-                _socket.BeginAccept(OnAccept, _socket);
-            }
-        }
-
-        void AddClient(Socket client)
-        {
-            var key = KeyForEndPoint((IPEndPoint)client.RemoteEndPoint);
-            _clients.Add(key, client);
-            _logger.Debug("Server accepted new client connection from " + key);
-            Receive(new ReceiveVO(client, new byte[client.ReceiveBufferSize]));
-            OnClientConnected?.Invoke(this, client);
-        }
-
-        protected override void OnReceive(IAsyncResult ar)
-        {
-            var receiveVO = (ReceiveVO)ar.AsyncState;
-            var bytesReceived = 0;
-            try
-            {
-                bytesReceived = receiveVO.Socket.EndReceive(ar);
-            }
-            catch (SocketException)
-            {
-                // Intended catch:
-                // SocketException "interrupted"
-
-                // Caused by:
-                // tcpServerSocket.Disconnect() disconnects each client while socket.BeginReceive() is in progress.
-                // This will interrupt
-            }
-
-            if (bytesReceived == 0)
-            {
-                if (receiveVO.Socket.Connected)
-                {
-                    RemoveClient(receiveVO.Socket);
-                }
-                else
-                {
-                    // Server manually disconnected client via server.Disconnect() and will
-                    // close client in onDisconnectClient()
-                }
-            }
-            else
-            {
-                var key = KeyForEndPoint((IPEndPoint)receiveVO.Socket.RemoteEndPoint);
-                _logger.Debug("Server received " + bytesReceived + " bytes from " + key);
-                TriggerOnReceived(receiveVO, bytesReceived);
-                Receive(receiveVO);
-            }
-        }
-
-        void RemoveClient(Socket socket)
-        {
-            var key = _clients.Single(kvp => kvp.Value == socket).Key;
-            _clients.Remove(key);
-            socket.Close();
-            _logger.Debug("Client " + key + " disconnected from server");
-            OnClientDisconnected?.Invoke(this, socket);
-        }
-
-        void OnDisconnectClient(IAsyncResult ar)
-        {
-            var client = (Socket)ar.AsyncState;
+            var client = (Socket)sender;
             var key = _clients.Single(kvp => kvp.Value == client).Key;
             _clients.Remove(key);
-            client.EndDisconnect(ar);
+            client.Shutdown(SocketShutdown.Both);
             client.Close();
-            _logger.Debug("Server disconnected client " + key);
+            _logger.Debug(args.UserToken != null
+                ? $"Client {key} disconnected"
+                : $"Disconnected client {key}");
+            OnClientDisconnected?.Invoke(this, client);
         }
     }
 }

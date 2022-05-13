@@ -5,21 +5,9 @@ using DesperateDevs.Logging;
 
 namespace DesperateDevs.Net
 {
-    public class ReceiveVO
-    {
-        public readonly Socket Socket;
-        public readonly byte[] Bytes;
-
-        public ReceiveVO(Socket socket, byte[] bytes)
-        {
-            Socket = socket;
-            Bytes = bytes;
-        }
-    }
-
     public delegate void TcpSocketReceive(AbstractTcpSocket tcpSocket, Socket socket, byte[] bytes);
 
-    public abstract class AbstractTcpSocket
+    public abstract class AbstractTcpSocket : IDisposable
     {
         public event TcpSocketReceive OnReceived;
 
@@ -41,59 +29,49 @@ namespace DesperateDevs.Net
         protected void Send(Socket socket, byte[] buffer)
         {
             var key = KeyForEndPoint((IPEndPoint)socket.RemoteEndPoint);
-            _logger.Debug("Sending " + buffer.Length + " bytes via " + key);
-
-            socket.BeginSend(
-                buffer,
-                0,
-                buffer.Length,
-                SocketFlags.None,
-                OnSent,
-                socket
-            );
+            _logger.Debug($"Sending {buffer.Length} bytes via {key}...");
+            var args = new SocketAsyncEventArgs();
+            args.SetBuffer(buffer, 0, buffer.Length);
+            args.Completed += OnSend;
+            if (!socket.SendAsync(args))
+                OnSend(socket, args);
         }
 
-        void OnSent(IAsyncResult ar)
+        void OnSend(object sender, SocketAsyncEventArgs args)
         {
-            var socket = (Socket)ar.AsyncState;
-            try
-            {
-                socket.EndSend(ar);
-            }
-            catch (ObjectDisposedException)
-            {
-                // ignored
-            }
+            var key = KeyForEndPoint((IPEndPoint)((Socket)sender).RemoteEndPoint);
+            _logger.Debug($"Sent {args.Buffer.Length} bytes via {key}...");
         }
 
-        protected void Receive(ReceiveVO receiveVO)
+        protected void ReceiveAsync(Socket socket)
         {
-            receiveVO.Socket.BeginReceive(
-                receiveVO.Bytes,
-                0,
-                receiveVO.Bytes.Length,
-                SocketFlags.None,
-                OnReceive,
-                receiveVO
-            );
+            var args = new SocketAsyncEventArgs();
+            args.SetBuffer(new byte[socket.ReceiveBufferSize], 0, socket.ReceiveBufferSize);
+            args.Completed += OnReceive;
+            if (!socket.ReceiveAsync(args))
+                OnReceive(socket, args);
         }
 
-        protected abstract void OnReceive(IAsyncResult ar);
+        protected abstract void OnReceive(object sender, SocketAsyncEventArgs args);
 
         public abstract void Disconnect();
 
-        protected void TriggerOnReceived(ReceiveVO receiveVO, int bytesReceived)
-        {
-            OnReceived?.Invoke(this, receiveVO.Socket, TrimmedBytes(receiveVO.Bytes, bytesReceived));
-        }
+        protected void TriggerOnReceived(Socket socket, byte[] bytes, int bytesReceived) =>
+            OnReceived?.Invoke(this, socket, TrimmedBytes(bytes, bytesReceived));
 
-        protected static string KeyForEndPoint(IPEndPoint endPoint) => endPoint.Address + ":" + endPoint.Port;
+        protected static string KeyForEndPoint(IPEndPoint endPoint) => $"{endPoint.Address}:{endPoint.Port}";
 
         static byte[] TrimmedBytes(byte[] bytes, int length)
         {
             var trimmed = new byte[length];
             Array.Copy(bytes, trimmed, length);
             return trimmed;
+        }
+
+        public void Dispose()
+        {
+            _socket.Close();
+            _socket.Dispose();
         }
     }
 }

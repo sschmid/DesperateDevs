@@ -76,7 +76,7 @@ namespace DesperateDevs.Logging.Tests
         [Fact]
         public void AssertThrowsWhenConditionIsFalse()
         {
-            _logger.Invoking(logger => logger.Assert(false, "fail"))
+            FluentActions.Invoking(() => _logger.Assert(false, "fail"))
                 .Should().Throw<SherlogAssertException>();
         }
 

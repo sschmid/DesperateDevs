@@ -25,11 +25,11 @@ namespace DesperateDevs.Net.Tests
         {
             const string message = "123456";
             var messages = 0;
-            _parser.OnMessage += (p, b) =>
+            _parser.OnMessage += (parser, bytes) =>
             {
                 messages += 1;
-                p.Should().BeSameAs(_parser);
-                Encoding.UTF8.GetString(b).Should().Be(message);
+                parser.Should().BeSameAs(_parser);
+                Encoding.UTF8.GetString(bytes).Should().Be(message);
             };
 
             var bytes = TcpMessageParser.WrapMessage(Encoding.UTF8.GetBytes(message));
@@ -43,7 +43,7 @@ namespace DesperateDevs.Net.Tests
             const string message = "123456";
             const string partialMessage = "123";
 
-            _parser.OnMessage += (p, b) => throw new Exception("parser.OnMessage");
+            _parser.OnMessage += delegate { throw new Exception("parser.OnMessage"); };
 
             var lengthPrefix = BitConverter.GetBytes(message.Length);
             var prefixedMessage = new byte[lengthPrefix.Length + partialMessage.Length];
@@ -63,10 +63,10 @@ namespace DesperateDevs.Net.Tests
             const string partialMessage2 = "456";
 
             var messages = 0;
-            _parser.OnMessage += (p, b) =>
+            _parser.OnMessage += (parser, bytes) =>
             {
                 messages += 1;
-                Encoding.UTF8.GetString(b).Should().Be(message);
+                Encoding.UTF8.GetString(bytes).Should().Be(message);
             };
 
             var lengthPrefix = BitConverter.GetBytes(message.Length);
@@ -90,18 +90,13 @@ namespace DesperateDevs.Net.Tests
             const string message1 = "123456";
             const string message2 = "abcdef";
             var messages = 0;
-            _parser.OnMessage += (p, b) =>
+            _parser.OnMessage += (parser, bytes) =>
             {
                 messages += 1;
-
                 if (messages == 1)
-                {
-                    Encoding.UTF8.GetString(b).Should().Be(message1);
-                }
+                    Encoding.UTF8.GetString(bytes).Should().Be(message1);
                 else if (messages == 2)
-                {
-                    Encoding.UTF8.GetString(b).Should().Be(message2);
-                }
+                    Encoding.UTF8.GetString(bytes).Should().Be(message2);
             };
 
             var bytes1 = TcpMessageParser.WrapMessage(Encoding.UTF8.GetBytes(message1));
