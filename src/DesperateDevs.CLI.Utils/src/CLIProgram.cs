@@ -90,7 +90,7 @@ namespace DesperateDevs.Cli.Utils
             {
                 var groupHeader = group.Key == string.Empty ? string.Empty : group.Key + ":\n";
                 var commandInGroup = string.Join("\n", group
-                    .Select(command => "  " + command.Example.PadRight(pad) + " - " + command.Description));
+                    .Select(command => $"  {command.Example.PadRight(pad)}   {command.Description}"));
                 return groupHeader + "\n" + commandInGroup + "\n";
             }));
         }

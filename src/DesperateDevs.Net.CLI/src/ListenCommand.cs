@@ -21,7 +21,7 @@ namespace DesperateDevs.Net.Cli
             }
             catch (Exception)
             {
-                _logger.Warn("Invalid port");
+                _logger.Error("Invalid port");
                 return;
             }
 

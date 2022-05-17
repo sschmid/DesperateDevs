@@ -26,11 +26,12 @@ namespace DesperateDevs.Net.Cli
             Console.CancelKeyPress += OnCancel;
             while (true)
             {
-                _socket.Send(TcpMessageParser.WrapMessage(Encoding.UTF8.GetBytes(Console.ReadLine())));
+                _socket.Send(TcpMessageParser.WrapMessage(Encoding.UTF8.GetBytes(Console.ReadLine() ?? string.Empty)));
             }
         }
 
         void OnMessage(TcpMessageParser messageParser, byte[] bytes) => _logger.Info(Encoding.UTF8.GetString(bytes));
+
         protected void OnReceive(AbstractTcpSocket socket, Socket client, byte[] bytes) => _tcpMessageParser.Receive(bytes);
         protected void OnCancel(object sender, ConsoleCancelEventArgs e) => _socket.Disconnect();
     }
