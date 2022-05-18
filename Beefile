@@ -6,7 +6,6 @@ BEE_PLUGINS=(desperatedevs)
 [[ -f ~/.bee/desperatedevs.bash ]] && source ~/.bee/desperatedevs.bash
 
 DEDE_UNITY_PROJECTS=(
-  src/DesperateDevs.Tests/unity/Unity-2019.4
   src/DesperateDevs.Tests/unity/Unity-2020.3
   src/DesperateDevs.Tests/unity/Unity-2021.3
 )
