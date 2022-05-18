@@ -110,7 +110,9 @@ namespace DesperateDevs.Serialization
                 currentProperty += line;
                 if (currentProperty.EndsWith("\\", StringComparison.Ordinal))
                 {
-                    currentProperty = currentProperty[..^1];
+                    currentProperty = currentProperty.Substring(
+                        0, currentProperty.Length - 1
+                    );
                 }
                 else
                 {

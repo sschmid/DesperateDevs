@@ -467,7 +467,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator.Cli
             for (var i = 0; i < collisions.Length; i++)
                 chars[i] = (i + 1).ToString()[0];
 
-            chars[^1] = '0';
+            chars[chars.Length - 1] = '0';
             return chars;
         }
 

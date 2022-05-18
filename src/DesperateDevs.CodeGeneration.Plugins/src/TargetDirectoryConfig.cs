@@ -24,7 +24,7 @@ namespace DesperateDevs.CodeGeneration.Plugins
                 return "Generated";
 
             if (directory.EndsWith("/", StringComparison.Ordinal))
-                directory = directory[..^1];
+                directory = directory.Substring(0, directory.Length - 1);
 
             if (!directory.EndsWith("/Generated", StringComparison.OrdinalIgnoreCase))
                 directory += "/Generated";
