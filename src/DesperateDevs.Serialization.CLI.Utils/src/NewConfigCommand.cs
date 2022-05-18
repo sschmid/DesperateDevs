@@ -18,7 +18,7 @@ namespace DesperateDevs.Serialization.Cli.Utils
             var properties = _args.GetPropertiesPath();
             var userProperties = _args.GetUserPropertiesPath();
 
-            if (!_args.IsForce() && (DoesAlreadyExist(properties) || DoesAlreadyExist(userProperties)))
+            if (!_args.IsForce() && (Exists(properties) || Exists(userProperties)))
                 return;
 
             var preferences = new Preferences(properties, userProperties);
@@ -35,7 +35,7 @@ namespace DesperateDevs.Serialization.Cli.Utils
                 new EditConfigCommand().Run(_program, _args);
         }
 
-        bool DoesAlreadyExist(string path)
+        bool Exists(string path)
         {
             if (File.Exists(path))
             {
@@ -45,8 +45,10 @@ namespace DesperateDevs.Serialization.Cli.Utils
 
                 return true;
             }
-
-            return false;
+            else
+            {
+                return false;
+            }
         }
     }
 }

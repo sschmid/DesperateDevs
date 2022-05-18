@@ -20,7 +20,7 @@ namespace DesperateDevs.Extensions.Benchmarks
             var d3 = CreateDict(2, 3);
             var d4 = CreateDict(3, 4);
             var d5 = CreateDict(4, 5);
-            return d1.Merge(d2, d3, d4, d5);
+            return d1.Merge(new[] {d2, d3, d4, d5});
         }
 
         Dictionary<string, string> CreateDict(int start, int end)

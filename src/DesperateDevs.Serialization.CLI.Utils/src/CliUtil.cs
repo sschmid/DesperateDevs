@@ -11,7 +11,6 @@ namespace DesperateDevs.Serialization.Cli.Utils
             new Dictionary<string, string>().Merge(
                 AppDomain.CurrentDomain
                     .GetInstancesOf<IConfigurable>()
-                    .Select(instance => instance.DefaultProperties)
-                    .ToArray());
+                    .Select(instance => instance.DefaultProperties));
     }
 }

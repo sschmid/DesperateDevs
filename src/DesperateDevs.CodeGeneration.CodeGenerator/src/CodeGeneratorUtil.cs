@@ -98,8 +98,7 @@ namespace DesperateDevs.CodeGeneration.CodeGenerator
                     .Concat(GetEnabledInstancesOf<IDataProvider>(instances, config.DataProviders).OfType<IConfigurable>())
                     .Concat(GetEnabledInstancesOf<ICodeGenerator>(instances, config.CodeGenerators).OfType<IConfigurable>())
                     .Concat(GetEnabledInstancesOf<IPostProcessor>(instances, config.PostProcessors).OfType<IConfigurable>())
-                    .Select(instance => instance.DefaultProperties)
-                    .ToArray());
+                    .Select(instance => instance.DefaultProperties));
 
         public static string[] BuildSearchPaths(string[] searchPaths, string[] additionalSearchPaths) => searchPaths
             .Concat(additionalSearchPaths)

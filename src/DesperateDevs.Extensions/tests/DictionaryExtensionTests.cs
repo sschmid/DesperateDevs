@@ -27,7 +27,7 @@ namespace DesperateDevs.Extensions.Tests
                 {"k4", "v4"}
             };
 
-            var merged = d1.Merge(d2, d3);
+            var merged = d1.Merge(new[] {d2, d3});
             merged.Should().BeSameAs(d1);
             merged.Count.Should().Be(4);
             merged.Keys.Should().Contain("k1");
