@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using UnityEditor;
@@ -6,8 +6,46 @@ using UnityEngine;
 
 namespace DesperateDevs.Unity.Editor
 {
-    public static partial class EditorLayout
+    public static class EditorLayout
     {
+        public static bool DrawSectionHeaderToggle(string header, bool value) =>
+            GUILayout.Toggle(value, header, Styles.SectionHeader);
+
+        public static void BeginSectionContent() =>
+            EditorGUILayout.BeginVertical(Styles.SectionContent);
+
+        public static void EndSectionContent() =>
+            EditorGUILayout.EndVertical();
+
+        public static Rect BeginVerticalBox() =>
+            EditorGUILayout.BeginVertical(GUI.skin.box);
+
+        public static void EndVerticalBox() =>
+            EditorGUILayout.EndVertical();
+
+        public static Texture2D LoadTexture(string label)
+        {
+            var guid = AssetDatabase.FindAssets(label).FirstOrDefault();
+            return guid != null
+                ? AssetDatabase.LoadAssetAtPath<Texture2D>(AssetDatabase.GUIDToAssetPath(guid))
+                : null;
+        }
+
+        public static Rect DrawTexture(Texture2D texture)
+        {
+            if (texture != null)
+            {
+                var ratio = (float)texture.width / texture.height;
+                var rect = GUILayoutUtility.GetAspectRect(ratio, GUILayout.ExpandWidth(true));
+                GUI.DrawTexture(rect, texture, ScaleMode.ScaleAndCrop);
+                return rect;
+            }
+            else
+            {
+                return new Rect();
+            }
+        }
+
         public static bool ObjectFieldButton(string label, string buttonText)
         {
             bool clicked;
