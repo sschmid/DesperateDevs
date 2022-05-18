@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using FluentAssertions;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace DesperateDevs.Tests
 {
@@ -12,10 +11,6 @@ namespace DesperateDevs.Tests
     {
         static readonly string ProjectRoot = TestHelper.GetProjectRoot();
         static readonly Dictionary<string, string> SourceFiles = ReadSourceFiles(ProjectRoot);
-
-        readonly ITestOutputHelper _output;
-
-        public NamespaceTests(ITestOutputHelper output) => _output = output;
 
         [Fact]
         public void RoughlyProcessesTheCorrectNumberOfFiles()
@@ -42,7 +37,6 @@ namespace DesperateDevs.Tests
             if (isFixture)
                 ns.Expected += ".Fixtures";
 
-            _output.WriteLine($"{ns.Expected} is the namespace of {shortPath}");
             ns.Found.Should().Be(ns.Expected, $"see {ns.Path}");
         }
 
