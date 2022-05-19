@@ -4,13 +4,13 @@ namespace DesperateDevs.Reflection
 {
     public class AttributeInfo
     {
-        public readonly object attribute;
-        public readonly List<PublicMemberInfo> memberInfos;
+        public readonly object Attribute;
+        public readonly IEnumerable<PublicMemberInfo> MemberInfos;
 
-        public AttributeInfo(object attribute, List<PublicMemberInfo> memberInfos)
+        public AttributeInfo(object attribute, IEnumerable<PublicMemberInfo> memberInfos)
         {
-            this.attribute = attribute;
-            this.memberInfos = memberInfos;
+            Attribute = attribute;
+            MemberInfos = memberInfos;
         }
     }
 }

@@ -1,31 +1,24 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace DesperateDevs.Reflection
 {
     public static class PublicMemberInfoExtension
     {
-        public static List<PublicMemberInfo> GetPublicMemberInfos(this Type type)
+        public static IEnumerable<PublicMemberInfo> GetPublicMemberInfos(this Type type)
         {
             const BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.Public;
 
-            var fieldInfos = type.GetFields(bindingFlags);
-            var propertyInfos = type.GetProperties(bindingFlags);
-            var memberInfos = new List<PublicMemberInfo>(
-                fieldInfos.Length + propertyInfos.Length
-            );
+            var fieldInfos = type.GetFields(bindingFlags)
+                .Select(info => new PublicMemberInfo(info));
 
-            foreach (var t in fieldInfos)
-                memberInfos.Add(new PublicMemberInfo(t));
+            var propertyInfos = type.GetProperties(bindingFlags)
+                .Where(info => info.CanRead && info.CanWrite && info.GetIndexParameters().Length == 0)
+                .Select(info => new PublicMemberInfo(info));
 
-            foreach (var propertyInfo in propertyInfos)
-            {
-                if (propertyInfo.CanRead && propertyInfo.CanWrite && propertyInfo.GetIndexParameters().Length == 0)
-                    memberInfos.Add(new PublicMemberInfo(propertyInfo));
-            }
-
-            return memberInfos;
+            return fieldInfos.Concat(propertyInfos);
         }
 
         public static object PublicMemberClone(this object obj)
@@ -44,8 +37,7 @@ namespace DesperateDevs.Reflection
 
         public static void CopyPublicMemberValues(this object source, object target)
         {
-            var memberInfos = source.GetType().GetPublicMemberInfos();
-            foreach (var info in memberInfos)
+            foreach (var info in source.GetType().GetPublicMemberInfos())
                 info.SetValue(target, info.GetValue(source));
         }
     }

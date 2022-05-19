@@ -40,7 +40,7 @@ namespace Jenny.Generator
         public static ICodeGenerationPlugin[] LoadFromPlugins(Preferences preferences)
         {
             var config = preferences.CreateAndConfigure<CodeGeneratorConfig>();
-            var resolver = new AssemblyResolver(false, config.SearchPaths);
+            var resolver = new AssemblyResolver(config.SearchPaths);
             foreach (var path in config.Plugins)
                 resolver.Load(path);
 
@@ -108,8 +108,8 @@ namespace Jenny.Generator
         public static void AutoImport(CodeGeneratorConfig config, params string[] searchPaths)
         {
             var assemblyPaths = AssemblyResolver
-                .GetAssembliesContainingType<ICodeGenerationPlugin>(true, searchPaths)
-                .GetAllTypes()
+                .LoadAssemblies(true, searchPaths)
+                .GetTypes()
                 .GetNonAbstractTypes<ICodeGenerationPlugin>()
                 .Select(type => type.Assembly)
                 .Distinct()

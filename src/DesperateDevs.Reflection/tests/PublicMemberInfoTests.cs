@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using FluentAssertions;
 using Xunit;
 
@@ -16,44 +17,44 @@ namespace DesperateDevs.Reflection.Tests
         [Fact]
         public void CreatesMemberInfosForPublicFields()
         {
-            var infos = typeof(TestClassWithFields).GetPublicMemberInfos();
-            infos.Count.Should().Be(1);
+            var infos = typeof(TestClassWithFields).GetPublicMemberInfos().ToArray();
+            infos.Should().HaveCount(1);
             var mi = infos[0];
             mi.Type.Should().Be(typeof(string));
             mi.Name.Should().Be("PublicField");
-            mi.Attributes.Length.Should().Be(1);
-            mi.Attributes[0].memberInfos.Count.Should().Be(1);
-            var attrValue = mi.Attributes[0].memberInfos[0].GetValue(mi.Attributes[0].attribute);
+            mi.Attributes.Should().HaveCount(1);
+            var attribute = mi.Attributes.First();
+            attribute.MemberInfos.Should().HaveCount(1);
+            var attrValue = attribute.MemberInfos.First().GetValue(attribute.Attribute);
             attrValue.Should().Be("MyField");
         }
 
         [Fact]
         public void CreatesMemberInfosForPublicProperties()
         {
-            var infos = typeof(TestClassWithProperties).GetPublicMemberInfos();
-            infos.Count.Should().Be(1);
+            var infos = typeof(TestClassWithProperties).GetPublicMemberInfos().ToArray();
+            infos.Should().HaveCount(1);
             var mi = infos[0];
             mi.Type.Should().Be(typeof(string));
             mi.Name.Should().Be("PublicProperty");
-            mi.Attributes.Length.Should().Be(1);
-            mi.Attributes[0].memberInfos.Count.Should().Be(1);
-            var attrValue = mi.Attributes[0].memberInfos[0].GetValue(mi.Attributes[0].attribute);
+            mi.Attributes.Should().HaveCount(1);
+            var attribute = mi.Attributes.First();
+            attribute.MemberInfos.Should().HaveCount(1);
+            var attrValue = attribute.MemberInfos.First().GetValue(attribute.Attribute);
             attrValue.Should().Be("MyProperty");
         }
 
         [Fact]
         public void CreatesMemberInfosForFieldsAndProperties()
         {
-            var infos = typeof(TestClassWithFieldsAndProperties).GetPublicMemberInfos();
-            infos.Count.Should().Be(2);
-            var mi1 = infos[0];
-            var mi2 = infos[1];
+            var infos = typeof(TestClassWithFieldsAndProperties).GetPublicMemberInfos().ToArray();
+            infos.Should().HaveCount(2);
 
-            mi1.Type.Should().Be(typeof(string));
-            mi1.Name.Should().Be("PublicField");
+            infos[0].Type.Should().Be(typeof(string));
+            infos[0].Name.Should().Be("PublicField");
 
-            mi2.Type.Should().Be(typeof(string));
-            mi2.Name.Should().Be("PublicProperty");
+            infos[1].Type.Should().Be(typeof(string));
+            infos[1].Name.Should().Be("PublicProperty");
         }
 
         [Fact]
@@ -65,26 +66,18 @@ namespace DesperateDevs.Reflection.Tests
                 PublicProperty = "publicPropertyValue"
             };
 
-            var infos = obj.GetType().GetPublicMemberInfos();
-            var mi1 = infos[0];
-            var mi2 = infos[1];
-
-            mi1.GetValue(obj).Should().Be("publicFieldValue");
-            mi2.GetValue(obj).Should().Be("publicPropertyValue");
+            var infos = obj.GetType().GetPublicMemberInfos().ToArray();
+            infos[0].GetValue(obj).Should().Be("publicFieldValue");
+            infos[1].GetValue(obj).Should().Be("publicPropertyValue");
         }
 
         [Fact]
         public void SetsValuesForFieldsAndProperties()
         {
             var obj = new TestClassWithFieldsAndProperties();
-
-            var infos = obj.GetType().GetPublicMemberInfos();
-            var mi1 = infos[0];
-            var mi2 = infos[1];
-
-            mi1.SetValue(obj, "publicFieldValue");
-            mi2.SetValue(obj, "publicPropertyValue");
-
+            var infos = obj.GetType().GetPublicMemberInfos().ToArray();
+            infos[0].SetValue(obj, "publicFieldValue");
+            infos[1].SetValue(obj, "publicPropertyValue");
             obj.PublicField.Should().Be("publicFieldValue");
             obj.PublicProperty.Should().Be("publicPropertyValue");
         }
@@ -99,7 +92,6 @@ namespace DesperateDevs.Reflection.Tests
             };
 
             var clone = (TestClassWithFieldsAndProperties)obj.PublicMemberClone();
-
             clone.Should().NotBeSameAs(obj);
             clone.PublicField.Should().Be(obj.PublicField);
             clone.PublicProperty.Should().Be(obj.PublicProperty);
@@ -114,9 +106,7 @@ namespace DesperateDevs.Reflection.Tests
                 PublicProperty = "property"
             };
             var newObj = new TestClassWithFieldsAndProperties();
-
             obj.CopyPublicMemberValues(newObj);
-
             newObj.PublicField.Should().Be(obj.PublicField);
             newObj.PublicProperty.Should().Be(obj.PublicProperty);
         }

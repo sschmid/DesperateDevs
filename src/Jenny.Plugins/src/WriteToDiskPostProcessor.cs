@@ -23,7 +23,7 @@ namespace Jenny.Plugins
         {
             foreach (var file in files)
             {
-                var fileName = _targetDirectoryConfig.TargetDirectory + Path.DirectorySeparatorChar + file.FileName;
+                var fileName = Path.Combine(_targetDirectoryConfig.TargetDirectory, file.FileName);
                 var targetDir = Path.GetDirectoryName(fileName);
                 if (!Directory.Exists(targetDir))
                     Directory.CreateDirectory(targetDir);

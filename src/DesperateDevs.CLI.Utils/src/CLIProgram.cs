@@ -50,16 +50,15 @@ namespace DesperateDevs.Cli.Utils
         ICommand[] LoadCommands(string dir)
         {
             _logger.Debug("Loading assemblies from " + dir);
-            var resolver = AssemblyResolver.LoadAssemblies(false, dir);
+            using (AssemblyResolver.LoadAssemblies(false, dir))
+            {
+                var commands = AppDomain.CurrentDomain
+                    .GetInstancesOf<ICommand>()
+                    .OrderBy(c => c.Trigger)
+                    .ToArray();
 
-            var commands = AppDomain.CurrentDomain
-                .GetInstancesOf<ICommand>()
-                .OrderBy(c => c.Trigger)
-                .ToArray();
-
-            resolver.Close();
-
-            return commands;
+                return commands;
+            }
         }
 
         public ICommand GetCommand(string trigger)
@@ -118,7 +117,6 @@ namespace DesperateDevs.Cli.Utils
                 ? (LogFormatter)new LogMessageFormatter().FormatMessage
                 : (_, _, message) => message;
 
-            Logger.ResetAppenders();
             Logger.AddAppender((logger, logLevel, message) =>
             {
                 message = formatter(logger, logLevel, message);

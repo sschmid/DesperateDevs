@@ -8,64 +8,69 @@ using Sherlog;
 
 namespace DesperateDevs.Reflection
 {
-    public partial class AssemblyResolver
+    public class AssemblyResolver : IDisposable
     {
         readonly Logger _logger = Logger.GetLogger(nameof(AssemblyResolver));
 
-        public Assembly[] Assemblies => _assemblies.ToArray();
+        public IEnumerable<Assembly> Assemblies => _assemblies;
 
-        readonly bool _reflectionOnly;
         readonly string[] _basePaths;
         readonly HashSet<Assembly> _assemblies;
         readonly AppDomain _appDomain;
 
-        public AssemblyResolver(bool reflectionOnly, params string[] basePaths)
+        readonly ResolveEventHandler _cachedOnAssemblyResolve;
+
+        public AssemblyResolver(params string[] basePaths)
         {
-            _reflectionOnly = reflectionOnly;
             _basePaths = basePaths;
             _assemblies = new HashSet<Assembly>();
             _appDomain = AppDomain.CurrentDomain;
 
-            if (reflectionOnly)
-                _appDomain.ReflectionOnlyAssemblyResolve += OnReflectionOnlyAssemblyResolve;
-            else
-                _appDomain.AssemblyResolve += OnAssemblyResolve;
+            _cachedOnAssemblyResolve = OnAssemblyResolve;
+            _appDomain.AssemblyResolve += _cachedOnAssemblyResolve;
+        }
+
+        public static AssemblyResolver LoadAssemblies(bool allDirectories, params string[] basePaths)
+        {
+            var resolver = new AssemblyResolver(basePaths);
+            foreach (var file in GetAssemblyFiles(allDirectories, basePaths))
+                resolver.Load(file);
+
+            return resolver;
+        }
+
+        static IEnumerable<string> GetAssemblyFiles(bool allDirectories, params string[] basePaths)
+        {
+            var patterns = new[] {"*.dll", "*.exe"};
+            var files = new List<string>();
+            foreach (var pattern in patterns)
+                files.AddRange(basePaths.SelectMany(s => Directory.GetFiles(s, pattern, allDirectories
+                    ? SearchOption.AllDirectories
+                    : SearchOption.TopDirectoryOnly)));
+
+            return files;
         }
 
         public void Load(string path)
         {
-            if (_reflectionOnly)
-            {
-                _logger.Debug(_appDomain + " reflect: " + path);
-                ResolveAndLoad(path, Assembly.ReflectionOnlyLoadFrom, false);
-            }
-            else
-            {
-                _logger.Debug(_appDomain + " load: " + path);
-                ResolveAndLoad(path, Assembly.LoadFrom, false);
-            }
+            _logger.Debug(_appDomain + " load: " + path);
+            ResolveAndLoad(path, false);
         }
 
-        public void Close()
-        {
-            if (_reflectionOnly)
-                _appDomain.ReflectionOnlyAssemblyResolve -= OnReflectionOnlyAssemblyResolve;
-            else
-                _appDomain.AssemblyResolve -= OnAssemblyResolve;
-        }
+        Assembly OnAssemblyResolve(object sender, ResolveEventArgs args) =>
+            ResolveAndLoad(args.Name, true);
 
-        Assembly ResolveAndLoad(string name, Func<string, Assembly> loadMethod, bool isDependency)
+        Assembly ResolveAndLoad(string name, bool isDependency)
         {
-            Assembly assembly = null;
             try
             {
-                if (isDependency)
-                    _logger.Debug("  ➜ Loading Dependency: " + name);
-                else
-                    _logger.Debug("  ➜ Loading: " + name);
+                _logger.Debug(isDependency
+                    ? "  ➜ Loading dependency: " + name
+                    : "  ➜ Loading: " + name);
 
-                assembly = loadMethod(name);
-                AddAssembly(assembly);
+                var assembly = Assembly.LoadFrom(name);
+                _assemblies.Add(assembly);
+                return assembly;
             }
             catch (Exception)
             {
@@ -74,23 +79,19 @@ namespace DesperateDevs.Reflection
                 {
                     try
                     {
-                        assembly = loadMethod(path);
-                        AddAssembly(assembly);
+                        var assembly = Assembly.LoadFrom(path);
+                        _assemblies.Add(assembly);
+                        return assembly;
                     }
-                    catch (BadImageFormatException) { }
+                    catch (BadImageFormatException exception)
+                    {
+                        _logger.Warn(exception.Message);
+                    }
                 }
             }
 
-            return assembly;
+            return null;
         }
-
-        Assembly OnAssemblyResolve(object sender, ResolveEventArgs args) =>
-            ResolveAndLoad(args.Name, Assembly.LoadFrom, true);
-
-        Assembly OnReflectionOnlyAssemblyResolve(object sender, ResolveEventArgs args) =>
-            ResolveAndLoad(args.Name, Assembly.ReflectionOnlyLoadFrom, true);
-
-        void AddAssembly(Assembly assembly) => _assemblies.Add(assembly);
 
         string ResolvePath(string name)
         {
@@ -100,13 +101,11 @@ namespace DesperateDevs.Reflection
 
                 if (!assemblyName.EndsWith(".dll", StringComparison.OrdinalIgnoreCase) &&
                     !assemblyName.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))
-                {
                     assemblyName += ".dll";
-                }
 
                 foreach (var basePath in _basePaths)
                 {
-                    var path = basePath + Path.DirectorySeparatorChar + assemblyName;
+                    var path = Path.Combine(basePath, assemblyName);
                     if (File.Exists(path))
                     {
                         _logger.Debug("    ➜ Resolved: " + path);
@@ -116,12 +115,14 @@ namespace DesperateDevs.Reflection
             }
             catch (FileLoadException)
             {
-                _logger.Debug("    × Could not resolve: " + name);
+                _logger.Warn("    × Could not resolve: " + name);
             }
 
             return null;
         }
 
-        public Type[] GetTypes() => _assemblies.GetAllTypes().ToArray();
+        public IEnumerable<Type> GetTypes() => _assemblies.GetAllTypes();
+
+        public void Dispose() => _appDomain.AssemblyResolve -= _cachedOnAssemblyResolve;
     }
 }
