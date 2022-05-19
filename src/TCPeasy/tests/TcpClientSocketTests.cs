@@ -10,7 +10,7 @@ using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace DesperateDevs.Net.Tests
+namespace TCPeasy.Tests
 {
     [Collection("Non-Parallel")]
     public class TcpClientSocketTests : IDisposable

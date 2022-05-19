@@ -13,7 +13,6 @@ DEDE_UNITY_PROJECTS=(
 DESPERATE_DEVS_RESTORE_UNITY=(
   DesperateDevs.Caching
   DesperateDevs.Extensions
-  DesperateDevs.Net
   DesperateDevs.Reflection
   DesperateDevs.Serialization
   DesperateDevs.Unity
@@ -24,6 +23,7 @@ DESPERATE_DEVS_RESTORE_UNITY=(
   Jenny.Plugins
   Jenny.Plugins.Unity
   Sherlog
+  TCPeasy
 )
 
 UNITY_PATH="/Applications/Unity/Hub/Editor"

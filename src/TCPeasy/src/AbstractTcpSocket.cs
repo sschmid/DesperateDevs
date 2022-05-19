@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using Sherlog;
 
-namespace DesperateDevs.Net
+namespace TCPeasy
 {
     public delegate void TcpSocketReceive(AbstractTcpSocket tcpSocket, Socket socket, byte[] bytes);
 

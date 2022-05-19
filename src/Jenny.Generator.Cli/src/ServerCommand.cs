@@ -5,7 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using DesperateDevs.Cli.Utils;
 using Sherlog;
-using DesperateDevs.Net;
+using TCPeasy;
 using DesperateDevs.Serialization;
 using DesperateDevs.Serialization.Cli.Utils;
 

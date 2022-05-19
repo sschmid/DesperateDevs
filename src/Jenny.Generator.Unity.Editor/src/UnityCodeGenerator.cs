@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
-using DesperateDevs.Net;
+using TCPeasy;
 using DesperateDevs.Serialization;
 using DesperateDevs.Extensions;
 using UnityEditor;

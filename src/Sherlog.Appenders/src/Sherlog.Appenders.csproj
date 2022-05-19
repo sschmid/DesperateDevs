@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../../DesperateDevs.Net/src/DesperateDevs.Net.csproj" />
     <ProjectReference Include="../../Sherlog/src/Sherlog.csproj" />
+    <ProjectReference Include="../../TCPeasy/src/TCPeasy.csproj" />
   </ItemGroup>
 
 </Project>

@@ -16,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../src/DesperateDevs.Net.csproj" />
     <ProjectReference Include="../../Sherlog.Formatters/src/Sherlog.Formatters.csproj" />
+    <ProjectReference Include="../src/TCPeasy.csproj" />
   </ItemGroup>
 
 </Project>

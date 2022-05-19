@@ -4,7 +4,7 @@ using System.Text;
 using DesperateDevs.Cli.Utils;
 using Sherlog;
 
-namespace DesperateDevs.Net.Cli
+namespace TCPeasy.Cli
 {
     public abstract class AbstractSocketCommand : AbstractCommand
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using DesperateDevs.Cli.Utils;
 
-namespace DesperateDevs.Net.Cli
+namespace TCPeasy.Cli
 {
     public class HelpCommand : AbstractCommand
     {

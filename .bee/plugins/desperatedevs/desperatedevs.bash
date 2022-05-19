@@ -248,11 +248,11 @@ desperatedevs::collect_jenny_unity() {
     Jenny.Plugins.Unity
   )
   local to_editor=(
+    DesperateDevs.Unity.Editor
     Jenny.Generator.Unity.Editor
     Jenny.Generator
     Jenny
-    DesperateDevs.Net
-    DesperateDevs.Unity.Editor
+    TCPeasy
   )
   local images=(
     Jenny.Generator.Unity.Editor
@@ -280,7 +280,6 @@ desperatedevs::collect_desperatedevs_unity() {
     # all
     DesperateDevs.Caching
     DesperateDevs.Extensions
-    DesperateDevs.Net
     DesperateDevs.Reflection
     DesperateDevs.Serialization
     DesperateDevs.Threading
@@ -288,6 +287,7 @@ desperatedevs::collect_desperatedevs_unity() {
     Sherlog
     Sherlog.Appenders
     Sherlog.Formatters
+    TCPeasy
 
     # editor
     Jenny

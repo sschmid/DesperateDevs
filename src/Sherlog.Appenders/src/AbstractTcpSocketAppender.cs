@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Net;
-using DesperateDevs.Net;
+using TCPeasy;
 
 namespace Sherlog.Appenders
 {

@@ -1,5 +1,5 @@
 using System.Text;
-using DesperateDevs.Net;
+using TCPeasy;
 
 namespace Sherlog.Appenders
 {

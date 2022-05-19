@@ -3,7 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 
-namespace DesperateDevs.Net
+namespace TCPeasy
 {
     public class TcpServerSocket : AbstractTcpSocket
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DesperateDevs.Net.Cli
+namespace TCPeasy.Cli
 {
     public class ListenCommand : AbstractSocketCommand
     {

@@ -1,6 +1,6 @@
 ﻿using DesperateDevs.Cli.Utils;
 
-namespace DesperateDevs.Net.Cli
+namespace TCPeasy.Cli
 {
     static class Program
     {
