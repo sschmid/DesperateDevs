@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
-using DesperateDevs.Logging;
+using Sherlog;
 using DesperateDevs.Serialization;
 
 namespace Jenny.Plugins
@@ -13,7 +13,7 @@ namespace Jenny.Plugins
 
         public Dictionary<string, string> DefaultProperties => _targetDirectoryConfig.DefaultProperties;
 
-        readonly Logger _logger = Sherlog.GetLogger(typeof(CleanTargetDirectoryPostProcessor));
+        readonly Logger _logger = Logger.GetLogger(typeof(CleanTargetDirectoryPostProcessor));
 
         readonly TargetDirectoryConfig _targetDirectoryConfig = new TargetDirectoryConfig();
 

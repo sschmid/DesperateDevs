@@ -1,6 +1,6 @@
 ﻿using BenchmarkDotNet.Running;
 
-namespace DesperateDevs.Logging.Benchmarks
+namespace Sherlog.Benchmarks
 {
     static class Program
     {

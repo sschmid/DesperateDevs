@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Xunit;
 
-namespace DesperateDevs.Logging.Formatters.Tests
+namespace Sherlog.Formatters.Tests
 {
     public class LogMessageFormatterTests
     {

@@ -6,10 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../../Jenny.Generator/src/Jenny.Generator.csproj" />
-    <ProjectReference Include="../../Jenny/src/Jenny.csproj" />
     <ProjectReference Include="../../DesperateDevs.Net/src/DesperateDevs.Net.csproj" />
     <ProjectReference Include="../../DesperateDevs.Unity.Editor/src/DesperateDevs.Unity.Editor.csproj" />
+    <ProjectReference Include="../../Jenny.Generator/src/Jenny.Generator.csproj" />
+    <ProjectReference Include="../../Jenny/src/Jenny.csproj" />
   </ItemGroup>
 
   <ItemGroup>

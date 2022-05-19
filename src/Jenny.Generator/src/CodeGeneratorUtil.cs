@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using DesperateDevs.Logging;
+using Sherlog;
 using DesperateDevs.Serialization;
 using DesperateDevs.Extensions;
 using DesperateDevs.Reflection;
@@ -11,7 +11,7 @@ namespace Jenny.Generator
 {
     public static class CodeGeneratorUtil
     {
-        static readonly Logger _logger = Sherlog.GetLogger(typeof(CodeGeneratorUtil).FullName);
+        static readonly Logger _logger = Logger.GetLogger(typeof(CodeGeneratorUtil).FullName);
 
         public static CodeGenerator CodeGeneratorFromPreferences(Preferences preferences)
         {

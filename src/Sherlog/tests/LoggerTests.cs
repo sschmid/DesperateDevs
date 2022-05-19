@@ -2,7 +2,7 @@
 using FluentAssertions;
 using Xunit;
 
-namespace DesperateDevs.Logging.Tests
+namespace Sherlog.Tests
 {
     public class LoggerTests
     {

@@ -2,7 +2,7 @@
 using System.Net.Sockets;
 using System.Text;
 using DesperateDevs.Cli.Utils;
-using DesperateDevs.Logging;
+using Sherlog;
 
 namespace DesperateDevs.Net.Cli
 {
@@ -15,7 +15,7 @@ namespace DesperateDevs.Net.Cli
 
         protected AbstractSocketCommand(string loggerName)
         {
-            _logger = Sherlog.GetLogger(loggerName);
+            _logger = Logger.GetLogger(loggerName);
         }
 
         protected void Start()

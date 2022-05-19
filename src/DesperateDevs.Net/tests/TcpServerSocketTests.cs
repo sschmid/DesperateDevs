@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using DesperateDevs.Logging;
-using DesperateDevs.Logging.Formatters;
+using Sherlog;
+using Sherlog.Formatters;
 using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
@@ -29,7 +29,7 @@ namespace DesperateDevs.Net.Tests
         public TcpServerSocketTests(ITestOutputHelper output)
         {
             _output = output;
-            Sherlog.AddAppender((logger, level, message) => _output.WriteLine(Formatter.FormatMessage(logger, level, message)));
+            Logger.AddAppender((logger, level, message) => _output.WriteLine(Formatter.FormatMessage(logger, level, message)));
         }
 
         [Fact]
@@ -372,8 +372,8 @@ namespace DesperateDevs.Net.Tests
             _output.WriteLine("Dispose");
             Disconnect();
             Wait();
-            Sherlog.ResetAppenders();
-            Sherlog.ResetLoggers();
+            Logger.ResetAppenders();
+            Logger.ResetLoggers();
         }
 
         static void Wait() => System.Threading.Thread.Sleep(50);

@@ -6,9 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../../Jenny/src/Jenny.csproj" />
-    <ProjectReference Include="../../DesperateDevs.Logging/src/DesperateDevs.Logging.csproj" />
     <ProjectReference Include="../../DesperateDevs.Serialization/src/DesperateDevs.Serialization.csproj" />
+    <ProjectReference Include="../../Jenny/src/Jenny.csproj" />
+    <ProjectReference Include="../../Sherlog/src/Sherlog.csproj" />
   </ItemGroup>
 
 </Project>

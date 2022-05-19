@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using DesperateDevs.Logging;
+using Sherlog;
 
 namespace DesperateDevs.Cli.Utils
 {

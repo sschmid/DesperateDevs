@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 
-namespace DesperateDevs.Logging.Appenders
+namespace Sherlog.Appenders
 {
     public class ConsoleAppender
     {

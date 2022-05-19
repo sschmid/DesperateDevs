@@ -8,9 +8,9 @@
 
   <ItemGroup>
     <ProjectReference Include="../../DesperateDevs.Cli.Utils/src/DesperateDevs.Cli.Utils.csproj" />
-    <ProjectReference Include="../../Jenny.Generator/src/Jenny.Generator.csproj" />
     <ProjectReference Include="../../DesperateDevs.Net/src/DesperateDevs.Net.csproj" />
     <ProjectReference Include="../../DesperateDevs.Serialization.Cli.Utils/src/DesperateDevs.Serialization.Cli.Utils.csproj" />
+    <ProjectReference Include="../../Jenny.Generator/src/Jenny.Generator.csproj" />
   </ItemGroup>
 
 </Project>

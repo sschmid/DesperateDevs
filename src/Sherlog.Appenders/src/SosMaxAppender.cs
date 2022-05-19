@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace DesperateDevs.Logging.Appenders
+namespace Sherlog.Appenders
 {
     public class SosMaxAppender : AbstractTcpSocketAppender
     {

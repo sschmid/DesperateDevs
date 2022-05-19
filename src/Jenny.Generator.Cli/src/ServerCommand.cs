@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using DesperateDevs.Cli.Utils;
-using DesperateDevs.Logging;
+using Sherlog;
 using DesperateDevs.Net;
 using DesperateDevs.Serialization;
 using DesperateDevs.Serialization.Cli.Utils;
@@ -50,9 +50,9 @@ namespace Jenny.Generator.Cli
                 }
 
                 var command = _program.GetCommand(args.WithoutDefaultParameter().First());
-                Sherlog.AddAppender(OnLog);
+                Logger.AddAppender(OnLog);
                 command.Run(_program, args);
-                Sherlog.RemoveAppender(OnLog);
+                Logger.RemoveAppender(OnLog);
                 var logBufferString = GetLogBufferString();
                 var sendBytes = logBufferString.Length == 0
                     ? new byte[] {0}

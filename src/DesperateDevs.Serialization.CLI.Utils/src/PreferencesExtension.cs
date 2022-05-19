@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using DesperateDevs.Logging;
+using Sherlog;
 
 namespace DesperateDevs.Serialization.Cli.Utils
 {
     public static class PreferencesExtension
     {
-        static readonly Logger Logger = Sherlog.GetLogger(typeof(PreferencesExtension));
+        static readonly Logger Logger = Logger.GetLogger(typeof(PreferencesExtension));
 
         public static IEnumerable<string> GetUnusedKeys(this Preferences preferences, IEnumerable<string> requiredKeys) =>
             preferences.Keys.Where(key => !requiredKeys.Contains(key));

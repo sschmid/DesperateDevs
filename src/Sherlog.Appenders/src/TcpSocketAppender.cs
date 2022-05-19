@@ -1,7 +1,7 @@
 using System.Text;
 using DesperateDevs.Net;
 
-namespace DesperateDevs.Logging.Appenders
+namespace Sherlog.Appenders
 {
     public class TcpSocketAppender : AbstractTcpSocketAppender
     {

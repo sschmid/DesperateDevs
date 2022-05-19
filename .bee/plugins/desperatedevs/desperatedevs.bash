@@ -280,14 +280,14 @@ desperatedevs::collect_desperatedevs_unity() {
     # all
     DesperateDevs.Caching
     DesperateDevs.Extensions
-    DesperateDevs.Logging
-    DesperateDevs.Logging.Appenders
-    DesperateDevs.Logging.Formatters
     DesperateDevs.Net
     DesperateDevs.Reflection
     DesperateDevs.Serialization
     DesperateDevs.Threading
     DesperateDevs.Unity
+    Sherlog
+    Sherlog.Appenders
+    Sherlog.Formatters
 
     # editor
     Jenny

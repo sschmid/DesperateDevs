@@ -2,7 +2,7 @@ using System.Threading;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Order;
 
-namespace DesperateDevs.Logging.Benchmarks
+namespace Sherlog.Benchmarks
 {
     [MemoryDiagnoser]
     [Orderer(SummaryOrderPolicy.FastestToSlowest)]
@@ -11,13 +11,14 @@ namespace DesperateDevs.Logging.Benchmarks
     {
         public LoggerBenchmarks()
         {
-            Sherlog.AddAppender((logger, level, message) => Thread.Sleep(10));
+            Logger.AddAppender((logger, level, message) => Thread.Sleep(10));
         }
 
         [Benchmark]
         public void Log()
         {
-            Sherlog.Debug(new string('.', 1000));
+            var logger = Logger.GetLogger(typeof(LoggerBenchmarks));
+            logger.Debug(new string('.', 1000));
         }
     }
 }

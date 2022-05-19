@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using DesperateDevs.Logging;
-using DesperateDevs.Logging.Formatters;
+using Sherlog;
+using Sherlog.Formatters;
 using DesperateDevs.Extensions;
 using DesperateDevs.Reflection;
 
@@ -17,7 +17,7 @@ namespace DesperateDevs.Cli.Utils
 
         public CliProgram(string applicationName, Type defaultCommand, string[] args, ConsoleColors consoleColors = null)
         {
-            _logger = Sherlog.GetLogger(applicationName);
+            _logger = Logger.GetLogger(applicationName);
             _defaultCommand = defaultCommand;
             _args = args;
             CliHelper.ConsoleColors = consoleColors ?? new ConsoleColors();
@@ -110,16 +110,16 @@ namespace DesperateDevs.Cli.Utils
 
         void InitializeLogging(string[] args, ConsoleColors consoleColors)
         {
-            if (args.IsSilent()) Sherlog.GlobalLogLevel = LogLevel.Error;
-            else if (args.IsVerbose()) Sherlog.GlobalLogLevel = LogLevel.Debug;
-            else Sherlog.GlobalLogLevel = LogLevel.Info;
+            if (args.IsSilent()) Logger.GlobalLogLevel = LogLevel.Error;
+            else if (args.IsVerbose()) Logger.GlobalLogLevel = LogLevel.Debug;
+            else Logger.GlobalLogLevel = LogLevel.Info;
 
             var formatter = args.IsDebug()
                 ? (LogFormatter)new LogMessageFormatter().FormatMessage
                 : (_, _, message) => message;
 
-            Sherlog.ResetAppenders();
-            Sherlog.AddAppender((logger, logLevel, message) =>
+            Logger.ResetAppenders();
+            Logger.AddAppender((logger, logLevel, message) =>
             {
                 message = formatter(logger, logLevel, message);
                 if (consoleColors.LogLevelColors.ContainsKey(logLevel))

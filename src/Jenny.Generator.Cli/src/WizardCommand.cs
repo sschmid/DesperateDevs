@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using DesperateDevs.Cli.Utils;
-using DesperateDevs.Logging;
+using Sherlog;
 using DesperateDevs.Serialization;
 
 namespace Jenny.Generator.Cli
@@ -13,7 +13,7 @@ namespace Jenny.Generator.Cli
         public override string Group => null;
         public override string Example => "wiz";
 
-        readonly Logger _logger = Sherlog.GetLogger(typeof(WizardCommand));
+        readonly Logger _logger = Logger.GetLogger(typeof(WizardCommand));
 
         protected override void Run()
         {

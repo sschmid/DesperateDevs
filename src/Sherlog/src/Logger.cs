@@ -1,10 +1,10 @@
 using System;
 
-namespace DesperateDevs.Logging
+namespace Sherlog
 {
     public delegate void LogDelegate(Logger logger, LogLevel logLevel, string message);
 
-    public class Logger
+    public partial class Logger
     {
         public event LogDelegate OnLog;
 

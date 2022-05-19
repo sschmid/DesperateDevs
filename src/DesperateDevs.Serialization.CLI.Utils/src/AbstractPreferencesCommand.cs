@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 using DesperateDevs.Cli.Utils;
-using DesperateDevs.Logging;
+using Sherlog;
 
 namespace DesperateDevs.Serialization.Cli.Utils
 {
@@ -14,7 +14,7 @@ namespace DesperateDevs.Serialization.Cli.Utils
 
         protected AbstractPreferencesCommand(string loggerName)
         {
-            _logger = Sherlog.GetLogger(loggerName);
+            _logger = Logger.GetLogger(loggerName);
         }
 
         public override void Run(CliProgram program, string[] args)

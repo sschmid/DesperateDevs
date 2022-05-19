@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
-using DesperateDevs.Logging;
+using Sherlog;
 
 namespace DesperateDevs.Net
 {
@@ -16,7 +16,7 @@ namespace DesperateDevs.Net
 
         protected AbstractTcpSocket(string loggerName)
         {
-            _logger = Sherlog.GetLogger(loggerName);
+            _logger = Logger.GetLogger(loggerName);
             _socket = new Socket(
                 AddressFamily.InterNetwork,
                 SocketType.Stream,

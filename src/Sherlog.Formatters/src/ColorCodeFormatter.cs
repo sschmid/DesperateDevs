@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace DesperateDevs.Logging.Formatters
+namespace Sherlog.Formatters
 {
     public class ColorCodeFormatter
     {

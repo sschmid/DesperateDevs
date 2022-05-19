@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Net;
 using DesperateDevs.Net;
 
-namespace DesperateDevs.Logging.Appenders
+namespace Sherlog.Appenders
 {
     public abstract class AbstractTcpSocketAppender
     {

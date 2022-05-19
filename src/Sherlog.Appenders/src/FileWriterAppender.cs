@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace DesperateDevs.Logging.Appenders
+namespace Sherlog.Appenders
 {
     public class FileWriterAppender
     {

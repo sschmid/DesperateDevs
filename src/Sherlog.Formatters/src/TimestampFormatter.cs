@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DesperateDevs.Logging.Formatters
+namespace Sherlog.Formatters
 {
     public class TimestampFormatter
     {

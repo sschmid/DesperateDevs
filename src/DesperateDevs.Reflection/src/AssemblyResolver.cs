@@ -4,13 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using DesperateDevs.Extensions;
-using DesperateDevs.Logging;
+using Sherlog;
 
 namespace DesperateDevs.Reflection
 {
     public partial class AssemblyResolver
     {
-        readonly Logger _logger = Sherlog.GetLogger(nameof(AssemblyResolver));
+        readonly Logger _logger = Logger.GetLogger(nameof(AssemblyResolver));
 
         public Assembly[] Assemblies => _assemblies.ToArray();
 

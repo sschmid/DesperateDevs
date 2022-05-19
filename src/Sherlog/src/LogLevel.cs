@@ -1,4 +1,4 @@
-namespace DesperateDevs.Logging
+namespace Sherlog
 {
     public enum LogLevel
     {

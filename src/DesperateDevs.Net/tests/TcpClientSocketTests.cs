@@ -4,8 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using DesperateDevs.Logging;
-using DesperateDevs.Logging.Formatters;
+using Sherlog;
+using Sherlog.Formatters;
 using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
@@ -32,8 +32,8 @@ namespace DesperateDevs.Net.Tests
         {
             _output = output;
             _logs = new List<(LogLevel, string)>();
-            Sherlog.AddAppender((logger, level, message) => _output.WriteLine(Formatter.FormatMessage(logger, level, message)));
-            Sherlog.AddAppender((_, level, message) => _logs.Add((level, message)));
+            Logger.AddAppender((logger, level, message) => _output.WriteLine(Formatter.FormatMessage(logger, level, message)));
+            Logger.AddAppender((_, level, message) => _logs.Add((level, message)));
             _server.Listen(Port);
             Wait();
         }
@@ -256,8 +256,8 @@ namespace DesperateDevs.Net.Tests
             _client.Dispose();
             _server.Disconnect();
             Wait();
-            Sherlog.ResetAppenders();
-            Sherlog.ResetLoggers();
+            Logger.ResetAppenders();
+            Logger.ResetLoggers();
         }
 
         static void Wait() => System.Threading.Thread.Sleep(50);

@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using DesperateDevs.Logging;
+using Sherlog;
 using Microsoft.Build.Locator;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.MSBuild;
@@ -8,7 +8,7 @@ namespace DesperateDevs.Roslyn
 {
     public class ProjectParser
     {
-        static readonly Logger _logger = Sherlog.GetLogger(nameof(ProjectParser));
+        static readonly Logger _logger = Logger.GetLogger(nameof(ProjectParser));
 
         readonly Project _project;
         INamedTypeSymbol[] _types;

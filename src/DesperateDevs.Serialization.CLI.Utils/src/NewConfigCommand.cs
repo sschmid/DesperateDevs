@@ -1,6 +1,6 @@
 using System.IO;
 using DesperateDevs.Cli.Utils;
-using DesperateDevs.Logging;
+using Sherlog;
 
 namespace DesperateDevs.Serialization.Cli.Utils
 {
@@ -11,7 +11,7 @@ namespace DesperateDevs.Serialization.Cli.Utils
         public override string Group => CommandGroups.Properties;
         public override string Example => "new [file] [userFile] [-f]";
 
-        readonly Logger _logger = Sherlog.GetLogger(typeof(NewConfigCommand));
+        readonly Logger _logger = Logger.GetLogger(typeof(NewConfigCommand));
 
         protected override void Run()
         {

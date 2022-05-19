@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="../../DesperateDevs.Extensions/src/DesperateDevs.Extensions.csproj" />
-    <ProjectReference Include="../../DesperateDevs.Logging/src/DesperateDevs.Logging.csproj" />
+    <ProjectReference Include="../../Sherlog/src/Sherlog.csproj" />
   </ItemGroup>
 
 </Project>
