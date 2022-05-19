@@ -1,7 +1,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace DesperateDevs.CodeGen.Unity.Plugins
+namespace DesperateDevs.CodeGen.Plugins.Unity
 {
     public class DebugLogPostProcessor : IPostProcessor
     {

@@ -216,11 +216,11 @@ desperatedevs::collect_jenny() {
   local projects=(
     DesperateDevs.CodeGen.Generator.Cli
     DesperateDevs.CodeGen.Plugins
-    DesperateDevs.CodeGen.Unity.Plugins
+    DesperateDevs.CodeGen.Plugins.Unity
   )
   local to_plugins=(
     DesperateDevs.CodeGen.Plugins
-    DesperateDevs.CodeGen.Unity.Plugins
+    DesperateDevs.CodeGen.Plugins.Unity
   )
 
   for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/" "${code_generator_dir}"; done
@@ -245,7 +245,7 @@ desperatedevs::collect_jenny_unity() {
   local projects=(
     DesperateDevs.CodeGen.Generator.Unity.Editor
     DesperateDevs.CodeGen.Plugins
-    DesperateDevs.CodeGen.Unity.Plugins
+    DesperateDevs.CodeGen.Plugins.Unity
   )
   local to_editor=(
     DesperateDevs.CodeGen.Generator.Unity.Editor
@@ -259,7 +259,7 @@ desperatedevs::collect_jenny_unity() {
   )
   local to_plugins=(
     DesperateDevs.CodeGen.Plugins
-    DesperateDevs.CodeGen.Unity.Plugins
+    DesperateDevs.CodeGen.Plugins.Unity
   )
 
   for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/"*.dll "${code_generator_dir}"; done
@@ -297,7 +297,7 @@ desperatedevs::collect_desperatedevs_unity() {
 
     # plugins
     DesperateDevs.CodeGen.Plugins
-    DesperateDevs.CodeGen.Unity.Plugins
+    DesperateDevs.CodeGen.Plugins.Unity
   )
   local to_editor=(
     DesperateDevs.CodeGen
@@ -310,7 +310,7 @@ desperatedevs::collect_desperatedevs_unity() {
   )
   local to_plugins=(
     DesperateDevs.CodeGen.Plugins
-    DesperateDevs.CodeGen.Unity.Plugins
+    DesperateDevs.CodeGen.Plugins.Unity
   )
 
   for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/"*.dll "${desperatedevs_dir}"; done

@@ -5,11 +5,11 @@ using DesperateDevs.CodeGen.Generator;
 using DesperateDevs.Serialization;
 using DesperateDevs.Extensions;
 
-namespace DesperateDevs.CodeGen.Unity.Plugins
+namespace DesperateDevs.CodeGen.Plugins.Unity
 {
-    public class DebugLogDoctor : IDoctor, IConfigurable
+    public class WarnIfCompilationErrorsDoctor : IDoctor, IConfigurable
     {
-        public string Name => "Debug.Log";
+        public string Name => "Warn If Compilation Errors";
         public int Order => 0;
         public bool RunInDryMode => true;
 
@@ -30,12 +30,12 @@ namespace DesperateDevs.CodeGen.Unity.Plugins
 
             if (isStandalone)
             {
-                var typeName = typeof(DebugLogPostProcessor).FullName;
-                if (_codeGeneratorConfig.PostProcessors.Contains(typeName))
+                var typeName = typeof(WarnIfCompilationErrorsPreProcessor).FullName;
+                if (_codeGeneratorConfig.PreProcessors.Contains(typeName))
                 {
                     return new Diagnosis(
                         typeName + " uses Unity APIs but is used outside of Unity!",
-                        "Remove " + typeName + " from CodeGenerator.PostProcessors",
+                        "Remove " + typeName + " from CodeGenerator.PreProcessors",
                         DiagnosisSeverity.Error
                     );
                 }
@@ -46,11 +46,11 @@ namespace DesperateDevs.CodeGen.Unity.Plugins
 
         public bool ApplyFix()
         {
-            var postProcessorList = _codeGeneratorConfig.PostProcessors.ToList();
-            var removed = postProcessorList.Remove(typeof(DebugLogPostProcessor).FullName);
+            var preProcessorList = _codeGeneratorConfig.PreProcessors.ToList();
+            var removed = preProcessorList.Remove(typeof(WarnIfCompilationErrorsPreProcessor).FullName);
             if (removed)
             {
-                _codeGeneratorConfig.PostProcessors = postProcessorList.ToArray();
+                _codeGeneratorConfig.PreProcessors = preProcessorList.ToArray();
                 return true;
             }
             else

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEditor;
 
-namespace DesperateDevs.CodeGen.Unity.Plugins
+namespace DesperateDevs.CodeGen.Plugins.Unity
 {
     public class WarnIfCompilationErrorsPreProcessor : IPreProcessor
     {

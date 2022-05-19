@@ -16,7 +16,7 @@ DESPERATE_DEVS_RESTORE_UNITY=(
   DesperateDevs.CodeGen.Generator
   DesperateDevs.CodeGen.Generator.Unity.Editor
   DesperateDevs.CodeGen.Plugins
-  DesperateDevs.CodeGen.Unity.Plugins
+  DesperateDevs.CodeGen.Plugins.Unity
   DesperateDevs.Extensions
   DesperateDevs.Logging
   DesperateDevs.Net
