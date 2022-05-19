@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
-using Sherlog;
 using DesperateDevs.Serialization;
+using Sherlog;
 
 namespace Jenny.Plugins
 {

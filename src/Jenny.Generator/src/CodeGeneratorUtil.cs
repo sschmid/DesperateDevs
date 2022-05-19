@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Sherlog;
 using DesperateDevs.Serialization;
 using DesperateDevs.Extensions;
 using DesperateDevs.Reflection;
+using Sherlog;
 
 namespace Jenny.Generator
 {

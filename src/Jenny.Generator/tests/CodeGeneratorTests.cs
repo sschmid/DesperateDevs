@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using Jenny;
 using FluentAssertions;
+using Jenny;
 using Xunit;
 
 namespace Jenny.Generator.Tests

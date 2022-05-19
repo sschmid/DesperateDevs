@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
 using DesperateDevs.Cli.Utils;
-using Sherlog;
 using DesperateDevs.Serialization;
+using Sherlog;
 
 namespace Jenny.Generator.Cli
 {

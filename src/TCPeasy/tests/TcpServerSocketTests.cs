@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using FluentAssertions;
 using Sherlog;
 using Sherlog.Formatters;
-using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
 

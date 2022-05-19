@@ -4,10 +4,10 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using DesperateDevs.Cli.Utils;
-using Sherlog;
-using TCPeasy;
 using DesperateDevs.Serialization;
 using DesperateDevs.Serialization.Cli.Utils;
+using Sherlog;
+using TCPeasy;
 
 namespace Jenny.Generator.Cli
 {
