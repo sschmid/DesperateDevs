@@ -214,24 +214,24 @@ desperatedevs::collect_jenny() {
   _clean_dir "${jenny_dir}" "${code_generator_dir}" "${plugins_dir}"
 
   local projects=(
-    DesperateDevs.CodeGen.Generator.Cli
-    DesperateDevs.CodeGen.Plugins
-    DesperateDevs.CodeGen.Plugins.Unity
+    Jenny.Generator.Cli
+    Jenny.Plugins
+    Jenny.Plugins.Unity
   )
   local to_plugins=(
-    DesperateDevs.CodeGen.Plugins
-    DesperateDevs.CodeGen.Plugins.Unity
+    Jenny.Plugins
+    Jenny.Plugins.Unity
   )
 
   for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/" "${code_generator_dir}"; done
   for f in "${to_plugins[@]}"; do mv "${code_generator_dir}/${f}.dll" "${plugins_dir}"; done
 
-  mv "${code_generator_dir}/DesperateDevs.CodeGen.Generator.Cli.exe" "${code_generator_dir}/Jenny.exe"
+  mv "${code_generator_dir}/Jenny.Generator.Cli.exe" "${code_generator_dir}/Jenny.exe"
 
-  cp src/DesperateDevs.CodeGen.Generator.Cli/scripts/Jenny-Server "${jenny_dir}"
-  cp src/DesperateDevs.CodeGen.Generator.Cli/scripts/Jenny-Server.bat "${jenny_dir}"
-  cp src/DesperateDevs.CodeGen.Generator.Cli/scripts/Jenny-Auto-Import "${jenny_dir}"
-  cp src/DesperateDevs.CodeGen.Generator.Cli/scripts/Jenny-Auto-Import.bat "${jenny_dir}"
+  cp src/Jenny.Generator.Cli/scripts/Jenny-Server "${jenny_dir}"
+  cp src/Jenny.Generator.Cli/scripts/Jenny-Server.bat "${jenny_dir}"
+  cp src/Jenny.Generator.Cli/scripts/Jenny-Auto-Import "${jenny_dir}"
+  cp src/Jenny.Generator.Cli/scripts/Jenny-Auto-Import.bat "${jenny_dir}"
 }
 
 desperatedevs::collect_jenny_unity() {
@@ -243,23 +243,23 @@ desperatedevs::collect_jenny_unity() {
   _clean_dir "${code_generator_dir}" "${editor_dir}" "${images_dir}" "${plugins_dir}"
 
   local projects=(
-    DesperateDevs.CodeGen.Generator.Unity.Editor
-    DesperateDevs.CodeGen.Plugins
-    DesperateDevs.CodeGen.Plugins.Unity
+    Jenny.Generator.Unity.Editor
+    Jenny.Plugins
+    Jenny.Plugins.Unity
   )
   local to_editor=(
-    DesperateDevs.CodeGen.Generator.Unity.Editor
-    DesperateDevs.CodeGen.Generator
-    DesperateDevs.CodeGen
+    Jenny.Generator.Unity.Editor
+    Jenny.Generator
+    Jenny
     DesperateDevs.Net
     DesperateDevs.Unity.Editor
   )
   local images=(
-    DesperateDevs.CodeGen.Generator.Unity.Editor
+    Jenny.Generator.Unity.Editor
   )
   local to_plugins=(
-    DesperateDevs.CodeGen.Plugins
-    DesperateDevs.CodeGen.Plugins.Unity
+    Jenny.Plugins
+    Jenny.Plugins.Unity
   )
 
   for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/"*.dll "${code_generator_dir}"; done
@@ -290,27 +290,27 @@ desperatedevs::collect_desperatedevs_unity() {
     DesperateDevs.Unity
 
     # editor
-    DesperateDevs.CodeGen
-    DesperateDevs.CodeGen.Generator
-    DesperateDevs.CodeGen.Generator.Unity.Editor
+    Jenny
+    Jenny.Generator
+    Jenny.Generator.Unity.Editor
     DesperateDevs.Unity.Editor
 
     # plugins
-    DesperateDevs.CodeGen.Plugins
-    DesperateDevs.CodeGen.Plugins.Unity
+    Jenny.Plugins
+    Jenny.Plugins.Unity
   )
   local to_editor=(
-    DesperateDevs.CodeGen
-    DesperateDevs.CodeGen.Generator
-    DesperateDevs.CodeGen.Generator.Unity.Editor
+    Jenny
+    Jenny.Generator
+    Jenny.Generator.Unity.Editor
     DesperateDevs.Unity.Editor
   )
   local images=(
-    DesperateDevs.CodeGen.Generator.Unity.Editor
+    Jenny.Generator.Unity.Editor
   )
   local to_plugins=(
-    DesperateDevs.CodeGen.Plugins
-    DesperateDevs.CodeGen.Plugins.Unity
+    Jenny.Plugins
+    Jenny.Plugins.Unity
   )
 
   for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/"*.dll "${desperatedevs_dir}"; done

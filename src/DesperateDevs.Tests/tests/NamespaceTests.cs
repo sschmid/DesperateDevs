@@ -70,7 +70,12 @@ namespace DesperateDevs.Tests
 
         static Dictionary<string, string> ReadSourceFiles(string projectRoot) => Directory
             .GetFiles(projectRoot, "*.cs", SearchOption.AllDirectories)
-            .Where(p => RemoveProjectRoot(p, projectRoot).StartsWith("DesperateDevs"))
+            .Where(p =>
+            {
+                var root = RemoveProjectRoot(p, projectRoot);
+                return root.StartsWith("DesperateDevs") ||
+                       root.StartsWith("Jenny");
+            })
             .Where(p => new[] {"obj", "fixtures", Path.Combine("tests", "bin"), Path.Combine("DesperateDevs.Tests", "unity")}
                 .All(ignore => !p.Contains(Path.DirectorySeparatorChar + ignore + Path.DirectorySeparatorChar)))
             .ToDictionary(p => p, File.ReadAllText);

@@ -1,7 +1,7 @@
 ﻿using System.Linq;
-using DesperateDevs.CodeGen;
+using Jenny;
 
-namespace Samples.DesperateDevs.CodeGen
+namespace Samples.Jenny
 {
     public class SampleGenerator : ICodeGenerator
     {

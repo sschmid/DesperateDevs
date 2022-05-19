@@ -12,11 +12,6 @@ DEDE_UNITY_PROJECTS=(
 
 DESPERATE_DEVS_RESTORE_UNITY=(
   DesperateDevs.Caching
-  DesperateDevs.CodeGen
-  DesperateDevs.CodeGen.Generator
-  DesperateDevs.CodeGen.Generator.Unity.Editor
-  DesperateDevs.CodeGen.Plugins
-  DesperateDevs.CodeGen.Plugins.Unity
   DesperateDevs.Extensions
   DesperateDevs.Logging
   DesperateDevs.Net
@@ -24,6 +19,11 @@ DESPERATE_DEVS_RESTORE_UNITY=(
   DesperateDevs.Serialization
   DesperateDevs.Unity
   DesperateDevs.Unity.Editor
+  Jenny
+  Jenny.Generator
+  Jenny.Generator.Unity.Editor
+  Jenny.Plugins
+  Jenny.Plugins.Unity
 )
 
 UNITY_PATH="/Applications/Unity/Hub/Editor"

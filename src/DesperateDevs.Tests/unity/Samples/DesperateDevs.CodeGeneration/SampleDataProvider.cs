@@ -1,6 +1,6 @@
-﻿using DesperateDevs.CodeGen;
+﻿using Jenny;
 
-namespace Samples.DesperateDevs.CodeGen
+namespace Samples.Jenny
 {
     public class SampleDataProvider : IDataProvider
     {

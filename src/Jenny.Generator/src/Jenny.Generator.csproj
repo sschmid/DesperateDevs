@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>$(DefaultTargetFramework)</TargetFramework>
+    <PackageVersion>0.1.0</PackageVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../Jenny/src/Jenny.csproj" />
+    <ProjectReference Include="../../DesperateDevs.Logging/src/DesperateDevs.Logging.csproj" />
+    <ProjectReference Include="../../DesperateDevs.Reflection/src/DesperateDevs.Reflection.csproj" />
+    <ProjectReference Include="../../DesperateDevs.Serialization/src/DesperateDevs.Serialization.csproj" />
+  </ItemGroup>
+
+</Project>
