@@ -74,7 +74,9 @@ namespace DesperateDevs.Tests
             {
                 var root = RemoveProjectRoot(p, projectRoot);
                 return root.StartsWith("DesperateDevs") ||
-                       root.StartsWith("Jenny");
+                       root.StartsWith("Jenny") ||
+                       root.StartsWith("Sherlog") ||
+                       root.StartsWith("TCPeasy");
             })
             .Where(p => new[] {"obj", "fixtures", Path.Combine("tests", "bin"), Path.Combine("DesperateDevs.Tests", "unity")}
                 .All(ignore => !p.Contains(Path.DirectorySeparatorChar + ignore + Path.DirectorySeparatorChar)))
