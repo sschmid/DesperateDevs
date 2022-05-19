@@ -214,24 +214,24 @@ desperatedevs::collect_jenny() {
   _clean_dir "${jenny_dir}" "${code_generator_dir}" "${plugins_dir}"
 
   local projects=(
-    DesperateDevs.CodeGeneration.CodeGenerator.Cli
-    DesperateDevs.CodeGeneration.Plugins
-    DesperateDevs.CodeGeneration.Unity.Plugins
+    DesperateDevs.CodeGen.Generator.Cli
+    DesperateDevs.CodeGen.Plugins
+    DesperateDevs.CodeGen.Unity.Plugins
   )
   local to_plugins=(
-    DesperateDevs.CodeGeneration.Plugins
-    DesperateDevs.CodeGeneration.Unity.Plugins
+    DesperateDevs.CodeGen.Plugins
+    DesperateDevs.CodeGen.Unity.Plugins
   )
 
   for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/" "${code_generator_dir}"; done
   for f in "${to_plugins[@]}"; do mv "${code_generator_dir}/${f}.dll" "${plugins_dir}"; done
 
-  mv "${code_generator_dir}/DesperateDevs.CodeGeneration.CodeGenerator.Cli.exe" "${code_generator_dir}/Jenny.exe"
+  mv "${code_generator_dir}/DesperateDevs.CodeGen.Generator.Cli.exe" "${code_generator_dir}/Jenny.exe"
 
-  cp src/DesperateDevs.CodeGeneration.CodeGenerator.Cli/scripts/Jenny-Server "${jenny_dir}"
-  cp src/DesperateDevs.CodeGeneration.CodeGenerator.Cli/scripts/Jenny-Server.bat "${jenny_dir}"
-  cp src/DesperateDevs.CodeGeneration.CodeGenerator.Cli/scripts/Jenny-Auto-Import "${jenny_dir}"
-  cp src/DesperateDevs.CodeGeneration.CodeGenerator.Cli/scripts/Jenny-Auto-Import.bat "${jenny_dir}"
+  cp src/DesperateDevs.CodeGen.Generator.Cli/scripts/Jenny-Server "${jenny_dir}"
+  cp src/DesperateDevs.CodeGen.Generator.Cli/scripts/Jenny-Server.bat "${jenny_dir}"
+  cp src/DesperateDevs.CodeGen.Generator.Cli/scripts/Jenny-Auto-Import "${jenny_dir}"
+  cp src/DesperateDevs.CodeGen.Generator.Cli/scripts/Jenny-Auto-Import.bat "${jenny_dir}"
 }
 
 desperatedevs::collect_jenny_unity() {
@@ -243,23 +243,23 @@ desperatedevs::collect_jenny_unity() {
   _clean_dir "${code_generator_dir}" "${editor_dir}" "${images_dir}" "${plugins_dir}"
 
   local projects=(
-    DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
-    DesperateDevs.CodeGeneration.Plugins
-    DesperateDevs.CodeGeneration.Unity.Plugins
+    DesperateDevs.CodeGen.Generator.Unity.Editor
+    DesperateDevs.CodeGen.Plugins
+    DesperateDevs.CodeGen.Unity.Plugins
   )
   local to_editor=(
-    DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
-    DesperateDevs.CodeGeneration.CodeGenerator
-    DesperateDevs.CodeGeneration
+    DesperateDevs.CodeGen.Generator.Unity.Editor
+    DesperateDevs.CodeGen.Generator
+    DesperateDevs.CodeGen
     DesperateDevs.Net
     DesperateDevs.Unity.Editor
   )
   local images=(
-    DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
+    DesperateDevs.CodeGen.Generator.Unity.Editor
   )
   local to_plugins=(
-    DesperateDevs.CodeGeneration.Plugins
-    DesperateDevs.CodeGeneration.Unity.Plugins
+    DesperateDevs.CodeGen.Plugins
+    DesperateDevs.CodeGen.Unity.Plugins
   )
 
   for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/"*.dll "${code_generator_dir}"; done
@@ -290,27 +290,27 @@ desperatedevs::collect_desperatedevs_unity() {
     DesperateDevs.Unity
 
     # editor
-    DesperateDevs.CodeGeneration
-    DesperateDevs.CodeGeneration.CodeGenerator
-    DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
+    DesperateDevs.CodeGen
+    DesperateDevs.CodeGen.Generator
+    DesperateDevs.CodeGen.Generator.Unity.Editor
     DesperateDevs.Unity.Editor
 
     # plugins
-    DesperateDevs.CodeGeneration.Plugins
-    DesperateDevs.CodeGeneration.Unity.Plugins
+    DesperateDevs.CodeGen.Plugins
+    DesperateDevs.CodeGen.Unity.Plugins
   )
   local to_editor=(
-    DesperateDevs.CodeGeneration
-    DesperateDevs.CodeGeneration.CodeGenerator
-    DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
+    DesperateDevs.CodeGen
+    DesperateDevs.CodeGen.Generator
+    DesperateDevs.CodeGen.Generator.Unity.Editor
     DesperateDevs.Unity.Editor
   )
   local images=(
-    DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
+    DesperateDevs.CodeGen.Generator.Unity.Editor
   )
   local to_plugins=(
-    DesperateDevs.CodeGeneration.Plugins
-    DesperateDevs.CodeGeneration.Unity.Plugins
+    DesperateDevs.CodeGen.Plugins
+    DesperateDevs.CodeGen.Unity.Plugins
   )
 
   for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/"*.dll "${desperatedevs_dir}"; done

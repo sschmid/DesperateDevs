@@ -12,11 +12,11 @@ DEDE_UNITY_PROJECTS=(
 
 DESPERATE_DEVS_RESTORE_UNITY=(
   DesperateDevs.Caching
-  DesperateDevs.CodeGeneration
-  DesperateDevs.CodeGeneration.CodeGenerator
-  DesperateDevs.CodeGeneration.CodeGenerator.Unity.Editor
-  DesperateDevs.CodeGeneration.Plugins
-  DesperateDevs.CodeGeneration.Unity.Plugins
+  DesperateDevs.CodeGen
+  DesperateDevs.CodeGen.Generator
+  DesperateDevs.CodeGen.Generator.Unity.Editor
+  DesperateDevs.CodeGen.Plugins
+  DesperateDevs.CodeGen.Unity.Plugins
   DesperateDevs.Extensions
   DesperateDevs.Logging
   DesperateDevs.Net

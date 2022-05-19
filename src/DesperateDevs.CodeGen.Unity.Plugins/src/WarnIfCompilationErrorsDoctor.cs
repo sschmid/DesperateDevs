@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DesperateDevs.CodeGen.CodeGenerator;
+using DesperateDevs.CodeGen.Generator;
 using DesperateDevs.Serialization;
 using DesperateDevs.Extensions;
 
@@ -26,7 +26,7 @@ namespace DesperateDevs.CodeGen.Unity.Plugins
         {
             var isStandalone = AppDomain.CurrentDomain
                 .GetAllTypes()
-                .Any(type => type.FullName == "DesperateDevs.CodeGen.CodeGenerator.Cli.Program");
+                .Any(type => type.FullName == "DesperateDevs.CodeGen.Generator.Cli.Program");
 
             if (isStandalone)
             {
