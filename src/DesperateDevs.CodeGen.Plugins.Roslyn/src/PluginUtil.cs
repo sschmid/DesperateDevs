@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using DesperateDevs.Roslyn;
 
-namespace DesperateDevs.Roslyn.CodeGen.Plugins
+namespace DesperateDevs.CodeGen.Plugins.Roslyn
 {
     public static class PluginUtil
     {
