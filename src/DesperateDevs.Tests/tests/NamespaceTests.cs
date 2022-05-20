@@ -15,7 +15,7 @@ namespace DesperateDevs.Tests
         [Fact]
         public void RoughlyProcessesTheCorrectNumberOfFiles()
         {
-            SourceFiles.Count.Should().BeGreaterThan(150);
+            SourceFiles.Count.Should().BeGreaterThan(160);
             SourceFiles.Count.Should().BeLessThan(180);
         }
 
@@ -91,5 +91,7 @@ namespace DesperateDevs.Tests
         public string Path;
         public string Expected;
         public string Found;
+
+        public override string ToString() => $"{Expected} - {Found}.{System.IO.Path.GetFileNameWithoutExtension(Path)}";
     }
 }
