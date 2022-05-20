@@ -11,7 +11,6 @@ TestResults
 coverage
 
 # IDEs
-packages
 .vs
 .vscode
 .idea
@@ -20,6 +19,15 @@ packages
 
 # Jenny
 *.userproperties
+
+# Unity
+unity/**/Library
+unity/**/Temp
+unity/**/Logs
+unity/**/UserSettings
+unity/**/*.sln
+unity/**/*.csproj
+unity/**/RiderScriptEditorPersistedState.asset
 
 # Project
 .unitypath
