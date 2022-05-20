@@ -15,6 +15,7 @@ DESPERATE_DEVS_RESTORE_UNITY=(
   DesperateDevs.Extensions
   DesperateDevs.Reflection
   DesperateDevs.Serialization
+  DesperateDevs.Threading
   DesperateDevs.Unity
   DesperateDevs.Unity.Editor
   Jenny
@@ -23,6 +24,8 @@ DESPERATE_DEVS_RESTORE_UNITY=(
   Jenny.Plugins
   Jenny.Plugins.Unity
   Sherlog
+  Sherlog.Appenders
+  Sherlog.Formatters
   TCPeasy
 )
 
