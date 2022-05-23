@@ -152,16 +152,17 @@ desperatedevs::coverage() {
 desperatedevs::restore_unity() {
   for project in "${DEDE_UNITY_PROJECTS[@]}"; do
     bee::log_echo "Restore Samples: ${project}"
-    _clean_dir "${project}/Assets/Samples"
+    _clean_dir "${project}/Assets" "${project}/Assets/Samples"
     _sync_unity src/DesperateDevs.Tests/unity/Samples "${project}/Assets"
     mv "${project}/Assets/Samples/Jenny.properties" "${project}/Jenny.properties"
     mv "${project}/Assets/Samples/Sample.properties" "${project}/Sample.properties"
 
     bee::log_echo "Restore DesperateDevs: ${project}"
     rm -rf "${project}"/Assets/DesperateDevs.*
-    for dep in "${DESPERATE_DEVS_RESTORE_UNITY[@]}"; do
+    for dep in "${!DESPERATE_DEVS_RESTORE_UNITY[@]}"; do
       bee::log_echo "Restore ${dep}: ${project}"
-      _sync_unity "src/${dep}/src/" "${project}/Assets/${dep}"
+      mkdir -p "${project}/${DESPERATE_DEVS_RESTORE_UNITY["${dep}"]}"
+      _sync_unity "src/${dep}/src/" "${project}/${DESPERATE_DEVS_RESTORE_UNITY["${dep}"]}/${dep}"
     done
 
     bee::log_echo "Restore Dotfiles: ${project}"
