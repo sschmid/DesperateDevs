@@ -150,43 +150,44 @@ desperatedevs::coverage() {
 }
 
 desperatedevs::restore_unity() {
-  for project in "${DEDE_UNITY_PROJECTS[@]}"; do
-    bee::log_echo "Restore Samples: ${project}"
-    _clean_dir "${project}/Assets" "${project}/Assets/Samples"
-    _sync_unity src/DesperateDevs.Tests/unity/Samples "${project}/Assets"
-    mv "${project}/Assets/Samples/Jenny.properties" "${project}/Jenny.properties"
-    mv "${project}/Assets/Samples/Sample.properties" "${project}/Sample.properties"
+  for unity_project_path in "${DEDE_UNITY_PROJECTS[@]}"; do
+    bee::log_echo "Restore Samples: ${unity_project_path}"
+    _clean_dir "${unity_project_path}/Assets" "${unity_project_path}/Assets/Samples"
+    _sync_unity src/DesperateDevs.Tests/unity/Samples "${unity_project_path}/Assets"
+    mv "${unity_project_path}/Assets/Samples/Jenny.properties" "${unity_project_path}/Jenny.properties"
+    mv "${unity_project_path}/Assets/Samples/Sample.properties" "${unity_project_path}/Sample.properties"
 
-    bee::log_echo "Restore DesperateDevs: ${project}"
-    rm -rf "${project}"/Assets/DesperateDevs.*
-    for dep in "${!DESPERATE_DEVS_RESTORE_UNITY[@]}"; do
-      bee::log_echo "Restore ${dep}: ${project}"
-      mkdir -p "${project}/${DESPERATE_DEVS_RESTORE_UNITY["${dep}"]}"
-      _sync_unity "src/${dep}/src/" "${project}/${DESPERATE_DEVS_RESTORE_UNITY["${dep}"]}/${dep}"
+    bee::log_echo "Restore DesperateDevs: ${unity_project_path}"
+    rm -rf "${unity_project_path}"/Assets/DesperateDevs.*
+    for project in "${!DESPERATE_DEVS_RESTORE_UNITY[@]}"; do
+      bee::log_echo "Restore ${project}: ${unity_project_path}"
+      local project_path="${unity_project_path}/${DESPERATE_DEVS_RESTORE_UNITY["${project}"]}"
+      mkdir -p "${project_path}"
+      _sync_unity "src/${project}/src/" "${project_path}/${project}"
     done
 
-    bee::log_echo "Restore Dotfiles: ${project}"
-    cp DesperateDevs.sln.DotSettings "${project}/$(basename "${project}").sln.DotSettings"
-    cp CodeStyle.DotSettings "${project}/CodeStyle.DotSettings"
-    cp PatternsAndTemplates.DotSettings "${project}/PatternsAndTemplates.DotSettings"
+    bee::log_echo "Restore Dotfiles: ${unity_project_path}"
+    cp DesperateDevs.sln.DotSettings "${unity_project_path}/$(basename "${unity_project_path}").sln.DotSettings"
+    cp CodeStyle.DotSettings "${unity_project_path}/CodeStyle.DotSettings"
+    cp PatternsAndTemplates.DotSettings "${unity_project_path}/PatternsAndTemplates.DotSettings"
   done
 }
 
 desperatedevs::sync_unity_solutions() {
   local version
   local -A projects_pids=()
-  for project in "${DEDE_UNITY_PROJECTS[@]}" ; do
-    UNITY_PROJECT_PATH="${project}"
-    version="$(grep "m_EditorVersion:" "${project}/ProjectSettings/ProjectVersion.txt" | awk '{print $2}')"
+  for unity_project_path in "${DEDE_UNITY_PROJECTS[@]}" ; do
+    UNITY_PROJECT_PATH="${unity_project_path}"
+    version="$(grep "m_EditorVersion:" "${unity_project_path}/ProjectSettings/ProjectVersion.txt" | awk '{print $2}')"
     UNITY="${UNITY_PATH}/${version}/${UNITY_APP}"
     unity::sync_solution &
-    projects_pids["${project}"]=$!
+    projects_pids["${unity_project_path}"]=$!
   done
 
-  for project in "${!projects_pids[@]}"; do
-    if wait ${projects_pids["${project}"]}
-    then projects_pids["${project}"]=1
-    else projects_pids["${project}"]=0
+  for unity_project_path in "${!projects_pids[@]}"; do
+    if wait ${projects_pids["${unity_project_path}"]}
+    then projects_pids["${unity_project_path}"]=1
+    else projects_pids["${unity_project_path}"]=0
     fi
   done
 
@@ -196,6 +197,65 @@ desperatedevs::sync_unity_solutions() {
     else bee::log_echo "🔴 ${project}"
     fi
   done | LC_ALL=C sort
+}
+
+desperatedevs::update_unity_packages() {
+  local unity_project_path=unity/UnityPackages csproj project_references reference references platforms version
+  for project in "${!DESPERATE_DEVS_RESTORE_UNITY[@]}"; do
+    bee::log_echo "Update ${project}"
+    rm -f "${unity_project_path}/${DESPERATE_DEVS_RESTORE_UNITY["${project}"]}/${project}/"*.cs
+    mkdir -p "${unity_project_path}/${DESPERATE_DEVS_RESTORE_UNITY["${project}"]}"
+    _sync_unity "src/${project}/src/" "${unity_project_path}/${DESPERATE_DEVS_RESTORE_UNITY["${project}"]}/${project}"
+    csproj="src/${project}/src/${project}.csproj"
+
+    mapfile -t project_references < <(get_project_references "${csproj}" | sort -u)
+    references=""
+    for reference in "${project_references[@]}"; do
+      references+=", \"${reference}\""
+    done
+
+    if [[ ${DESPERATE_DEVS_RESTORE_UNITY["${project}"]} == "Assets/Editor" ]]
+    then platforms="\"Editor\""
+    else platforms=""
+    fi
+
+    cat << EOF > "${unity_project_path}/${DESPERATE_DEVS_RESTORE_UNITY["${project}"]}/${project}/${project}.asmdef"
+{
+  "name": "${project}",
+  "rootNamespace": "",
+  "references": [${references:2}],
+  "includePlatforms": [${platforms}],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}
+EOF
+  done
+
+  pushd "${unity_project_path}" > /dev/null || exit 1
+    ln -sf ../../DesperateDevs.sln.DotSettings UnityPackages.sln.DotSettings
+    ln -sf ../../CodeStyle.DotSettings CodeStyle.DotSettings
+    ln -sf ../../PatternsAndTemplates.DotSettings PatternsAndTemplates.DotSettings
+  popd > /dev/null || exit 1
+
+  UNITY_PROJECT_PATH="${unity_project_path}"
+  version="$(grep "m_EditorVersion:" "${unity_project_path}/ProjectSettings/ProjectVersion.txt" | awk '{print $2}')"
+  UNITY="${UNITY_PATH}/${version}/${UNITY_APP}"
+  unity::sync_solution
+}
+
+get_project_references() {
+  local reference
+  while read -r reference; do
+    reference="$(basename "${reference}" .csproj)"
+    echo "${reference}"
+    get_project_references "src/${reference}/src/${reference}.csproj"
+  done < <(dotnet list "$1" reference | tail -n +3)
 }
 
 desperatedevs::publish() {
