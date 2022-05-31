@@ -11,7 +11,7 @@ namespace Jenny.Generator.Tests
         static readonly string ProjectRoot = TestHelper.GetProjectRoot();
 
         static readonly string SearchPaths = Path.Combine(
-            "src", "Jenny.Generator", "tests", "Fixtures"
+            "src", "Jenny.Generator", "tests", "fixtures"
         );
 
         readonly CodeGeneratorConfig _config;

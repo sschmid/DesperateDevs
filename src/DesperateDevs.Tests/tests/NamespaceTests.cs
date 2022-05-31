@@ -26,7 +26,7 @@ namespace DesperateDevs.Tests
             var isTest = shortPath.Contains(Path.DirectorySeparatorChar + "tests" + Path.DirectorySeparatorChar) &&
                          !shortPath.Contains("DesperateDevs.Tests");
             var isBenchmark = shortPath.Contains(Path.DirectorySeparatorChar + "benchmarks" + Path.DirectorySeparatorChar);
-            var isFixture = shortPath.Contains(Path.DirectorySeparatorChar + "Fixtures" + Path.DirectorySeparatorChar);
+            var isFixture = shortPath.Contains(Path.DirectorySeparatorChar + "fixtures" + Path.DirectorySeparatorChar);
 
             if (isTest)
                 ns.Expected += ".Tests";

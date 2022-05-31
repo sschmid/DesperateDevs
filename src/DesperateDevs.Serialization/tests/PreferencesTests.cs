@@ -11,7 +11,7 @@ namespace DesperateDevs.Serialization.Tests
     public class PreferencesTests
     {
         static readonly string ProjectRoot = TestHelper.GetProjectRoot();
-        static readonly string FixturesPath = Path.Combine(ProjectRoot, "DesperateDevs.Serialization", "tests", "Fixtures");
+        static readonly string FixturesPath = Path.Combine(ProjectRoot, "DesperateDevs.Serialization", "tests", "fixtures");
 
         TestPreferences Preferences => _preferences ?? (_preferences = new TestPreferences("key = value"));
         TestPreferences UserPreferences => _preferences ?? (_preferences = new TestPreferences("key = ${userName}", "userName = Max"));
@@ -188,15 +188,15 @@ namespace DesperateDevs.Serialization.Tests
         [Fact]
         public void SavesPreferencesToDisk()
         {
+            var temp = Path.Combine(FixturesPath, "temp");
+            if (!Directory.Exists(temp))
+                Directory.CreateDirectory(temp);
+
             var properties = Path.Combine(FixturesPath, "TestPreferences.properties");
             var userProperties = Path.Combine(FixturesPath, "TestUserPreferences.properties");
 
-            var temp = Path.Combine(FixturesPath, "Temp");
             var tempProperties = Path.Combine(temp, "TestPreferences.properties");
             var tempUserProperties = Path.Combine(temp, "TestUserPreferences.properties");
-
-            if (!Directory.Exists(temp))
-                Directory.CreateDirectory(temp);
 
             File.Copy(properties, tempProperties, true);
             File.Copy(userProperties, tempUserProperties, true);
@@ -212,15 +212,15 @@ namespace DesperateDevs.Serialization.Tests
         [Fact]
         public void SavesMinifiedPreferencesToDisk()
         {
+            var temp = Path.Combine(FixturesPath, "temp");
+            if (!Directory.Exists(temp))
+                Directory.CreateDirectory(temp);
+
             var properties = Path.Combine(FixturesPath, "TestPreferences.properties");
             var userProperties = Path.Combine(FixturesPath, "TestUserPreferences.properties");
 
-            var temp = Path.Combine(FixturesPath, "Temp");
             var tempProperties = Path.Combine(temp, "TestPreferences.properties");
             var tempUserProperties = Path.Combine(temp, "TestUserPreferences.properties");
-
-            if (!Directory.Exists(temp))
-                Directory.CreateDirectory(temp);
 
             File.Copy(properties, tempProperties, true);
             File.Copy(userProperties, tempUserProperties, true);
