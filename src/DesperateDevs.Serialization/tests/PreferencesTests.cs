@@ -188,29 +188,20 @@ namespace DesperateDevs.Serialization.Tests
         [Fact]
         public void SavesPreferencesToDisk()
         {
-            var temp = Path.Combine(FixturesPath, "temp");
-            if (!Directory.Exists(temp))
-                Directory.CreateDirectory(temp);
-
-            var properties = Path.Combine(FixturesPath, "TestPreferences.properties");
-            var userProperties = Path.Combine(FixturesPath, "TestUserPreferences.properties");
-
-            var tempProperties = Path.Combine(temp, "TestPreferences.properties");
-            var tempUserProperties = Path.Combine(temp, "TestUserPreferences.properties");
-
-            File.Copy(properties, tempProperties, true);
-            File.Copy(userProperties, tempUserProperties, true);
-
-            var preferences = new Preferences(tempProperties, tempUserProperties);
-            preferences["key"] = "test";
-            preferences.Save();
-
-            File.ReadAllText(tempProperties).Should().Be("key = test\n");
-            File.ReadAllText(tempUserProperties).Should().Be(File.ReadAllText(userProperties));
+            var (tempProperties, tempUserProperties, properties, userProperties) = Save(false);
+            tempProperties.Should().Be("key = test\n");
+            tempUserProperties.Should().Be(userProperties);
         }
 
         [Fact]
         public void SavesMinifiedPreferencesToDisk()
+        {
+            var (tempProperties, tempUserProperties, properties, userProperties) = Save(true);
+            tempProperties.Should().Be("key=test\n");
+            tempUserProperties.Should().Be(userProperties.Replace(" ", string.Empty));
+        }
+
+        (string, string, string, string) Save(bool minified)
         {
             var temp = Path.Combine(FixturesPath, "temp");
             if (!Directory.Exists(temp))
@@ -227,10 +218,14 @@ namespace DesperateDevs.Serialization.Tests
 
             var preferences = new Preferences(tempProperties, tempUserProperties);
             preferences["key"] = "test";
-            preferences.Save(true);
+            preferences.Save(minified);
 
-            File.ReadAllText(tempProperties).Should().Be("key=test\n");
-            File.ReadAllText(tempUserProperties).Should().Be(File.ReadAllText(userProperties).Replace(" ", string.Empty));
+            return (
+                tempProperties = File.ReadAllText(tempProperties),
+                tempUserProperties = File.ReadAllText(tempUserProperties),
+                properties = File.ReadAllText(properties),
+                userProperties = File.ReadAllText(userProperties)
+            );
         }
     }
 }
