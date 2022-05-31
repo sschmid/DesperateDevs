@@ -33,3 +33,4 @@ unity/**/RiderScriptEditorPersistedState.asset
 .unitypath
 build
 src/DesperateDevs.Serialization/tests/Fixtures/Temp
+src/Jenny.Plugins/tests/fixtures/temp
