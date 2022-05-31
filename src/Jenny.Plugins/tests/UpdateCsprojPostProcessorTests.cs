@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Jenny.Plugins.Tests
 {
-    public class UpdateCsProjPostProcessorTests
+    public class UpdateCsprojPostProcessorTests
     {
         static readonly string ProjectRoot = TestHelper.GetProjectRoot();
         static readonly string FixturesPath = Path.Combine(ProjectRoot, "Jenny.Plugins", "tests", "fixtures");
@@ -45,7 +45,7 @@ namespace Jenny.Plugins.Tests
 
             File.Copy(project, tempProject, true);
 
-            var postProcessor = new UpdateCsProjPostProcessor();
+            var postProcessor = new UpdateCsprojPostProcessor();
             var preferences = new TestPreferences($@"
 Jenny.Plugins.ProjectPath = {tempProject}
 Jenny.Plugins.TargetDirectory = Assets/Sources");

@@ -7,7 +7,7 @@ using DesperateDevs.Extensions;
 
 namespace Jenny.Plugins
 {
-    public class UpdateCsProjPostProcessor : IPostProcessor, IConfigurable
+    public class UpdateCsprojPostProcessor : IPostProcessor, IConfigurable
     {
         public string Name => "Update .csproj";
         public int Order => 96;
