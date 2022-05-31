@@ -40,33 +40,25 @@ namespace Jenny.Plugins
                 .Replace("/", "\\")
                 .Replace("\\", "\\\\");
 
-            var entryPattern = @"\s*<Compile Include=""" + escapedTargetDirectory + @".* \/>";
-            project = Regex.Replace(project, entryPattern, string.Empty);
+            var unixTargetDirectory = _targetDirectoryConfig.TargetDirectory.ToUnixPath();
 
-            const string emptyItemGroup = @"\s*<ItemGroup>\s*<\/ItemGroup>";
-            project = Regex.Replace(project, emptyItemGroup, string.Empty);
-
-            return project;
+            project = Regex.Replace(project, $@"\s*<Compile Include=""{escapedTargetDirectory}.* \/>", string.Empty);
+            project = Regex.Replace(project, $@"\s*<Compile Include=""{unixTargetDirectory}.* \/>", string.Empty);
+            return Regex.Replace(project, @"\s*<ItemGroup>\s*<\/ItemGroup>", string.Empty);
         }
 
         string AddGeneratedEntries(string project, CodeGenFile[] files)
         {
-            const string endOfItemGroupPattern = @"<\/ItemGroup>";
+            var entries = string.Join("\r\n", files.Select(file =>
+            {
+                var path = Path.Combine(_targetDirectoryConfig.TargetDirectory, file.FileName).ToUnixPath();
+                return $@"    <Compile Include=""{path}"" />";
+            }));
 
-            const string generatedEntriesTemplate =
-                @"</ItemGroup>
+            return new Regex(@"<\/ItemGroup>").Replace(project, $@"</ItemGroup>
   <ItemGroup>
-{0}
-  </ItemGroup>";
-
-            var entryTemplate = @"    <Compile Include=""" + _targetDirectoryConfig.TargetDirectory.Replace("/", "\\") + @"\{0}"" />";
-
-            var entries = string.Join("\r\n", files.Select(
-                file => string.Format(entryTemplate, file.FileName.Replace("/", "\\"))).ToArray());
-
-            var generatedEntries = string.Format(generatedEntriesTemplate, entries);
-
-            return new Regex(endOfItemGroupPattern).Replace(project, generatedEntries, 1);
+{entries}
+  </ItemGroup>", 1);
         }
     }
 }
