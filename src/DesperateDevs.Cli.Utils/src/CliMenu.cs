@@ -49,33 +49,21 @@ namespace DesperateDevs.Cli.Utils
             for (var i = 0; i < _menuEntries.Count; i++)
             {
                 var entry = Indent;
-                if (_menuEntries[i].ShowTriggerInTitle)
+                var menuEntry = _menuEntries[i];
+                if (menuEntry.ShowTriggerInTitle)
                 {
-                    entry += _menuEntries[i].Triggers != null
-                        ? $"[{_menuEntries[i].Triggers[0]}] "
+                    entry += menuEntry.Triggers != null
+                        ? $"[{menuEntry.Triggers[0]}] "
                         : string.Empty;
                 }
 
-                entry += _menuEntries[i].Title;
+                entry += menuEntry.Title;
 
                 if (i == _selection.Index)
-                {
                     CliHelper.WriteHighlighted(entry, true, _longestTitle);
-                }
                 else
-                {
-                    Console.ResetColor();
                     Console.WriteLine(entry);
-                }
             }
-        }
-
-        void TryRunMenuEntry()
-        {
-            if (_selection.RunAction)
-                _menuEntries[_selection.Index].Action();
-
-            _selection.RunAction = false;
         }
 
         void ProcessInput()
@@ -132,18 +120,25 @@ namespace DesperateDevs.Cli.Utils
         {
             for (var i = 0; i < _menuEntries.Count; i++)
             {
-                if (_menuEntries[i].Triggers != null)
+                var menuEntry = _menuEntries[i];
+                if (menuEntry.Triggers != null)
                 {
-                    foreach (var trigger in _menuEntries[i].Triggers)
+                    if (menuEntry.Triggers.Any(trigger => trigger == key.Key))
                     {
-                        if (trigger == key.Key)
-                        {
-                            _selection.Index = i;
-                            _selection.RunAction = true;
-                            return;
-                        }
+                        _selection.Index = i;
+                        _selection.RunAction = true;
+                        return;
                     }
                 }
+            }
+        }
+
+        void TryRunMenuEntry()
+        {
+            if (_selection.RunAction)
+            {
+                _selection.RunAction = false;
+                _menuEntries[_selection.Index].Action();
             }
         }
     }

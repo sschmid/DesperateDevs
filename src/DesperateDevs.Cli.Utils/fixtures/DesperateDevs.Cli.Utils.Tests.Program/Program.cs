@@ -9,7 +9,7 @@ namespace DesperateDevs.Cli.Utils.Tests.Program
         public static void Main(string[] args)
         {
             CliHelper.ConsoleColors = new ConsoleColors();
-            var menu = new CliMenu("CLI Tester");
+            var menu = new CliMenu("Cli Tester");
             menu.AddMenuEntry(new GreetMenuEntry());
             menu.AddMenuEntry(new SubMenuEntry(menu.Title));
             menu.AddMenuEntry(new SelectionMenuEntry(menu.Title));

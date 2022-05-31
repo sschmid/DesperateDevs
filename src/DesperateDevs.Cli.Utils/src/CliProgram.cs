@@ -21,7 +21,7 @@ namespace DesperateDevs.Cli.Utils
             _defaultCommand = defaultCommand;
             _args = args;
             CliHelper.ConsoleColors = consoleColors ?? new ConsoleColors();
-            Console.Title = applicationName + string.Join("  ", args);
+            Console.Title = $"{applicationName} {string.Join("  ", args)}";
             InitializeLogging(args, CliHelper.ConsoleColors);
             _commands = LoadCommands(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory));
         }
@@ -49,15 +49,26 @@ namespace DesperateDevs.Cli.Utils
 
         ICommand[] LoadCommands(string dir)
         {
-            _logger.Debug("Loading assemblies from " + dir);
+            _logger.Debug($"Loading assemblies from {dir}");
             using (AssemblyResolver.LoadAssemblies(false, dir))
             {
-                var commands = AppDomain.CurrentDomain
+                return AppDomain.CurrentDomain
                     .GetInstancesOf<ICommand>()
                     .OrderBy(c => c.Trigger)
                     .ToArray();
+            }
+        }
 
-                return commands;
+        void RunCommand(string[] args)
+        {
+            try
+            {
+                GetCommand(args.WithoutDefaultParameter().First()).Run(this, args);
+            }
+            catch (Exception exception)
+            {
+                _logger.Error(args.IsVerbose() ? exception.ToString() : exception.Message);
+                _logger.Info("Use -v to enable verbose logging");
             }
         }
 
@@ -65,9 +76,7 @@ namespace DesperateDevs.Cli.Utils
         {
             var command = _commands.SingleOrDefault(c => c.Trigger == trigger);
             if (command == null)
-            {
-                throw new Exception("command not found: " + trigger);
-            }
+                throw new Exception($"command not found: {trigger}");
 
             return command;
         }
@@ -88,23 +97,10 @@ namespace DesperateDevs.Cli.Utils
             return string.Join("\n", groupedCommands.Select(group =>
             {
                 var groupHeader = group.Key == string.Empty ? string.Empty : group.Key + ":\n";
-                var commandInGroup = string.Join("\n", group
+                var commandsInGroup = string.Join("\n", group
                     .Select(command => $"  {command.Example.PadRight(pad)}   {command.Description}"));
-                return groupHeader + "\n" + commandInGroup + "\n";
+                return $"{groupHeader}\n{commandsInGroup}\n";
             }));
-        }
-
-        void RunCommand(string[] args)
-        {
-            try
-            {
-                GetCommand(args.WithoutDefaultParameter().First()).Run(this, args);
-            }
-            catch (Exception exception)
-            {
-                _logger.Error(args.IsVerbose() ? exception.ToString() : exception.Message);
-                _logger.Info("Use -v to enable verbose logging");
-            }
         }
 
         void InitializeLogging(string[] args, ConsoleColors consoleColors)
@@ -120,9 +116,9 @@ namespace DesperateDevs.Cli.Utils
             Logger.AddAppender((logger, logLevel, message) =>
             {
                 message = formatter(logger, logLevel, message);
-                if (consoleColors.LogLevelColors.ContainsKey(logLevel))
+                if (consoleColors.LogLevelColors.TryGetValue(logLevel, out var color))
                 {
-                    Console.ForegroundColor = consoleColors.LogLevelColors[logLevel];
+                    Console.ForegroundColor = color;
                     Console.WriteLine(message);
                     Console.ResetColor();
                 }

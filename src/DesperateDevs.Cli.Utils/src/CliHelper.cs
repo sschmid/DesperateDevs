@@ -149,7 +149,7 @@ namespace DesperateDevs.Cli.Utils
 //
 //            WriteHighlighted("WriteHighlighted", false);
 //            WriteHighlighted("WriteHighlighted\nPadded", true);
-//            WriteHighlighted("WriteHighlighted\nCustom Padd", true, 40);
+//            WriteHighlighted("WriteHighlighted\nCustom Pad", true, 40);
 //
 //            Console.WriteLine("--------------------------------------------------------------------------------");
 //        }

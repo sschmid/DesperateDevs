@@ -23,8 +23,7 @@ namespace DesperateDevs.Cli.Utils
         public static IEnumerable<string> WithoutTrigger(this IEnumerable<string> args) =>
             args.Skip(1);
 
-        public static IEnumerable<string> WithoutDefaultParameter(this IEnumerable<string> args) =>
-            args.Where(arg => !DefaultParameter.Contains(arg));
+        public static IEnumerable<string> WithoutDefaultParameter(this IEnumerable<string> args) => args.Except(DefaultParameter);
 
         public static IEnumerable<string> WithoutParameter(this IEnumerable<string> args) =>
             args.Where(arg => !arg.StartsWith("-", StringComparison.Ordinal));
