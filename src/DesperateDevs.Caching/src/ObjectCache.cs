@@ -31,6 +31,6 @@ namespace DesperateDevs.Caching
         public void RegisterCustomObjectPool<T>(ObjectPool<T> objectPool) =>
             _objectPools.Add(typeof(T), objectPool);
 
-        public void Reset() => _objectPools.Clear();
+        public void Clear() => _objectPools.Clear();
     }
 }

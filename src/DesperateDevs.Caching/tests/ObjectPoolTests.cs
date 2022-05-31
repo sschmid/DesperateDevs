@@ -65,6 +65,21 @@ namespace DesperateDevs.Caching.Tests
             obj.Should().NotBeSameAs(obj1);
             obj.Should().NotBeSameAs(obj2);
         }
+
+        [Fact]
+        public void ClearsPool()
+        {
+            var obj1 = new TestClassWithField();
+            var obj2 = new TestClassWithField();
+            _objectPool.Push(obj1);
+            _objectPool.Push(obj2);
+
+            _objectPool.Clear();
+
+            var obj = _objectPool.Get();
+            obj.Should().NotBeSameAs(obj1);
+            obj.Should().NotBeSameAs(obj2);
+        }
     }
 
     public class TestClassWithField

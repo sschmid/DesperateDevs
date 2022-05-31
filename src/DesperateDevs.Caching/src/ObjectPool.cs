@@ -32,5 +32,7 @@ namespace DesperateDevs.Caching
             _objectPool.Clear();
             return objects;
         }
+
+        public void Clear() => _objectPool.Clear();
     }
 }
