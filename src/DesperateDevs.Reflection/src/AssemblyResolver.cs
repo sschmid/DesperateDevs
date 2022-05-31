@@ -53,7 +53,7 @@ namespace DesperateDevs.Reflection
 
         public void Load(string path)
         {
-            _logger.Debug(_appDomain + " load: " + path);
+            _logger.Debug($"{_appDomain} load: {path}");
             ResolveAndLoad(path, false);
         }
 
@@ -65,8 +65,8 @@ namespace DesperateDevs.Reflection
             try
             {
                 _logger.Debug(isDependency
-                    ? "  ➜ Loading dependency: " + name
-                    : "  ➜ Loading: " + name);
+                    ? $"  ➜ Loading dependency: {name}"
+                    : $"  ➜ Loading: {name}");
 
                 var assembly = Assembly.LoadFrom(name);
                 _assemblies.Add(assembly);
@@ -108,14 +108,14 @@ namespace DesperateDevs.Reflection
                     var path = Path.Combine(basePath, assemblyName);
                     if (File.Exists(path))
                     {
-                        _logger.Debug("    ➜ Resolved: " + path);
+                        _logger.Debug($"    ➜ Resolved: {path}");
                         return path;
                     }
                 }
             }
             catch (FileLoadException)
             {
-                _logger.Warn("    × Could not resolve: " + name);
+                _logger.Warn($"    × Could not resolve: {name}");
             }
 
             return null;
