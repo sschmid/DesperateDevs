@@ -1,3 +1,4 @@
+using System.Linq;
 using FluentAssertions;
 using Xunit;
 
@@ -61,12 +62,30 @@ namespace DesperateDevs.Caching.Tests
         }
 
         [Fact]
-        public void Resets()
+        public void Clears()
         {
             var obj = _cache.Get<object>();
             _cache.Push(obj);
-            _cache.Reset();
+            _cache.Clear();
             _cache.Get<object>().Should().NotBeSameAs(obj);
+        }
+
+        [Fact]
+        public void GetsAllObjectPools()
+        {
+            var objectPool = new ObjectPool<TestClassWithField>(
+                () => new TestClassWithField {Value = "test"},
+                c => c.Value = null
+            );
+
+            _cache.RegisterCustomObjectPool(objectPool);
+
+            _cache.Get<object>();
+            _cache.Get<TestClassWithField>();
+
+            var objectPools = _cache.ObjectPools.ToArray();
+            objectPools.Should().HaveCount(2);
+            objectPools.Should().Contain(objectPool);
         }
     }
 }

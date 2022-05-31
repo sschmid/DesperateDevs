@@ -5,6 +5,8 @@ namespace DesperateDevs.Caching
 {
     public class ObjectCache
     {
+        public IEnumerable<object> ObjectPools => _objectPools.Values;
+
         readonly Dictionary<Type, object> _objectPools;
 
         public ObjectCache()
@@ -21,7 +23,7 @@ namespace DesperateDevs.Caching
                 _objectPools.Add(type, objectPool);
             }
 
-            return ((ObjectPool<T>)objectPool);
+            return (ObjectPool<T>)objectPool;
         }
 
         public T Get<T>() where T : new() => GetObjectPool<T>().Get();
