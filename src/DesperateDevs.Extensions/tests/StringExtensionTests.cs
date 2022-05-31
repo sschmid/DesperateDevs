@@ -6,16 +6,20 @@ namespace DesperateDevs.Extensions.Tests
     public class StringExtensionTests
     {
         [Fact]
-        public void UppercaseFirst() => "test".UpperFirst().Should().Be("Test");
+        public void UppercaseFirst()
+        {
+            string.Empty.ToUpperFirst().Should().Be(string.Empty);
+            "Test".ToUpperFirst().Should().Be("Test");
+            "test".ToUpperFirst().Should().Be("Test");
+        }
 
         [Fact]
-        public void UppercaseFirstHandlesEmptyString() => string.Empty.UpperFirst().Should().Be(string.Empty);
-
-        [Fact]
-        public void LowercaseFirst() => "Test".LowerFirst().Should().Be("test");
-
-        [Fact]
-        public void LowercaseFirstHandlesEmptyString() => string.Empty.LowerFirst().Should().Be(string.Empty);
+        public void LowercaseFirst()
+        {
+            string.Empty.ToLowerFirst().Should().Be(string.Empty);
+            "Test".ToLowerFirst().Should().Be("test");
+            "test".ToLowerFirst().Should().Be("test");
+        }
 
         [Fact]
         public void ToUnixLineEndings() => "1\r\n2\r3\n".ToUnixLineEndings().Should().Be("1\n2\n3\n");
@@ -42,7 +46,13 @@ namespace DesperateDevs.Extensions.Tests
         public void FromCsvRemoveEmptyEntries() => "1,2 ,, 3".FromCSV(true).Should().BeEquivalentTo("1", "2", "3");
 
         [Fact]
-        public void ToSpacedCamelCase() => "ThisIsATest".ToSpacedCamelCase().Should().Be("This Is A Test");
+        public void ToSpacedCamelCase()
+        {
+            string.Empty.ToSpacedCamelCase().Should().Be(string.Empty);
+            "Test".ToSpacedCamelCase().Should().Be("Test");
+            "Test Test".ToSpacedCamelCase().Should().Be("Test Test");
+            "ThisIsATest".ToSpacedCamelCase().Should().Be("This Is A Test");
+        }
 
         [Fact]
         public void MakesPathRelativeToParentDirs() => "/home/DesperateDevs/test/file".MakePathRelativeTo("/home/DesperateDevs").Should().Be("test/file");

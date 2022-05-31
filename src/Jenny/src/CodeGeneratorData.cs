@@ -23,8 +23,8 @@ namespace Jenny
                         {
                             "lower" => value.ToString().ToLower(),
                             "upper" => value.ToString().ToUpper(),
-                            "lowerFirst" => value.ToString().LowerFirst(),
-                            "upperFirst" => value.ToString().UpperFirst(),
+                            "lowerFirst" => value.ToString().ToLowerFirst(),
+                            "upperFirst" => value.ToString().ToUpperFirst(),
                             "foreach" => ForEach((IEnumerable<object>)value, split[2]),
                             _ => value.ToString()
                         }

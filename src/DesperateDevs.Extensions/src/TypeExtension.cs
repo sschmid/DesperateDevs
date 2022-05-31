@@ -18,20 +18,18 @@ namespace DesperateDevs.Extensions
         /// System.Collections.Generic.Dictionary`2[System.Int32,System.String]
         public static string ToCompilableString(this Type type)
         {
-            if (BuiltInTypesToString.ContainsKey(type.FullName))
-                return BuiltInTypesToString[type.FullName];
+            if (BuiltInTypesToString.TryGetValue(type.FullName, out var fullName))
+                return fullName;
 
             if (type.IsGenericType)
             {
-                var genericMainType = type.FullName.Split('`')[0];
                 var genericArguments = type.GetGenericArguments()
                     .Select(argType => argType.ToCompilableString());
-                return genericMainType + "<" + string.Join(", ", genericArguments) + ">";
+                return $"{type.FullName.Split('`')[0]}<{string.Join(", ", genericArguments)}>";
             }
 
             if (type.IsArray)
-                return type.GetElementType().ToCompilableString() +
-                       "[" + new string(',', type.GetArrayRank() - 1) + "]";
+                return $"{type.GetElementType().ToCompilableString()}[{new string(',', type.GetArrayRank() - 1)}]";
 
             if (type.IsNested)
                 return type.FullName.Replace('+', '.');
@@ -68,9 +66,9 @@ namespace DesperateDevs.Extensions
 
         static string GenerateTypeString(string typeString)
         {
-            if (BuiltInTypeStrings.ContainsKey(typeString))
+            if (BuiltInTypeStrings.TryGetValue(typeString, out var fullName))
             {
-                typeString = BuiltInTypeStrings[typeString];
+                typeString = fullName;
             }
             else
             {
@@ -90,7 +88,7 @@ namespace DesperateDevs.Extensions
                 {
                     var ts = GenerateTypeString(match.Groups["arg"].Value);
                     var argsCount = ts.Split(separator, StringSplitOptions.None).Length;
-                    return "`" + argsCount + "[" + ts + "]";
+                    return $"`{argsCount}[{ts}]";
                 });
 
             return typeString;
