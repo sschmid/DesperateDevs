@@ -11,6 +11,7 @@ namespace DesperateDevs.Cli.Utils
             "-v",
             "-s",
             "-d",
+            "-f",
             "-y",
             "-n"
         };
@@ -18,6 +19,8 @@ namespace DesperateDevs.Cli.Utils
         public static bool IsVerbose(this string[] args) => HasParameter(args, "-v") || IsDebug(args);
         public static bool IsSilent(this string[] args) => HasParameter(args, "-s");
         public static bool IsDebug(this string[] args) => HasParameter(args, "-d");
+
+        public static bool IsForce(this string[] args) => args.Any(arg => arg == "-f");
 
         public static bool IsYes(this string[] args) => HasParameter(args, "-y");
         public static bool IsNo(this string[] args) => HasParameter(args, "-n");
