@@ -26,9 +26,15 @@ namespace DesperateDevs.Cli.Utils.Tests
         public void IsDebugSetsIsVerbose() => AssertArg("-d", ArgsExtension.IsVerbose);
 
         [Fact]
+        public void IsYes() => AssertArg("-y", ArgsExtension.IsYes);
+
+        [Fact]
+        public void IsNo() => AssertArg("-n", ArgsExtension.IsNo);
+
+        [Fact]
         public void FiltersDefaultParameter()
         {
-            var filtered = new[] {"-v", "-s", "-d", "value"}.WithoutDefaultParameter().ToArray();
+            var filtered = new[] {"-v", "-s", "-d", "-y", "-n", "value"}.WithoutDefaultParameter().ToArray();
             filtered.Length.Should().Be(1);
             filtered.Should().Contain("value");
         }
