@@ -36,6 +36,21 @@ namespace DesperateDevs.Serialization
 
         Preferences(bool doubleQuotedValues) => _doubleQuotedValues = doubleQuotedValues;
 
+        public string this[string key]
+        {
+            get => _mergedProperties[key];
+            set
+            {
+                if (!Properties.HasKey(key) || value != this[key])
+                {
+                    Properties[key] = value;
+                    _mergedProperties[key] = value;
+                }
+            }
+        }
+
+        public bool TryGetValue(string key, out string value) => _mergedProperties.TryGetValue(key, out value);
+
         public void Reload()
         {
             Properties = LoadProperties(PropertiesPath);
@@ -56,22 +71,9 @@ namespace DesperateDevs.Serialization
             File.WriteAllText(UserPropertiesPath, minified ? UserProperties.ToMinifiedString() : UserProperties.ToString());
         }
 
-        public string this[string key]
-        {
-            get => _mergedProperties[key];
-            set
-            {
-                if (!Properties.HasKey(key) || value != this[key])
-                {
-                    Properties[key] = value;
-                    _mergedProperties[key] = value;
-                }
-            }
-        }
-
         public bool HasKey(string key) => _mergedProperties.HasKey(key);
 
-        public void Reset(bool resetUser = false)
+        public void Clear(bool resetUser = false)
         {
             Properties = new Properties(_doubleQuotedValues);
             if (resetUser)
@@ -82,10 +84,10 @@ namespace DesperateDevs.Serialization
         public string ToMinifiedString() => _mergedProperties.ToMinifiedString();
         public override string ToString() => _mergedProperties.ToString();
 
-        Properties LoadProperties(string path) =>
-            new Properties(File.Exists(path)
-                    ? File.ReadAllText(path)
-                    : string.Empty
-                , _doubleQuotedValues);
+        Properties LoadProperties(string path) => new Properties(
+            File.Exists(path)
+                ? File.ReadAllText(path)
+                : string.Empty,
+            _doubleQuotedValues);
     }
 }

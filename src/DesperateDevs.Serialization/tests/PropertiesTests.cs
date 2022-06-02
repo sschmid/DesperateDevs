@@ -26,6 +26,22 @@ namespace DesperateDevs.Serialization.Tests
         }
 
         [Fact]
+        public void TryGetsValueForKey()
+        {
+            var properties = new Properties("some.key = some value\n");
+            properties.TryGetValue("some.key", out var value).Should().BeTrue();
+            value.Should().Be("some value");
+        }
+
+        [Fact]
+        public void DoesNotTryGetValueForUnknownKey()
+        {
+            var properties = new Properties("some.key = some value\n");
+            properties.TryGetValue("unknown", out var value).Should().BeFalse();
+            value.Should().BeNull();
+        }
+
+        [Fact]
         public void CreatesPropertiesFromMinifiedSingleLineInputString()
         {
             AssertProperties(

@@ -46,6 +46,20 @@ namespace DesperateDevs.Serialization.Tests
         }
 
         [Fact]
+        public void TryGetsValueForKey()
+        {
+            Preferences.TryGetValue("key", out var value).Should().BeTrue();
+            value.Should().Be("value");
+        }
+
+        [Fact]
+        public void DoesNotTryGetValueForUnknownKey()
+        {
+            Preferences.TryGetValue("unknown", out var value).Should().BeFalse();
+            value.Should().BeNull();
+        }
+
+        [Fact]
         public void SetsKey()
         {
             Preferences["key2"] = "value2";
@@ -70,7 +84,7 @@ namespace DesperateDevs.Serialization.Tests
         {
             UserPreferences.HasKey("userName").Should().BeTrue();
             var keys = UserPreferences.Keys.ToArray();
-            keys.Length.Should().Be(2);
+            keys.Should().HaveCount(2);
             keys.Should().Contain("key");
             keys.Should().Contain("userName");
         }
@@ -109,16 +123,16 @@ namespace DesperateDevs.Serialization.Tests
         public void ResetsDefaultProperties()
         {
             UserPreferences["newKey"] = "newValue";
-            UserPreferences.Reset();
+            UserPreferences.Clear();
             UserPreferences.HasKey("newKey").Should().BeFalse();
             UserPreferences.HasKey("userName").Should().BeTrue();
         }
 
         [Fact]
-        public void ResetsAllProperties()
+        public void ClearsAllProperties()
         {
             UserPreferences["newKey"] = "newValue";
-            UserPreferences.Reset(true);
+            UserPreferences.Clear(true);
             UserPreferences.HasKey("newKey").Should().BeFalse();
             UserPreferences.HasKey("userName").Should().BeFalse();
         }
@@ -139,7 +153,7 @@ namespace DesperateDevs.Serialization.Tests
         [Fact]
         public void ResetsDoubleQuotedProperties()
         {
-            DoubleQuotedPreferences.Reset(true);
+            DoubleQuotedPreferences.Clear(true);
             DoubleQuotedPreferences["key2"] = "value2";
             DoubleQuotedPreferences["key2"].Should().Be("value2");
             DoubleQuotedPreferences.ToString().Should().Be("key2 = \"value2\"\n");

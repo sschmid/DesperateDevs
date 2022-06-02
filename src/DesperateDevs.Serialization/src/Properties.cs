@@ -17,15 +17,6 @@ namespace DesperateDevs.Serialization
         public IEnumerable<string> Values => _dict.Values;
         public int Count => _dict.Count;
 
-        public string this[string key]
-        {
-            get => Regex.Replace(_dict[key], VariablePattern,
-                match => _dict.TryGetValue(match.Groups[1].Value, out var reference)
-                    ? reference
-                    : match.Value);
-            set => _dict[key] = UnescapedSpecialCharacters(value);
-        }
-
         readonly Dictionary<string, string> _dict;
         readonly bool _doubleQuotedValues;
 
@@ -38,6 +29,30 @@ namespace DesperateDevs.Serialization
             _dict = new Dictionary<string, string>();
             var lines = GetLinesWithProperties(properties);
             AddProperties(MergeMultilineValues(lines));
+        }
+
+        public string this[string key]
+        {
+            get => ReplacePlaceholder(_dict[key]);
+            set => _dict[key] = UnescapedSpecialCharacters(value);
+        }
+
+        string ReplacePlaceholder(string value) => Regex.Replace(value, VariablePattern,
+            match => _dict.TryGetValue(match.Groups[1].Value, out var reference)
+                ? reference
+                : match.Value);
+
+        public bool TryGetValue(string key, out string value)
+        {
+            if (_dict.TryGetValue(key, out value))
+            {
+                ReplacePlaceholder(value);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         void AddProperties(IEnumerable<string> lines)

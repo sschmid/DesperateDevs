@@ -1,5 +1,9 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using DesperateDevs.Cli.Utils;
+using DesperateDevs.Extensions;
 using Sherlog;
 
 namespace DesperateDevs.Serialization.Cli.Utils
@@ -22,8 +26,12 @@ namespace DesperateDevs.Serialization.Cli.Utils
                 return;
 
             var preferences = new Preferences(properties, userProperties);
-            preferences.Reset(true);
-            var defaultProperties = CliUtil.GetDefaultProperties();
+            preferences.Clear(true);
+            var defaultProperties = new Dictionary<string, string>().Merge(
+                AppDomain.CurrentDomain
+                    .GetInstancesOf<IConfigurable>()
+                    .Select(instance => instance.DefaultProperties));
+
             preferences.Properties.AddProperties(defaultProperties, true);
             preferences.Save();
 

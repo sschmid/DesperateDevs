@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using DesperateDevs.Cli.Utils;
 using DesperateDevs.Extensions;
 
 namespace DesperateDevs.Serialization.Cli.Utils
@@ -22,15 +23,16 @@ namespace DesperateDevs.Serialization.Cli.Utils
 
         void AddKeyValue(string key, string value)
         {
-            if (_preferences.HasKey(key))
+            _preferences.TryGetValue(key, out var existingValues);
+            if (existingValues != null || _rawArgs.IsYes())
             {
                 _preferences.AddValue(
                     value,
-                    _preferences[key].FromCSV(true).ToArray(),
+                    existingValues?.FromCSV(true) ?? Enumerable.Empty<string>(),
                     values => _preferences[key] = values.ToCSV(false, true)
                 );
             }
-            else
+            else if (!_rawArgs.IsNo())
             {
                 _preferences.AskAddKey("Key doesn't exist. Do you want to add", key, value);
             }
