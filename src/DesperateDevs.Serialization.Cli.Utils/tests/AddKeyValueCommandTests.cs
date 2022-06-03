@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using DesperateDevs.Tests;
@@ -10,7 +11,7 @@ using Xunit.Abstractions;
 
 namespace DesperateDevs.Serialization.Cli.Utils.Tests
 {
-    public class AddKeyValueCommandTests
+    public class AddKeyValueCommandTests : IDisposable
     {
         static readonly LogMessageFormatter Formatter = new LogMessageFormatter("[{1}]\t{0}: {2}");
 
@@ -81,6 +82,13 @@ namespace DesperateDevs.Serialization.Cli.Utils.Tests
             if (!Directory.Exists(TempPath)) Directory.CreateDirectory(TempPath);
             AbstractPreferencesCommand.DefaultPropertiesPath = Path.Combine(TempPath, "TestPreferences.properties");
             File.WriteAllText(AbstractPreferencesCommand.DefaultPropertiesPath, "key = value");
+        }
+
+        public void Dispose()
+        {
+            _output.WriteLine("Dispose");
+            Logger.ResetAppenders();
+            Logger.ResetLoggers();
         }
     }
 }

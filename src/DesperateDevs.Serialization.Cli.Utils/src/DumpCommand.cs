@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Text;
 using DesperateDevs.Extensions;
 
 namespace DesperateDevs.Serialization.Cli.Utils
@@ -16,23 +17,28 @@ namespace DesperateDevs.Serialization.Cli.Utils
         {
             _logger.Debug(_preferences.ToString());
 
+            const string singleValue = " = ";
             const string indent = "\n├── ";
             const string lastIndent = "\n└── ";
+
+            var sb = new StringBuilder();
             foreach (var key in _preferences.Keys)
             {
+                sb.Append(key);
                 var values = _preferences[key].FromCSV(true).ToArray();
-
-                string valueString;
                 if (values.Length > 1)
-                    valueString = indent + string.Join(indent, values.Take(values.Length - 1)) +
-                                  lastIndent + values.Last();
+                {
+                    sb.AppendLine(indent + string.Join(indent, values.Take(values.Length - 1)) +
+                                  lastIndent + values.Last());
+                }
                 else if (values.Length == 1)
-                    valueString = lastIndent + values[0];
-                else
-                    valueString = string.Empty;
-
-                _logger.Info(key + valueString);
+                {
+                    sb.Append(singleValue);
+                    sb.AppendLine(values[0]);
+                }
             }
+
+            _logger.Info(sb.ToString());
         }
     }
 }
