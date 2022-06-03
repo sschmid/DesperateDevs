@@ -12,11 +12,17 @@ namespace DesperateDevs.Serialization.Tests
     {
         static readonly string ProjectRoot = TestHelper.GetProjectRoot();
         static readonly string FixturesPath = Path.Combine(ProjectRoot, "DesperateDevs.Serialization", "tests", "fixtures");
+        static readonly string TempPath = Path.Combine(FixturesPath, "temp");
+        static readonly string TestPropertiesPath = Path.Combine(TempPath, "TestProperties.properties");
+        static readonly string TestUserPropertiesPath = Path.Combine(TempPath, "TestUserProperties.properties");
 
         TestPreferences Preferences => _preferences ?? (_preferences = new TestPreferences("key = value"));
         TestPreferences UserPreferences => _preferences ?? (_preferences = new TestPreferences("key = ${userName}", "userName = Max"));
         TestPreferences DoubleQuotedPreferences => _preferences ?? (_preferences = new TestPreferences("key = \"value\"", null, true));
         TestPreferences _preferences;
+
+        string _properties;
+        string _userProperties;
 
         [Fact]
         public void SetsProperties()
@@ -96,10 +102,10 @@ namespace DesperateDevs.Serialization.Tests
         }
 
         [Fact]
-        public void DoesNotOverwriteValueWhenNotDifferent()
+        public void OverwritesValueWhenNotDifferent()
         {
             UserPreferences["key"] = "Max";
-            UserPreferences.Properties.Values.Should().NotContain("Max");
+            UserPreferences.Properties.Values.Should().Contain("Max");
         }
 
         [Fact]
@@ -162,29 +168,24 @@ namespace DesperateDevs.Serialization.Tests
         [Fact]
         public void LoadsPreferencesFromDisk()
         {
-            var properties = Path.Combine(FixturesPath, "TestPreferences.properties");
-            File.Exists(properties).Should().BeTrue();
-            var preferences = new Preferences(properties, null);
+            WriteTestPreferences();
+            var preferences = new TestPreferences(_properties, null);
             preferences["key"].Should().Be("value");
         }
 
         [Fact]
         public void LoadsUserPreferencesFromDisk()
         {
-            var properties = Path.Combine(FixturesPath, "TestPreferences.properties");
-            var userProperties = Path.Combine(FixturesPath, "TestUserPreferences.properties");
-            File.Exists(properties).Should().BeTrue();
-            File.Exists(userProperties).Should().BeTrue();
-            var preferences = new Preferences(properties, userProperties);
+            WriteTestPreferences();
+            var preferences = new Preferences(TestPropertiesPath, TestUserPropertiesPath);
             preferences["key"].Should().Be("Max");
         }
 
         [Fact]
         public void ReloadsUserPreferences()
         {
-            var properties = Path.Combine(FixturesPath, "TestPreferences.properties");
-            var userProperties = Path.Combine(FixturesPath, "TestUserPreferences.properties");
-            var preferences = new Preferences(properties, userProperties);
+            WriteTestPreferences();
+            var preferences = new Preferences(TestPropertiesPath, TestUserPropertiesPath);
             preferences["key"] = "test";
             preferences.Reload();
             preferences["key"].Should().Be("Max");
@@ -193,53 +194,46 @@ namespace DesperateDevs.Serialization.Tests
         [Fact]
         public void LoadsDoubleQuotedPreferencesFromDisk()
         {
-            var properties = Path.Combine(FixturesPath, "DoubleQuotedTestPreferences.properties");
-            File.Exists(properties).Should().BeTrue();
-            var preferences = new Preferences(properties, null, true);
+            WriteTestPreferences("key=\"value\"");
+            var preferences = new Preferences(TestPropertiesPath, null, true);
             preferences["key"].Should().Be("value");
         }
 
         [Fact]
         public void SavesPreferencesToDisk()
         {
-            var (tempProperties, tempUserProperties, properties, userProperties) = Save(false);
-            tempProperties.Should().Be("key = test\n");
-            tempUserProperties.Should().Be(userProperties);
+            AddKeyAndSave(false);
+            _properties.Should().Be("key = test\n");
+            _userProperties.Should().Be("key = ${userName}\nuserName = Max\n");
         }
 
         [Fact]
         public void SavesMinifiedPreferencesToDisk()
         {
-            var (tempProperties, tempUserProperties, properties, userProperties) = Save(true);
-            tempProperties.Should().Be("key=test\n");
-            tempUserProperties.Should().Be(userProperties.Replace(" ", string.Empty));
+            AddKeyAndSave(true);
+            _properties.Should().Be("key=test\n");
+            _userProperties.Should().Be("key=${userName}\nuserName=Max\n");
         }
 
-        (string, string, string, string) Save(bool minified)
+        void WriteTestPreferences(string properties = "key = value", string userProperties = "key = ${userName}\nuserName = Max")
         {
-            var temp = Path.Combine(FixturesPath, "temp");
-            if (!Directory.Exists(temp))
-                Directory.CreateDirectory(temp);
+            if (!Directory.Exists(TempPath)) Directory.CreateDirectory(TempPath);
+            File.WriteAllText(TestPropertiesPath, properties);
+            File.WriteAllText(TestUserPropertiesPath, userProperties);
+            _properties = properties;
+            _userProperties = userProperties;
+        }
 
-            var properties = Path.Combine(FixturesPath, "TestPreferences.properties");
-            var userProperties = Path.Combine(FixturesPath, "TestUserPreferences.properties");
+        void AddKeyAndSave(bool minified, string properties = "key = value", string userProperties = "key = ${userName}\nuserName = Max")
+        {
+            WriteTestPreferences(properties, userProperties);
 
-            var tempProperties = Path.Combine(temp, "TestPreferences.properties");
-            var tempUserProperties = Path.Combine(temp, "TestUserPreferences.properties");
-
-            File.Copy(properties, tempProperties, true);
-            File.Copy(userProperties, tempUserProperties, true);
-
-            var preferences = new Preferences(tempProperties, tempUserProperties);
+            var preferences = new Preferences(TestPropertiesPath, TestUserPropertiesPath);
             preferences["key"] = "test";
             preferences.Save(minified);
 
-            return (
-                tempProperties = File.ReadAllText(tempProperties),
-                tempUserProperties = File.ReadAllText(tempUserProperties),
-                properties = File.ReadAllText(properties),
-                userProperties = File.ReadAllText(userProperties)
-            );
+            _properties = File.ReadAllText(TestPropertiesPath);
+            _userProperties = File.ReadAllText(TestUserPropertiesPath);
         }
     }
 }

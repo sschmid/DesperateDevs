@@ -11,11 +11,12 @@ namespace Jenny.Plugins.Tests
     {
         static readonly string ProjectRoot = TestHelper.GetProjectRoot();
         static readonly string FixturesPath = Path.Combine(ProjectRoot, "Jenny.Plugins", "tests", "fixtures");
+        static readonly string TempPath = Path.Combine(FixturesPath, "temp");
 
         [Fact]
         public void AddsGeneratedFilesToUnity2020_3()
         {
-            var project = UpdateCsproj("Unity-2020.3.csproj");
+            var project = WriteAndUpdateTestCsproj("Unity-2020.3.csproj");
             project.Should().NotContain("Old");
             project.Should().Contain(@"  <ItemGroup>
     <Compile Include=""Assets/Sources/Generated/Test1/Test2/File1.cs"" />
@@ -26,7 +27,7 @@ namespace Jenny.Plugins.Tests
         [Fact]
         public void AddsGeneratedFilesToUnity2021_3()
         {
-            var project = UpdateCsproj("Unity-2021.3.csproj");
+            var project = WriteAndUpdateTestCsproj("Unity-2021.3.csproj");
             project.Should().NotContain("Old");
             project.Should().Contain(@"  <ItemGroup>
     <Compile Include=""Assets/Sources/Generated/Test1/Test2/File1.cs"" />
@@ -34,15 +35,11 @@ namespace Jenny.Plugins.Tests
   </ItemGroup>".ToUnixLineEndings());
         }
 
-        string UpdateCsproj(string csproj)
+        string WriteAndUpdateTestCsproj(string csproj)
         {
-            var temp = Path.Combine(FixturesPath, "temp");
-            if (!Directory.Exists(temp))
-                Directory.CreateDirectory(temp);
-
+            if (!Directory.Exists(TempPath)) Directory.CreateDirectory(TempPath);
             var project = Path.Combine(FixturesPath, csproj);
-            var tempProject = Path.Combine(temp, csproj);
-
+            var tempProject = Path.Combine(TempPath, csproj);
             File.Copy(project, tempProject, true);
 
             var postProcessor = new UpdateCsprojPostProcessor();

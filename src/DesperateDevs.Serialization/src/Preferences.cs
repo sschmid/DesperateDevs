@@ -41,11 +41,8 @@ namespace DesperateDevs.Serialization
             get => _mergedProperties[key];
             set
             {
-                if (!Properties.HasKey(key) || value != this[key])
-                {
-                    Properties[key] = value;
-                    _mergedProperties[key] = value;
-                }
+                Properties[key] = value;
+                _mergedProperties[key] = value;
             }
         }
 

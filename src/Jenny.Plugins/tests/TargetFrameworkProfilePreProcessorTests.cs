@@ -10,6 +10,7 @@ namespace Jenny.Plugins.Tests
     {
         static readonly string ProjectRoot = TestHelper.GetProjectRoot();
         static readonly string FixturesPath = Path.Combine(ProjectRoot, "Jenny.Plugins", "tests", "fixtures");
+        static readonly string TempPath = Path.Combine(FixturesPath, "temp");
 
         [Fact]
         public void RemovesUnitySubsetv35()
@@ -25,13 +26,9 @@ namespace Jenny.Plugins.Tests
 
         string RemoveTargetFrameworkProfile(string csproj)
         {
-            var temp = Path.Combine(FixturesPath, "temp");
-            if (!Directory.Exists(temp))
-                Directory.CreateDirectory(temp);
-
+            if (!Directory.Exists(TempPath)) Directory.CreateDirectory(TempPath);
             var project = Path.Combine(FixturesPath, csproj);
-            var tempProject = Path.Combine(temp, csproj);
-
+            var tempProject = Path.Combine(TempPath, csproj);
             File.Copy(project, tempProject, true);
 
             var preProcessor = new TargetFrameworkProfilePreProcessor();

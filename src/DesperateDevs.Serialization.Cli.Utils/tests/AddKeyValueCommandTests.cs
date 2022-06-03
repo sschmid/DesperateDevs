@@ -16,6 +16,7 @@ namespace DesperateDevs.Serialization.Cli.Utils.Tests
 
         static readonly string ProjectRoot = TestHelper.GetProjectRoot();
         static readonly string FixturesPath = Path.Combine(ProjectRoot, "DesperateDevs.Serialization.Cli.Utils", "tests", "fixtures");
+        static readonly string TempPath = Path.Combine(FixturesPath, "temp");
 
         readonly ITestOutputHelper _output;
         readonly List<(LogLevel LogLevel, string Message)> _logs;
@@ -30,38 +31,24 @@ namespace DesperateDevs.Serialization.Cli.Utils.Tests
             Logger.AddAppender((logger, level, message) => _output.WriteLine(Formatter.FormatMessage(logger, level, message)));
             Logger.AddAppender((_, level, message) => _logs.Add((level, message)));
             _command = new AddKeyValueCommand();
-            SetupPreferences();
+            WriteTestPreferences();
         }
 
         [Fact]
         public void FailsWhenNotCorrectNumberOfArgs()
         {
-            _command.Run(null, new[]
-            {
-                _command.Trigger
-            });
+            Run();
             _logs.Count(log => log.LogLevel == LogLevel.Error).Should().Be(1);
 
             _logs.Clear();
-            _command.Run(null, new[]
-            {
-                _command.Trigger,
-                "testKey"
-            });
+            Run("testKey");
             _logs.Count(log => log.LogLevel == LogLevel.Error).Should().Be(1);
         }
 
         [Fact]
         public void AddsValueToNewKey()
         {
-            _command.Run(null, new[]
-            {
-                _command.Trigger,
-                "-y",
-                "testKey",
-                "test value"
-            });
-
+            Run("-y", "testKey", "test value");
             _logs.Count(log => log.LogLevel == LogLevel.Error).Should().Be(0);
             Preferences["testKey"].Should().Be("test value");
         }
@@ -69,14 +56,7 @@ namespace DesperateDevs.Serialization.Cli.Utils.Tests
         [Fact]
         public void AddsValueToExistingKey()
         {
-            _command.Run(null, new[]
-            {
-                _command.Trigger,
-                "-y",
-                "key",
-                "test value"
-            });
-
+            Run("-y", "key", "test value");
             _logs.Count(log => log.LogLevel == LogLevel.Error).Should().Be(0);
             Preferences["key"].Should().Be("value, test value");
         }
@@ -84,28 +64,23 @@ namespace DesperateDevs.Serialization.Cli.Utils.Tests
         [Fact]
         public void DoesNotAddValueToNewKeyWhenNo()
         {
-            _command.Run(null, new[]
-            {
-                _command.Trigger,
-                "-n",
-                "testKey",
-                "test value"
-            });
-
+            Run("-n", "testKey", "test value");
             _logs.Count(log => log.LogLevel == LogLevel.Error).Should().Be(0);
             Preferences.HasKey("testKey").Should().BeFalse();
         }
 
-        void SetupPreferences()
+        void Run(params string[] args)
         {
-            var temp = Path.Combine(FixturesPath, "temp");
-            if (!Directory.Exists(temp))
-                Directory.CreateDirectory(temp);
+            var list = args.ToList();
+            list.Insert(0, _command.Trigger);
+            _command.Run(null, list.ToArray());
+        }
 
-            var properties = Path.Combine(FixturesPath, "TestPreferences.properties");
-            var tempProperties = Path.Combine(temp, "TestPreferences.properties");
-            File.Copy(properties, tempProperties, true);
-            AbstractPreferencesCommand.DefaultPropertiesPath = tempProperties;
+        void WriteTestPreferences()
+        {
+            if (!Directory.Exists(TempPath)) Directory.CreateDirectory(TempPath);
+            AbstractPreferencesCommand.DefaultPropertiesPath = Path.Combine(TempPath, "TestPreferences.properties");
+            File.WriteAllText(AbstractPreferencesCommand.DefaultPropertiesPath, "key = value");
         }
     }
 }
