@@ -1,17 +1,11 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using Xunit;
 
 namespace Sherlog.Tests
 {
-    public class SherlogTests
+    public class SherlogTests : IDisposable
     {
-        public SherlogTests()
-        {
-            Logger.ResetLoggers();
-            Logger.ResetAppenders();
-            Logger.GlobalLogLevel = LogLevel.On;
-        }
-
         [Fact]
         public void CreatesNewLogger()
         {
@@ -139,6 +133,13 @@ namespace Sherlog.Tests
             logger.Info("test message");
             appenderLogLevel.Should().Be(LogLevel.Off);
             appenderMessage.Should().Be(string.Empty);
+        }
+
+        public void Dispose()
+        {
+            Logger.GlobalLogLevel = LogLevel.On;
+            Logger.ResetAppenders();
+            Logger.ResetLoggers();
         }
     }
 }

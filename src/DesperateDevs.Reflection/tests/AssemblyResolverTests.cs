@@ -122,6 +122,7 @@ namespace DesperateDevs.Reflection.Tests
         public void Dispose()
         {
             _output.WriteLine("Dispose");
+            Logger.GlobalLogLevel = LogLevel.On;
             Logger.ResetAppenders();
             Logger.ResetLoggers();
         }

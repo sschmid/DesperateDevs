@@ -11,6 +11,7 @@ using Xunit.Abstractions;
 
 namespace DesperateDevs.Serialization.Cli.Utils.Tests
 {
+    [Collection("Non-Parallel")]
     public class AddKeyValueCommandTests : IDisposable
     {
         static readonly LogMessageFormatter Formatter = new LogMessageFormatter("[{1}]\t{0}: {2}");
@@ -87,6 +88,7 @@ namespace DesperateDevs.Serialization.Cli.Utils.Tests
         public void Dispose()
         {
             _output.WriteLine("Dispose");
+            Logger.GlobalLogLevel = LogLevel.On;
             Logger.ResetAppenders();
             Logger.ResetLoggers();
         }

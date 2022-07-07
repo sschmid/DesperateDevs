@@ -372,6 +372,7 @@ namespace TCPeasy.Tests
             _output.WriteLine("Dispose");
             Disconnect();
             Wait();
+            Logger.GlobalLogLevel = LogLevel.On;
             Logger.ResetAppenders();
             Logger.ResetLoggers();
         }

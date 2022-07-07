@@ -17,23 +17,23 @@ namespace DesperateDevs.Serialization.Cli.Utils
         {
             _logger.Debug(_preferences.ToString());
 
-            const string singleValue = " = ";
-            const string indent = "\n├── ";
-            const string lastIndent = "\n└── ";
+            const string delimiter = ":";
+            const string space = " ";
+            const string indent = "\n- ";
 
             var sb = new StringBuilder();
             foreach (var key in _preferences.Keys)
             {
                 sb.Append(key);
+                sb.Append(delimiter);
                 var values = _preferences[key].FromCSV(true).ToArray();
                 if (values.Length > 1)
                 {
-                    sb.AppendLine(indent + string.Join(indent, values.Take(values.Length - 1)) +
-                                  lastIndent + values.Last());
+                    sb.AppendLine(indent + string.Join(indent, values));
                 }
                 else if (values.Length == 1)
                 {
-                    sb.Append(singleValue);
+                    sb.Append(space);
                     sb.AppendLine(values[0]);
                 }
             }

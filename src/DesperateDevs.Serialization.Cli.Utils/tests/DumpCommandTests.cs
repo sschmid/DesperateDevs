@@ -11,6 +11,7 @@ using Xunit.Abstractions;
 
 namespace DesperateDevs.Serialization.Cli.Utils.Tests
 {
+    [Collection("Non-Parallel")]
     public class DumpCommandTests : IDisposable
     {
         static readonly LogMessageFormatter Formatter = new LogMessageFormatter("{2}");
@@ -48,7 +49,7 @@ namespace DesperateDevs.Serialization.Cli.Utils.Tests
         {
             WriteTestPreferences("key = value");
             Run();
-            _logs[0].Message.Should().Be(@"key = value
+            _logs[0].Message.Should().Be(@"key: value
 ");
         }
 
@@ -57,8 +58,8 @@ namespace DesperateDevs.Serialization.Cli.Utils.Tests
         {
             WriteTestPreferences("key1 = value1\nkey2 = value2");
             Run();
-            _logs[0].Message.Should().Be(@"key1 = value1
-key2 = value2
+            _logs[0].Message.Should().Be(@"key1: value1
+key2: value2
 ");
         }
 
@@ -67,10 +68,10 @@ key2 = value2
         {
             WriteTestPreferences("key = value1, value2, value3");
             Run();
-            _logs[0].Message.Should().Be(@"key
-├── value1
-├── value2
-└── value3
+            _logs[0].Message.Should().Be(@"key:
+- value1
+- value2
+- value3
 ");
         }
 
@@ -79,14 +80,14 @@ key2 = value2
         {
             WriteTestPreferences("key1 = value1, value2, value3\nkey2 = value4, value5, value6");
             Run();
-            _logs[0].Message.Should().Be(@"key1
-├── value1
-├── value2
-└── value3
-key2
-├── value4
-├── value5
-└── value6
+            _logs[0].Message.Should().Be(@"key1:
+- value1
+- value2
+- value3
+key2:
+- value4
+- value5
+- value6
 ");
         }
 
@@ -107,6 +108,7 @@ key2
         public void Dispose()
         {
             _output.WriteLine("Dispose");
+            Logger.GlobalLogLevel = LogLevel.On;
             Logger.ResetAppenders();
             Logger.ResetLoggers();
         }
