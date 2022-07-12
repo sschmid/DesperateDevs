@@ -1,4 +1,5 @@
-﻿using DesperateDevs.Extensions;
+﻿using DesperateDevs.Cli.Utils;
+using DesperateDevs.Extensions;
 
 namespace DesperateDevs.Serialization.Cli.Utils
 {
@@ -41,10 +42,10 @@ namespace DesperateDevs.Serialization.Cli.Utils
         {
             if (_preferences.HasKey(key))
             {
-                _preferences.AskRemoveKey(
-                    "Do you want to remove",
-                    key
-                );
+                if (_rawArgs.IsYes())
+                    _preferences.RemoveKey(key);
+                else
+                    _preferences.AskRemoveKey("Do you want to remove", key);
             }
             else
             {
