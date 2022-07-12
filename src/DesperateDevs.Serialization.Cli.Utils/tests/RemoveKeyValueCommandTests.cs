@@ -1,45 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using DesperateDevs.Tests;
 using FluentAssertions;
-using Sherlog;
-using Sherlog.Formatters;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace DesperateDevs.Serialization.Cli.Utils.Tests
 {
-    [Collection("Non-Parallel")]
+    [Collection("DesperateDevs.Serialization.Cli.Utils.Tests")]
     public class RemoveKeyValueCommandTests : IDisposable
     {
-        static readonly LogMessageFormatter Formatter = new LogMessageFormatter("[{1}]\t{0}: {2}");
-
         static readonly string ProjectRoot = TestHelper.GetProjectRoot();
         static readonly string FixturesPath = Path.Combine(ProjectRoot, "DesperateDevs.Serialization.Cli.Utils", "tests", "fixtures");
-        static readonly string TempPath = Path.Combine(FixturesPath, "temp");
+        static readonly string TempPath = Path.Combine(FixturesPath, "temp", nameof(RemoveKeyValueCommandTests));
 
-        readonly ITestOutputHelper _output;
-        readonly List<(LogLevel LogLevel, string Message)> _logs;
         readonly RemoveKeyValueCommand _command;
 
         Preferences Preferences => new Preferences(AbstractPreferencesCommand.DefaultPropertiesPath, null);
 
-        public RemoveKeyValueCommandTests(ITestOutputHelper output)
+        public RemoveKeyValueCommandTests()
         {
-            _output = output;
-            _logs = new List<(LogLevel, string)>();
-            Logger.AddAppender((logger, level, message) => _output.WriteLine(Formatter.FormatMessage(logger, level, message)));
-            Logger.AddAppender((_, level, message) => _logs.Add((level, message)));
             _command = new RemoveKeyValueCommand();
         }
 
         [Fact]
         public void FailsWhenNotCorrectNumberOfArgs()
         {
-            Run();
-            _logs.Count(log => log.LogLevel == LogLevel.Error).Should().Be(1);
+            WriteTestPreferences("key = value");
+            FluentActions.Invoking(() => Run()).Should().Throw<Exception>();
         }
 
         [Fact]
@@ -55,7 +43,6 @@ namespace DesperateDevs.Serialization.Cli.Utils.Tests
         {
             WriteTestPreferences("key = value");
             Run("-y", "unknown");
-            _logs.Count(log => log.LogLevel == LogLevel.Warn).Should().Be(1);
         }
 
         [Fact]
@@ -71,7 +58,6 @@ namespace DesperateDevs.Serialization.Cli.Utils.Tests
         {
             WriteTestPreferences("key = value1, value2, value3");
             Run("-y", "key", "unknown");
-            _logs.Count(log => log.LogLevel == LogLevel.Warn).Should().Be(1);
             Preferences["key"].Should().Be("value1, value2, value3");
         }
 
@@ -80,7 +66,6 @@ namespace DesperateDevs.Serialization.Cli.Utils.Tests
         {
             WriteTestPreferences("key = value1, value2, value3");
             Run("-y", "unknown", "value2");
-            _logs.Count(log => log.LogLevel == LogLevel.Warn).Should().Be(1);
             Preferences["key"].Should().Be("value1, value2, value3");
         }
 
@@ -91,19 +76,13 @@ namespace DesperateDevs.Serialization.Cli.Utils.Tests
             _command.Run(null, list.ToArray());
         }
 
-        void WriteTestPreferences(string value)
+        void WriteTestPreferences(string properties)
         {
-            if (!Directory.Exists(TempPath)) Directory.CreateDirectory(TempPath);
+            Directory.CreateDirectory(TempPath);
             AbstractPreferencesCommand.DefaultPropertiesPath = Path.Combine(TempPath, "TestPreferences.properties");
-            File.WriteAllText(AbstractPreferencesCommand.DefaultPropertiesPath, value);
+            File.WriteAllText(AbstractPreferencesCommand.DefaultPropertiesPath, properties);
         }
 
-        public void Dispose()
-        {
-            _output.WriteLine("Dispose");
-            Logger.GlobalLogLevel = LogLevel.On;
-            Logger.ResetAppenders();
-            Logger.ResetLoggers();
-        }
+        public void Dispose() => Directory.Delete(TempPath, true);
     }
 }

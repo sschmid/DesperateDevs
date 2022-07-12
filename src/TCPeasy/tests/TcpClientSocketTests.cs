@@ -12,7 +12,7 @@ using Xunit.Abstractions;
 
 namespace TCPeasy.Tests
 {
-    [Collection("Non-Parallel")]
+    [Collection("TCPeasy.Tests")]
     public class TcpClientSocketTests : IDisposable
     {
         static readonly LogMessageFormatter Formatter = new LogMessageFormatter("[{1}]\t{0}: {2}");

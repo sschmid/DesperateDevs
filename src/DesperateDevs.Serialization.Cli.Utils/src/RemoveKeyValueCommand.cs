@@ -1,4 +1,5 @@
-﻿using DesperateDevs.Cli.Utils;
+﻿using System;
+using DesperateDevs.Cli.Utils;
 using DesperateDevs.Extensions;
 
 namespace DesperateDevs.Serialization.Cli.Utils
@@ -19,7 +20,7 @@ namespace DesperateDevs.Serialization.Cli.Utils
             else if (_args.Length == 1)
                 RemoveKey(_args[0]);
             else
-                _logger.Error("The remove command expects one or two arguments, e.g. 'remove myKey myValue'");
+                throw new Exception("The remove command expects one or two arguments, e.g. 'remove myKey myValue'");
         }
 
         void RemoveValue(string key, string value)

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using DesperateDevs.Cli.Utils;
 using DesperateDevs.Extensions;
 
@@ -18,7 +19,7 @@ namespace DesperateDevs.Serialization.Cli.Utils
             if (_args.Length == 2)
                 AddKeyValue(_args[0], _args[1]);
             else
-                _logger.Error("The add command expects exactly two arguments, e.g. 'add myKey myValue'");
+                throw new Exception("The add command expects exactly two arguments, e.g. 'add myKey myValue'");
         }
 
         void AddKeyValue(string key, string value)

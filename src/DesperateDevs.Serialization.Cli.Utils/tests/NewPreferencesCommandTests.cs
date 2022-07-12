@@ -4,34 +4,29 @@ using System.IO;
 using System.Linq;
 using DesperateDevs.Tests;
 using FluentAssertions;
-using Sherlog.Formatters;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace DesperateDevs.Serialization.Cli.Utils.Tests
 {
+    [Collection("DesperateDevs.Serialization.Cli.Utils.Tests")]
     public class NewPreferencesCommandTests : IDisposable
     {
-        static readonly LogMessageFormatter Formatter = new LogMessageFormatter("{2}");
-
         static readonly string ProjectRoot = TestHelper.GetProjectRoot();
         static readonly string FixturesPath = Path.Combine(ProjectRoot, "DesperateDevs.Serialization.Cli.Utils", "tests", "fixtures");
-        static readonly string TempPath = Path.Combine(FixturesPath, "temp");
+        static readonly string TempPath = Path.Combine(FixturesPath, "temp", nameof(NewPreferencesCommandTests));
 
         readonly NewPreferencesCommand _command;
 
-        public NewPreferencesCommandTests(ITestOutputHelper output)
+        public NewPreferencesCommandTests()
         {
+            Directory.CreateDirectory(TempPath);
             _command = new NewPreferencesCommand();
-            if (!Directory.Exists(TempPath)) Directory.CreateDirectory(TempPath);
         }
 
         [Fact]
         public void ThrowsWhenInvalidProperty()
         {
-            FluentActions.Invoking(() =>
-                Run()
-            ).Should().Throw<ArgumentNullException>();
+            FluentActions.Invoking(() => Run()).Should().Throw<ArgumentNullException>();
         }
 
         [Fact]

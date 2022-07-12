@@ -11,14 +11,14 @@ using Xunit.Abstractions;
 
 namespace DesperateDevs.Serialization.Cli.Utils.Tests
 {
-    [Collection("Non-Parallel")]
+    [Collection("DesperateDevs.Serialization.Cli.Utils.Tests")]
     public class DumpCommandTests : IDisposable
     {
         static readonly LogMessageFormatter Formatter = new LogMessageFormatter("{2}");
 
         static readonly string ProjectRoot = TestHelper.GetProjectRoot();
         static readonly string FixturesPath = Path.Combine(ProjectRoot, "DesperateDevs.Serialization.Cli.Utils", "tests", "fixtures");
-        static readonly string TempPath = Path.Combine(FixturesPath, "temp");
+        static readonly string TempPath = Path.Combine(FixturesPath, "temp", nameof(DumpCommandTests));
 
         readonly ITestOutputHelper _output;
         readonly List<(LogLevel LogLevel, string Message)> _logs;
@@ -100,13 +100,14 @@ key2:
 
         void WriteTestPreferences(string properties)
         {
-            if (!Directory.Exists(TempPath)) Directory.CreateDirectory(TempPath);
+            Directory.CreateDirectory(TempPath);
             AbstractPreferencesCommand.DefaultPropertiesPath = Path.Combine(TempPath, "TestPreferences.properties");
             File.WriteAllText(AbstractPreferencesCommand.DefaultPropertiesPath, properties);
         }
 
         public void Dispose()
         {
+            Directory.Delete(TempPath, true);
             _output.WriteLine("Dispose");
             Logger.GlobalLogLevel = LogLevel.On;
             Logger.ResetAppenders();
