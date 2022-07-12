@@ -8,21 +8,21 @@ using Sherlog;
 
 namespace DesperateDevs.Serialization.Cli.Utils
 {
-    public class NewConfigCommand : AbstractCommand
+    public class NewPreferencesCommand : AbstractCommand
     {
         public override string Trigger => "new";
         public override string Description => "Create new properties file(s) with default values";
         public override string Group => CommandGroups.Properties;
         public override string Example => "new [file] [userFile] [-f]";
 
-        readonly Logger _logger = Logger.GetLogger(typeof(NewConfigCommand));
+        readonly Logger _logger = Logger.GetLogger(typeof(NewPreferencesCommand));
 
         protected override void Run()
         {
             var properties = _args.GetPropertiesPath();
             var userProperties = _args.GetUserPropertiesPath();
 
-            if (!_args.IsForce() && (Exists(properties) || Exists(userProperties)))
+            if (!_rawArgs.IsForce() && (Exists(properties) || Exists(userProperties)))
                 return;
 
             var preferences = new Preferences(properties, userProperties);

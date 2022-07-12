@@ -62,7 +62,7 @@ namespace Jenny.Generator.Cli
         public CreateDefaultPropertiesMenuEntry(CliProgram progam, Step1PropertiesMenu menu) :
             base("Create new " + CodeGenerator.DefaultPropertiesPath, null, false, () =>
             {
-                var command = new NewConfigCommand();
+                var command = new NewPreferencesCommand();
                 command.Run(progam, new[] {command.Trigger, "-s", CodeGenerator.DefaultPropertiesPath});
                 menu.Properties = CodeGenerator.DefaultPropertiesPath;
                 menu.Stop();
@@ -76,7 +76,7 @@ namespace Jenny.Generator.Cli
             {
                 Console.WriteLine("Please enter a file name");
                 var fileName = Console.ReadLine();
-                var command = new NewConfigCommand();
+                var command = new NewPreferencesCommand();
                 command.Run(progam, new[] {command.Trigger, "-s", fileName});
                 menu.Properties = fileName;
                 menu.Stop();
