@@ -150,7 +150,7 @@ namespace TCPeasy.Tests
 
             var buffer1 = Send(_server, "test-message-1");
             var buffer2 = Send(_server, "test-message-2");
-            args.BytesList.Count.Should().Be(2);
+            args.BytesList.Should().HaveCount(2);
             args.BytesList[0].Should().BeEquivalentTo(buffer1);
             args.BytesList[1].Should().BeEquivalentTo(buffer2);
         }

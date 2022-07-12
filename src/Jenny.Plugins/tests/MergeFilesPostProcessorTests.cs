@@ -18,7 +18,7 @@ namespace Jenny.Plugins.Tests
             var postprocessor = new MergeFilesPostProcessor();
             files = postprocessor.PostProcess(files);
 
-            files.Length.Should().Be(2);
+            files.Should().HaveCount(2);
             files[0].FileName.Should().Be("file1");
             files[1].FileName.Should().Be("file3");
 

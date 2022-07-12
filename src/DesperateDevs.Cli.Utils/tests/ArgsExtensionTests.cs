@@ -38,7 +38,7 @@ namespace DesperateDevs.Cli.Utils.Tests
         public void FiltersDefaultParameter()
         {
             var filtered = new[] {"-v", "-s", "-d", "-f", "-y", "-n", "value"}.WithoutDefaultParameter().ToArray();
-            filtered.Length.Should().Be(1);
+            filtered.Should().HaveCount(1);
             filtered.Should().Contain("value");
         }
 
@@ -46,7 +46,7 @@ namespace DesperateDevs.Cli.Utils.Tests
         public void KeepsCustomParameter()
         {
             var filtered = new[] {"-v", "-s", "-d", "-g"}.WithoutDefaultParameter().ToArray();
-            filtered.Length.Should().Be(1);
+            filtered.Should().HaveCount(1);
             filtered.Should().Contain("-g");
         }
 
@@ -54,7 +54,7 @@ namespace DesperateDevs.Cli.Utils.Tests
         public void FiltersAllParameter()
         {
             var filtered = new[] {"-v", "-s", "-d", "-x", "-y", "value"}.WithoutParameter().ToArray();
-            filtered.Length.Should().Be(1);
+            filtered.Should().HaveCount(1);
             filtered.Should().Contain("value");
         }
 
@@ -62,7 +62,7 @@ namespace DesperateDevs.Cli.Utils.Tests
         public void FiltersTrigger()
         {
             var filtered = new[] {"value1", "-p", "value2"}.WithoutTrigger().ToArray();
-            filtered.Length.Should().Be(2);
+            filtered.Should().HaveCount(2);
             filtered.Should().Contain("-p");
             filtered.Should().Contain("value2");
         }

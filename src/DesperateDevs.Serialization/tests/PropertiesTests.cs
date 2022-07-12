@@ -234,7 +234,7 @@ namespace DesperateDevs.Serialization.Tests
                 "some.key.3 = some value 3\n"
             ).Keys.ToArray();
 
-            keys.Length.Should().Be(3);
+            keys.Should().HaveCount(3);
             keys.Should().Contain("some.key.1");
             keys.Should().Contain("some.key.2");
             keys.Should().Contain("some.key.3");
@@ -249,7 +249,7 @@ namespace DesperateDevs.Serialization.Tests
                 "some.key.3 = some value 3\n"
             ).Values.ToArray();
 
-            values.Length.Should().Be(3);
+            values.Should().HaveCount(3);
             values.Should().Contain("some value 1");
             values.Should().Contain("some value 2");
             values.Should().Contain("some value 3");
@@ -264,7 +264,7 @@ namespace DesperateDevs.Serialization.Tests
                 "some.key.3 = some value 3\n"
             );
             var dict = properties.ToDictionary();
-            dict.Count.Should().Be(3);
+            dict.Should().HaveCount(3);
             dict.ContainsKey("some.key.1").Should().BeTrue();
             dict.ContainsKey("some.key.2").Should().BeTrue();
             dict.ContainsKey("some.key.3").Should().BeTrue();

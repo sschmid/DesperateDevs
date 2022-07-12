@@ -21,7 +21,7 @@ namespace DesperateDevs.Extensions.Tests
         public void GetNonAbstractTypes()
         {
             var types = AppDomain.CurrentDomain.GetNonAbstractTypes<ITestInterface>().ToArray();
-            types.Length.Should().Be(1);
+            types.Should().HaveCount(1);
             types[0].Should().Be(typeof(TestInterfaceClass));
         }
 
@@ -29,7 +29,7 @@ namespace DesperateDevs.Extensions.Tests
         public void GetInstancesOf()
         {
             var types = AppDomain.CurrentDomain.GetInstancesOf<ITestInterface>().ToArray();
-            types.Length.Should().Be(1);
+            types.Should().HaveCount(1);
             types[0].GetType().Should().Be(typeof(TestInterfaceClass));
         }
     }

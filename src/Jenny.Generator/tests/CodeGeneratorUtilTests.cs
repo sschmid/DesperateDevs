@@ -28,7 +28,7 @@ namespace Jenny.Generator.Tests
         public void UpdatesSearchPathsInCodeGeneratorConfig()
         {
             CodeGeneratorUtil.AutoImport(_config, Path.Combine(ProjectRoot, SearchPaths, "/TestPlugins"));
-            _config.SearchPaths.Length.Should().Be(2);
+            _config.SearchPaths.Should().HaveCount(2);
             _config.SearchPaths[0].Should().Be(SearchPaths + "/TestPlugins/One");
             _config.SearchPaths[1].Should().Be(SearchPaths + "/TestPlugins/Two");
         }
@@ -37,7 +37,7 @@ namespace Jenny.Generator.Tests
         public void UpdatesSearchPathsWhenPathContainsSpaces()
         {
             CodeGeneratorUtil.AutoImport(_config, Path.Combine(ProjectRoot, SearchPaths, "/Test Plugins"));
-            _config.SearchPaths.Length.Should().Be(2);
+            _config.SearchPaths.Should().HaveCount(2);
             _config.SearchPaths[0].Should().Be(SearchPaths + "/Test Plugins/One");
             _config.SearchPaths[1].Should().Be(SearchPaths + "/Test Plugins/Two");
         }

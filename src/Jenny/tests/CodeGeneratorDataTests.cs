@@ -73,7 +73,7 @@ var testValue3 = value;
         public void ClonesData()
         {
             var clone = new CodeGeneratorData(_data);
-            clone.Count.Should().Be(_data.Count);
+            clone.Should().HaveCount(_data.Count);
             clone["TestKey1"].Should().Be("TestValue1");
             clone["testKey2"].Should().Be("testValue2");
         }

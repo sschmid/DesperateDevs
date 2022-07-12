@@ -57,7 +57,7 @@ namespace DesperateDevs.Caching.Tests
             _objectPool.Push(obj2);
 
             var objects = _objectPool.Drain();
-            objects.Length.Should().Be(2);
+            objects.Should().HaveCount(2);
             objects.Should().Contain(obj1);
             objects.Should().Contain(obj2);
 

@@ -21,10 +21,10 @@ namespace Jenny.Generator.Tests
 
             var files = generator.Generate();
 
-            preStr.Count.Should().Be(1);
+            preStr.Should().HaveCount(1);
             preStr[0].Should().Be("Pre1");
 
-            files.Length.Should().Be(2);
+            files.Should().HaveCount(2);
 
             files[0].FileName.Should().Be("Test1File0-Processed1");
             files[0].FileContent.Should().Be("data1");
@@ -44,7 +44,7 @@ namespace Jenny.Generator.Tests
             );
 
             var files = generator.Generate();
-            files.Length.Should().Be(1);
+            files.Should().HaveCount(1);
             files[0].FileName.Should().Be("Test1File0-Processed1");
         }
 
@@ -61,10 +61,10 @@ namespace Jenny.Generator.Tests
 
             var files = generator.DryRun();
 
-            preStr.Count.Should().Be(1);
+            preStr.Should().HaveCount(1);
             preStr[0].Should().Be("Pre1");
 
-            files.Length.Should().Be(2);
+            files.Should().HaveCount(2);
 
             files[0].FileName.Should().Be("Test1File0-Processed1");
             files[1].FileName.Should().Be("Test1File1-Processed1");
@@ -83,7 +83,7 @@ namespace Jenny.Generator.Tests
 
             generator.Generate();
 
-            preStr.Count.Should().Be(2);
+            preStr.Should().HaveCount(2);
             preStr[0].Should().Be("Pre1");
             preStr[1].Should().Be("Pre2");
         }
@@ -100,7 +100,7 @@ namespace Jenny.Generator.Tests
 
             var files = generator.Generate();
 
-            files.Length.Should().Be(4);
+            files.Should().HaveCount(4);
 
             files[0].FileName.Should().Be("Test1File0-Processed1");
             files[0].FileContent.Should().Be("data1");
@@ -127,7 +127,7 @@ namespace Jenny.Generator.Tests
 
             var files = generator.Generate();
 
-            files.Length.Should().Be(4);
+            files.Should().HaveCount(4);
 
             files[0].FileName.Should().Be("Test1File0-Processed1");
             files[1].FileName.Should().Be("Test1File1-Processed1");
@@ -147,7 +147,7 @@ namespace Jenny.Generator.Tests
 
             var files = generator.Generate();
 
-            files.Length.Should().Be(2);
+            files.Should().HaveCount(2);
 
             files[0].FileName.Should().Be("Test1File0-Processed1-Processed2");
             files[1].FileName.Should().Be("Test1File1-Processed1-Processed2");
@@ -167,7 +167,7 @@ namespace Jenny.Generator.Tests
 
             var files = generator.Generate();
 
-            files.Length.Should().Be(0);
+            files.Should().HaveCount(0);
         }
 
         [Fact]
@@ -184,7 +184,7 @@ namespace Jenny.Generator.Tests
 
             var files = generator.DryRun();
 
-            files.Length.Should().Be(0);
+            files.Should().HaveCount(0);
         }
 
         [Fact]
@@ -207,7 +207,7 @@ namespace Jenny.Generator.Tests
 
             var files = generator.Generate();
 
-            files.Length.Should().Be(2);
+            files.Should().HaveCount(2);
         }
 
         [Fact]
@@ -230,7 +230,7 @@ namespace Jenny.Generator.Tests
 
             var files = generator.DryRun();
 
-            files.Length.Should().Be(2);
+            files.Should().HaveCount(2);
         }
 
         [Fact]
@@ -244,7 +244,7 @@ namespace Jenny.Generator.Tests
             );
 
             var files = generator.Generate();
-            files.Length.Should().Be(2);
+            files.Should().HaveCount(2);
             files[0].FileContent.Should().Be(files[1].FileContent);
         }
 
