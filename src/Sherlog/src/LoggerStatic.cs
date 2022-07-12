@@ -16,7 +16,6 @@ namespace Sherlog
             }
         }
 
-
         static readonly Dictionary<string, Logger> Loggers = new Dictionary<string, Logger>();
         static LogLevel _globalLogLevel;
         static LogDelegate _appenders;
@@ -53,6 +52,12 @@ namespace Sherlog
         }
 
         public static void ResetLoggers() => Loggers.Clear();
-        public static void ResetAppenders() => _appenders = null;
+
+        public static void ResetAppenders()
+        {
+            _appenders = null;
+            foreach (var logger in Loggers.Values)
+                logger.OnLog = null;
+        }
     }
 }

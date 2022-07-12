@@ -119,7 +119,7 @@ namespace Sherlog.Tests
         }
 
         [Fact]
-        public void ClearsGlobalAppenders()
+        public void ClearsGlobalAppendersOnCreatedLogger()
         {
             var appenderLogLevel = LogLevel.Off;
             var appenderMessage = string.Empty;
@@ -128,8 +128,8 @@ namespace Sherlog.Tests
                 appenderLogLevel = logLevel;
                 appenderMessage = message;
             });
-            Logger.ResetAppenders();
             var logger = Logger.GetLogger("TestLogger");
+            Logger.ResetAppenders();
             logger.Info("test message");
             appenderLogLevel.Should().Be(LogLevel.Off);
             appenderMessage.Should().Be(string.Empty);
