@@ -51,9 +51,9 @@ namespace Sherlog
             return logger;
         }
 
-        public static void ResetLoggers() => Loggers.Clear();
+        public static void ClearLoggers() => Loggers.Clear();
 
-        public static void ResetAppenders()
+        public static void ClearAppenders()
         {
             _appenders = null;
             foreach (var logger in Loggers.Values)

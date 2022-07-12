@@ -257,8 +257,8 @@ namespace TCPeasy.Tests
             _server.Disconnect();
             Wait();
             Logger.GlobalLogLevel = LogLevel.On;
-            Logger.ResetAppenders();
-            Logger.ResetLoggers();
+            Logger.ClearAppenders();
+            Logger.ClearLoggers();
         }
 
         static void Wait() => System.Threading.Thread.Sleep(50);

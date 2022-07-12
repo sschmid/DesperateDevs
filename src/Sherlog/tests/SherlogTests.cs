@@ -46,7 +46,7 @@ namespace Sherlog.Tests
         public void ClearsCreatedLoggers()
         {
             var logger1 = Logger.GetLogger("TestLogger");
-            Logger.ResetLoggers();
+            Logger.ClearLoggers();
             var logger2 = Logger.GetLogger("TestLogger");
             logger1.Should().NotBeSameAs(logger2);
         }
@@ -129,7 +129,7 @@ namespace Sherlog.Tests
                 appenderMessage = message;
             });
             var logger = Logger.GetLogger("TestLogger");
-            Logger.ResetAppenders();
+            Logger.ClearAppenders();
             logger.Info("test message");
             appenderLogLevel.Should().Be(LogLevel.Off);
             appenderMessage.Should().Be(string.Empty);
@@ -138,8 +138,8 @@ namespace Sherlog.Tests
         public void Dispose()
         {
             Logger.GlobalLogLevel = LogLevel.On;
-            Logger.ResetAppenders();
-            Logger.ResetLoggers();
+            Logger.ClearAppenders();
+            Logger.ClearLoggers();
         }
     }
 }
