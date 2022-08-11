@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using DesperateDevs.Serialization;
-using DesperateDevs.Extensions;
 using UnityEditor;
 using UnityEngine;
 
@@ -33,10 +32,7 @@ namespace DesperateDevs.Unity.Editor
             try
             {
                 _preferences = new Preferences(_propertiesPath, _userPropertiesPath);
-
-                var availableDrawers = AppDomain.CurrentDomain
-                    .GetNonAbstractTypes<IPreferencesDrawer>();
-
+                var availableDrawers = TypeCache.GetTypesDerivedFrom<IPreferencesDrawer>();
                 _preferencesDrawers = _preferencesDrawerNames
                     .Select(drawerName => availableDrawers.SingleOrDefault(type => type.FullName == drawerName))
                     .Where(type => type != null)
