@@ -5,7 +5,7 @@
     <DefaultNetTargetFramework>net6.0</DefaultNetTargetFramework>
     <DefaultTestTargetFramework>net6.0</DefaultTestTargetFramework>
     <LangVersion>default</LangVersion>
-    <OutDir>bin/$(Configuration)</OutDir>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
 
