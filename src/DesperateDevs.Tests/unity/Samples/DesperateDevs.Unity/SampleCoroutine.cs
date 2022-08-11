@@ -25,5 +25,11 @@ namespace Samples.DesperateDevs.Unity
             Debug.Log("SampleRoutine done");
             yield return "Sample " + i;
         }
+
+        void Update()
+        {
+            if (Input.anyKey)
+                CoroutineRunner.StopAll();
+        }
     }
 }

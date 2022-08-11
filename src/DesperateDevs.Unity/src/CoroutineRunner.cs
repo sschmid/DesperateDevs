@@ -27,7 +27,9 @@ namespace DesperateDevs.Unity
         public static Coroutine Run<T>(IEnumerator enumerator, Action<T> onComplete) =>
             Instance.StartCoroutine(new CoroutineWithResult<T>().Wrap(enumerator, onComplete));
 
-        public static void CancelCoroutine(Coroutine coroutine) => Instance.StopCoroutine(coroutine);
+        public static void Stop(Coroutine coroutine) => Instance.StopCoroutine(coroutine);
+
+        public static void StopAll() => Instance.StopAllCoroutines();
 
         void OnDestroy() => _instance = null;
     }
