@@ -110,33 +110,6 @@ desperatedevs::rebuild() {
 }
 
 desperatedevs::test() {
-  if [[ ! -f src/DesperateDevs.Roslyn/tests/bin/Release/msbuild ]]; then
-    mkdir -p src/DesperateDevs.Roslyn/tests/bin/Release
-    unzip -d \
-      src/DesperateDevs.Roslyn/tests/bin \
-      src/DesperateDevs.Roslyn/mono_msbuild_d25dd923839404bd64cc63f420e75acf96fc75c4.zip
-      mv src/DesperateDevs.Roslyn/tests/bin/msbuild/* src/DesperateDevs.Roslyn/tests/bin/Release
-      rm -rf src/DesperateDevs.Roslyn/tests/bin/msbuild
-  fi
-
-  if [[ ! -f src/DesperateDevs.Tests/tests/bin/Release/msbuild ]]; then
-    mkdir -p src/DesperateDevs.Tests/tests/bin/Release
-    unzip -d \
-      src/DesperateDevs.Tests/tests/bin \
-      src/DesperateDevs.Roslyn/mono_msbuild_d25dd923839404bd64cc63f420e75acf96fc75c4.zip
-      mv src/DesperateDevs.Tests/tests/bin/msbuild/* src/DesperateDevs.Tests/tests/bin/Release
-      rm -rf src/DesperateDevs.Tests/tests/bin/msbuild
-  fi
-
-  if [[ ! -f src/DesperateDevs.Tests/src/bin/Release/msbuild ]]; then
-    mkdir -p src/DesperateDevs.Tests/src/bin/Release
-    unzip -d \
-      src/DesperateDevs.Tests/src/bin \
-      src/DesperateDevs.Roslyn/mono_msbuild_d25dd923839404bd64cc63f420e75acf96fc75c4.zip
-      mv src/DesperateDevs.Tests/src/bin/msbuild/* src/DesperateDevs.Tests/src/bin/Release
-      rm -rf src/DesperateDevs.Tests/src/bin/msbuild
-  fi
-
   dotnet test -c Release "$@"
 }
 
