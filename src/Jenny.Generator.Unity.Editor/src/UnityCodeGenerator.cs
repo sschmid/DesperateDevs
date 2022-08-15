@@ -54,15 +54,8 @@ namespace Jenny.Generator.Unity.Editor
             EditorUtility.ClearProgressBar();
 
             var totalGeneratedFiles = files.Select(file => file.FileName).Distinct().Count();
-
-            var sloc = dryFiles
-                .Select(file => file.FileContent.ToUnixLineEndings())
-                .Sum(content => content.Split(new[] {'\n'}, StringSplitOptions.RemoveEmptyEntries).Length);
-
-            var loc = files
-                .Select(file => file.FileContent.ToUnixLineEndings())
-                .Sum(content => content.Split('\n').Length);
-
+            var sloc = dryFiles.Sum(file => file.FileContent.Split(new[] {'\n'}, StringSplitOptions.RemoveEmptyEntries).Length);
+            var loc = files.Sum(file => file.FileContent.Split('\n').Length);
             Debug.Log("Generated " + totalGeneratedFiles + " files (" + sloc + " sloc, " + loc + " loc)");
 
             AssetDatabase.Refresh();
