@@ -1,5 +1,9 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 #
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Benchmarks", "DesperateDevs.Benchmarks", "{DECEBAB5-EC26-44E2-B633-939BEB78FB11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Benchmarks", "src/DesperateDevs.Benchmarks/benchmarks/DesperateDevs.Benchmarks.csproj", "{EFD59A69-F8E7-4E6A-8C97-71DD95F49ACB}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Caching", "DesperateDevs.Caching", "{8BA88C37-B258-4DD6-941F-4913FB7F96C2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Caching", "src/DesperateDevs.Caching/src/DesperateDevs.Caching.csproj", "{0E668B24-A62C-4AE3-A725-27A05238A403}"
@@ -140,6 +144,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EFD59A69-F8E7-4E6A-8C97-71DD95F49ACB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFD59A69-F8E7-4E6A-8C97-71DD95F49ACB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFD59A69-F8E7-4E6A-8C97-71DD95F49ACB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFD59A69-F8E7-4E6A-8C97-71DD95F49ACB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0E668B24-A62C-4AE3-A725-27A05238A403}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0E668B24-A62C-4AE3-A725-27A05238A403}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E668B24-A62C-4AE3-A725-27A05238A403}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -318,6 +326,7 @@ Global
 		{587D0761-B70A-49DC-A202-2CCA8C99BC3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{EFD59A69-F8E7-4E6A-8C97-71DD95F49ACB} = {DECEBAB5-EC26-44E2-B633-939BEB78FB11}
 		{0E668B24-A62C-4AE3-A725-27A05238A403} = {8BA88C37-B258-4DD6-941F-4913FB7F96C2}
 		{E3EEF33E-D536-4084-9AD7-C4654E0A3857} = {8BA88C37-B258-4DD6-941F-4913FB7F96C2}
 		{8867EE00-6581-4EE0-AC50-F1946D3B852B} = {C69CDE77-3860-4BC8-9ABD-A7F5C2416ECD}
