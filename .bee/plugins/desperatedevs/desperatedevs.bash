@@ -38,7 +38,8 @@ EOF
 }
 
 desperatedevs::new() {
-  local name="$1" path="src/${name}/src"
+  local name="$1" path
+  path="src/${name}/src"
   dotnet new classlib -n "${name}" -o "${path}"
   cat << 'EOF' > "${path}/${name}.csproj"
 <Project Sdk="Microsoft.NET.Sdk">
@@ -87,7 +88,8 @@ desperatedevs::new_benchmark() {
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>$(DefaultNetTargetFramework)</TargetFramework>
-    <PackageVersion>0.1.0</PackageVersion>
+    <IsPackable>false</IsPackable>
+    <IsPublishable>false</IsPublishable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -240,7 +242,7 @@ desperatedevs::publish() {
       --source https://api.nuget.org/v3/index.json
 }
 
-desperatedevs::collect_jenny() {
+desperatedevs::pack_jenny() {
   bee::log_func
   local jenny_dir="${BUILD_SRC}/Jenny"
   local code_generator_dir="${jenny_dir}/Jenny"
@@ -250,25 +252,26 @@ desperatedevs::collect_jenny() {
   local projects=(
     Jenny.Generator.Cli
     Jenny.Plugins
+    Jenny.Plugins.Roslyn
     Jenny.Plugins.Unity
   )
   local to_plugins=(
     Jenny.Plugins
+    Jenny.Plugins.Roslyn
     Jenny.Plugins.Unity
   )
 
   for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/" "${code_generator_dir}"; done
   for f in "${to_plugins[@]}"; do mv "${code_generator_dir}/${f}.dll" "${plugins_dir}"; done
 
-  mv "${code_generator_dir}/Jenny.Generator.Cli.exe" "${code_generator_dir}/Jenny.exe"
-
+  ln -s "Jenny.Generator.Cli" "${code_generator_dir}/Jenny"
   cp src/Jenny.Generator.Cli/scripts/Jenny-Server "${jenny_dir}"
   cp src/Jenny.Generator.Cli/scripts/Jenny-Server.bat "${jenny_dir}"
   cp src/Jenny.Generator.Cli/scripts/Jenny-Auto-Import "${jenny_dir}"
   cp src/Jenny.Generator.Cli/scripts/Jenny-Auto-Import.bat "${jenny_dir}"
 }
 
-desperatedevs::collect_jenny_unity() {
+desperatedevs::pack_jenny_unity() {
   bee::log_func
   local code_generator_dir="${BUILD_SRC}/Unity/Jenny/Assets/Jenny"
   local editor_dir="${code_generator_dir}/Editor"
@@ -302,7 +305,7 @@ desperatedevs::collect_jenny_unity() {
   for f in "${to_plugins[@]}"; do mv "${code_generator_dir}/${f}.dll" "${plugins_dir}"; done
 }
 
-desperatedevs::collect_desperatedevs_unity() {
+desperatedevs::pack_desperatedevs_unity() {
   bee::log_func
   local desperatedevs_dir="${BUILD_SRC}/DesperateDevs"
   local editor_dir="${desperatedevs_dir}/Editor"
@@ -324,27 +327,27 @@ desperatedevs::collect_desperatedevs_unity() {
     TCPeasy
 
     # editor
+    DesperateDevs.Unity.Editor
     Jenny
     Jenny.Generator
     Jenny.Generator.Unity.Editor
-    DesperateDevs.Unity.Editor
 
     # plugins
     Jenny.Plugins
     Jenny.Plugins.Unity
   )
   local to_editor=(
+    DesperateDevs.Unity.Editor
     Jenny
     Jenny.Generator
-    Jenny.Generator.Unity.Editor
-    DesperateDevs.Unity.Editor
-  )
-  local images=(
     Jenny.Generator.Unity.Editor
   )
   local to_plugins=(
     Jenny.Plugins
     Jenny.Plugins.Unity
+  )
+  local images=(
+    Jenny.Generator.Unity.Editor
   )
 
   for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/"*.dll "${desperatedevs_dir}"; done
@@ -353,10 +356,10 @@ desperatedevs::collect_desperatedevs_unity() {
   for f in "${to_plugins[@]}"; do mv "${desperatedevs_dir}/${f}.dll" "${plugins_dir}"; done
 }
 
-desperatedevs::collect() {
-  desperatedevs::collect_desperatedevs_unity
-  desperatedevs::collect_jenny
-  desperatedevs::collect_jenny_unity
+desperatedevs::pack() {
+  desperatedevs::pack_desperatedevs_unity
+  desperatedevs::pack_jenny
+  desperatedevs::pack_jenny_unity
 }
 
 _clean_dir() {
