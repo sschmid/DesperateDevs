@@ -123,7 +123,7 @@ desperatedevs::coverage() {
 }
 
 desperatedevs::restore_unity() {
-  for unity_project_path in "${DEDE_UNITY_PROJECTS[@]}"; do
+  for unity_project_path in "${DESPERATE_DEVS_UNITY_PROJECTS[@]}"; do
     bee::log_echo "Restore Samples: ${unity_project_path}"
     _clean_dir "${unity_project_path}/Assets" "${unity_project_path}/Assets/Samples"
     _sync_unity src/DesperateDevs.Tests/unity/Samples "${unity_project_path}/Assets"
@@ -149,7 +149,7 @@ desperatedevs::restore_unity() {
 desperatedevs::sync_unity_solutions() {
   local version
   local -A projects_pids=()
-  for unity_project_path in "${DEDE_UNITY_PROJECTS[@]}" ; do
+  for unity_project_path in "${DESPERATE_DEVS_UNITY_PROJECTS[@]}" ; do
     UNITY_PROJECT_PATH="${unity_project_path}"
     version="$(grep "m_EditorVersion:" "${unity_project_path}/ProjectSettings/ProjectVersion.txt" | awk '{print $2}')"
     UNITY="${UNITY_PATH}/${version}/${UNITY_APP}"
