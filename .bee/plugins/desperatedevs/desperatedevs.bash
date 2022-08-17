@@ -1,5 +1,33 @@
 : "${BUILD_SRC:=build/src}"
 
+desperatedevs::help() {
+  cat << 'EOF'
+template:
+  DESPERATE_DEVS_UNITY_PROJECTS=()
+  DESPERATE_DEVS_RESTORE_UNITY=([key]=value)
+
+usage:
+  docker                         build and run desperatedevs docker image
+  new <project-name>             add new project and test project
+                                 e.g. bee desperatedevs new DesperateDevs.Xyz
+  new_benchmark <project-name>   add benchmark project
+                                 e.g. bee desperatedevs new_benchmark DesperateDevs.Xyz
+  clean                          delete all bin and obj directories
+  rebuild                        clean and build solution
+  test [args]                    run all tests
+  coverage                       run all tests and generate coverage report
+  restore_unity                  copy source code and samples to all unity projects
+  sync_unity_solutions           generate C# project for all unity projects
+  update_unity_packages          generate unity packages
+  publish                        publish to nuget.org
+  pack_jenny                     pack Jenny
+  pack_jenny_unity               pack Jenny for Unity
+  pack_desperatedevs_unity       pack DesperateDevs for Unity
+  pack                           pack all the above
+
+EOF
+}
+
 desperatedevs::comp() {
   if ((!$# || $# == 1 && COMP_PARTIAL)); then
     bee::comp_plugin desperatedevs
