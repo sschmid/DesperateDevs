@@ -1,5 +1,5 @@
 pushd %~dp0
-.\Jenny\Jenny.exe auto-import -s
-.\Jenny\Jenny.exe doctor
+.\Jenny\Jenny auto-import -s
+.\Jenny\Jenny doctor
 pause
 popd
