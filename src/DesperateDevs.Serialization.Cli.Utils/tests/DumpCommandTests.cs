@@ -64,6 +64,16 @@ key2: value2
         }
 
         [Fact]
+        public void DumpsEmptyValue()
+        {
+            WriteTestPreferences("key1 =\nkey2 = value2");
+            Run();
+            _logs[0].Message.Should().Be(@"key1:
+key2: value2
+");
+        }
+
+        [Fact]
         public void DumpsMultiValueKey()
         {
             WriteTestPreferences("key = value1, value2, value3");

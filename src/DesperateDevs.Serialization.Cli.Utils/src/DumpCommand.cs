@@ -36,6 +36,10 @@ namespace DesperateDevs.Serialization.Cli.Utils
                     sb.Append(space);
                     sb.AppendLine(values[0]);
                 }
+                else
+                {
+                    sb.AppendLine();
+                }
             }
 
             _logger.Info(sb.ToString());
