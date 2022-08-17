@@ -12,7 +12,7 @@ usage:
                                  e.g. bee desperatedevs new DesperateDevs.Xyz
   new_benchmark <project-name>   add benchmark project
                                  e.g. bee desperatedevs new_benchmark DesperateDevs.Xyz
-  clean                          delete all bin and obj directories
+  clean                          delete build directory and all bin and obj directories
   rebuild                        clean and build solution
   test [args]                    run all tests
   coverage                       run all tests and generate coverage report
@@ -132,6 +132,7 @@ EOF
 desperatedevs::clean() {
   find . -type d -name obj -exec rm -rf {} +
   find . -type d -name bin -exec rm -rf {} +
+  rm -rf build
 }
 
 desperatedevs::rebuild() {
