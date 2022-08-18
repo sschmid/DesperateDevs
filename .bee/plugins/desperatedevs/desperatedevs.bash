@@ -3,6 +3,7 @@
 desperatedevs::help() {
   cat << 'EOF'
 template:
+  DESPERATE_DEVS_UNITY_PACKAGES_VERSION=https://github.com/sschmid/Unity-2021.3.git
   DESPERATE_DEVS_UNITY_PROJECTS=()
   DESPERATE_DEVS_RESTORE_UNITY=([key]=value)
 
@@ -18,7 +19,7 @@ usage:
   coverage                       run all tests and generate coverage report
   restore_unity                  copy source code and samples to all unity projects
   sync_unity_solutions           generate C# project for all unity projects
-  update_unity_packages          generate unity packages
+  generate_unity_packages        generate unity packages
   publish                        publish to nuget.org
   pack_jenny                     pack Jenny
   pack_jenny_unity               pack Jenny for Unity
@@ -203,8 +204,11 @@ desperatedevs::sync_unity_solutions() {
   done | LC_ALL=C sort
 }
 
-desperatedevs::update_unity_packages() {
-  local unity_project_path=unity/UnityPackages csproj project_references reference references platforms version
+desperatedevs::generate_unity_packages() {
+  local unity_project_path=build/UnityPackages csproj project_references reference references platforms version
+  _clean_dir "${unity_project_path}"
+  git clone "${DESPERATE_DEVS_UNITY_PACKAGES_VERSION}" "${unity_project_path}"
+
   for project in "${!DESPERATE_DEVS_RESTORE_UNITY[@]}"; do
     bee::log_echo "Update ${project}"
     rm -f "${unity_project_path}/${DESPERATE_DEVS_RESTORE_UNITY["${project}"]}/${project}/"*.cs
