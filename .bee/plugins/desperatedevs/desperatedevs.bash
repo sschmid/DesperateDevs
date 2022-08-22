@@ -1,4 +1,6 @@
-: "${BUILD_SRC:=build/src}"
+: "${BUILD:=build}"
+
+BUILD_SRC="${BUILD}/src"
 
 desperatedevs::help() {
   cat << 'EOF'
@@ -59,8 +61,8 @@ EOF
     echo "${path}" > .unitypath
   fi
 
-  mkdir -p build
-  cp -r "$(cat .unitypath)/Managed" "$(pwd)/build/"
+  mkdir -p "${BUILD}"
+  cp -r "$(cat .unitypath)/Managed" "$(pwd)/${BUILD}/"
 
   DOCKER_BUILDKIT=1 docker build --target bee -t desperatedevs .
   docker run -it -v "$(pwd)":/DesperateDevs -w /DesperateDevs desperatedevs "$@"
@@ -133,7 +135,7 @@ EOF
 desperatedevs::clean() {
   find . -type d -name obj -exec rm -rf {} +
   find . -type d -name bin -exec rm -rf {} +
-  rm -rf build
+  rm -rf "${BUILD}"
 }
 
 desperatedevs::rebuild() {
@@ -205,7 +207,7 @@ desperatedevs::sync_unity_solutions() {
 }
 
 desperatedevs::generate_unity_packages() {
-  local unity_project_path=build/UnityPackages csproj project_references reference references platforms version
+  local unity_project_path="${BUILD}/UnityPackages" csproj project_references reference references platforms version
   _clean_dir "${unity_project_path}"
   git clone "${DESPERATE_DEVS_UNITY_PACKAGES_VERSION}" "${unity_project_path}"
 
