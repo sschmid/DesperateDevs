@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -7,7 +6,7 @@ namespace DesperateDevs.Reflection
 {
     public static class PublicMemberInfoExtension
     {
-        public static IEnumerable<PublicMemberInfo> GetPublicMemberInfos(this Type type)
+        public static PublicMemberInfo[] GetPublicMemberInfos(this Type type)
         {
             const BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.Public;
 
@@ -18,7 +17,7 @@ namespace DesperateDevs.Reflection
                 .Where(info => info.CanRead && info.CanWrite && info.GetIndexParameters().Length == 0)
                 .Select(info => new PublicMemberInfo(info));
 
-            return fieldInfos.Concat(propertyInfos);
+            return fieldInfos.Concat(propertyInfos).ToArray();
         }
 
         public static object PublicMemberClone(this object obj)

@@ -17,7 +17,7 @@ namespace DesperateDevs.Reflection.Tests
         [Fact]
         public void CreatesMemberInfosForPublicFields()
         {
-            var infos = typeof(TestClassWithFields).GetPublicMemberInfos().ToArray();
+            var infos = typeof(TestClassWithFields).GetPublicMemberInfos();
             infos.Should().HaveCount(1);
             var mi = infos[0];
             mi.Type.Should().Be(typeof(string));
@@ -32,7 +32,7 @@ namespace DesperateDevs.Reflection.Tests
         [Fact]
         public void CreatesMemberInfosForPublicProperties()
         {
-            var infos = typeof(TestClassWithProperties).GetPublicMemberInfos().ToArray();
+            var infos = typeof(TestClassWithProperties).GetPublicMemberInfos();
             infos.Should().HaveCount(1);
             var mi = infos[0];
             mi.Type.Should().Be(typeof(string));
@@ -47,7 +47,7 @@ namespace DesperateDevs.Reflection.Tests
         [Fact]
         public void CreatesMemberInfosForFieldsAndProperties()
         {
-            var infos = typeof(TestClassWithFieldsAndProperties).GetPublicMemberInfos().ToArray();
+            var infos = typeof(TestClassWithFieldsAndProperties).GetPublicMemberInfos();
             infos.Should().HaveCount(2);
 
             infos[0].Type.Should().Be(typeof(string));
@@ -66,7 +66,7 @@ namespace DesperateDevs.Reflection.Tests
                 PublicProperty = "publicPropertyValue"
             };
 
-            var infos = obj.GetType().GetPublicMemberInfos().ToArray();
+            var infos = obj.GetType().GetPublicMemberInfos();
             infos[0].GetValue(obj).Should().Be("publicFieldValue");
             infos[1].GetValue(obj).Should().Be("publicPropertyValue");
         }
@@ -75,7 +75,7 @@ namespace DesperateDevs.Reflection.Tests
         public void SetsValuesForFieldsAndProperties()
         {
             var obj = new TestClassWithFieldsAndProperties();
-            var infos = obj.GetType().GetPublicMemberInfos().ToArray();
+            var infos = obj.GetType().GetPublicMemberInfos();
             infos[0].SetValue(obj, "publicFieldValue");
             infos[1].SetValue(obj, "publicPropertyValue");
             obj.PublicField.Should().Be("publicFieldValue");

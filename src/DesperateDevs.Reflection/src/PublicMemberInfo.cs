@@ -9,7 +9,7 @@ namespace DesperateDevs.Reflection
     {
         public readonly Type Type;
         public readonly string Name;
-        public readonly IEnumerable<AttributeInfo> Attributes;
+        public readonly AttributeInfo[] Attributes;
 
         readonly FieldInfo _fieldInfo;
         readonly PropertyInfo _propertyInfo;
@@ -42,7 +42,8 @@ namespace DesperateDevs.Reflection
                 _propertyInfo.SetValue(obj, value);
         }
 
-        static IEnumerable<AttributeInfo> GetAttributes(IEnumerable<object> attributes) =>
-            attributes.Select(attr => new AttributeInfo(attr, attr.GetType().GetPublicMemberInfos()));
+        static AttributeInfo[] GetAttributes(IEnumerable<object> attributes) => attributes
+            .Select(attr => new AttributeInfo(attr, attr.GetType().GetPublicMemberInfos()))
+            .ToArray();
     }
 }
