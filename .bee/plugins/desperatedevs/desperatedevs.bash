@@ -350,11 +350,10 @@ desperatedevs::pack_desperatedevs_unity() {
   local desperatedevs_dir="${BUILD_SRC}/DesperateDevs"
   local editor_dir="${desperatedevs_dir}/Editor"
   local images_dir="${editor_dir}/Images"
-  local plugins_dir="${editor_dir}/Plugins/DesperateDevs"
+  local plugins_dir="${editor_dir}/Jenny"
   _clean_dir "${desperatedevs_dir}" "${editor_dir}" "${images_dir}" "${plugins_dir}"
 
   local projects=(
-    # all
     DesperateDevs.Caching
     DesperateDevs.Extensions
     DesperateDevs.Reflection
@@ -366,13 +365,13 @@ desperatedevs::pack_desperatedevs_unity() {
     Sherlog.Formatters
     TCPeasy
 
-    # editor
+    # unity editor
     DesperateDevs.Unity.Editor
     Jenny
     Jenny.Generator
     Jenny.Generator.Unity.Editor
 
-    # plugins
+    # jenny plugins
     Jenny.Plugins
     Jenny.Plugins.Unity
   )
