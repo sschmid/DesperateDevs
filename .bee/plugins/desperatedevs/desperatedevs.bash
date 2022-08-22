@@ -16,6 +16,7 @@ usage:
   new_benchmark <project-name>   add benchmark project
                                  e.g. bee desperatedevs new_benchmark DesperateDevs.Xyz
   clean                          delete build directory and all bin and obj directories
+  build                          build solution
   rebuild                        clean and build solution
   test [args]                    run all tests
   coverage                       run all tests and generate coverage report
@@ -136,6 +137,10 @@ desperatedevs::clean() {
   find . -type d -name obj -exec rm -rf {} +
   find . -type d -name bin -exec rm -rf {} +
   rm -rf "${BUILD}"
+}
+
+desperatedevs::build() {
+  dotnet build -c Release
 }
 
 desperatedevs::rebuild() {
