@@ -6,6 +6,7 @@ using DesperateDevs.Cli.Utils;
 using DesperateDevs.Serialization;
 using DesperateDevs.Serialization.Cli.Utils;
 using DesperateDevs.Extensions;
+using DesperateDevs.Reflection;
 
 namespace Jenny.Generator.Cli
 {

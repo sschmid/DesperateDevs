@@ -1,4 +1,4 @@
-namespace DesperateDevs.Extensions.Tests.Fixtures
+namespace DesperateDevs.Reflection.Tests.Fixtures
 {
     public abstract class AbstractTestInterfaceClass : ITestInterface { }
 }

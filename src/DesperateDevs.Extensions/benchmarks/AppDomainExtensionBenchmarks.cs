@@ -1,6 +1,7 @@
 using System;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Order;
+using DesperateDevs.Reflection;
 
 namespace DesperateDevs.Extensions.Benchmarks
 {

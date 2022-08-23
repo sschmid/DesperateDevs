@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using DesperateDevs.Cli.Utils;
 using DesperateDevs.Extensions;
+using DesperateDevs.Reflection;
 using Sherlog;
 
 namespace DesperateDevs.Serialization.Cli.Utils

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using DesperateDevs.Extensions.Tests.Fixtures;
+using DesperateDevs.Reflection.Tests.Fixtures;
 using FluentAssertions;
 using Xunit;
 
-namespace DesperateDevs.Extensions.Tests
+namespace DesperateDevs.Reflection.Tests
 {
     public class AppDomainExtensionTests
     {

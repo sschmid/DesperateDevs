@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="../../DesperateDevs.Reflection/src/DesperateDevs.Reflection.csproj" />
     <ProjectReference Include="../src/DesperateDevs.Extensions.csproj" />
   </ItemGroup>
 

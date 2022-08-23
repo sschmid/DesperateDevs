@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using DesperateDevs.Extensions;
 
-namespace DesperateDevs.Extensions
+namespace DesperateDevs.Reflection
 {
     public static class AppDomainExtension
     {
