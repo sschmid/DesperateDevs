@@ -49,7 +49,7 @@ namespace DesperateDevs.Serialization.Benchmarks
             var properties = new Properties(_input);
             for (var i = 0; i < Lines; i++)
             {
-                var value = properties["key" + i];
+                var unused = properties["key" + i];
             }
         }
 

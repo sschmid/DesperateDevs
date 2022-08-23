@@ -12,12 +12,7 @@ namespace TCPeasy.Cli
 
         protected override void Run()
         {
-            var pad = _program.GetCommandListPad();
             var commandList = _program.GetFormattedCommandList();
-            var args = "[-v]".PadRight(pad) + "     verbose output\n" +
-                       "[-s]".PadRight(pad) + "     silent (minimal output)";
-
-
             Console.WriteLine($@"
 ████████╗ ██████╗██████╗ ███████╗ █████╗ ███████╗██╗   ██╗
 ╚══██╔══╝██╔════╝██╔══██╗██╔════╝██╔══██╗██╔════╝╚██╗ ██╔╝

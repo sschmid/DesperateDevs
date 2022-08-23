@@ -1,5 +1,3 @@
-using System;
-
 namespace Jenny.Plugins
 {
     public class NewLinePostProcessor : IPostProcessor

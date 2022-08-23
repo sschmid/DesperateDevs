@@ -25,19 +25,19 @@ namespace DesperateDevs.Benchmarks
         [Benchmark]
         public void ReturnAsArray()
         {
-            foreach (var i in GetAsArray()) { }
+            foreach (var unused in GetAsArray()) { }
         }
 
         [Benchmark]
         public void ReturnAsIEnumerable()
         {
-            foreach (var i in GetAsIEnumerable()) { }
+            foreach (var unused in GetAsIEnumerable()) { }
         }
 
         [Benchmark]
         public void ReturnAsIEnumerableToArray()
         {
-            foreach (var i in GetAsIEnumerable().ToArray()) { }
+            foreach (var unused in GetAsIEnumerable().ToArray()) { }
         }
 
         string[] GetAsArray() => _values;
