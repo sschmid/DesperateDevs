@@ -155,12 +155,13 @@ desperatedevs::test() {
 }
 
 desperatedevs::coverage() {
-  rm -rf coverage
+  local coverage_dir="${BUILD}/coverage"
+  rm -rf "${coverage_dir}"
   find src -type d -name TestResults -exec rm -rf {} +
   dotnet test --collect:"XPlat Code Coverage" || true
-  reportgenerator "-Title:${BEE_PROJECT}" "-reports:src/**/coverage.cobertura.xml" "-targetDir:coverage"
+  reportgenerator "-Title:${BEE_PROJECT}" "-reports:src/**/coverage.cobertura.xml" "-targetDir:${coverage_dir}"
   find src -type d -name TestResults -exec rm -rf {} +
-  echo "To see the test coverage results, please open coverage/index.html"
+  echo "To see the test coverage results, please open ${coverage_dir}/index.html"
 }
 
 desperatedevs::restore_unity() {
