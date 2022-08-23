@@ -28,6 +28,7 @@ namespace Jenny.Generator.Unity.Editor
         ICodeGenerationPlugin[] _instances;
 
         CodeGeneratorConfig _codeGeneratorConfig;
+        Dictionary<string, string> _defaultProperties;
 
         public static readonly string PropertiesPathKey = $"{typeof(CodeGeneratorPreferencesDrawer).Namespace}.PropertiesPath";
         public static readonly string UseExternalCodeGeneratorKey = $"{typeof(CodeGeneratorPreferencesDrawer).Namespace}.UseExternalCodeGenerator";
@@ -48,7 +49,10 @@ namespace Jenny.Generator.Unity.Editor
             SetTypesAndNames<ICodeGenerator>(_instances, out _availableGeneratorTypes, out _availableGeneratorNames);
             SetTypesAndNames<IPostProcessor>(_instances, out _availablePostProcessorTypes, out _availablePostProcessorNames);
 
-            preferences.Properties.AddProperties(CodeGeneratorUtil.GetDefaultProperties(_instances, _codeGeneratorConfig), false);
+            _defaultProperties = CodeGeneratorUtil.GetDefaultProperties(_instances, _codeGeneratorConfig);
+            preferences.Properties.AddProperties(_defaultProperties, false);
+            preferences.Save();
+            preferences.Reload();
 
             _useExternalCodeGenerator = EditorPrefs.GetBool(UseExternalCodeGeneratorKey);
             _doDryRun = EditorPrefs.GetBool(UnityCodeGenerator.DryRunKey, true);
@@ -99,10 +103,21 @@ namespace Jenny.Generator.Unity.Editor
             }
             EditorGUILayout.EndHorizontal();
 
-            _codeGeneratorConfig.PreProcessors = DrawMaskField("Pre Processors", _availablePreProcessorTypes, _availablePreProcessorNames, _codeGeneratorConfig.PreProcessors);
-            _codeGeneratorConfig.DataProviders = DrawMaskField("Data Providers", _availableDataProviderTypes, _availableDataProviderNames, _codeGeneratorConfig.DataProviders);
-            _codeGeneratorConfig.CodeGenerators = DrawMaskField("Code Generators", _availableGeneratorTypes, _availableGeneratorNames, _codeGeneratorConfig.CodeGenerators);
-            _codeGeneratorConfig.PostProcessors = DrawMaskField("Post Processors", _availablePostProcessorTypes, _availablePostProcessorNames, _codeGeneratorConfig.PostProcessors);
+            EditorGUI.BeginChangeCheck();
+            {
+                _codeGeneratorConfig.PreProcessors = DrawMaskField("Pre Processors", _availablePreProcessorTypes, _availablePreProcessorNames, _codeGeneratorConfig.PreProcessors);
+                _codeGeneratorConfig.DataProviders = DrawMaskField("Data Providers", _availableDataProviderTypes, _availableDataProviderNames, _codeGeneratorConfig.DataProviders);
+                _codeGeneratorConfig.CodeGenerators = DrawMaskField("Code Generators", _availableGeneratorTypes, _availableGeneratorNames, _codeGeneratorConfig.CodeGenerators);
+                _codeGeneratorConfig.PostProcessors = DrawMaskField("Post Processors", _availablePostProcessorTypes, _availablePostProcessorNames, _codeGeneratorConfig.PostProcessors);
+            }
+            var changed = EditorGUI.EndChangeCheck();
+            if (changed)
+            {
+                _defaultProperties = CodeGeneratorUtil.GetDefaultProperties(_instances, _codeGeneratorConfig);
+                preferences.Properties.AddProperties(_defaultProperties, false);
+                preferences.Save();
+                preferences.Reload();
+            }
 
             DrawConfigurables(preferences);
 
@@ -141,16 +156,13 @@ namespace Jenny.Generator.Unity.Editor
 
         void DrawConfigurables(Preferences preferences)
         {
-            var defaultProperties = CodeGeneratorUtil.GetDefaultProperties(_instances, _codeGeneratorConfig);
-            preferences.Properties.AddProperties(defaultProperties, false);
-
-            if (defaultProperties.Count != 0)
+            if (_defaultProperties.Count != 0)
             {
                 EditorGUILayout.Space();
                 EditorGUILayout.LabelField("Plugins Configuration", EditorStyles.boldLabel);
             }
 
-            foreach (var kvp in defaultProperties.OrderBy(kvp => kvp.Key))
+            foreach (var kvp in _defaultProperties.OrderBy(kvp => kvp.Key))
                 preferences[kvp.Key] = EditorGUILayout.TextField(kvp.Key.ShortTypeName().ToSpacedCamelCase(), preferences[kvp.Key]);
         }
 
@@ -166,6 +178,8 @@ namespace Jenny.Generator.Unity.Editor
                 .Select(instance => instance.Name)
                 .ToArray();
         }
+
+        static readonly List<string> _selected = new List<string>();
 
         static string[] DrawMaskField(string title, string[] types, string[] names, string[] input)
         {
@@ -188,18 +202,18 @@ namespace Jenny.Generator.Unity.Editor
                 EditorGUILayout.LabelField(title, "No " + title + " available");
             }
 
-            var selected = new List<string>();
+            _selected.Clear();
             for (var i = 0; i < types.Length; i++)
             {
                 var index = 1 << i;
                 if ((index & mask) == index)
-                    selected.Add(types[i]);
+                    _selected.Add(types[i]);
             }
 
             // Re-add unavailable types
-            selected.AddRange(input.Where(type => !types.Contains(type)));
+            _selected.AddRange(input.Where(type => !types.Contains(type)));
 
-            return selected.ToArray();
+            return _selected.ToArray();
         }
 
         void DrawGenerateButtons()

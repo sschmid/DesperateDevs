@@ -18,18 +18,17 @@ namespace Jenny.Generator
         public const string PortKey = "Jenny.Server.Port";
         public const string HostKey = "Jenny.Client.Host";
 
-        public override Dictionary<string, string> DefaultProperties =>
-            new Dictionary<string, string>
-            {
-                {SearchPathsKey, string.Empty},
-                {PluginsPathsKey, string.Empty},
-                {PreProcessorsKey, string.Empty},
-                {DataProvidersKey, string.Empty},
-                {CodeGeneratorsKey, string.Empty},
-                {PostProcessorsKey, string.Empty},
-                {PortKey, "3333"},
-                {HostKey, "localhost"}
-            };
+        public override Dictionary<string, string> DefaultProperties => new Dictionary<string, string>
+        {
+            {SearchPathsKey, string.Empty},
+            {PluginsPathsKey, string.Empty},
+            {PreProcessorsKey, string.Empty},
+            {DataProvidersKey, string.Empty},
+            {CodeGeneratorsKey, string.Empty},
+            {PostProcessorsKey, string.Empty},
+            {PortKey, "3333"},
+            {HostKey, "localhost"}
+        };
 
         readonly bool _minified;
         readonly bool _removeEmptyEntries;
