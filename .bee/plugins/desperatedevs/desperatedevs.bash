@@ -5,6 +5,7 @@ BUILD_SRC="${BUILD}/src"
 desperatedevs::help() {
   cat << 'EOF'
 template:
+  DESPERATE_DEVS_NUGET_LOCAL=~/.nuget/local
   DESPERATE_DEVS_UNITY_PACKAGES_VERSION=https://github.com/sschmid/Unity-2021.3.git
   DESPERATE_DEVS_UNITY_PROJECTS=()
   DESPERATE_DEVS_RESTORE_UNITY=([key]=value)
@@ -23,7 +24,8 @@ usage:
   restore_unity                  copy source code and samples to all unity projects
   sync_unity_solutions           generate C# project for all unity projects
   generate_unity_packages        generate unity packages
-  publish                        publish to nuget.org
+  publish                        publish nupkg to nuget.org
+  publish_local                  publish nupkg locally to disk
   pack_jenny                     pack Jenny
   pack_jenny_unity               pack Jenny for Unity
   pack_desperatedevs_unity       pack DesperateDevs for Unity
@@ -280,6 +282,13 @@ desperatedevs::publish() {
       --api-key "${NUGET_API_KEY}" \
       --skip-duplicate \
       --source https://api.nuget.org/v3/index.json
+}
+
+desperatedevs::publish_local() {
+  desperatedevs::clean
+  dotnet pack -c Release
+  _clean_dir "${DESPERATE_DEVS_NUGET_LOCAL}"
+  find . -type f -name "*.nupkg" -exec nuget add {} -Source "${DESPERATE_DEVS_NUGET_LOCAL}" \;
 }
 
 desperatedevs::pack_jenny() {

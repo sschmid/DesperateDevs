@@ -5,6 +5,7 @@ BEE_PLUGINS=(desperatedevs)
 
 [[ -f ~/.bee/desperatedevs.bash ]] && source ~/.bee/desperatedevs.bash
 
+DESPERATE_DEVS_NUGET_LOCAL=~/.nuget/local
 DESPERATE_DEVS_UNITY_PACKAGES_VERSION=https://github.com/sschmid/Unity-2021.3.git
 
 DESPERATE_DEVS_UNITY_PROJECTS=(
