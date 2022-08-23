@@ -30,7 +30,7 @@ namespace Jenny.Generator.Unity.Editor
         CodeGeneratorConfig _codeGeneratorConfig;
         Dictionary<string, string> _defaultProperties;
 
-        public static readonly string PropertiesPathKey = $"{typeof(CodeGeneratorPreferencesDrawer).Namespace}.PropertiesPath";
+        public static readonly string PropertiesPathKey = $"{Application.identifier}-{typeof(CodeGeneratorPreferencesDrawer).Namespace}.PropertiesPath";
         public static readonly string UseExternalCodeGeneratorKey = $"{typeof(CodeGeneratorPreferencesDrawer).Namespace}.UseExternalCodeGenerator";
 
         bool _useExternalCodeGenerator;
