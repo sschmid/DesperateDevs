@@ -16,8 +16,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="../src/DesperateDevs.Serialization.Cli.Utils.csproj" />
       <ProjectReference Include="../../DesperateDevs.Tests/tests/DesperateDevs.Tests.csproj" />
+      <ProjectReference Include="../src/DesperateDevs.Serialization.Cli.Utils.csproj" />
     </ItemGroup>
 
 </Project>
