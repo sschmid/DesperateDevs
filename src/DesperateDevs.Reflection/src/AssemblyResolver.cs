@@ -19,6 +19,8 @@ namespace DesperateDevs.Reflection
 
         readonly ResolveEventHandler _cachedOnAssemblyResolve;
 
+        bool _isDisposed;
+
         public AssemblyResolver(params string[] basePaths)
         {
             _basePaths = basePaths;
@@ -68,7 +70,12 @@ namespace DesperateDevs.Reflection
                     : $"  ➜ Loading: {name}");
 
                 var assembly = Assembly.LoadFrom(name);
-                _assemblies.Add(assembly);
+
+                if (_isDisposed)
+                    _logger.Debug($"  ℹ️  Not adding {name} because {nameof(AssemblyResolver)} is disposed");
+                else
+                    _assemblies.Add(assembly);
+
                 return assembly;
             }
             catch (Exception)
@@ -79,7 +86,12 @@ namespace DesperateDevs.Reflection
                     try
                     {
                         var assembly = Assembly.LoadFrom(path);
-                        _assemblies.Add(assembly);
+
+                        if (_isDisposed)
+                            _logger.Debug($"  ℹ️  Not adding {name} because {nameof(AssemblyResolver)} is disposed");
+                        else
+                            _assemblies.Add(assembly);
+
                         return assembly;
                     }
                     catch (BadImageFormatException exception)
@@ -122,6 +134,6 @@ namespace DesperateDevs.Reflection
 
         public IEnumerable<Type> GetTypes() => _assemblies.GetAllTypes();
 
-        public void Dispose() => _appDomain.AssemblyResolve -= _cachedOnAssemblyResolve;
+        public void Dispose() => _isDisposed = true;
     }
 }

@@ -44,6 +44,8 @@ namespace Jenny.Generator
             foreach (var path in config.Plugins)
                 resolver.Load(path);
 
+            resolver.Dispose();
+
             return resolver.GetTypes()
                 .GetNonAbstractTypes<ICodeGenerationPlugin>()
                 .Select(type =>
