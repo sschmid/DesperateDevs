@@ -17,7 +17,7 @@ namespace DesperateDevs.Tests
 
         public static IEnumerable<object[]> Projects => OpenSolutionAsync().Result
             .Projects
-            .Select(project => { return new object[] {project.Name, project}; });
+            .Select(project => { return new object[] {project}; });
 
         [Fact]
         public void HasUnixProjectPaths()
@@ -26,13 +26,13 @@ namespace DesperateDevs.Tests
         }
 
         [Theory, MemberData(nameof(Projects))]
-        public void ProjectsHaveUnixProjectReferencePaths(string projectName, Project project)
+        public void ProjectsHaveUnixProjectReferencePaths(Project project)
         {
             File.ReadAllText(project.FilePath).Should().NotContain("\\");
         }
 
         [Theory, MemberData(nameof(Projects))]
-        public void OnlyHasUsedProjectReferences(string projectName, Project project)
+        public void OnlyHasUsedProjectReferences(Project project)
         {
             foreach (var reference in project.AllProjectReferences)
             {
@@ -49,11 +49,9 @@ namespace DesperateDevs.Tests
         static Task<Solution> OpenSolutionAsync()
         {
             if (!MSBuildLocator.IsRegistered) MSBuildLocator.RegisterDefaults();
-            using (var workspace = MSBuildWorkspace.Create())
-            {
-                workspace.LoadMetadataForReferencedProjects = true;
-                return workspace.OpenSolutionAsync(SolutionPath);
-            }
+            using var workspace = MSBuildWorkspace.Create();
+            workspace.LoadMetadataForReferencedProjects = true;
+            return workspace.OpenSolutionAsync(SolutionPath);
         }
     }
 }
