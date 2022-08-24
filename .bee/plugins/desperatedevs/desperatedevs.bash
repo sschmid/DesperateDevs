@@ -27,9 +27,7 @@ usage:
   publish                        publish nupkg to nuget.org
   publish_local                  publish nupkg locally to disk
   pack_jenny                     pack Jenny
-  pack_jenny_unity               pack Jenny for Unity
-  pack_desperatedevs_unity       pack DesperateDevs for Unity
-  pack                           pack all the above
+  pack_unity                     pack projects for Unity
 
 EOF
 }
@@ -300,11 +298,13 @@ desperatedevs::publish_local() {
 }
 
 desperatedevs::pack_jenny() {
+  desperatedevs::rebuild
+
   bee::log_func
-  local jenny_dir="${BUILD_SRC}/Jenny"
-  local code_generator_dir="${jenny_dir}/Jenny"
-  local plugins_dir="${code_generator_dir}/Plugins/DesperateDevs"
-  _clean_dir "${jenny_dir}" "${code_generator_dir}" "${plugins_dir}"
+  local project_dir="${BUILD_SRC}/Jenny"
+  local jenny_dir="${project_dir}/Jenny"
+  local plugins_dir="${jenny_dir}/Plugins/DesperateDevs"
+  _clean_dir "${project_dir}" "${jenny_dir}" "${plugins_dir}"
 
   local projects=(
     Jenny.Generator.Cli
@@ -318,104 +318,104 @@ desperatedevs::pack_jenny() {
     Jenny.Plugins.Unity
   )
 
-  for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/" "${code_generator_dir}"; done
-  for f in "${to_plugins[@]}"; do mv "${code_generator_dir}/${f}.dll" "${plugins_dir}"; done
+  for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/" "${jenny_dir}"; done
+  for f in "${to_plugins[@]}"; do mv "${jenny_dir}/${f}.dll" "${plugins_dir}"; done
 
-  ln -s "Jenny.Generator.Cli" "${code_generator_dir}/Jenny"
-  cp src/Jenny.Generator.Cli/scripts/Jenny-Server "${jenny_dir}"
-  cp src/Jenny.Generator.Cli/scripts/Jenny-Server.bat "${jenny_dir}"
-  cp src/Jenny.Generator.Cli/scripts/Jenny-Auto-Import "${jenny_dir}"
-  cp src/Jenny.Generator.Cli/scripts/Jenny-Auto-Import.bat "${jenny_dir}"
+  ln -s "Jenny.Generator.Cli" "${jenny_dir}/Jenny"
+  cp src/Jenny.Generator.Cli/scripts/Jenny-Server "${project_dir}"
+  cp src/Jenny.Generator.Cli/scripts/Jenny-Server.bat "${project_dir}"
+  cp src/Jenny.Generator.Cli/scripts/Jenny-Auto-Import "${project_dir}"
+  cp src/Jenny.Generator.Cli/scripts/Jenny-Auto-Import.bat "${project_dir}"
 }
 
-desperatedevs::pack_jenny_unity() {
+desperatedevs::pack_unity() {
+  desperatedevs::rebuild
+
   bee::log_func
-  local code_generator_dir="${BUILD_SRC}/Unity/Jenny/Assets/Jenny"
-  local editor_dir="${code_generator_dir}/Editor"
-  local images_dir="${editor_dir}/Images"
-  local plugins_dir="${editor_dir}/Plugins/DesperateDevs"
-  _clean_dir "${code_generator_dir}" "${editor_dir}" "${images_dir}" "${plugins_dir}"
+  local project_dir editor_dir jenny_dir images_dir
+  local -a projects to_editor to_plugins to_images
 
-  local projects=(
-    Jenny.Generator.Unity.Editor
-    Jenny.Plugins
-    Jenny.Plugins.Unity
-  )
-  local to_editor=(
-    DesperateDevs.Unity.Editor
-    Jenny.Generator.Unity.Editor
-    Jenny.Generator
-    Jenny
-    TCPeasy
-  )
-  local images=(
-    Jenny.Generator.Unity.Editor
-  )
-  local to_plugins=(
-    Jenny.Plugins
-    Jenny.Plugins.Unity
-  )
+  ##############################################################################
+  # Desperate Devs
+  ##############################################################################
+  project_dir="${BUILD_SRC}/Unity/Assets/DesperateDevs"
+  editor_dir="${project_dir}/Editor"
+  _clean_dir "${project_dir}" "${editor_dir}"
 
-  for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/"*.dll "${code_generator_dir}"; done
-  for f in "${to_editor[@]}"; do mv "${code_generator_dir}/${f}.dll" "${editor_dir}"; done
-  for f in "${images[@]}"; do _sync "src/${f}/src/Images/" "${images_dir}"; done
-  for f in "${to_plugins[@]}"; do mv "${code_generator_dir}/${f}.dll" "${plugins_dir}"; done
-}
-
-desperatedevs::pack_desperatedevs_unity() {
-  bee::log_func
-  local desperatedevs_dir="${BUILD_SRC}/DesperateDevs"
-  local editor_dir="${desperatedevs_dir}/Editor"
-  local images_dir="${editor_dir}/Images"
-  local plugins_dir="${editor_dir}/Jenny"
-  _clean_dir "${desperatedevs_dir}" "${editor_dir}" "${images_dir}" "${plugins_dir}"
-
-  local projects=(
+  projects=(
     DesperateDevs.Caching
     DesperateDevs.Extensions
     DesperateDevs.Reflection
     DesperateDevs.Serialization
     DesperateDevs.Threading
     DesperateDevs.Unity
+    DesperateDevs.Unity.Editor
+  )
+  to_editor=(
+    DesperateDevs.Unity.Editor
+  )
+
+  for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/${p}.dll" "${project_dir}/${p}.dll"; done
+  for f in "${to_editor[@]}"; do mv "${project_dir}/${f}.dll" "${editor_dir}"; done
+
+  ##############################################################################
+  # Jenny
+  ##############################################################################
+  project_dir="${BUILD_SRC}/Unity/Assets/Jenny"
+  editor_dir="${project_dir}/Editor"
+  jenny_dir="${editor_dir}/Jenny"
+  images_dir="${editor_dir}/Images"
+  _clean_dir "${project_dir}" "${editor_dir}" "${jenny_dir}" "${images_dir}"
+
+  projects=(
+    Jenny
+    Jenny.Generator
+    Jenny.Generator.Unity.Editor
+    Jenny.Plugins
+    Jenny.Plugins.Unity
+  )
+  to_editor=(
+    Jenny
+    Jenny.Generator
+    Jenny.Generator.Unity.Editor
+  )
+  to_plugins=(
+    Jenny.Plugins
+    Jenny.Plugins.Unity
+  )
+  to_images=(
+    Jenny.Generator.Unity.Editor
+  )
+
+  for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/${p}.dll" "${project_dir}/${p}.dll"; done
+  for f in "${to_editor[@]}"; do mv "${project_dir}/${f}.dll" "${editor_dir}"; done
+  for f in "${to_plugins[@]}"; do mv "${project_dir}/${f}.dll" "${jenny_dir}"; done
+  for f in "${to_images[@]}"; do _sync "src/${f}/src/Images/" "${images_dir}"; done
+
+  ##############################################################################
+  # Sherlog
+  ##############################################################################
+  project_dir="${BUILD_SRC}/Unity/Assets/Sherlog"
+  _clean_dir "${project_dir}"
+
+  projects=(
     Sherlog
     Sherlog.Appenders
     Sherlog.Formatters
+  )
+  for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/${p}.dll" "${project_dir}/${p}.dll"; done
+
+  ##############################################################################
+  # TCPeasy
+  ##############################################################################
+
+  project_dir="${BUILD_SRC}/Unity/Assets/TCPeasy"
+  _clean_dir "${project_dir}"
+
+  projects=(
     TCPeasy
-
-    # unity editor
-    DesperateDevs.Unity.Editor
-    Jenny
-    Jenny.Generator
-    Jenny.Generator.Unity.Editor
-
-    # jenny plugins
-    Jenny.Plugins
-    Jenny.Plugins.Unity
   )
-  local to_editor=(
-    DesperateDevs.Unity.Editor
-    Jenny
-    Jenny.Generator
-    Jenny.Generator.Unity.Editor
-  )
-  local to_plugins=(
-    Jenny.Plugins
-    Jenny.Plugins.Unity
-  )
-  local images=(
-    Jenny.Generator.Unity.Editor
-  )
-
-  for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/"*.dll "${desperatedevs_dir}"; done
-  for f in "${to_editor[@]}"; do mv "${desperatedevs_dir}/${f}.dll" "${editor_dir}"; done
-  for f in "${images[@]}"; do _sync "src/${f}/src/Images/" "${images_dir}"; done
-  for f in "${to_plugins[@]}"; do mv "${desperatedevs_dir}/${f}.dll" "${plugins_dir}"; done
-}
-
-desperatedevs::pack() {
-  desperatedevs::pack_desperatedevs_unity
-  desperatedevs::pack_jenny
-  desperatedevs::pack_jenny_unity
+  for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/${p}.dll" "${project_dir}/${p}.dll"; done
 }
 
 _clean_dir() {
