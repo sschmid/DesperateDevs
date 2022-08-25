@@ -236,7 +236,7 @@ desperatedevs::publish_local() {
 }
 
 desperatedevs::pack_jenny() {
-  desperatedevs::rebuild
+  desperatedevs::build
   local project_dir="${BUILD_SRC}/Jenny"
   local jenny_dir="${project_dir}/Jenny"
   local plugins_dir="${jenny_dir}/Plugins/Jenny"
@@ -273,7 +273,7 @@ desperatedevs::pack_jenny() {
 }
 
 desperatedevs::pack_unity() {
-  desperatedevs::rebuild
+  desperatedevs::build
   local project_dir editor_dir jenny_dir images_dir
   local -a projects to_editor to_plugins images
 
