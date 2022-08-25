@@ -13,7 +13,8 @@ namespace DesperateDevs.Unity.Editor
 
         public virtual void DrawContent(Preferences preferences)
         {
-            _drawContent = EditorLayout.DrawSectionHeaderToggle(Title, _drawContent);
+            var title = _drawContent ? $"▼ {Title}" : $"▶ {Title}";
+            _drawContent = EditorLayout.DrawSectionHeaderToggle(title, _drawContent);
             if (_drawContent)
             {
                 EditorLayout.BeginSectionContent();
