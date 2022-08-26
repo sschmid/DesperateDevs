@@ -11,8 +11,4 @@
     <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="4.1.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="../../Sherlog/src/Sherlog.csproj" />
-  </ItemGroup>
-
 </Project>
