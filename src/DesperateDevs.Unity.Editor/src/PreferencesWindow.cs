@@ -13,6 +13,8 @@ namespace DesperateDevs.Unity.Editor
         string _propertiesPath;
         string _userPropertiesPath;
         string[] _preferencesDrawerNames;
+        bool _minified;
+        bool _doubleQuotedValues;
 
         Preferences _preferences;
         IPreferencesDrawer[] _preferencesDrawers;
@@ -20,18 +22,28 @@ namespace DesperateDevs.Unity.Editor
 
         Exception _configException;
 
-        public void Initialize(string propertiesPath, string userPropertiesPath, params string[] preferencesDrawerNames)
+        public void Initialize(
+            string propertiesPath,
+            string userPropertiesPath,
+            bool minified,
+            bool doubleQuotedValues,
+            params string[] preferencesDrawerNames)
         {
             _propertiesPath = propertiesPath;
             _userPropertiesPath = userPropertiesPath;
             _preferencesDrawerNames = preferencesDrawerNames;
+            _minified = minified;
+            _doubleQuotedValues = doubleQuotedValues;
         }
 
         void Initialize()
         {
             try
             {
-                _preferences = new Preferences(_propertiesPath, _userPropertiesPath);
+                _preferences = new Preferences(_propertiesPath, _userPropertiesPath, _doubleQuotedValues)
+                {
+                    Minified = _minified
+                };
                 var availableDrawers = TypeCache.GetTypesDerivedFrom<IPreferencesDrawer>();
                 _preferencesDrawers = _preferencesDrawerNames
                     .Select(drawerName => availableDrawers.SingleOrDefault(type => type.FullName == drawerName))

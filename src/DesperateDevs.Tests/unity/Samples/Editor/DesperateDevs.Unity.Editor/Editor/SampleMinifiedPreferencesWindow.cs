@@ -3,16 +3,16 @@ using UnityEditor;
 
 namespace Samples.DesperateDevs.Unity.Editor.Editor
 {
-    public class SamplePreferencesWindow : PreferencesWindow
+    public class SampleMinifiedPreferencesWindow : PreferencesWindow
     {
-        [MenuItem("Samples/DesperateDevs.Unity.Editor/Create SamplePreferencesWindow")]
+        [MenuItem("Samples/DesperateDevs.Unity.Editor/Create SampleMinifiedPreferencesWindow")]
         public static void OpenPreferences()
         {
-            var window = GetWindow<SamplePreferencesWindow>(true, nameof(SamplePreferencesWindow));
+            var window = GetWindow<SampleMinifiedPreferencesWindow>(true, nameof(SampleMinifiedPreferencesWindow));
             window.Initialize(
                 "Sample.properties",
                 "Sample.userproperties",
-                false,
+                true,
                 false,
                 typeof(SamplePreferencesDrawer).FullName);
 

@@ -3,17 +3,17 @@ using UnityEditor;
 
 namespace Samples.DesperateDevs.Unity.Editor.Editor
 {
-    public class SamplePreferencesWindow : PreferencesWindow
+    public class SampleMinifiedDoubleQuotedPreferencesWindow : PreferencesWindow
     {
-        [MenuItem("Samples/DesperateDevs.Unity.Editor/Create SamplePreferencesWindow")]
+        [MenuItem("Samples/DesperateDevs.Unity.Editor/Create SampleMinifiedDoubleQuotedPreferencesWindow")]
         public static void OpenPreferences()
         {
-            var window = GetWindow<SamplePreferencesWindow>(true, nameof(SamplePreferencesWindow));
+            var window = GetWindow<SampleMinifiedDoubleQuotedPreferencesWindow>(true, nameof(SampleMinifiedDoubleQuotedPreferencesWindow));
             window.Initialize(
                 "Sample.properties",
                 "Sample.userproperties",
-                false,
-                false,
+                true,
+                true,
                 typeof(SamplePreferencesDrawer).FullName);
 
             window.Show();

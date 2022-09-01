@@ -230,7 +230,8 @@ namespace DesperateDevs.Serialization.Tests
 
             var preferences = new Preferences(TestPropertiesPath, TestUserPropertiesPath);
             preferences["key"] = "test";
-            preferences.Save(minified);
+            preferences.Minified = minified;
+            preferences.Save();
 
             _properties = File.ReadAllText(TestPropertiesPath);
             _userProperties = File.ReadAllText(TestUserPropertiesPath);

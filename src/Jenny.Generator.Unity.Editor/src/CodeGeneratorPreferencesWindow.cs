@@ -15,6 +15,8 @@ namespace Jenny.Generator.Unity.Editor
             window.Initialize(
                 EditorPrefs.GetString(CodeGeneratorPreferencesDrawer.PropertiesPathKey, CodeGenerator.DefaultPropertiesPath),
                 Preferences.DefaultUserPropertiesPath,
+                false,
+                false,
                 typeof(CodeGeneratorPreferencesDrawer).FullName
             );
 

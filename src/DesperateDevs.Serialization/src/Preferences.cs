@@ -13,6 +13,7 @@ namespace DesperateDevs.Serialization
 
         public IEnumerable<string> Keys => _mergedProperties.Keys;
 
+        public bool Minified { get; set; }
         public Properties Properties { get; private set; }
         public Properties UserProperties { get; private set; }
 
@@ -62,10 +63,10 @@ namespace DesperateDevs.Serialization
             _mergedProperties.AddProperties(UserProperties.ToDictionary(), true);
         }
 
-        public void Save(bool minified = false)
+        public void Save()
         {
-            File.WriteAllText(PropertiesPath, minified ? Properties.ToMinifiedString() : Properties.ToString());
-            File.WriteAllText(UserPropertiesPath, minified ? UserProperties.ToMinifiedString() : UserProperties.ToString());
+            File.WriteAllText(PropertiesPath, Minified ? Properties.ToMinifiedString() : Properties.ToString());
+            File.WriteAllText(UserPropertiesPath, Minified ? UserProperties.ToMinifiedString() : UserProperties.ToString());
         }
 
         public bool HasKey(string key) => _mergedProperties.HasKey(key);

@@ -1,3 +1,4 @@
+using System.Globalization;
 using DesperateDevs.Serialization;
 using DesperateDevs.Unity.Editor;
 using UnityEditor;
@@ -8,6 +9,7 @@ namespace Samples.DesperateDevs.Unity.Editor.Editor
     public class SamplePreferencesDrawer : AbstractPreferencesDrawer
     {
         public override string Title => nameof(SamplePreferencesDrawer);
+
         Texture2D _headerTexture;
 
         bool _unfolded = true;
@@ -54,11 +56,19 @@ namespace Samples.DesperateDevs.Unity.Editor.Editor
 
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Search");
-            _searchString = EditorLayout.SearchTextField(_searchString);
-            if (EditorLayout.MatchesSearchString("Desperate", _searchString))
+            _searchString = EditorLayout.SearchTextField(_searchString).ToLowerInvariant();
+            if (EditorLayout.MatchesSearchString("desperate", _searchString))
                 EditorGUILayout.LabelField("Desperate");
-            if (EditorLayout.MatchesSearchString("Devs", _searchString))
+            if (EditorLayout.MatchesSearchString("devs", _searchString))
                 EditorGUILayout.LabelField("Devs");
+
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField(preferences["key"]);
+            if (GUILayout.Button("Save new random"))
+            {
+                preferences["random"] = Random.value.ToString(CultureInfo.InvariantCulture);
+                preferences.Save();
+            }
         }
     }
 }
