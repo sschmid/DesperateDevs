@@ -1,5 +1,5 @@
 BEE_PROJECT=DesperateDevs
-BEE_VERSION=1.0.0
+BEE_VERSION=1.1.0
 BEE_PLUGINS_PATHS=("${BEE_RESOURCES}/plugins")
 BEE_PLUGINS=(desperatedevs)
 
