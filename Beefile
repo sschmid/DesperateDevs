@@ -9,7 +9,6 @@ DESPERATE_DEVS_NUGET_LOCAL=~/.nuget/local
 DESPERATE_DEVS_UNITY_PACKAGES_VERSION=https://github.com/sschmid/Unity-2021.3.git
 
 DESPERATE_DEVS_UNITY_PROJECTS=(
-  src/DesperateDevs.Tests/unity/Unity-2020.3
   src/DesperateDevs.Tests/unity/Unity-2021.3
 )
 
