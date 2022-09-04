@@ -25,7 +25,7 @@ namespace DesperateDevs.Serialization.Cli.Utils.Tests
         }
 
         [Fact]
-        public void FailsWhenNotCorrectNumberOfArgs()
+        public void ThrowsWhenNotCorrectNumberOfArgs()
         {
             FluentActions.Invoking(() => Run()).Should().Throw<Exception>();
             FluentActions.Invoking(() => Run("testKey")).Should().Throw<Exception>();
