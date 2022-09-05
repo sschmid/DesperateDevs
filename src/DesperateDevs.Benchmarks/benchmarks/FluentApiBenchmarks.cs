@@ -8,34 +8,21 @@ namespace DesperateDevs.Benchmarks
     [RankColumn]
     public class FluentApiBenchmarks
     {
-        SomeObject _object;
+        object _object;
 
         [GlobalSetup]
-        public void GlobalSetup()
-        {
-            _object = new SomeObject();
-        }
+        public void GlobalSetup() => _object = new object();
 
         [Benchmark]
         public void NonFluent() => _object.NonFluent();
 
         [Benchmark]
-        public void Fluent() => _object.Fluent();
+        public object Fluent() => _object.Fluent();
     }
-
-    public class SomeObject { }
 
     public static class EntityExtension
     {
-        public static void NonFluent(this SomeObject someObject)
-        {
-            // do sth
-        }
-
-        public static SomeObject Fluent(this SomeObject someObject)
-        {
-            // do sth
-            return someObject;
-        }
+        public static void NonFluent(this object obj) { }
+        public static object Fluent(this object obj) => obj;
     }
 }
