@@ -6,7 +6,8 @@ namespace DesperateDevs.Benchmarks
     {
         public static void Main(string[] args)
         {
-            BenchmarkRunner.Run(typeof(CollectionBenchmarks));
+            // BenchmarkRunner.Run(typeof(CollectionBenchmarks));
+            BenchmarkRunner.Run(typeof(FluentApiBenchmarks));
         }
     }
 }
