@@ -2,7 +2,7 @@
 
 namespace DesperateDevs.Extensions.Benchmarks
 {
-    static class Program
+    public class Program
     {
         public static void Main(string[] args)
         {

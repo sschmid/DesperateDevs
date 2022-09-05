@@ -2,7 +2,7 @@
 
 namespace Jenny.Benchmarks
 {
-    static class Program
+    public class Program
     {
         public static void Main(string[] args)
         {
