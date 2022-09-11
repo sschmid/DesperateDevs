@@ -187,9 +187,11 @@ desperatedevs::restore_unity() {
     done
 
     bee::log_echo "Restore Dotfiles: ${unity_project_path}"
+    mkdir -p "${unity_project_path}/.dotsettings"
     cp DesperateDevs.sln.DotSettings "${unity_project_path}/$(basename "${unity_project_path}").sln.DotSettings"
-    cp CodeStyle.DotSettings "${unity_project_path}"
-    cp PatternsAndTemplates.DotSettings "${unity_project_path}"
+    cp .dotsettings/CodeStyle.DotSettings "${unity_project_path}/.dotsettings"
+    cp .dotsettings/PatternsAndTemplates.DotSettings "${unity_project_path}/.dotsettings"
+    cp .dotsettings/InspectionSettings.DotSettings "${unity_project_path}/.dotsettings"
   done
 }
 
@@ -407,8 +409,9 @@ EOF
 
   pushd "${unity_project_path}" > /dev/null || exit 1
     ln -sf ../../DesperateDevs.sln.DotSettings UnityPackages.sln.DotSettings
-    ln -sf ../../CodeStyle.DotSettings CodeStyle.DotSettings
-    ln -sf ../../PatternsAndTemplates.DotSettings PatternsAndTemplates.DotSettings
+    ln -sf ../../.dotsettings/CodeStyle.DotSettings CodeStyle.DotSettings
+    ln -sf ../../.dotsettings/PatternsAndTemplates.DotSettings PatternsAndTemplates.DotSettings
+    ln -sf ../../.dotsettings/InspectionSettings.DotSettings InspectionSettings.DotSettings
   popd > /dev/null || exit 1
 
   UNITY_PROJECT_PATH="${unity_project_path}"
