@@ -33,6 +33,14 @@ namespace DesperateDevs.Caching
             return objects;
         }
 
+        public List<T> Drain(List<T> buffer)
+        {
+            buffer.Clear();
+            buffer.AddRange(_objectPool);
+            _objectPool.Clear();
+            return buffer;
+        }
+
         public void Clear() => _objectPool.Clear();
     }
 }

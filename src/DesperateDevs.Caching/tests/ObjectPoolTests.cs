@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using FluentAssertions;
 using Xunit;
 
@@ -64,6 +65,33 @@ namespace DesperateDevs.Caching.Tests
             var obj = _objectPool.Get();
             obj.Should().NotBeSameAs(obj1);
             obj.Should().NotBeSameAs(obj2);
+        }
+
+        [Fact]
+        public void DrainsPoolUsingBuffer()
+        {
+            var obj1 = new TestClassWithField();
+            var obj2 = new TestClassWithField();
+            _objectPool.Push(obj1);
+            _objectPool.Push(obj2);
+
+            var buffer = new List<TestClassWithField>();
+            var objects = _objectPool.Drain(buffer);
+            objects.Should().BeSameAs(buffer);
+            objects.Should().HaveCount(2);
+            objects.Should().Contain(obj1);
+            objects.Should().Contain(obj2);
+
+            var obj = _objectPool.Get();
+            obj.Should().NotBeSameAs(obj1);
+            obj.Should().NotBeSameAs(obj2);
+        }
+
+        [Fact]
+        public void DrainsClearsBuffer()
+        {
+            var buffer = new List<TestClassWithField> {new TestClassWithField()};
+            _objectPool.Drain(buffer).Should().BeEmpty();
         }
 
         [Fact]
