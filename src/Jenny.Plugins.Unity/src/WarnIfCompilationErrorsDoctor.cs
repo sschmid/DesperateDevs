@@ -26,7 +26,7 @@ namespace Jenny.Plugins.Unity
         {
             var isStandalone = AppDomain.CurrentDomain
                 .GetAllTypes()
-                .Any(type => type.FullName == "Jenny.Generator.Cli.Program");
+                .Any(type => type.FullName.StartsWith("Jenny.Generator.Cli"));
 
             if (isStandalone)
             {
