@@ -41,6 +41,8 @@ namespace Jenny.Generator.Unity.Editor
             _headerTexture = EditorLayout.LoadTexture("l:Jenny-Header");
             _codeGeneratorConfig = preferences.CreateAndConfigure<CodeGeneratorConfig>();
             preferences.Properties.AddProperties(_codeGeneratorConfig.DefaultProperties, false);
+            preferences.Save();
+            preferences.Reload();
 
             _instances = CodeGeneratorUtil.LoadFromPlugins(preferences);
 
