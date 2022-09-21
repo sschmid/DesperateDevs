@@ -146,13 +146,16 @@ namespace Jenny.Generator.Unity.Editor
                 );
 
                 CodeGeneratorUtil.AutoImport(_codeGeneratorConfig, searchPaths);
-                preferences.Save();
-
                 Initialize(preferences);
                 _codeGeneratorConfig.PreProcessors = _availablePreProcessorTypes;
                 _codeGeneratorConfig.DataProviders = _availableDataProviderTypes;
                 _codeGeneratorConfig.CodeGenerators = _availableGeneratorTypes;
                 _codeGeneratorConfig.PostProcessors = _availablePostProcessorTypes;
+
+                _defaultProperties = CodeGeneratorUtil.GetDefaultProperties(_instances, _codeGeneratorConfig);
+                preferences.Properties.AddProperties(_defaultProperties, false);
+                preferences.Save();
+                preferences.Reload();
             }
         }
 
