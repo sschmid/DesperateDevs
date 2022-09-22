@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../../DesperateDevs.Tests/tests/DesperateDevs.Tests.csproj" />
+    <ProjectReference Include="../../DesperateDevs/tests/DesperateDevs.Tests.csproj" />
     <ProjectReference Include="../../Sherlog.Formatters/src/Sherlog.Formatters.csproj" />
     <ProjectReference Include="../fixtures/DesperateDevs.Reflection.Tests.Project1/DesperateDevs.Reflection.Tests.Project1.csproj" />
     <ProjectReference Include="../fixtures/DesperateDevs.Reflection.Tests.Project2/DesperateDevs.Reflection.Tests.Project2.csproj" />

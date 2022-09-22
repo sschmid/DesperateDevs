@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="../../DesperateDevs.Serialization/tests/DesperateDevs.Serialization.Tests.csproj" />
-    <ProjectReference Include="../../DesperateDevs.Tests/tests/DesperateDevs.Tests.csproj" />
     <ProjectReference Include="../src/Jenny.Generator.csproj" />
   </ItemGroup>
 

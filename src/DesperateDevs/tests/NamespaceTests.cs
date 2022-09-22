@@ -23,10 +23,8 @@ namespace DesperateDevs.Tests
         public void FileHasCorrectNamespace(FileNamespace ns)
         {
             var shortPath = RemoveProjectRoot(ns.Path, ProjectRoot);
-            var isTest = shortPath.Contains(Path.DirectorySeparatorChar + "tests" + Path.DirectorySeparatorChar) &&
-                         !shortPath.Contains("DesperateDevs.Tests");
-            var isBenchmark = shortPath.Contains(Path.DirectorySeparatorChar + "benchmarks" + Path.DirectorySeparatorChar) &&
-                              !shortPath.Contains("DesperateDevs.Benchmarks");
+            var isTest = shortPath.Contains(Path.DirectorySeparatorChar + "tests" + Path.DirectorySeparatorChar);
+            var isBenchmark = shortPath.Contains(Path.DirectorySeparatorChar + "benchmarks" + Path.DirectorySeparatorChar);
             var isFixture = shortPath.Contains(Path.DirectorySeparatorChar + "fixtures" + Path.DirectorySeparatorChar);
 
             if (isTest)
@@ -79,7 +77,7 @@ namespace DesperateDevs.Tests
                        root.StartsWith("Sherlog") ||
                        root.StartsWith("TCPeasy");
             })
-            .Where(p => new[] {"obj", "fixtures", Path.Combine("tests", "bin"), Path.Combine("DesperateDevs.Tests", "unity")}
+            .Where(p => new[] {"obj", "fixtures", Path.Combine("tests", "bin"), Path.Combine("DesperateDevs", "unity")}
                 .All(ignore => !p.Contains(Path.DirectorySeparatorChar + ignore + Path.DirectorySeparatorChar)))
             .ToDictionary(p => p, File.ReadAllText);
 

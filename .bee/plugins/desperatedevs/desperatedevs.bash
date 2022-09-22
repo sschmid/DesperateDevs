@@ -168,7 +168,7 @@ desperatedevs::restore_unity() {
   for unity_project_path in "${DESPERATE_DEVS_UNITY_PROJECTS[@]}"; do
     bee::log_echo "Restore Samples: ${unity_project_path}"
     _clean_dir "${unity_project_path}/Assets" "${unity_project_path}/Assets/Samples"
-    _sync_unity src/DesperateDevs.Tests/unity/Samples "${unity_project_path}/Assets"
+    _sync_unity src/DesperateDevs/unity/Samples "${unity_project_path}/Assets"
     mv "${unity_project_path}/Assets/Samples/Jenny.properties" "${unity_project_path}/Jenny.properties"
     mv "${unity_project_path}/Assets/Samples/Sample.properties" "${unity_project_path}/Sample.properties"
 
