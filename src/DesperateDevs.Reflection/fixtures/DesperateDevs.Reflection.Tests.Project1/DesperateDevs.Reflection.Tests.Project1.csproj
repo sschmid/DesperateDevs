@@ -4,7 +4,6 @@
     <TargetFramework>$(DefaultNetTargetFramework)</TargetFramework>
     <IsPackable>false</IsPackable>
     <IsPublishable>false</IsPublishable>
-    <OutDir>bin/$(Configuration)</OutDir>
   </PropertyGroup>
 
 </Project>
