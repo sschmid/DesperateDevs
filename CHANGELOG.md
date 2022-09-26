@@ -6,6 +6,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 2022-09-26
+### Desperate.Caching 1.1.0
+- Add non-alloc `pool.Drain(buffer)`
+
+### DesperateDevs.Serialization 2.0.0
+- Add `preferences.Minified` bool
+
+### DesperateDevs.Serialization.Cli.Utils 1.0.1
+- Set `preferences.Minified` bool in `FormatCommand`
+
+### DesperateDevs.Unity.Editor 2.0.0
+- Set `preferences.Minified` bool in `PreferencesWindow`
+
+### Jenny.Generator.Cli 1.1.0
+- Make program public instead of static
+
+### Jenny.Generator.Unity.Editor 1.0.2
+- Set `minified` and `doubleQuotedValues` in `CodeGeneratorPreferencesWindow`
+- Create `Jenny.properties` with all required keys
+- Refresh configurables after auto import
+
+### Jenny.Plugins.Unity 1.0.1
+- Update jenny standalone checks to test for `Jenny.Generator.Cli` namespace
+
+### TCPeasy.Cli 1.1.0
+- Make program public instead of static
+
+### Other
+- Convert concatenation to interpolation
+- Remove Unity-2020.3 project
+- Update packages
+
+### bee
+- Upgrade to bee 1.2.0
+- Add `desperatedevs::pack`
+- Add `desperatedevs::publish`
+
+
 ## [1.0.0] - 2022-09-01
 ### Notes
 - Desperate Devs 1.0 is now open-source
@@ -50,60 +88,60 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | DesperateDevs.Utils                                     | DesperateDevs.Extensions              |
 | DesperateDevs.Utils                                     | DesperateDevs.Reflection              |
 
-### DesperateDevs.Caching
+### DesperateDevs.Caching 1.0.0
 - Add `objectPool.Clear()`
 - Add `ObjectCache.ObjectPools` to get all object pools
 
-### DesperateDevs.Cli.Utils
+### DesperateDevs.Cli.Utils 1.0.0
 - Add `args.IsYes` and `args.IsNo`
 
-### DesperateDevs.Extensions
+### DesperateDevs.Extensions 1.0.0
 - Rename `string.LowercaseFirst()` to `string.ToLowerFirst()`
 - Rename `string.UppercaseFirst()` to `string.ToUpperFirst()`
 - Move `AppDomainExtension` to `DesperateDevs.DesperateDevs.Reflection`
 
-### DesperateDevs.Reflection
+### DesperateDevs.Reflection 1.0.0
 - Move `AppDomainExtension` from `DesperateDevs.DesperateDevs.Extensions`
 
-### DesperateDevs.Roslyn
+### DesperateDevs.Roslyn 1.0.0
 - Add `Microsoft.Build.Locator` 1.4.1
 - Update to `Microsoft.CodeAnalysis.CSharp.Workspaces` 4.1.0
 - Update to `Microsoft.CodeAnalysis.Workspaces.MSBuild` 4.1.0
 - Remove `Sherlog` dependencies
 
-### DesperateDevs.Serialization
+### DesperateDevs.Serialization 1.0.0
 - Change to `string.ToCSV(thibool minified, bool removeEmptyEntries)`
 - Change to `string.FromCSV(bool removeEmptyEntries)`
 
-### DesperateDevs.Serialization.Cli.Utils
+### DesperateDevs.Serialization.Cli.Utils 1.0.0
 - Change `DumpCommand` format
 - Add empty value support in `DumpCommand`
 - Remove `SetKeyValueCommand`
 
-### DesperateDevs.Unity
+### DesperateDevs.Unity 1.0.0
 - Add `CoroutineRunner.StopAll()`
 - Add non-generic `CoroutineRunner.Run()` without `onComplete` parameter
 - Use `UnityEditor.TypeCache.GetTypesDerivedFrom`
 
-### DesperateDevs.Unity.Editor
+### DesperateDevs.Unity.Editor 1.0.0
 - Add section state indicator to `PreferencesDrawer`
 - Add `ScriptingDefineSymbols.Add`
 - Rename to `ScriptingDefineSymbols.AddForAll`
 - Add `ScriptingDefineSymbols.Remove`
 - Rename to `ScriptingDefineSymbols.RemoveForAll`
 
-### Jenny.Generator.Unity.Editor
+### Jenny.Generator.Unity.Editor 1.0.0
 - Fix properties path being shared between projects
 - Automatically add missing keys to `Jenny.properties`
 
-### Jenny
+### Jenny 1.0.0
 - Rename `ICodeGenerationPlugin.priority` to `ICodeGenerationPlugin.Order`
 
-### Jenny.Plugins
+### Jenny.Plugins 1.0.0
 - Rename to `UpdateCsprojPostProcessor`
 - Use unix path separator in `UpdateCsprojPostProcessor`
 
-### Sherlog
+### Sherlog 1.0.0
 - Add `ConditionalAttribute` to `Logger`
 - Fix `Logger.ResetAppenders()` not being applied to existing loggers
 - Rename to `Logger.ClearAppenders()` and `Logger.ClearLoggers()`
