@@ -28,6 +28,7 @@ usage:
   nuget_local                    publish nupkg locally to disk
   pack_jenny                     pack Jenny
   pack_unity                     pack projects for Unity
+  pack                           pack_jenny and pack_unity
   generate_unity_packages        generate unity packages
 
 EOF
@@ -367,6 +368,11 @@ desperatedevs::pack_unity() {
     TCPeasy
   )
   for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/publish/${p}.dll" "${project_dir}"; done
+}
+
+desperatedevs::pack() {
+  desperatedevs::pack_jenny
+  desperatedevs::pack_unity
 }
 
 desperatedevs::generate_unity_packages() {
