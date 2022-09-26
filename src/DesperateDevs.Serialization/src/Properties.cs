@@ -89,7 +89,7 @@ namespace DesperateDevs.Serialization
             foreach (var kvp in _dict)
             {
                 var value = EscapedSpecialCharacters(kvp.Value);
-                sb.AppendLine(kvp.Key + "=" + (_doubleQuotedValues ? $"\"{value}\"" : value));
+                sb.AppendLine($"{kvp.Key}={(_doubleQuotedValues ? $"\"{value}\"" : value)}");
             }
 
             return sb.ToString();
@@ -105,7 +105,7 @@ namespace DesperateDevs.Serialization
                     .Select(entry => entry.PadLeft(kvp.Key.Length + 3 + entry.Length));
 
                 var value = string.Join(", \\\n", values).TrimStart();
-                sb.AppendLine(kvp.Key + " = " + (_doubleQuotedValues ? $"\"{value}\"" : value));
+                sb.AppendLine($"{kvp.Key} = {(_doubleQuotedValues ? $"\"{value}\"" : value)}");
             }
 
             return sb.ToString();
@@ -152,7 +152,7 @@ namespace DesperateDevs.Serialization
     {
         public readonly string Key;
 
-        public InvalidPropertyException(string key) : base("Invalid property: " + key)
+        public InvalidPropertyException(string key) : base($"Invalid property: {key}")
         {
             Key = key;
         }

@@ -22,7 +22,7 @@ namespace Jenny.Generator.Cli
                 .ThenBy(type => type.FullName);
 
             foreach (var type in orderedTypes)
-                _logger.Info(type.Assembly.GetName().Name + ": " + type);
+                _logger.Info($"{type.Assembly.GetName().Name}: {type}");
         }
     }
 }

@@ -50,7 +50,7 @@ namespace Jenny.Generator.Cli
     public class SelectPropertiesMenuEntry : MenuEntry
     {
         public SelectPropertiesMenuEntry(Step1PropertiesMenu menu, string properties) :
-            base("Use " + properties, null, false, () =>
+            base($"Use {properties}", null, false, () =>
             {
                 menu.Properties = properties;
                 menu.Stop();
@@ -60,7 +60,7 @@ namespace Jenny.Generator.Cli
     public class CreateDefaultPropertiesMenuEntry : MenuEntry
     {
         public CreateDefaultPropertiesMenuEntry(CliProgram progam, Step1PropertiesMenu menu) :
-            base("Create new " + CodeGenerator.DefaultPropertiesPath, null, false, () =>
+            base($"Create new {CodeGenerator.DefaultPropertiesPath}", null, false, () =>
             {
                 var command = new NewPreferencesCommand();
                 command.Run(progam, new[] {command.Trigger, "-s", CodeGenerator.DefaultPropertiesPath});

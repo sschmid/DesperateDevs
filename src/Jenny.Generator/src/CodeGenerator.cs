@@ -76,7 +76,7 @@ namespace Jenny.Generator
             {
                 if (_cancel) return Array.Empty<CodeGenFile>();
                 progress += 1;
-                OnProgress?.Invoke(messagePrefix + "Pre Processing", preProcessor.Name, (float)progress / total);
+                OnProgress?.Invoke($"{messagePrefix}Pre Processing", preProcessor.Name, (float)progress / total);
                 preProcessor.PreProcess();
             }
 
@@ -85,7 +85,7 @@ namespace Jenny.Generator
             {
                 if (_cancel) return Array.Empty<CodeGenFile>();
                 progress += 1;
-                OnProgress?.Invoke(messagePrefix + "Creating model", dataProvider.Name, (float)progress / total);
+                OnProgress?.Invoke($"{messagePrefix}Creating model", dataProvider.Name, (float)progress / total);
                 data.AddRange(dataProvider.GetData());
             }
 
@@ -95,7 +95,7 @@ namespace Jenny.Generator
             {
                 if (_cancel) return Array.Empty<CodeGenFile>();
                 progress += 1;
-                OnProgress?.Invoke(messagePrefix + "Creating files", generator.Name, (float)progress / total);
+                OnProgress?.Invoke($"{messagePrefix}Creating files", generator.Name, (float)progress / total);
                 files.AddRange(generator.Generate(dataArray));
             }
 
@@ -104,7 +104,7 @@ namespace Jenny.Generator
             {
                 if (_cancel) return Array.Empty<CodeGenFile>();
                 progress += 1;
-                OnProgress?.Invoke(messagePrefix + "Post Processing", postProcessor.Name, (float)progress / total);
+                OnProgress?.Invoke($"{messagePrefix}Post Processing", postProcessor.Name, (float)progress / total);
                 generatedFiles = postProcessor.PostProcess(generatedFiles);
             }
 

@@ -55,7 +55,7 @@ namespace Jenny.Generator.Unity.Editor
             var totalGeneratedFiles = files.Select(file => file.FileName).Distinct().Count();
             var sloc = dryFiles.Sum(file => file.FileContent.Split(new[] {'\n'}, StringSplitOptions.RemoveEmptyEntries).Length);
             var loc = files.Sum(file => file.FileContent.Split('\n').Length);
-            Debug.Log("Generated " + totalGeneratedFiles + " files (" + sloc + " sloc, " + loc + " loc)");
+            Debug.Log($"Generated {totalGeneratedFiles} files ({sloc} sloc, {loc} loc)");
 
             AssetDatabase.Refresh();
         }
@@ -81,7 +81,7 @@ namespace Jenny.Generator.Unity.Editor
         {
             Debug.Log("Connected");
             Debug.Log("Generating...");
-            client.Send(Encoding.UTF8.GetBytes("gen " + _propertiesPath));
+            client.Send(Encoding.UTF8.GetBytes($"gen {_propertiesPath}"));
         }
 
         static void OnReceive(AbstractTcpSocket socket, Socket client, byte[] bytes)

@@ -6,7 +6,7 @@ namespace Jenny.Generator.Cli
     public class EditMenuEntry : MenuEntry
     {
         public EditMenuEntry(CliProgram progam, CliMenu menu, string propertiesPath) :
-            base("Edit " + propertiesPath, null, false, () =>
+            base($"Edit {propertiesPath}", null, false, () =>
             {
                 var command = new EditConfigCommand();
                 command.Run(progam, new[] {command.Trigger, propertiesPath});

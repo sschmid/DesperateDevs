@@ -95,7 +95,7 @@ namespace DesperateDevs.Cli.Utils
 
             return string.Join("\n", groupedCommands.Select(group =>
             {
-                var groupHeader = group.Key == string.Empty ? string.Empty : group.Key + ":\n";
+                var groupHeader = group.Key == string.Empty ? string.Empty : $"{group.Key}:\n";
                 var commandsInGroup = string.Join("\n", group
                     .Select(command => $"  {command.Example.PadRight(pad)}   {command.Description}"));
                 return $"{groupHeader}\n{commandsInGroup}\n";

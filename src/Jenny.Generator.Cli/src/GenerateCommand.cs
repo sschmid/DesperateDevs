@@ -15,7 +15,7 @@ namespace Jenny.Generator.Cli
 
         protected override void Run()
         {
-            _logger.Info("Generating using " + _preferences.PropertiesPath);
+            _logger.Info($"Generating using {_preferences.PropertiesPath}");
 
             var watch = new Stopwatch();
             watch.Start();
@@ -32,7 +32,7 @@ namespace Jenny.Generator.Cli
 
             watch.Stop();
 
-            _logger.Info("[" + DateTime.Now.ToLongTimeString() + "]" + " Generated " + files.Length + " files in " + (watch.ElapsedMilliseconds / 1000f).ToString("0.0") + " seconds");
+            _logger.Info($"[{DateTime.Now.ToLongTimeString()}] Generated {files.Length} files in {(watch.ElapsedMilliseconds / 1000f):0.0} seconds");
         }
     }
 }

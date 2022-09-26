@@ -6,7 +6,7 @@ namespace DesperateDevs.Serialization
 {
     public class Preferences
     {
-        public static string DefaultUserPropertiesPath => Environment.UserName + ".userproperties";
+        public static string DefaultUserPropertiesPath => $"{Environment.UserName}.userproperties";
 
         public readonly string PropertiesPath;
         public readonly string UserPropertiesPath;

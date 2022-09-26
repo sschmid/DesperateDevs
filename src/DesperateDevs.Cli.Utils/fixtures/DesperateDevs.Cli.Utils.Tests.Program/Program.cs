@@ -28,7 +28,7 @@ public sealed class GreetMenuEntry : IMenuEntry
 
     public Action Action => () =>
     {
-        Console.WriteLine("Hello " + new Random().Next());
+        Console.WriteLine($"Hello {new Random().Next()}");
         Thread.Sleep(1000);
     };
 }
@@ -43,7 +43,7 @@ public sealed class SubMenuEntry : IMenuEntry
 
     public SubMenuEntry(string previous)
     {
-        _subtitle = previous + " > " + Title;
+        _subtitle = $"{previous} > {Title}";
     }
 
     public Action Action => () =>
@@ -66,7 +66,7 @@ public sealed class SelectionMenuEntry : IMenuEntry
 
     public SelectionMenuEntry(string previous)
     {
-        _subtitle = previous + " > " + Title;
+        _subtitle = $"{previous} > {Title}";
     }
 
     public Action Action => () =>

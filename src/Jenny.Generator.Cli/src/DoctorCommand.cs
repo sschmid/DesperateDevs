@@ -41,23 +41,23 @@ namespace Jenny.Generator.Cli
 
             foreach (var diagnosis in diagnoses.Where(d => d.Severity == DiagnosisSeverity.Hint))
             {
-                _logger.Info("👨‍⚕️  Symptoms: " + diagnosis.Symptoms);
-                _logger.Info("💊  Treatment: " + diagnosis.Treatment);
+                _logger.Info($"👨‍⚕️  Symptoms: {diagnosis.Symptoms}");
+                _logger.Info($"💊  Treatment: {diagnosis.Treatment}");
             }
 
             foreach (var diagnosis in diagnoses.Where(d => d.Severity == DiagnosisSeverity.Warning))
             {
-                _logger.Warn("👨‍⚕️  Symptoms: " + diagnosis.Symptoms);
-                _logger.Warn("💊  Treatment: " + diagnosis.Treatment);
+                _logger.Warn($"👨‍⚕️  Symptoms: {diagnosis.Symptoms}");
+                _logger.Warn($"💊  Treatment: {diagnosis.Treatment}");
             }
 
             var errors = string.Join("\n", diagnoses
                 .Where(d => d.Severity == DiagnosisSeverity.Error)
-                .Select(d => "👨‍⚕️  Symptoms: " + d.Symptoms + "\n💊  Treatment: " + d.Treatment)
+                .Select(d => $"👨‍⚕️  Symptoms: {d.Symptoms}\n💊  Treatment: {d.Treatment}")
                 .ToArray());
 
             if (!string.IsNullOrEmpty(errors))
-                throw new Exception(errors + "\nUse 'jenny fix' to apply treatments");
+                throw new Exception($"{errors}\nUse 'jenny fix' to apply treatments");
         }
     }
 }

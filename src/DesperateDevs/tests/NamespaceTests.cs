@@ -23,9 +23,9 @@ namespace DesperateDevs.Tests
         public void FileHasCorrectNamespace(FileNamespace ns)
         {
             var shortPath = RemoveProjectRoot(ns.Path, ProjectRoot);
-            var isTest = shortPath.Contains(Path.DirectorySeparatorChar + "tests" + Path.DirectorySeparatorChar);
-            var isBenchmark = shortPath.Contains(Path.DirectorySeparatorChar + "benchmarks" + Path.DirectorySeparatorChar);
-            var isFixture = shortPath.Contains(Path.DirectorySeparatorChar + "fixtures" + Path.DirectorySeparatorChar);
+            var isTest = shortPath.Contains($"{Path.DirectorySeparatorChar}tests{Path.DirectorySeparatorChar}");
+            var isBenchmark = shortPath.Contains($"{Path.DirectorySeparatorChar}benchmarks{Path.DirectorySeparatorChar}");
+            var isFixture = shortPath.Contains($"{Path.DirectorySeparatorChar}fixtures{Path.DirectorySeparatorChar}");
 
             if (isTest)
                 ns.Expected += ".Tests";

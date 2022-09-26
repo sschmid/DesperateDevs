@@ -341,7 +341,7 @@ public class DataFile1CodeGenerator : ICodeGenerator
     {
         return data
             .Select((d, i) => new CodeGenFile(
-                "Test1File" + i,
+                $"Test1File{i}",
                 d["testKey"].ToString(),
                 "Test1CodeGenerator"
             )).ToArray();
@@ -358,7 +358,7 @@ public class DataFile2CodeGenerator : ICodeGenerator
     {
         return data
             .Select((d, i) => new CodeGenFile(
-                "Test2File" + i,
+                $"Test2File{i}",
                 d["testKey"].ToString(),
                 "Test2CodeGenerator"
             )).ToArray();
@@ -375,7 +375,7 @@ public class DisabledCodeGenerator : ICodeGenerator
     {
         return data
             .Select((d, i) => new CodeGenFile(
-                "Test3File" + i,
+                $"Test3File{i}",
                 d["testKey"].ToString(),
                 "DisabledCodeGenerator"
             )).ToArray();

@@ -21,8 +21,8 @@ namespace Jenny.Plugins
                 }
                 else
                 {
-                    pathToFile[file.FileName].FileContent += "\n" + file.FileContent;
-                    pathToFile[file.FileName].GeneratorName += ", " + file.GeneratorName;
+                    pathToFile[file.FileName].FileContent += $"\n{file.FileContent}";
+                    pathToFile[file.FileName].GeneratorName += $", {file.GeneratorName}";
                     files[i] = null;
                 }
             }

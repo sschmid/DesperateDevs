@@ -59,13 +59,13 @@ namespace Jenny.Generator.Cli
                         if (doctor.ApplyFix())
                         {
                             _preferences.Save();
-                            _logger.Info("💉  Applied fix: " + diagnosis.Treatment);
+                            _logger.Info($"💉  Applied fix: {diagnosis.Treatment}");
                         }
                     }
                     else
                     {
-                        Console.WriteLine("💉  Apply fix: " + diagnosis.Treatment);
-                        Console.WriteLine("to treat symptoms: " + diagnosis.Symptoms + " ? (y / n)");
+                        Console.WriteLine($"💉  Apply fix: {diagnosis.Treatment}");
+                        Console.WriteLine($"to treat symptoms: {diagnosis.Symptoms} ? (y / n)");
                         if (PreferencesExtension.GetUserDecision() && doctor.ApplyFix())
                             _preferences.Save();
                     }
@@ -408,7 +408,7 @@ namespace Jenny.Generator.Cli
 
             foreach (var duplicate in duplicates)
             {
-                Console.WriteLine("⚠️  Potential plugin collision: " + duplicate);
+                Console.WriteLine($"⚠️  Potential plugin collision: {duplicate}");
                 Console.WriteLine("0: Keep all (no changes)");
 
                 var collisions = values
@@ -459,7 +459,7 @@ namespace Jenny.Generator.Cli
         void PrintCollisions(string[] collisions)
         {
             for (var i = 0; i < collisions.Length; i++)
-                Console.WriteLine((i + 1) + ": Keep " + collisions[i]);
+                Console.WriteLine($"{i + 1}: Keep {collisions[i]}");
         }
 
         static char[] GetInputChars(string[] collisions)

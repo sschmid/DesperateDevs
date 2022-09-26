@@ -34,8 +34,8 @@ namespace Jenny.Plugins.Unity
                 if (_codeGeneratorConfig.PostProcessors.Contains(typeName))
                 {
                     return new Diagnosis(
-                        typeName + " uses Unity APIs but is used outside of Unity!",
-                        "Remove " + typeName + " from CodeGenerator.PostProcessors",
+                        $"{typeName} uses Unity APIs but is used outside of Unity!",
+                        $"Remove {typeName} from CodeGenerator.PostProcessors",
                         DiagnosisSeverity.Error
                     );
                 }

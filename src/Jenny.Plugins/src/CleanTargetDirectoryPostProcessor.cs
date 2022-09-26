@@ -41,7 +41,7 @@ namespace Jenny.Plugins
                     }
                     catch
                     {
-                        _logger.Error("Could not delete file " + file);
+                        _logger.Error($"Could not delete file {file}");
                     }
                 }
             }

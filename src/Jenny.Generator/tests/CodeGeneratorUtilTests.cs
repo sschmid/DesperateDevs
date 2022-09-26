@@ -29,8 +29,8 @@ namespace Jenny.Generator.Tests
         {
             CodeGeneratorUtil.AutoImport(_config, Path.Combine(ProjectRoot, SearchPaths, "/TestPlugins"));
             _config.SearchPaths.Should().HaveCount(2);
-            _config.SearchPaths[0].Should().Be(SearchPaths + "/TestPlugins/One");
-            _config.SearchPaths[1].Should().Be(SearchPaths + "/TestPlugins/Two");
+            _config.SearchPaths[0].Should().Be($"{SearchPaths}/TestPlugins/One");
+            _config.SearchPaths[1].Should().Be($"{SearchPaths}/TestPlugins/Two");
         }
 
         [Fact(Skip = "Add project to build test plugin dlls")]
@@ -38,8 +38,8 @@ namespace Jenny.Generator.Tests
         {
             CodeGeneratorUtil.AutoImport(_config, Path.Combine(ProjectRoot, SearchPaths, "/Test Plugins"));
             _config.SearchPaths.Should().HaveCount(2);
-            _config.SearchPaths[0].Should().Be(SearchPaths + "/Test Plugins/One");
-            _config.SearchPaths[1].Should().Be(SearchPaths + "/Test Plugins/Two");
+            _config.SearchPaths[0].Should().Be($"{SearchPaths}/Test Plugins/One");
+            _config.SearchPaths[1].Should().Be($"{SearchPaths}/Test Plugins/Two");
         }
     }
 }

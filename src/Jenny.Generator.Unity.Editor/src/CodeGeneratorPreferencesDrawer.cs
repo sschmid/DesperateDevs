@@ -75,7 +75,7 @@ namespace Jenny.Generator.Unity.Editor
                 buttonHeight
             );
 
-            if (GUI.Button(buttonRect, "Edit " + propertiesPath, EditorStyles.miniButton))
+            if (GUI.Button(buttonRect, $"Edit {propertiesPath}", EditorStyles.miniButton))
             {
                 EditorWindow.focusedWindow.Close();
                 System.Diagnostics.Process.Start(preferences.PropertiesPath);
@@ -204,7 +204,7 @@ namespace Jenny.Generator.Unity.Editor
             }
             else
             {
-                EditorGUILayout.LabelField(title, "No " + title + " available");
+                EditorGUILayout.LabelField(title, $"No {title} available");
             }
 
             _selected.Clear();

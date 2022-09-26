@@ -68,7 +68,7 @@ namespace DesperateDevs.Unity.Editor
                     path = "Assets/";
 
                 path = EditorUtility.OpenFolderPanel(label, path, string.Empty);
-                return path.Replace(Directory.GetCurrentDirectory() + "/", string.Empty);
+                return path.Replace($"{Directory.GetCurrentDirectory()}/", string.Empty);
             }
             else
             {
@@ -85,7 +85,7 @@ namespace DesperateDevs.Unity.Editor
                     path = "Assets/";
 
                 path = EditorUtility.OpenFilePanel(label, path, extension);
-                return path.Replace(Directory.GetCurrentDirectory() + "/", string.Empty);
+                return path.Replace($"{Directory.GetCurrentDirectory()}/", string.Empty);
             }
             else
             {

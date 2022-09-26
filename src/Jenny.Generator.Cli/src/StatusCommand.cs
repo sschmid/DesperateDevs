@@ -51,10 +51,10 @@ namespace Jenny.Generator.Cli
         {
             var unusedKeys = preferences.GetUnusedKeys(requiredKeys);
             foreach (var key in unusedKeys)
-                _logger.Info("ℹ️️  Unused key: " + key);
+                _logger.Info($"ℹ️️  Unused key: {key}");
 
             foreach (var key in preferences.GetMissingKeys(requiredKeys))
-                _logger.Warn("⚠️  Missing key: " + key);
+                _logger.Warn($"⚠️  Missing key: {key}");
         }
 
         void PrintPluginStatus(ICodeGenerationPlugin[] instances, CodeGeneratorConfig config)
@@ -73,13 +73,13 @@ namespace Jenny.Generator.Cli
         void PrintUnavailable(string[] names)
         {
             foreach (var name in names)
-                _logger.Warn("⚠️  Unavailable: " + name);
+                _logger.Warn($"⚠️  Unavailable: {name}");
         }
 
         void PrintAvailable(string[] names)
         {
             foreach (var name in names)
-                _logger.Info("ℹ️  Available: " + name);
+                _logger.Info($"ℹ️  Available: {name}");
         }
 
         void PrintCollisions(CodeGeneratorConfig config)
@@ -101,7 +101,7 @@ namespace Jenny.Generator.Cli
                 .OrderBy(name => name.ShortTypeName());
 
             foreach (var duplicate in duplicates)
-                _logger.Warn("⚠️  Potential collision detected: " + duplicate.ShortTypeName() + " -> " + duplicate);
+                _logger.Warn($"⚠️  Potential collision detected: {duplicate.ShortTypeName()} -> {duplicate}");
         }
     }
 }
