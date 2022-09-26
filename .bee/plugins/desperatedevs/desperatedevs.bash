@@ -18,13 +18,14 @@ usage:
                                  e.g. bee desperatedevs new_benchmark DesperateDevs.Xyz
   clean                          delete build directory and all bin and obj directories
   build                          build solution
+  publish                        publish solution
   rebuild                        clean and build solution
   test [args]                    run unit tests
   coverage                       run unit tests and generate coverage report
   restore_unity                  copy source code and samples to all unity projects
   sync_unity_solutions           generate C# project for all unity projects
-  publish                        publish nupkg to nuget.org
-  publish_local                  publish nupkg locally to disk
+  nuget                          publish nupkg to nuget.org
+  nuget_local                    publish nupkg locally to disk
   pack_jenny                     pack Jenny
   pack_unity                     pack projects for Unity
   generate_unity_packages        generate unity packages
@@ -143,6 +144,10 @@ desperatedevs::build() {
   dotnet build -c Release
 }
 
+desperatedevs::publish() {
+  dotnet publish -c Release -p:UseAppHost=false
+}
+
 desperatedevs::rebuild() {
   desperatedevs::clean
   dotnet build -c Release
@@ -221,7 +226,7 @@ desperatedevs::sync_unity_solutions() {
   done | LC_ALL=C sort
 }
 
-desperatedevs::publish() {
+desperatedevs::nuget() {
   desperatedevs::clean
   dotnet pack -c Release
   dotnet nuget push "**/*.nupkg" \
@@ -230,7 +235,7 @@ desperatedevs::publish() {
       --source https://api.nuget.org/v3/index.json
 }
 
-desperatedevs::publish_local() {
+desperatedevs::nuget_local() {
   desperatedevs::clean
   dotnet pack -c Release
   _clean_dir "${DESPERATE_DEVS_NUGET_LOCAL}"
@@ -238,7 +243,7 @@ desperatedevs::publish_local() {
 }
 
 desperatedevs::pack_jenny() {
-  desperatedevs::build
+  desperatedevs::publish
   local project_dir="${BUILD_SRC}/Jenny"
   local jenny_dir="${project_dir}/Jenny"
   local plugins_dir="${jenny_dir}/Plugins/Jenny"
@@ -257,17 +262,16 @@ desperatedevs::pack_jenny() {
     _get_project_references "src/${project}/src/${project}.csproj" ".dll"
   done | sort -u && cat "${BEE_RESOURCES}/desperatedevs/rsync_exclude.txt")
 
-  for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/" "${jenny_dir}"; done
+  for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/publish/" "${jenny_dir}"; done
   for p in "${plugins[@]}"; do
     rsync \
       --archive \
       --recursive \
       --prune-empty-dirs \
       --exclude-from <(echo "${exclude[*]}") \
-      "src/${p}/src/bin/Release/" "${plugins_dir}"
+      "src/${p}/src/bin/Release/publish/" "${plugins_dir}"
   done
 
-  ln -s "Jenny.Generator.Cli" "${jenny_dir}/Jenny"
   cp src/Jenny.Generator.Cli/scripts/Jenny-Server "${project_dir}"
   cp src/Jenny.Generator.Cli/scripts/Jenny-Server.bat "${project_dir}"
   cp src/Jenny.Generator.Cli/scripts/Jenny-Auto-Import "${project_dir}"
@@ -275,7 +279,7 @@ desperatedevs::pack_jenny() {
 }
 
 desperatedevs::pack_unity() {
-  desperatedevs::build
+  desperatedevs::publish
   local project_dir editor_dir jenny_dir images_dir
   local -a projects to_editor to_plugins images
 
@@ -299,7 +303,7 @@ desperatedevs::pack_unity() {
     DesperateDevs.Unity.Editor
   )
 
-  for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/${p}.dll" "${project_dir}"; done
+  for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/publish/${p}.dll" "${project_dir}"; done
   for f in "${to_editor[@]}"; do mv "${project_dir}/${f}.dll" "${editor_dir}"; done
 
   ##############################################################################
@@ -334,7 +338,7 @@ desperatedevs::pack_unity() {
     Jenny.Generator.Unity.Editor
   )
 
-  for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/${p}.dll" "${project_dir}"; done
+  for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/publish/${p}.dll" "${project_dir}"; done
   for f in "${to_editor[@]}"; do mv "${project_dir}/${f}.dll" "${editor_dir}"; done
   for f in "${to_plugins[@]}"; do mv "${project_dir}/${f}.dll" "${jenny_dir}"; done
   for f in "${images[@]}"; do _sync "src/${f}/src/Images/" "${images_dir}"; done
@@ -350,7 +354,7 @@ desperatedevs::pack_unity() {
     Sherlog.Appenders
     Sherlog.Formatters
   )
-  for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/${p}.dll" "${project_dir}"; done
+  for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/publish/${p}.dll" "${project_dir}"; done
 
   ##############################################################################
   # TCPeasy
@@ -362,7 +366,7 @@ desperatedevs::pack_unity() {
   projects=(
     TCPeasy
   )
-  for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/${p}.dll" "${project_dir}"; done
+  for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/publish/${p}.dll" "${project_dir}"; done
 }
 
 desperatedevs::generate_unity_packages() {

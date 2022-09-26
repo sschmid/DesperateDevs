@@ -1,1 +1,2 @@
+*.deps.json
 *.runtimeconfig.json
