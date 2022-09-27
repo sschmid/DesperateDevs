@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 2022-09-27
+### Jenny.Plugins 1.1.0
+- Add ReferenceAssemblyPathsPreProcessor
+
 ## 2022-09-26
 ### Desperate.Caching 1.1.0
 - Add non-alloc `pool.Drain(buffer)`
