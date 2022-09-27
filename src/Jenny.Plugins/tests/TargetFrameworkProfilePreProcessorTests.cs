@@ -15,16 +15,16 @@ namespace Jenny.Plugins.Tests
         [Fact]
         public void RemovesUnitySubsetv35()
         {
-            RemoveTargetFrameworkProfile("UnitySubsetv35.csproj").Should().NotContain("Unity Subset v3.5");
+            PreProcess("UnitySubsetv35.csproj").Should().NotContain("Unity Subset v3.5");
         }
 
         [Fact]
         public void RemovesUnityFullv35()
         {
-            RemoveTargetFrameworkProfile("UnityFullv35.csproj").Should().NotContain("Unity Full v3.5");
+            PreProcess("UnityFullv35.csproj").Should().NotContain("Unity Full v3.5");
         }
 
-        string RemoveTargetFrameworkProfile(string csproj)
+        string PreProcess(string csproj)
         {
             if (!Directory.Exists(TempPath)) Directory.CreateDirectory(TempPath);
             var project = Path.Combine(FixturesPath, csproj);
