@@ -7,10 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="TCPeasy" Version="1.0.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <ProjectReference Include="../../DesperateDevs.Cli.Utils/src/DesperateDevs.Cli.Utils.csproj" />
     <ProjectReference Include="../../DesperateDevs.Serialization.Cli.Utils/src/DesperateDevs.Serialization.Cli.Utils.csproj" />
     <ProjectReference Include="../../Jenny.Generator/src/Jenny.Generator.csproj" />
-    <ProjectReference Include="../../TCPeasy/src/TCPeasy.csproj" />
   </ItemGroup>
 
 </Project>
