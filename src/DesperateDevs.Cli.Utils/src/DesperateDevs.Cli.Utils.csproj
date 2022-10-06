@@ -6,9 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Sherlog" Version="1.0.0" />
+    <PackageReference Include="Sherlog.Formatters" Version="1.0.0" />
+  </ItemGroup>
+    
+  <ItemGroup>
     <ProjectReference Include="../../DesperateDevs.Reflection/src/DesperateDevs.Reflection.csproj" />
-    <ProjectReference Include="../../Sherlog.Formatters/src/Sherlog.Formatters.csproj" />
-    <ProjectReference Include="../../Sherlog/src/Sherlog.csproj" />
   </ItemGroup>
 
 </Project>

@@ -25,9 +25,6 @@ declare -A DESPERATE_DEVS_RESTORE_UNITY=(
   [Jenny.Generator.Unity.Editor]=Assets/Editor
   [Jenny.Plugins]=Assets/Editor
   [Jenny.Plugins.Unity]=Assets/Editor
-  [Sherlog]=Assets
-  [Sherlog.Appenders]=Assets
-  [Sherlog.Formatters]=Assets
   [TCPeasy]=Assets
 )
 

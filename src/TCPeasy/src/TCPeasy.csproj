@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../../Sherlog/src/Sherlog.csproj" />
+    <PackageReference Include="Sherlog" Version="1.0.0" />
   </ItemGroup>
 
 </Project>

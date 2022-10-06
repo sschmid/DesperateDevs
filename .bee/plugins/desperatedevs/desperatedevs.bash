@@ -345,19 +345,6 @@ desperatedevs::pack_unity() {
   for f in "${images[@]}"; do _sync "src/${f}/src/Images/" "${images_dir}"; done
 
   ##############################################################################
-  # Sherlog
-  ##############################################################################
-  project_dir="${BUILD_SRC}/Unity/Assets/Sherlog"
-  _clean_dir "${project_dir}"
-
-  projects=(
-    Sherlog
-    Sherlog.Appenders
-    Sherlog.Formatters
-  )
-  for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/publish/${p}.dll" "${project_dir}"; done
-
-  ##############################################################################
   # TCPeasy
   ##############################################################################
 

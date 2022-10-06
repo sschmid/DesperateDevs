@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Sherlog.Formatters" Version="1.0.0" />
+  </ItemGroup>
+    
+  <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="6.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.1" />
     <PackageReference Include="Microsoft.TestPlatform.ObjectModel" Version="17.3.1" />
@@ -16,7 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../../Sherlog.Formatters/src/Sherlog.Formatters.csproj" />
     <ProjectReference Include="../src/TCPeasy.csproj" />
   </ItemGroup>
 
