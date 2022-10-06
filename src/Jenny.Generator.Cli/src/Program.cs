@@ -3,7 +3,7 @@ using DesperateDevs.Serialization.Cli.Utils;
 
 namespace Jenny.Generator.Cli
 {
-    public class Program
+    static class Program
     {
         public static void Main(string[] args)
         {

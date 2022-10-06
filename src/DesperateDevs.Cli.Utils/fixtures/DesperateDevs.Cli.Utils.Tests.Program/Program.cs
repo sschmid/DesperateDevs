@@ -4,7 +4,7 @@ using DesperateDevs.Cli.Utils;
 
 namespace DesperateDevs.Cli.Utils.Tests.Program
 {
-    public class Program
+    static class Program
     {
         public static void Main(string[] args)
         {
