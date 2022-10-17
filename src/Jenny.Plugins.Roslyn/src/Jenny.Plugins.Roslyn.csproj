@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>$(DefaultNetTargetFramework)</TargetFramework>
-    <PackageVersion>1.0.0</PackageVersion>
+    <Version>1.0.0</Version>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 

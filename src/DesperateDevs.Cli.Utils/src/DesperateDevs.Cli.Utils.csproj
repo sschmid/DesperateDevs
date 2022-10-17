@@ -2,14 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>$(DefaultTargetFramework)</TargetFramework>
-    <PackageVersion>1.0.0</PackageVersion>
+    <Version>1.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Sherlog" Version="1.0.0" />
     <PackageReference Include="Sherlog.Formatters" Version="1.0.0" />
   </ItemGroup>
-    
+
   <ItemGroup>
     <ProjectReference Include="../../DesperateDevs.Reflection/src/DesperateDevs.Reflection.csproj" />
   </ItemGroup>
