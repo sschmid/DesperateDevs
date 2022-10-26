@@ -19,4 +19,4 @@ TestResults
 # Project
 .unitypath
 build
-src/**/tests/fixtures/temp
+tests/**/fixtures/temp

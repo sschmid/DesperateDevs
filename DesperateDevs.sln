@@ -2,75 +2,75 @@
 #
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs", "DesperateDevs", "{CDB9D180-8C4D-4506-8361-4F560D1E6746}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Benchmarks", "src/DesperateDevs/benchmarks/DesperateDevs.Benchmarks.csproj", "{E38C2584-8F0A-481C-B668-1DC91A31CF9E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Benchmarks", "benchmarks/DesperateDevs/DesperateDevs.Benchmarks.csproj", "{E38C2584-8F0A-481C-B668-1DC91A31CF9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Tests", "src/DesperateDevs/tests/DesperateDevs.Tests.csproj", "{86DCBC58-2351-4730-A500-684753C8DAAE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Tests", "tests/DesperateDevs/DesperateDevs.Tests.csproj", "{86DCBC58-2351-4730-A500-684753C8DAAE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Caching", "DesperateDevs.Caching", "{8BA88C37-B258-4DD6-941F-4913FB7F96C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Caching", "src/DesperateDevs.Caching/src/DesperateDevs.Caching.csproj", "{0E668B24-A62C-4AE3-A725-27A05238A403}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Caching", "src/DesperateDevs.Caching/DesperateDevs.Caching.csproj", "{0E668B24-A62C-4AE3-A725-27A05238A403}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Caching.Tests", "src/DesperateDevs.Caching/tests/DesperateDevs.Caching.Tests.csproj", "{E3EEF33E-D536-4084-9AD7-C4654E0A3857}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Caching.Tests", "tests/DesperateDevs.Caching/DesperateDevs.Caching.Tests.csproj", "{E3EEF33E-D536-4084-9AD7-C4654E0A3857}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Cli.Utils", "DesperateDevs.Cli.Utils", "{C69CDE77-3860-4BC8-9ABD-A7F5C2416ECD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Cli.Utils", "src/DesperateDevs.Cli.Utils/src/DesperateDevs.Cli.Utils.csproj", "{8867EE00-6581-4EE0-AC50-F1946D3B852B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Cli.Utils", "src/DesperateDevs.Cli.Utils/DesperateDevs.Cli.Utils.csproj", "{8867EE00-6581-4EE0-AC50-F1946D3B852B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Cli.Utils.Tests", "src/DesperateDevs.Cli.Utils/tests/DesperateDevs.Cli.Utils.Tests.csproj", "{ACD14402-AAF4-4875-A94C-E4137F037E34}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Cli.Utils.Tests", "tests/DesperateDevs.Cli.Utils/DesperateDevs.Cli.Utils.Tests.csproj", "{ACD14402-AAF4-4875-A94C-E4137F037E34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Cli.Utils.Tests.Program", "src/DesperateDevs.Cli.Utils/fixtures/DesperateDevs.Cli.Utils.Tests.Program/DesperateDevs.Cli.Utils.Tests.Program.csproj", "{5169F477-31B7-40C2-B8CE-A5BE9D6318D5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Cli.Utils.Program", "samples/DesperateDevs.Cli.Utils.Program/DesperateDevs.Cli.Utils.Program.csproj", "{5169F477-31B7-40C2-B8CE-A5BE9D6318D5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Extensions", "DesperateDevs.Extensions", "{C843B1D1-C099-4486-AF34-A5D8412244F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Extensions", "src/DesperateDevs.Extensions/src/DesperateDevs.Extensions.csproj", "{091EB29B-5064-4D0C-93FA-E55DB331BAAA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Extensions", "src/DesperateDevs.Extensions/DesperateDevs.Extensions.csproj", "{091EB29B-5064-4D0C-93FA-E55DB331BAAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Extensions.Benchmarks", "src/DesperateDevs.Extensions/benchmarks/DesperateDevs.Extensions.Benchmarks.csproj", "{9369C7F0-A0D7-4F0F-BACF-6A3E6CC8AEAA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Extensions.Benchmarks", "benchmarks/DesperateDevs.Extensions/DesperateDevs.Extensions.Benchmarks.csproj", "{9369C7F0-A0D7-4F0F-BACF-6A3E6CC8AEAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Extensions.Tests", "src/DesperateDevs.Extensions/tests/DesperateDevs.Extensions.Tests.csproj", "{AF455105-4F9D-4CB1-BB3F-08F8E5EB7188}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Extensions.Tests", "tests/DesperateDevs.Extensions/DesperateDevs.Extensions.Tests.csproj", "{AF455105-4F9D-4CB1-BB3F-08F8E5EB7188}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Reflection", "DesperateDevs.Reflection", "{55AA5FC3-2145-4CCB-891E-F2FF721883C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Reflection", "src/DesperateDevs.Reflection/src/DesperateDevs.Reflection.csproj", "{7D21F6F8-BEE6-4166-9782-5C7CA9B790BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Reflection", "src/DesperateDevs.Reflection/DesperateDevs.Reflection.csproj", "{7D21F6F8-BEE6-4166-9782-5C7CA9B790BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Reflection.Tests", "src/DesperateDevs.Reflection/tests/DesperateDevs.Reflection.Tests.csproj", "{BB5985FE-10A5-4D6E-B961-D93F19EBCB23}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Reflection.Tests", "tests/DesperateDevs.Reflection/DesperateDevs.Reflection.Tests.csproj", "{BB5985FE-10A5-4D6E-B961-D93F19EBCB23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Reflection.Tests.Project1", "src/DesperateDevs.Reflection/fixtures/DesperateDevs.Reflection.Tests.Project1/DesperateDevs.Reflection.Tests.Project1.csproj", "{8BFDF954-F135-48FF-AFC0-6E41B5B68573}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Reflection.Tests.Project1", "fixtures/DesperateDevs.Reflection.Tests.Project1/DesperateDevs.Reflection.Tests.Project1.csproj", "{8BFDF954-F135-48FF-AFC0-6E41B5B68573}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Reflection.Tests.Project2", "src/DesperateDevs.Reflection/fixtures/DesperateDevs.Reflection.Tests.Project2/DesperateDevs.Reflection.Tests.Project2.csproj", "{61D2E6FF-E421-44EA-9C67-F67ADDD9B249}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Reflection.Tests.Project2", "fixtures/DesperateDevs.Reflection.Tests.Project2/DesperateDevs.Reflection.Tests.Project2.csproj", "{61D2E6FF-E421-44EA-9C67-F67ADDD9B249}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Roslyn", "DesperateDevs.Roslyn", "{C046596C-9429-454B-AEAE-D558D6E8158F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Roslyn", "src/DesperateDevs.Roslyn/src/DesperateDevs.Roslyn.csproj", "{9F87BF24-577F-426E-B308-F4E93A33FE02}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Roslyn", "src/DesperateDevs.Roslyn/DesperateDevs.Roslyn.csproj", "{9F87BF24-577F-426E-B308-F4E93A33FE02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Roslyn.Tests", "src/DesperateDevs.Roslyn/tests/DesperateDevs.Roslyn.Tests.csproj", "{3A8C7CA2-FDE1-49C6-9183-7E6A9ED2003F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Roslyn.Tests", "tests/DesperateDevs.Roslyn/DesperateDevs.Roslyn.Tests.csproj", "{3A8C7CA2-FDE1-49C6-9183-7E6A9ED2003F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Serialization", "DesperateDevs.Serialization", "{88C9719D-3D76-4027-86E1-AD64B28962BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Serialization", "src/DesperateDevs.Serialization/src/DesperateDevs.Serialization.csproj", "{36AC311F-34FF-4BF0-B144-AA50A2A19EB3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Serialization", "src/DesperateDevs.Serialization/DesperateDevs.Serialization.csproj", "{36AC311F-34FF-4BF0-B144-AA50A2A19EB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Serialization.Benchmarks", "src/DesperateDevs.Serialization/benchmarks/DesperateDevs.Serialization.Benchmarks.csproj", "{77C42B7C-AEAE-411B-9335-F4A521AAD879}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Serialization.Benchmarks", "benchmarks/DesperateDevs.Serialization/DesperateDevs.Serialization.Benchmarks.csproj", "{77C42B7C-AEAE-411B-9335-F4A521AAD879}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Serialization.Tests", "src/DesperateDevs.Serialization/tests/DesperateDevs.Serialization.Tests.csproj", "{ADD0A13F-9D8E-4907-BBA1-0E4E89A7481C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Serialization.Tests", "tests/DesperateDevs.Serialization/DesperateDevs.Serialization.Tests.csproj", "{ADD0A13F-9D8E-4907-BBA1-0E4E89A7481C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Serialization.Cli.Utils", "DesperateDevs.Serialization.Cli.Utils", "{9CB0FB67-2D69-43AE-ADC4-2330419B2B1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Serialization.Cli.Utils", "src/DesperateDevs.Serialization.Cli.Utils/src/DesperateDevs.Serialization.Cli.Utils.csproj", "{687A13C7-5996-455A-83F2-D8CAA28A9032}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Serialization.Cli.Utils", "src/DesperateDevs.Serialization.Cli.Utils/DesperateDevs.Serialization.Cli.Utils.csproj", "{687A13C7-5996-455A-83F2-D8CAA28A9032}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Serialization.Cli.Utils.Tests", "src/DesperateDevs.Serialization.Cli.Utils/tests/DesperateDevs.Serialization.Cli.Utils.Tests.csproj", "{861C22D7-05F5-4AC9-ADE8-B18CD6101516}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Serialization.Cli.Utils.Tests", "tests/DesperateDevs.Serialization.Cli.Utils/DesperateDevs.Serialization.Cli.Utils.Tests.csproj", "{861C22D7-05F5-4AC9-ADE8-B18CD6101516}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Threading", "DesperateDevs.Threading", "{BFF493EC-5867-42F0-AC3A-C0701B92B552}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Threading", "src/DesperateDevs.Threading/src/DesperateDevs.Threading.csproj", "{E412A694-B7BF-4633-B612-60137D401363}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Threading", "src/DesperateDevs.Threading/DesperateDevs.Threading.csproj", "{E412A694-B7BF-4633-B612-60137D401363}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Threading.Tests", "src/DesperateDevs.Threading/tests/DesperateDevs.Threading.Tests.csproj", "{C23782BC-EF4C-4A94-BDE8-4A1B83FDFC7E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Threading.Tests", "tests/DesperateDevs.Threading/DesperateDevs.Threading.Tests.csproj", "{C23782BC-EF4C-4A94-BDE8-4A1B83FDFC7E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Unity", "DesperateDevs.Unity", "{D986BA75-F59B-499A-ADC5-D917765BC68D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Unity", "src/DesperateDevs.Unity/src/DesperateDevs.Unity.csproj", "{8C153439-05B7-4446-BF7F-437775B9521B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Unity", "src/DesperateDevs.Unity/DesperateDevs.Unity.csproj", "{8C153439-05B7-4446-BF7F-437775B9521B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Unity.Editor", "DesperateDevs.Unity.Editor", "{BE1641D9-9D6C-4B7C-96F1-5E6B09BC7816}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Unity.Editor", "src/DesperateDevs.Unity.Editor/src/DesperateDevs.Unity.Editor.csproj", "{7E8275B1-672A-46F8-91F3-8803C1E46306}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Unity.Editor", "src/DesperateDevs.Unity.Editor/DesperateDevs.Unity.Editor.csproj", "{7E8275B1-672A-46F8-91F3-8803C1E46306}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

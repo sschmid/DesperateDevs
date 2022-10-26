@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>$(DefaultTargetFramework)</TargetFramework>
+    <Version>1.0.1</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../DesperateDevs.Cli.Utils/DesperateDevs.Cli.Utils.csproj" />
+    <ProjectReference Include="../DesperateDevs.Serialization/DesperateDevs.Serialization.csproj" />
+  </ItemGroup>
+
+</Project>

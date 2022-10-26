@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>$(DefaultNetTargetFramework)</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <IsPublishable>false</IsPublishable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../src/DesperateDevs.Reflection/DesperateDevs.Reflection.csproj" />
+    <ProjectReference Include="../../src/DesperateDevs.Extensions/DesperateDevs.Extensions.csproj" />
+  </ItemGroup>
+
+</Project>
