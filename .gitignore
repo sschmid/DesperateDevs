@@ -16,9 +16,6 @@ TestResults
 **/Assets/Plugins/Editor/JetBrains
 **/Assets/Plugins/Editor/JetBrains.meta
 
-# Jenny
-*.userproperties
-
 # Project
 .unitypath
 build

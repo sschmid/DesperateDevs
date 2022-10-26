@@ -20,12 +20,6 @@ declare -A DESPERATE_DEVS_RESTORE_UNITY=(
   [DesperateDevs.Threading]=Assets
   [DesperateDevs.Unity]=Assets
   [DesperateDevs.Unity.Editor]=Assets/Editor
-  [Jenny]=Assets/Editor
-  [Jenny.Generator]=Assets/Editor
-  [Jenny.Generator.Unity.Editor]=Assets/Editor
-  [Jenny.Plugins]=Assets/Editor
-  [Jenny.Plugins.Unity]=Assets/Editor
-  [TCPeasy]=Assets
 )
 
 UNITY_PATH="/Applications/Unity/Hub/Editor"

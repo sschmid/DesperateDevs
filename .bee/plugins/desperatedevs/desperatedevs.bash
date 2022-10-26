@@ -26,9 +26,7 @@ usage:
   sync_unity_solutions           generate C# project for all unity projects
   nuget                          publish nupkg to nuget.org
   nuget_local                    publish nupkg locally to disk
-  pack_jenny                     pack Jenny
-  pack_unity                     pack projects for Unity
-  pack                           pack_jenny and pack_unity
+  pack                           pack projects for Unity
   generate_unity_packages        generate unity packages
 
 EOF
@@ -175,7 +173,6 @@ desperatedevs::restore_unity() {
     bee::log_echo "Restore Samples: ${unity_project_path}"
     _clean_dir "${unity_project_path}/Assets" "${unity_project_path}/Assets/Samples"
     _sync_unity src/DesperateDevs/unity/Samples "${unity_project_path}/Assets"
-    mv "${unity_project_path}/Assets/Samples/Jenny.properties" "${unity_project_path}/Jenny.properties"
     mv "${unity_project_path}/Assets/Samples/Sample.properties" "${unity_project_path}/Sample.properties"
 
     bee::log_echo "Restore DesperateDevs: ${unity_project_path}"
@@ -243,46 +240,10 @@ desperatedevs::nuget_local() {
   find . -type f -name "*.nupkg" -exec nuget add {} -Source "${DESPERATE_DEVS_NUGET_LOCAL}" \;
 }
 
-desperatedevs::pack_jenny() {
+desperatedevs::pack() {
   desperatedevs::publish
-  local project_dir="${BUILD_SRC}/Jenny"
-  local jenny_dir="${project_dir}/Jenny"
-  local plugins_dir="${jenny_dir}/Plugins/Jenny"
-  _clean_dir "${project_dir}" "${jenny_dir}" "${plugins_dir}"
-
-  local -a projects=(
-    Jenny.Generator.Cli
-  )
-  local -a plugins=(
-    Jenny.Plugins
-    Jenny.Plugins.Roslyn
-    Jenny.Plugins.Unity
-  )
-  local -a exclude
-  mapfile -t exclude < <(for project in "${projects[@]}"; do
-    _get_project_references "src/${project}/src/${project}.csproj" ".dll"
-  done | sort -u && cat "${BEE_RESOURCES}/desperatedevs/rsync_exclude.txt")
-
-  for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/publish/" "${jenny_dir}"; done
-  for p in "${plugins[@]}"; do
-    rsync \
-      --archive \
-      --recursive \
-      --prune-empty-dirs \
-      --exclude-from <(echo "${exclude[*]}") \
-      "src/${p}/src/bin/Release/publish/" "${plugins_dir}"
-  done
-
-  cp src/Jenny.Generator.Cli/scripts/Jenny-Server "${project_dir}"
-  cp src/Jenny.Generator.Cli/scripts/Jenny-Server.bat "${project_dir}"
-  cp src/Jenny.Generator.Cli/scripts/Jenny-Auto-Import "${project_dir}"
-  cp src/Jenny.Generator.Cli/scripts/Jenny-Auto-Import.bat "${project_dir}"
-}
-
-desperatedevs::pack_unity() {
-  desperatedevs::publish
-  local project_dir editor_dir jenny_dir images_dir
-  local -a projects to_editor to_plugins images
+  local project_dir editor_dir
+  local -a projects to_editor
 
   ##############################################################################
   # Desperate Devs
@@ -306,60 +267,6 @@ desperatedevs::pack_unity() {
 
   for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/publish/${p}.dll" "${project_dir}"; done
   for f in "${to_editor[@]}"; do mv "${project_dir}/${f}.dll" "${editor_dir}"; done
-
-  ##############################################################################
-  # Jenny
-  ##############################################################################
-  project_dir="${BUILD_SRC}/Unity/Assets/Jenny"
-  editor_dir="${project_dir}/Editor"
-  jenny_dir="${editor_dir}/Jenny"
-  images_dir="${editor_dir}/Images"
-  _clean_dir "${project_dir}" "${editor_dir}" "${jenny_dir}" "${images_dir}"
-
-  projects=(
-    # editor
-    Jenny
-    Jenny.Generator
-    Jenny.Generator.Unity.Editor
-
-    # plugins
-    Jenny.Plugins
-    Jenny.Plugins.Unity
-  )
-  to_editor=(
-    Jenny
-    Jenny.Generator
-    Jenny.Generator.Unity.Editor
-  )
-  to_plugins=(
-    Jenny.Plugins
-    Jenny.Plugins.Unity
-  )
-  images=(
-    Jenny.Generator.Unity.Editor
-  )
-
-  for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/publish/${p}.dll" "${project_dir}"; done
-  for f in "${to_editor[@]}"; do mv "${project_dir}/${f}.dll" "${editor_dir}"; done
-  for f in "${to_plugins[@]}"; do mv "${project_dir}/${f}.dll" "${jenny_dir}"; done
-  for f in "${images[@]}"; do _sync "src/${f}/src/Images/" "${images_dir}"; done
-
-  ##############################################################################
-  # TCPeasy
-  ##############################################################################
-
-  project_dir="${BUILD_SRC}/Unity/Assets/TCPeasy"
-  _clean_dir "${project_dir}"
-
-  projects=(
-    TCPeasy
-  )
-  for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/publish/${p}.dll" "${project_dir}"; done
-}
-
-desperatedevs::pack() {
-  desperatedevs::pack_jenny
-  desperatedevs::pack_unity
 }
 
 desperatedevs::generate_unity_packages() {

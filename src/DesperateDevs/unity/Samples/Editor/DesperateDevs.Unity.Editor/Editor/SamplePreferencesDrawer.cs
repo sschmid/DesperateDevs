@@ -10,8 +10,6 @@ namespace Samples.DesperateDevs.Unity.Editor.Editor
     {
         public override string Title => nameof(SamplePreferencesDrawer);
 
-        Texture2D _headerTexture;
-
         bool _unfolded = true;
         string _objectFieldFolder = "Assets";
         string _objectFieldFile = "Sample.properties";
@@ -19,12 +17,10 @@ namespace Samples.DesperateDevs.Unity.Editor.Editor
 
         public override void Initialize(Preferences preferences)
         {
-            _headerTexture = EditorLayout.LoadTexture("l:Jenny-Header");
         }
 
         public override void DrawHeader(Preferences preferences)
         {
-            EditorLayout.DrawTexture(_headerTexture);
         }
 
         protected override void OnDrawContent(Preferences preferences)
