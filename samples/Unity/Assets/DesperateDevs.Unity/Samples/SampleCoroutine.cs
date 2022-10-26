@@ -1,14 +1,13 @@
 ﻿using System.Collections;
-using DesperateDevs.Unity;
 using UnityEngine;
 
-namespace Samples.DesperateDevs.Unity
+namespace DesperateDevs.Unity.Samples
 {
     public class SampleCoroutine : MonoBehaviour
     {
         void Start()
         {
-            CoroutineRunner.Run<string>(SampleRoutine(), Debug.Log);
+            CoroutineRunner.Run<string>(SampleRoutine(), str => Debug.Log(str));
             CoroutineRunner.Run(SampleRoutine());
         }
 

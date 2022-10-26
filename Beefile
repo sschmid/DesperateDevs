@@ -9,17 +9,17 @@ DESPERATE_DEVS_NUGET_LOCAL=~/.nuget/local
 DESPERATE_DEVS_UNITY_PACKAGES_VERSION=https://github.com/sschmid/Unity-2021.3.git
 
 DESPERATE_DEVS_UNITY_PROJECTS=(
-  src/DesperateDevs/unity/Unity-2021.3
+  samples/Unity
 )
 
 declare -A DESPERATE_DEVS_RESTORE_UNITY=(
-  [DesperateDevs.Caching]=Assets
-  [DesperateDevs.Extensions]=Assets
-  [DesperateDevs.Reflection]=Assets
-  [DesperateDevs.Serialization]=Assets
-  [DesperateDevs.Threading]=Assets
-  [DesperateDevs.Unity]=Assets
-  [DesperateDevs.Unity.Editor]=Assets/Editor
+  [DesperateDevs.Caching]=Assets/Plugins
+  [DesperateDevs.Extensions]=Assets/Plugins
+  [DesperateDevs.Reflection]=Assets/Plugins
+  [DesperateDevs.Serialization]=Assets/Plugins
+  [DesperateDevs.Threading]=Assets/Plugins
+  [DesperateDevs.Unity]=Assets/Plugins
+  [DesperateDevs.Unity.Editor]=Assets/Plugins/Editor
 )
 
 UNITY_PATH="/Applications/Unity/Hub/Editor"

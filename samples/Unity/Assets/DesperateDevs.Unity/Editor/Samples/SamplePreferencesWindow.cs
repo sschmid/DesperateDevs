@@ -1,7 +1,6 @@
-using DesperateDevs.Unity.Editor;
 using UnityEditor;
 
-namespace Samples.DesperateDevs.Unity.Editor.Editor
+namespace DesperateDevs.Unity.Editor.Samples
 {
     public class SamplePreferencesWindow : PreferencesWindow
     {

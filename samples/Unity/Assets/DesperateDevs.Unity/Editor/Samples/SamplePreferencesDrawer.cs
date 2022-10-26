@@ -1,10 +1,9 @@
 using System.Globalization;
 using DesperateDevs.Serialization;
-using DesperateDevs.Unity.Editor;
 using UnityEditor;
 using UnityEngine;
 
-namespace Samples.DesperateDevs.Unity.Editor.Editor
+namespace DesperateDevs.Unity.Editor.Samples
 {
     public class SamplePreferencesDrawer : AbstractPreferencesDrawer
     {
@@ -15,13 +14,9 @@ namespace Samples.DesperateDevs.Unity.Editor.Editor
         string _objectFieldFile = "Sample.properties";
         string _searchString = string.Empty;
 
-        public override void Initialize(Preferences preferences)
-        {
-        }
+        public override void Initialize(Preferences preferences) { }
 
-        public override void DrawHeader(Preferences preferences)
-        {
-        }
+        public override void DrawHeader(Preferences preferences) { }
 
         protected override void OnDrawContent(Preferences preferences)
         {

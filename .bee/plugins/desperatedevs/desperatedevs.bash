@@ -167,27 +167,22 @@ desperatedevs::coverage() {
 }
 
 desperatedevs::restore_unity() {
-  desperatedevs::rebuild
-  local project_path
+  dotnet publish -c Release
+  local project_path file
   for unity_project_path in "${DESPERATE_DEVS_UNITY_PROJECTS[@]}"; do
-    bee::log_echo "Restore Samples: ${unity_project_path}"
-    _clean_dir "${unity_project_path}/Assets" "${unity_project_path}/Assets/Samples"
-    _sync_unity src/DesperateDevs/unity/Samples "${unity_project_path}/Assets"
-    mv "${unity_project_path}/Assets/Samples/Sample.properties" "${unity_project_path}/Sample.properties"
-
     bee::log_echo "Restore DesperateDevs: ${unity_project_path}"
-
     for project in "${!DESPERATE_DEVS_RESTORE_UNITY[@]}"; do
       bee::log_echo "Restore ${project}: ${unity_project_path}"
       project_path="${unity_project_path}/${DESPERATE_DEVS_RESTORE_UNITY["${project}"]}"
       mkdir -p "${project_path}"
-
-      # sources
-      # _sync_unity "src/${project}/src/" "${project_path}/${project}"
-
-      # dlls
-      _sync "src/${project}/src/bin/Release/${project}.dll" "${project_path}"
+      _sync "src/${project}/bin/Release/publish/"*.dll "${project_path}"
     done
+
+    pushd "${unity_project_path}/Assets/Plugins/Editor" > /dev/null || exit 1
+      while read -r file; do
+        [[ ! -f ".${file}" ]] || rm "${file}"
+      done < <(find . -type f -name "*.dll")
+    popd > /dev/null || exit 1
 
     bee::log_echo "Restore Dotfiles: ${unity_project_path}"
     mkdir -p "${unity_project_path}/.dotsettings"

@@ -1,8 +1,7 @@
-using DesperateDevs.Unity.Editor;
 using UnityEditor;
 using UnityEngine;
 
-namespace Samples.DesperateDevs.Unity.Editor.Editor
+namespace DesperateDevs.Unity.Editor.Samples
 {
     public class SampleScriptingDefineSymbolsWindow : EditorWindow
     {
