@@ -1,0 +1,26 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Solution
+obj
+bin
+
+# IDEs
+packages
+.vs
+.vscode
+.idea
+**/Assets/Plugins/Editor/JetBrains
+**/Assets/Plugins/Editor/JetBrains.meta
+
+# Unity
+!Packages
+Library
+Temp
+Logs
+UserSettings
+*.sln
+*.unitypackage
+Assembly-CSharp*.csproj
+RiderScriptEditorPersistedState.asset
