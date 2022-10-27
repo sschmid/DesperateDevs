@@ -1,45 +1,17 @@
 : "${BUILD:=build}"
 
-BUILD_SRC="${BUILD}/src"
-
 desperatedevs::help() {
   cat << 'EOF'
 template:
-  DESPERATE_DEVS_NUGET_LOCAL=~/.nuget/local
-  DESPERATE_DEVS_UNITY_PACKAGES_VERSION=https://github.com/sschmid/Unity-2021.3.git
   DESPERATE_DEVS_UNITY_PROJECTS=()
   DESPERATE_DEVS_RESTORE_UNITY=([key]=value)
 
 usage:
   docker                         build and run desperatedevs docker image
-  new <project-name>             add new src and test project
-                                 e.g. bee desperatedevs new DesperateDevs.Xyz
-  new_benchmark <project-name>   add benchmark project
-                                 e.g. bee desperatedevs new_benchmark DesperateDevs.Xyz
-  clean                          delete build directory and all bin and obj directories
-  publish                        publish solution
-  build                          build solution
-  rebuild                        clean and build solution
-  test [args]                    run unit tests
-  coverage                       run unit tests and generate coverage report
   restore_unity                  copy source code and samples to all unity projects
   sync_unity_solutions           generate C# project for all unity projects
-  nuget                          publish nupkg to nuget.org
-  nuget_local                    publish nupkg locally to disk
-  pack                           pack projects for Unity
-  generate_unity_packages        generate unity packages
 
 EOF
-}
-
-desperatedevs::comp() {
-  if ((!$# || $# == 1 && COMP_PARTIAL)); then
-    bee::comp_plugin desperatedevs
-  elif (($# == 1 || $# == 2 && COMP_PARTIAL)); then
-    case "$1" in
-      new|new_benchmark) echo "DesperateDevs."; return ;;
-    esac
-  fi
 }
 
 desperatedevs::docker() {
@@ -69,103 +41,6 @@ EOF
   docker run -it -v "$(pwd)":/DesperateDevs -w /DesperateDevs desperatedevs "$@"
 }
 
-desperatedevs::new() {
-  local name="$1" path
-  path="src/${name}/src"
-  dotnet new classlib -n "${name}" -o "${path}"
-  cat << 'EOF' > "${path}/${name}.csproj"
-<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>$(DefaultTargetFramework)</TargetFramework>
-    <PackageVersion>0.1.0</PackageVersion>
-  </PropertyGroup>
-
-</Project>
-EOF
-  dotnet sln add -s "${name}" "${path}/${name}.csproj"
-
-  local test_name="${name}.Tests" path="src/${name}/tests"
-  dotnet new xunit -n "${test_name}" -o "${path}"
-  cat << 'EOF' > "${path}/${test_name}.csproj"
-<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>$(DefaultTestTargetFramework)</TargetFramework>
-    <IsPackable>false</IsPackable>
-    <IsPublishable>false</IsPublishable>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="6.5.1" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
-    <PackageReference Include="Microsoft.TestPlatform.ObjectModel" Version="17.1.0" />
-    <PackageReference Include="xunit" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
-    <PackageReference Include="coverlet.collector" Version="3.1.2" />
-  </ItemGroup>
-
-</Project>
-EOF
-  dotnet sln add -s "${name}" "${path}/${test_name}.csproj"
-}
-
-desperatedevs::new_benchmark() {
-  local name="$1"
-  local benchmark_name="${name}.Benchmarks" path="src/${name}/benchmarks"
-  dotnet new console -n "${benchmark_name}" -o "${path}"
-  cat << 'EOF' > "${path}/${benchmark_name}.csproj"
-<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>$(DefaultNetTargetFramework)</TargetFramework>
-    <IsPackable>false</IsPackable>
-    <IsPublishable>false</IsPublishable>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
-  </ItemGroup>
-
-</Project>
-EOF
-  dotnet sln add -s "${name}" "${path}/${benchmark_name}.csproj"
-}
-
-desperatedevs::clean() {
-  find . -type d -name obj -exec rm -rf {} +
-  find . -type d -name bin -exec rm -rf {} +
-  rm -rf "${BUILD}"
-}
-
-desperatedevs::publish() {
-  dotnet publish -c Release -p:UseAppHost=false
-}
-
-desperatedevs::build() {
-  dotnet build -c Release
-}
-
-desperatedevs::rebuild() {
-  desperatedevs::clean
-  dotnet build -c Release
-}
-
-desperatedevs::test() {
-  dotnet test -c Release "$@"
-}
-
-desperatedevs::coverage() {
-  local coverage_dir="${BUILD}/coverage"
-  rm -rf "${coverage_dir}"
-  find src -type d -name TestResults -exec rm -rf {} +
-  dotnet test --collect:"XPlat Code Coverage" || true
-  reportgenerator "-Title:${BEE_PROJECT}" "-reports:src/**/coverage.cobertura.xml" "-targetDir:${coverage_dir}"
-  find src -type d -name TestResults -exec rm -rf {} +
-  echo "To see the test coverage results, please open ${coverage_dir}/index.html"
-}
-
 desperatedevs::restore_unity() {
   dotnet publish -c Release
   local project_path file
@@ -175,7 +50,13 @@ desperatedevs::restore_unity() {
       bee::log_echo "Restore ${project}: ${unity_project_path}"
       project_path="${unity_project_path}/${DESPERATE_DEVS_RESTORE_UNITY["${project}"]}"
       mkdir -p "${project_path}"
-      _sync "src/${project}/bin/Release/publish/"*.dll "${project_path}"
+      rsync \
+        --archive \
+        --recursive \
+        --prune-empty-dirs \
+        --include-from "${BEE_RESOURCES}/desperatedevs/rsync_include.txt" \
+        --exclude-from "${BEE_RESOURCES}/desperatedevs/rsync_exclude.txt" \
+        "src/${project}/bin/Release/publish/"*.dll "${project_path}"
     done
 
     pushd "${unity_project_path}/Assets/Plugins/Editor" > /dev/null || exit 1
@@ -217,137 +98,4 @@ desperatedevs::sync_unity_solutions() {
     else bee::log_echo "🔴 ${project}"
     fi
   done | LC_ALL=C sort
-}
-
-desperatedevs::nuget() {
-  desperatedevs::clean
-  dotnet pack -c Release
-  dotnet nuget push "**/*.nupkg" \
-      --api-key "${NUGET_API_KEY}" \
-      --skip-duplicate \
-      --source https://api.nuget.org/v3/index.json
-}
-
-desperatedevs::nuget_local() {
-  desperatedevs::clean
-  dotnet pack -c Release
-  _clean_dir "${DESPERATE_DEVS_NUGET_LOCAL}"
-  find . -type f -name "*.nupkg" -exec nuget add {} -Source "${DESPERATE_DEVS_NUGET_LOCAL}" \;
-}
-
-desperatedevs::pack() {
-  desperatedevs::publish
-  local project_dir editor_dir
-  local -a projects to_editor
-
-  ##############################################################################
-  # Desperate Devs
-  ##############################################################################
-  project_dir="${BUILD_SRC}/Unity/Assets/DesperateDevs"
-  editor_dir="${project_dir}/Editor"
-  _clean_dir "${project_dir}" "${editor_dir}"
-
-  projects=(
-    DesperateDevs.Caching
-    DesperateDevs.Extensions
-    DesperateDevs.Reflection
-    DesperateDevs.Serialization
-    DesperateDevs.Threading
-    DesperateDevs.Unity
-    DesperateDevs.Unity.Editor
-  )
-  to_editor=(
-    DesperateDevs.Unity.Editor
-  )
-
-  for p in "${projects[@]}"; do _sync "src/${p}/src/bin/Release/publish/${p}.dll" "${project_dir}"; done
-  for f in "${to_editor[@]}"; do mv "${project_dir}/${f}.dll" "${editor_dir}"; done
-}
-
-desperatedevs::generate_unity_packages() {
-  local unity_project_path="${BUILD}/UnityPackages" csproj reference references platforms version
-  local -a project_references
-  _clean_dir "${unity_project_path}"
-  git clone "${DESPERATE_DEVS_UNITY_PACKAGES_VERSION}" "${unity_project_path}"
-
-  for project in "${!DESPERATE_DEVS_RESTORE_UNITY[@]}"; do
-    bee::log_echo "Update ${project}"
-    rm -f "${unity_project_path}/${DESPERATE_DEVS_RESTORE_UNITY["${project}"]}/${project}/"*.cs
-    mkdir -p "${unity_project_path}/${DESPERATE_DEVS_RESTORE_UNITY["${project}"]}"
-    _sync_unity "src/${project}/src/" "${unity_project_path}/${DESPERATE_DEVS_RESTORE_UNITY["${project}"]}/${project}"
-    csproj="src/${project}/src/${project}.csproj"
-
-    mapfile -t project_references < <(_get_project_references "${csproj}" | sort -u)
-    references=""
-    for reference in "${project_references[@]}"; do
-      references+=", \"${reference}\""
-    done
-
-    if [[ ${DESPERATE_DEVS_RESTORE_UNITY["${project}"]} == "Assets/Editor" ]]
-    then platforms="\"Editor\""
-    else platforms=""
-    fi
-
-    cat << EOF > "${unity_project_path}/${DESPERATE_DEVS_RESTORE_UNITY["${project}"]}/${project}/${project}.asmdef"
-{
-  "name": "${project}",
-  "rootNamespace": "",
-  "references": [${references:2}],
-  "includePlatforms": [${platforms}],
-  "excludePlatforms": [],
-  "allowUnsafeCode": false,
-  "overrideReferences": false,
-  "precompiledReferences": [],
-  "autoReferenced": true,
-  "defineConstraints": [],
-  "versionDefines": [],
-  "noEngineReferences": false
-}
-EOF
-  done
-
-  pushd "${unity_project_path}" > /dev/null || exit 1
-    ln -sf ../../DesperateDevs.sln.DotSettings UnityPackages.sln.DotSettings
-    ln -sf ../../.dotsettings/CodeStyle.DotSettings CodeStyle.DotSettings
-    ln -sf ../../.dotsettings/PatternsAndTemplates.DotSettings PatternsAndTemplates.DotSettings
-    ln -sf ../../.dotsettings/InspectionSettings.DotSettings InspectionSettings.DotSettings
-  popd > /dev/null || exit 1
-
-  UNITY_PROJECT_PATH="${unity_project_path}"
-  version="$(grep "m_EditorVersion:" "${unity_project_path}/ProjectSettings/ProjectVersion.txt" | awk '{print $2}')"
-  UNITY="${UNITY_PATH}/${version}/${UNITY_APP}"
-  unity::sync_solution
-}
-
-_get_project_references() {
-  local reference ext="${2:-}"
-  while read -r reference; do
-    reference="$(basename "${reference}" .csproj)"
-    echo "${reference}${ext}"
-    _get_project_references "src/${reference}/src/${reference}.csproj" "${ext}"
-  done < <(dotnet list "$1" reference | tail -n +3)
-}
-
-_clean_dir() {
-  rm -rf "$@"
-  mkdir -p "$@"
-}
-
-_sync() {
-  rsync \
-    --archive \
-    --recursive \
-    --prune-empty-dirs \
-    --include-from "${BEE_RESOURCES}/desperatedevs/rsync_include.txt" \
-    --exclude-from "${BEE_RESOURCES}/desperatedevs/rsync_exclude.txt" \
-    "$@"
-}
-
-_sync_unity() {
-  rsync \
-    --archive \
-    --recursive \
-    --prune-empty-dirs \
-    --exclude-from "${BEE_RESOURCES}/desperatedevs/rsync_exclude_unity.txt" \
-    "$@"
 }
