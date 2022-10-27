@@ -17,7 +17,6 @@ TestResults
 **/Assets/Plugins/Editor/JetBrains.meta
 
 # Project
-.unitypath
 build
 tests/**/fixtures/temp
 samples/Unity/Assets/Plugins
