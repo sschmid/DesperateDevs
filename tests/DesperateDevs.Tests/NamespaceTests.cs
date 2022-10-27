@@ -34,19 +34,9 @@ namespace DesperateDevs.Tests
         {
             var shortPath = ns.Path.Replace(ProjectRoot + Path.DirectorySeparatorChar, string.Empty);
             _testOutputHelper.WriteLine(shortPath);
-
-            var isTest = shortPath.StartsWith("tests");
             var isFixture = shortPath.Contains($"{Path.DirectorySeparatorChar}fixtures{Path.DirectorySeparatorChar}");
-            var isBenchmark = shortPath.StartsWith("benchmarks");
-
-            if (isTest)
-                ns.Expected += ".Tests";
-
             if (isFixture)
                 ns.Expected += ".Fixtures";
-
-            if (isBenchmark)
-                ns.Expected += ".Benchmarks";
 
             ns.Found.Should().Be(ns.Expected, $"see {ns.Path}");
         }
