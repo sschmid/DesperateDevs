@@ -1,9 +1,8 @@
 using System;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Order;
-using DesperateDevs.Reflection;
 
-namespace DesperateDevs.Extensions.Benchmarks
+namespace DesperateDevs.Reflection.Benchmarks
 {
     [MemoryDiagnoser]
     [Orderer(SummaryOrderPolicy.FastestToSlowest)]
