@@ -22,3 +22,5 @@ tests/**/fixtures/temp
 samples/Unity/Assets/Plugins
 samples/Unity/.dotsettings
 samples/Unity/Unity.sln.DotSettings
+coverage
+dist
