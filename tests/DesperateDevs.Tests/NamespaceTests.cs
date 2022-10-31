@@ -79,7 +79,6 @@ namespace DesperateDevs.Tests
         static string RemoveProjectRoot(string path, string projectRoot) => path
             .Replace(Path.Combine(projectRoot, "src") + Path.DirectorySeparatorChar, string.Empty)
             .Replace(Path.Combine(projectRoot, "tests") + Path.DirectorySeparatorChar, string.Empty)
-            .Replace(Path.Combine(projectRoot, "fixtures") + Path.DirectorySeparatorChar, string.Empty)
             .Replace(Path.Combine(projectRoot, "benchmarks") + Path.DirectorySeparatorChar, string.Empty)
             .Replace(Path.Combine(projectRoot, "samples") + Path.DirectorySeparatorChar, string.Empty);
     }

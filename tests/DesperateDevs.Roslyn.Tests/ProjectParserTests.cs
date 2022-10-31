@@ -8,7 +8,7 @@ namespace DesperateDevs.Roslyn.Tests
     public class ProjectParserTests
     {
         static readonly string TestProject = Path.Combine(
-            TestHelper.GetProjectRoot(), "fixtures", "DesperateDevs.Roslyn.Tests.Project", "DesperateDevs.Roslyn.Tests.Project.csproj"
+            TestHelper.GetProjectRoot(), "tests", "DesperateDevs.Roslyn.Tests.Fixture", "DesperateDevs.Roslyn.Tests.Fixture.csproj"
         );
 
         [Fact]
@@ -16,7 +16,7 @@ namespace DesperateDevs.Roslyn.Tests
         {
             new ProjectParser(TestProject)
                 .GetTypes()
-                .Should().Contain(c => c.ToCompilableString() == "DesperateDevs.Roslyn.Tests.Project.TestClass");
+                .Should().Contain(c => c.ToCompilableString() == "DesperateDevs.Roslyn.Tests.Fixture.TestClass");
         }
     }
 }

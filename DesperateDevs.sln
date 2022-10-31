@@ -36,9 +36,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Reflection.Be
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Reflection.Tests", "tests/DesperateDevs.Reflection.Tests/DesperateDevs.Reflection.Tests.csproj", "{BB5985FE-10A5-4D6E-B961-D93F19EBCB23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Reflection.Tests.Project1", "fixtures/DesperateDevs.Reflection.Tests.Project1/DesperateDevs.Reflection.Tests.Project1.csproj", "{8BFDF954-F135-48FF-AFC0-6E41B5B68573}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Reflection.Tests.Fixture1", "tests/DesperateDevs.Reflection.Tests.Fixture1/DesperateDevs.Reflection.Tests.Fixture1.csproj", "{8BFDF954-F135-48FF-AFC0-6E41B5B68573}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Reflection.Tests.Project2", "fixtures/DesperateDevs.Reflection.Tests.Project2/DesperateDevs.Reflection.Tests.Project2.csproj", "{61D2E6FF-E421-44EA-9C67-F67ADDD9B249}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesperateDevs.Reflection.Tests.Fixture2", "tests/DesperateDevs.Reflection.Tests.Fixture2/DesperateDevs.Reflection.Tests.Fixture2.csproj", "{61D2E6FF-E421-44EA-9C67-F67ADDD9B249}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesperateDevs.Roslyn", "DesperateDevs.Roslyn", "{C046596C-9429-454B-AEAE-D558D6E8158F}"
 EndProject

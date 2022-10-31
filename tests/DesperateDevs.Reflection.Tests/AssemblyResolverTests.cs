@@ -16,15 +16,15 @@ namespace DesperateDevs.Reflection.Tests
 
         static readonly string ProjectRoot = TestHelper.GetProjectRoot();
 
-        const string AssemblyName1 = "DesperateDevs.Reflection.Tests.Project1";
-        const string AssemblyName2 = "DesperateDevs.Reflection.Tests.Project2";
+        const string AssemblyName1 = "DesperateDevs.Reflection.Tests.Fixture1";
+        const string AssemblyName2 = "DesperateDevs.Reflection.Tests.Fixture2";
         const string AssemblyFile1 = $"{AssemblyName1}.dll";
         const string AssemblyFile2 = $"{AssemblyName2}.dll";
         const string Type1 = $"{AssemblyName1}.TestClass";
         const string Type2 = $"{AssemblyName2}.TestClass";
 
-        static readonly string BasePath1 = Path.Combine(ProjectRoot, "fixtures", AssemblyName1, "bin", "Release");
-        static readonly string BasePath2 = Path.Combine(ProjectRoot, "fixtures", AssemblyName2, "bin", "Release");
+        static readonly string BasePath1 = Path.Combine(ProjectRoot, "tests", AssemblyName1, "bin", "Release");
+        static readonly string BasePath2 = Path.Combine(ProjectRoot, "tests", AssemblyName2, "bin", "Release");
 
         readonly ITestOutputHelper _output;
 

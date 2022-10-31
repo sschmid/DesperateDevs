@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../DesperateDevs.Reflection.Tests.Project1/DesperateDevs.Reflection.Tests.Project1.csproj" />
+    <ProjectReference Include="../DesperateDevs.Reflection.Tests.Fixture1/DesperateDevs.Reflection.Tests.Fixture1.csproj" />
   </ItemGroup>
 
 </Project>

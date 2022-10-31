@@ -21,8 +21,8 @@
 
   <ItemGroup>
     <ProjectReference Include="../DesperateDevs.Tests/DesperateDevs.Tests.csproj" />
-    <ProjectReference Include="../../fixtures/DesperateDevs.Reflection.Tests.Project1/DesperateDevs.Reflection.Tests.Project1.csproj" />
-    <ProjectReference Include="../../fixtures/DesperateDevs.Reflection.Tests.Project2/DesperateDevs.Reflection.Tests.Project2.csproj" />
+    <ProjectReference Include="../../tests/DesperateDevs.Reflection.Tests.Fixture1/DesperateDevs.Reflection.Tests.Fixture1.csproj" />
+    <ProjectReference Include="../../tests/DesperateDevs.Reflection.Tests.Fixture2/DesperateDevs.Reflection.Tests.Fixture2.csproj" />
     <ProjectReference Include="../../src/DesperateDevs.Reflection/DesperateDevs.Reflection.csproj" />
   </ItemGroup>
 
