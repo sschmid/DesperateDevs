@@ -21,7 +21,7 @@ jobs:
           dotnet build \
             -p:UnityEditor=/home/runner/work/DesperateDevs/DesperateDevs/unity/Unity-2021.3.0f1/UnityEditor.dll \
             -p:UnityEngine=/home/runner/work/DesperateDevs/DesperateDevs/unity/Unity-2021.3.0f1/UnityEngine.dll \
-            -c Release /home/runner/work/DesperateDevs/DesperateDevs
+            -c Release
 
       - name: "Test"
         run: dotnet test -c Release --no-build --collect:"XPlat Code Coverage"
