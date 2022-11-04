@@ -20,6 +20,8 @@
 | DesperateDevs.Unity                   | [![Nuget](https://img.shields.io/nuget/v/DesperateDevs.Unity)](https://www.nuget.org/packages/DesperateDevs.Unity)                                     | [![openupm](https://img.shields.io/npm/v/com.sschmid.desperatedevs.unity?label=com.sschmid.desperatedevs.unity&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.sschmid.desperatedevs.unity)                         |
 | DesperateDevs.Unity.Editor            | [![Nuget](https://img.shields.io/nuget/v/DesperateDevs.Unity.Editor)](https://www.nuget.org/packages/DesperateDevs.Unity.Editor)                       | [![openupm](https://img.shields.io/npm/v/com.sschmid.desperatedevs.unity.editor?label=com.sschmid.desperatedevs.unity.editor&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.sschmid.desperatedevs.unity.editor)    |
 
+Automated Unity Package Releases: https://github.com/sschmid/com.sschmid.desperatedevs
+
 # Maintainer(s)
 [@sschmid on GitHub][github-sschmid] - [@s_schmid on Twitter][twitter-sschmid]
 
