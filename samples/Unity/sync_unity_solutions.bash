@@ -2,14 +2,24 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-[[ -f ~/.bee/desperatedevs.bash ]] && source ~/.bee/desperatedevs.bash
-
-UNITY_PATH="/Applications/Unity/Hub/Editor"
-UNITY_APP="Unity.app/Contents/MacOS/Unity"
-
+#UNITY_PATH="/Applications/Unity/Hub/Editor"
+#UNITY_APP="Unity.app/Contents/MacOS/Unity"
 #UNITY_SERIAL=""
 #UNITY_USER=""
 #UNITY_PASSWORD=""
+
+if [[ ! -v UNITY_PATH || ! -v UNITY_APP || ! -v UNITY_SERIAL || ! -v UNITY_USER || ! -v UNITY_PASSWORD ]]; then
+  cat << EOF
+${BASH_SOURCE[0]}: Please specify
+  UNITY_PATH
+  UNITY_APP
+  UNITY_SERIAL
+  UNITY_USER
+  UNITY_PASSWORD
+EOF
+
+  exit 1
+fi
 
 UNITY_PROJECTS=(samples/Unity)
 
