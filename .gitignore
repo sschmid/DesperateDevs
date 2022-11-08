@@ -20,7 +20,7 @@ TestResults
 build
 tests/**/fixtures/temp
 samples/Unity/Assets/Plugins
-samples/Unity/.dotsettings
+samples/Unity/.sln.dotsettings
 samples/Unity/Unity.sln.DotSettings
 coverage
 dist

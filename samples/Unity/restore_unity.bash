@@ -62,9 +62,7 @@ for unity_project_path in "${UNITY_PROJECTS[@]}"; do
   popd > /dev/null || exit 1
 
   echo "Restore Dotfiles: ${unity_project_path}"
-  mkdir -p "${unity_project_path}/.dotsettings"
+  mkdir -p "${unity_project_path}/.sln.dotsettings/"
   cp DesperateDevs.sln.DotSettings "${unity_project_path}/$(basename "${unity_project_path}").sln.DotSettings"
-  cp .dotsettings/CodeStyle.DotSettings "${unity_project_path}/.dotsettings"
-  cp .dotsettings/PatternsAndTemplates.DotSettings "${unity_project_path}/.dotsettings"
-  cp .dotsettings/InspectionSettings.DotSettings "${unity_project_path}/.dotsettings"
+  cp .sln.dotsettings/*.DotSettings "${unity_project_path}/.sln.dotsettings/"
 done
