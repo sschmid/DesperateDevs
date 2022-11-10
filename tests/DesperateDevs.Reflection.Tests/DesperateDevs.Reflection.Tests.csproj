@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Sherlog.Formatters" Version="1.0.0" />
+    <PackageReference Include="Sherlog.Formatters" Version="1.*" />
   </ItemGroup>
 
   <ItemGroup>
