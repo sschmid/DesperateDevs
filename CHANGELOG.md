@@ -187,12 +187,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2021-09-16
 
 [Unreleased]: https://github.com/sschmid/DesperateDevs/compare/DesperateDevs.Caching/1.1.0...HEAD
-[DesperateDevs.Cli.Utils/1.0.1]: https://github.com/sschmid/DesperateDevs/compare/DesperateDevs.Cli.Utils/1.0.0...DesperateDevs.Cli.Utils/1.0.1
-[DesperateDevs.Reflection/1.0.1]: https://github.com/sschmid/DesperateDevs/compare/DesperateDevs.Reflection/1.0.0...DesperateDevs.Reflection/1.0.1
-[DesperateDevs.Caching/1.1.0]:https://github.com/sschmid/DesperateDevs/compare/DesperateDevs.Caching/1.0.0...DesperateDevs.Caching/1.1.0
-[DesperateDevs.Serialization/2.0.0]:https://github.com/sschmid/DesperateDevs/compare/DesperateDevs.Serialization/1.0.0...DesperateDevs.Serialization/2.0.0
-[DesperateDevs.Serialization.Cli.Utils/1.0.1]:https://github.com/sschmid/DesperateDevs/compare/DesperateDevs.Serialization.Cli.Utils/1.0.0...DesperateDevs.Serialization.Cli.Utils/1.0.1
-[DesperateDevs.Unity.Editor/2.0.0]:https://github.com/sschmid/DesperateDevs/compare/DesperateDevs.Unity.Editor/1.0.0...DesperateDevs.Unity.Editor/2.0.0
+[DesperateDevs.Cli.Utils/1.0.1]: https://github.com/sschmid/DesperateDevs/compare/DesperateDevs.Caching/1.1.0...DesperateDevs.Cli.Utils/1.0.1
+[DesperateDevs.Reflection/1.0.1]: https://github.com/sschmid/DesperateDevs/compare/DesperateDevs.Caching/1.1.0...DesperateDevs.Reflection/1.0.1
+[DesperateDevs.Caching/1.1.0]:https://github.com/sschmid/DesperateDevs/compare/DesperateDevs.Serialization/2.0.0...DesperateDevs.Caching/1.1.0
+[DesperateDevs.Serialization/2.0.0]:https://github.com/sschmid/DesperateDevs/compare/DesperateDevs.Caching/1.0.0...DesperateDevs.Serialization/2.0.0
+[DesperateDevs.Serialization.Cli.Utils/1.0.1]:https://github.com/sschmid/DesperateDevs/compare/DesperateDevs.Caching/1.0.0...DesperateDevs.Serialization.Cli.Utils/1.0.1
+[DesperateDevs.Unity.Editor/2.0.0]:https://github.com/sschmid/DesperateDevs/compare/DesperateDevs.Caching/1.0.0...DesperateDevs.Unity.Editor/2.0.0
 [DesperateDevs.Caching/1.0.0]: https://github.com/sschmid/DesperateDevs/compare/0.1.0...DesperateDevs.Caching/1.0.0
 [DesperateDevs.Cli.Utils/1.0.0]: https://github.com/sschmid/DesperateDevs/compare/0.1.0...DesperateDevs.Cli.Utils/1.0.0
 [DesperateDevs.Extensions/1.0.0]: https://github.com/sschmid/DesperateDevs/compare/0.1.0...DesperateDevs.Extensions/1.0.0
