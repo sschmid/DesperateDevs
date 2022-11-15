@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### [DesperateDevs.Cli.Utils/1.0.2] - 2022-11-15
+### Changed
+- Update to Sherlog.Formatters 2.*
+
 ### [DesperateDevs.Cli.Utils/1.0.1] - 2022-11-10
 ### Changed
 - Use version ranges for package references
@@ -217,7 +221,8 @@ Extract TCPeasy to it's own repo: https://github.com/sschmid/TCPeasy
 
 ## [0.1.0] - 2021-09-16
 
-[Unreleased]: https://github.com/sschmid/DesperateDevs/compare/DesperateDevs.Cli.Utils/1.0.1...HEAD
+[Unreleased]: https://github.com/sschmid/DesperateDevs/compare/DesperateDevs.Cli.Utils/1.0.2...HEAD
+[DesperateDevs.Cli.Utils/1.0.2]: https://github.com/sschmid/DesperateDevs/compare/DesperateDevs.Cli.Utils/1.0.1...DesperateDevs.Cli.Utils/1.0.2
 [DesperateDevs.Cli.Utils/1.0.1]: https://github.com/sschmid/DesperateDevs/compare/DesperateDevs.Caching/1.1.0...DesperateDevs.Cli.Utils/1.0.1
 [DesperateDevs.Reflection/1.0.1]: https://github.com/sschmid/DesperateDevs/compare/DesperateDevs.Caching/1.1.0...DesperateDevs.Reflection/1.0.1
 [DesperateDevs.Caching/1.1.0]:https://github.com/sschmid/DesperateDevs/compare/DesperateDevs.Serialization/2.0.0...DesperateDevs.Caching/1.1.0
