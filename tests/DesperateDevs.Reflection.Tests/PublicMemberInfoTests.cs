@@ -98,6 +98,21 @@ namespace DesperateDevs.Reflection.Tests
         }
 
         [Fact]
+        public void ClonesGenericObjectAndSetsPublicMembers()
+        {
+            var obj = new TestClassWithFieldsAndProperties
+            {
+                PublicField = "field",
+                PublicProperty = "property"
+            };
+
+            var clone = obj.PublicMemberClone<TestClassWithFieldsAndProperties>();
+            clone.Should().NotBeSameAs(obj);
+            clone.PublicField.Should().Be(obj.PublicField);
+            clone.PublicProperty.Should().Be(obj.PublicProperty);
+        }
+
+        [Fact]
         public void CopiesPublicMembersToOtherObject()
         {
             var obj = new TestClassWithFieldsAndProperties
