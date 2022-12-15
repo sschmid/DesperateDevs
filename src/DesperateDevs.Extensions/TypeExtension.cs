@@ -55,7 +55,7 @@ namespace DesperateDevs.Extensions
             return null;
         }
 
-        public static string ShortTypeName(this string fullTypeName)
+        public static string TypeName(this string fullTypeName)
         {
             var split = fullTypeName.Split('.');
             return split[split.Length - 1];

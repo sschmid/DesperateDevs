@@ -124,13 +124,13 @@ namespace DesperateDevs.Extensions.Tests
         [Fact]
         public void ReturnsShortTypeNameForShortTypeName()
         {
-            "MyClass".ShortTypeName().Should().Be("MyClass");
+            "MyClass".TypeName().Should().Be("MyClass");
         }
 
         [Fact]
         public void ReturnsShortTypeNameForFullTypeName()
         {
-            "Namespace.Module.MyClass".ShortTypeName().Should().Be("MyClass");
+            "Namespace.Module.MyClass".TypeName().Should().Be("MyClass");
         }
 
         [Fact]
