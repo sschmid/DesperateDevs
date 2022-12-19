@@ -57,8 +57,8 @@ namespace DesperateDevs.Extensions
 
         public static string TypeName(this string fullTypeName)
         {
-            var split = fullTypeName.Split('.');
-            return split[split.Length - 1];
+            var index = fullTypeName.LastIndexOf(".", StringComparison.Ordinal) + 1;
+            return fullTypeName.Substring(index, fullTypeName.Length - index);
         }
 
         public static string RemoveDots(this string fullTypeName) =>
