@@ -61,6 +61,14 @@ namespace DesperateDevs.Extensions
             return fullTypeName.Substring(index, fullTypeName.Length - index);
         }
 
+        public static string Namespace(this string fullTypeName)
+        {
+            var index = fullTypeName.LastIndexOf(".", StringComparison.Ordinal);
+            return index == -1
+                ? string.Empty
+                : fullTypeName.Substring(0, index);
+        }
+
         public static string RemoveDots(this string fullTypeName) =>
             fullTypeName.Replace(".", string.Empty);
 

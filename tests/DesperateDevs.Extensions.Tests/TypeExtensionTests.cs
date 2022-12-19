@@ -122,19 +122,31 @@ namespace DesperateDevs.Extensions.Tests
         }
 
         [Fact]
-        public void ReturnsShortTypeNameForShortTypeName()
+        public void ReturnsTypeNameForShortTypeName()
         {
             "MyClass".TypeName().Should().Be("MyClass");
         }
 
         [Fact]
-        public void ReturnsShortTypeNameForFullTypeName()
+        public void ReturnsTypeNameForFullTypeName()
         {
             "Namespace.Module.MyClass".TypeName().Should().Be("MyClass");
         }
 
         [Fact]
-        public void ReturnsTypeNameForShortTypeName()
+        public void ReturnsNamespaceForTypeName()
+        {
+            "MyClass".Namespace().Should().Be(string.Empty);
+        }
+
+        [Fact]
+        public void ReturnsNamespaceForFullTypeName()
+        {
+            "Namespace.Module.MyClass".Namespace().Should().Be("Namespace.Module");
+        }
+
+        [Fact]
+        public void ReturnsTypeNameWithoutDotsForShortTypeName()
         {
             "MyClass".RemoveDots().Should().Be("MyClass");
         }
