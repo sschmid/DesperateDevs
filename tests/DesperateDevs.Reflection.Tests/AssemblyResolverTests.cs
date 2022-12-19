@@ -41,7 +41,7 @@ namespace DesperateDevs.Reflection.Tests
             resolver.Load(Path.Combine(BasePath1, AssemblyFile1));
 
             resolver.Assemblies.Should().HaveCount(1);
-            resolver.GetTypes()
+            GetTypes(resolver)
                 .Select(t => t.FullName)
                 .Should().Contain(Type1);
         }
@@ -53,7 +53,7 @@ namespace DesperateDevs.Reflection.Tests
             resolver.Load(AssemblyFile1);
 
             resolver.Assemblies.Should().HaveCount(1);
-            resolver.GetTypes()
+            GetTypes(resolver)
                 .Select(t => t.FullName)
                 .Should().Contain(Type1);
         }
@@ -65,7 +65,7 @@ namespace DesperateDevs.Reflection.Tests
             resolver.Load(AssemblyName1);
 
             resolver.Assemblies.Should().HaveCount(1);
-            resolver.GetTypes()
+            GetTypes(resolver)
                 .Select(t => t.FullName)
                 .Should().Contain(Type1);
         }
@@ -75,8 +75,7 @@ namespace DesperateDevs.Reflection.Tests
         {
             using var resolver = new AssemblyResolver(BasePath1);
             resolver.Load(AssemblyName1);
-
-            var type = resolver.GetTypes().First();
+            var type = GetTypes(resolver).First();
             type.FullName.Should().Be(Type1);
             type.Assembly.Should().BeSameAs(resolver.Assemblies.First());
         }
@@ -95,7 +94,7 @@ namespace DesperateDevs.Reflection.Tests
         {
             using var resolver = new AssemblyResolver(BasePath1);
             resolver.Load(AssemblyName1);
-            Activator.CreateInstance(resolver.GetTypes().First());
+            Activator.CreateInstance(GetTypes(resolver).First());
         }
 
         [Fact]
@@ -103,9 +102,7 @@ namespace DesperateDevs.Reflection.Tests
         {
             using var resolver = new AssemblyResolver(BasePath1, BasePath2);
             resolver.Load(AssemblyName2);
-            var types = resolver.GetTypes()
-                .Where(type => !type.FullName.StartsWith("Coverlet"))
-                .ToArray();
+            var types = GetTypes(resolver);
             types.Should().HaveCount(1);
             Activator.CreateInstance(types[0]);
         }
@@ -115,13 +112,17 @@ namespace DesperateDevs.Reflection.Tests
         {
             using var resolver = new AssemblyResolver(BasePath1, BasePath2);
             resolver.Load(AssemblyName2);
-            var types = resolver.GetTypes()
-                .Where(type => !type.FullName.StartsWith("Coverlet"))
-                .ToArray();
+            var types = GetTypes(resolver);
             types.Should().HaveCount(1);
             types[0].FullName.Should().Be(Type2);
             resolver.Assemblies.Should().HaveCount(1);
         }
+
+        Type[] GetTypes(AssemblyResolver resolver) => resolver.GetTypes()
+            .Where(type => !type.FullName.StartsWith("Coverlet"))
+            .Where(type => !type.FullName.StartsWith("Microsoft"))
+            .Where(type => !type.FullName.StartsWith("System"))
+            .ToArray();
 
         public void Dispose()
         {
