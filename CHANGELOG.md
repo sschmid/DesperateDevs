@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### [DesperateDevs.Reflection/1.0.2] - 2022-12-20
+### Added
+- Use `DesperateDevs.Extensions/2.0.0`
+
+### [DesperateDevs.Serialization/2.0.1] - 2022-12-20
+### Added
+- Use `DesperateDevs.Extensions/2.0.0`
+
 ### [DesperateDevs.Extensions/2.0.0]- 2022-12-19
 ### Added
 - Add `TypeExtension.Namespace`
@@ -228,7 +236,9 @@ Extract TCPeasy to it's own repo: https://github.com/sschmid/TCPeasy
 
 ## [0.1.0] - 2021-09-16
 
-[Unreleased]: https://github.com/sschmid/DesperateDevs/compare/DesperateDevs.Extensions/2.0.0...HEAD
+[Unreleased]: https://github.com/sschmid/DesperateDevs/compare/DesperateDevs.Reflection/1.0.2...HEAD
+[DesperateDevs.Reflection/1.0.2]: https://github.com/sschmid/DesperateDevs/compare/DesperateDevs.Extensions/2.0.0...DesperateDevs.Reflection/1.0.2
+[DesperateDevs.Serialization/2.0.1]: https://github.com/sschmid/DesperateDevs/compare/DesperateDevs.Extensions/2.0.0...DesperateDevs.Serialization/2.0.1
 [DesperateDevs.Extensions/2.0.0]: https://github.com/sschmid/DesperateDevs/compare/DesperateDevs.Cli.Utils/1.0.2...DesperateDevs.Extensions/2.0.0
 [DesperateDevs.Cli.Utils/1.0.2]: https://github.com/sschmid/DesperateDevs/compare/DesperateDevs.Cli.Utils/1.0.1...DesperateDevs.Cli.Utils/1.0.2
 [DesperateDevs.Cli.Utils/1.0.1]: https://github.com/sschmid/DesperateDevs/compare/DesperateDevs.Caching/1.1.0...DesperateDevs.Cli.Utils/1.0.1
