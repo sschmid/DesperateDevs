@@ -65,7 +65,7 @@ namespace DesperateDevs.Extensions
         {
             var index = fullTypeName.LastIndexOf(".", StringComparison.Ordinal);
             return index == -1
-                ? string.Empty
+                ? null
                 : fullTypeName.Substring(0, index);
         }
 

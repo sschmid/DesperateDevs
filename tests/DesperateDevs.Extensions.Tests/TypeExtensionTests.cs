@@ -136,7 +136,7 @@ namespace DesperateDevs.Extensions.Tests
         [Fact]
         public void ReturnsNamespaceForTypeName()
         {
-            "MyClass".Namespace().Should().Be(string.Empty);
+            "MyClass".Namespace().Should().BeNull();
         }
 
         [Fact]
